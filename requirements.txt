@@ -1,0 +1,8 @@
+numpy
+pillow
+matplotlib
+tqdm
+omnifig
+webcolors
+scikit-learn
+pydip
