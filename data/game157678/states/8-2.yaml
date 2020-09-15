@@ -1,0 +1,79 @@
+players:
+  Austria:
+    centers: [tri, vie, bud, ser]
+    control: [tri, boh, vie, bud, ser]
+    home: [vie, tri, bud]
+    name: Austria
+    units:
+    - {loc: ser, type: army}
+    - {loc: vie, type: army}
+    - {loc: tri, type: army}
+    - {loc: bud, type: army}
+  England:
+    centers: []
+    control: []
+    home: [lon, edi, lvp]
+    name: England
+    units: []
+  France:
+    centers: [edi, lon, lvp, bel, bre, par, mar, por, spa, tun]
+    control: [edi, lon, cly, yor, lvp, wal, bel, pic, bre, par, bur, gas, mar, por,
+      spa, pie, tus, naf, tun]
+    home: [par, mar, bre]
+    name: France
+    units:
+    - {loc: pie, type: army}
+    - {loc: eng, type: fleet}
+    - {loc: tus, type: army}
+    - {loc: tys, type: fleet}
+    - {loc: edi, type: fleet}
+    - {loc: bel, type: army}
+    - {loc: yor, type: army}
+    - {loc: bur, type: army}
+    - {loc: mar, type: army}
+    - {loc: tun, type: fleet}
+  Germany:
+    centers: [nwy, kie, ber, mun, hol, den, swe, stp, war]
+    control: [nwy, ruh, kie, ber, mun, pru, sil, hol, den, swe, stp, lvn, war, ukr]
+    home: [ber, kie, mun]
+    name: Germany
+    units:
+    - {loc: ruh, type: army}
+    - {loc: mos, type: army}
+    - {loc: mun, type: army}
+    - {loc: nwg, type: fleet}
+    - {loc: nth, type: fleet}
+    - {loc: hol, type: fleet}
+    - {loc: stp, type: army}
+    - {loc: war, type: army}
+    - {loc: lvn, type: army}
+  Italy:
+    centers: [ven, rom, nap, gre]
+    control: [ven, rom, apu, nap, tyr, alb, gre]
+    home: [rom, nap, ven]
+    name: Italy
+    units:
+    - {loc: tyr, type: army}
+    - {loc: ion, type: fleet}
+    - {loc: ven, type: army}
+    - {loc: apu, type: fleet}
+  Russia:
+    centers: [mos, sev, ank, con, rum, smy, bul]
+    control: [gal, mos, sev, fin, arm, ank, con, rum, smy, bul]
+    home: [mos, stp, sev, war]
+    name: Russia
+    units:
+    - {loc: con, type: army}
+    - {loc: bul, type: army}
+    - {loc: arm, type: army}
+    - {loc: rum, type: army}
+    - {loc: gal, type: army}
+    - {loc: sev, type: army}
+    - {loc: bla, type: fleet}
+  Turkey:
+    centers: []
+    control: [syr]
+    home: [con, ank, smy]
+    name: Turkey
+    units: []
+time: {season: 2, turn: 8}

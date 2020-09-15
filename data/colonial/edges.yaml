@@ -1,0 +1,910 @@
+
+mos:
+  - perm
+  - ore
+  - bok
+  - baku
+  - ode
+
+ode:
+  - mos
+  - baku
+  - bs
+  - rum
+
+rum:
+  - ode
+  - bs
+  - con
+
+con:
+  - rum
+  - bs
+  - ang
+  - med
+
+med:
+  - con
+  - bs
+  - ang
+  - syr
+  - rs
+  - egy
+
+egy:
+  - med
+  - syr
+  - mec
+  - rs
+  - sud
+
+sud:
+  - egy
+  - rs
+  - eri
+  - aby
+
+baku:
+  - mos
+  - tab
+  - arm
+  - bs
+  - ode
+
+bs:
+  - ode
+  - baku
+  - arm
+  - ang
+  - med
+  - con
+  - rum
+
+ang:
+  - bs
+  - arm
+  - syr
+  - med
+  - con
+
+syr:
+  - arm
+  - bag
+  - ara
+  - mec
+  - egy
+  - med
+  - ang
+
+mec:
+  - syr
+  - ara
+  - aden
+  - rs
+  - egy
+
+rs:
+  - mec
+  - aden
+  - goa
+  - eri
+  - sud
+  - egy
+
+eri:
+  - rs
+  - goa
+  - som
+  - aby
+  - sud
+
+aby:
+  - eri
+  - som
+  - sud
+
+som:
+  - goa
+  - aby
+  - eri
+
+arm:
+  - baku
+  - tab
+  - bag
+  - syr
+  - ang
+  - bs
+
+bag:
+  - tab
+  - shi
+  - pg
+  - ara-nc
+  - ara
+  - syr
+  - arm
+
+ara:
+  - bag
+  - oman
+  - aden
+  - mec
+  - syr
+
+ara-nc:
+  - bag
+  - pg
+  - oman
+
+ara-sc:
+  - oman
+  - aras
+  - goa
+  - aden
+
+aden:
+  - ara
+  - ara-sc
+  - goa
+  - rs
+  - mec
+
+goa:
+  - aras
+  - wio
+  - som
+  - eri
+  - rs
+  - aden
+  - ara-sc
+
+tab:
+  - per
+  - shi
+  - bag
+  - arm
+  - baku
+
+shi:
+  - per
+  - pg
+  - bag
+  - tab
+
+pg:
+  - shi
+  - per
+  - kar
+  - aras
+  - oman
+  - ara-ns
+  - bag
+
+oman:
+  - pg
+  - aras
+  - ara-sc
+  - ara
+  - ara-nc
+
+aras:
+  - kar
+  - raj
+  - bom
+  - mys
+  - wio
+  - goa
+  - ara-sc
+  - oman
+  - pg
+
+wio:
+  - mys
+  - mad
+  - gom
+  - cey
+  - eio
+  - sio
+  - goa
+  - aras
+
+perm:
+  - omsk
+  - ore
+  - mos
+
+ore:
+  - omsk
+  - akm
+  - tas
+  - bok
+  - mos
+  - perm
+
+bok:
+  - ore
+  - tas
+  - afg
+  - per
+  - mos
+
+per:
+  - bok
+  - afg
+  - kar
+  - pg
+  - shi
+  - tab
+
+omsk:
+  - kra
+  - akm
+  - ore
+  - perm
+
+akm:
+  - omsk
+  - kra
+  - sem
+  - kir
+  - tas
+  - ore
+
+tas:
+  - akm
+  - kir
+  - kag
+  - afg
+  - bok
+  - ore
+
+afg:
+  - tas
+  - kag
+  - kam
+  - pun
+  - kar
+  - per
+  - bok
+
+kar:
+  - afg
+  - pun
+  - raj
+  - aras
+  - pg
+  - per
+
+kra:
+  - irk
+  - mon
+  - uri
+  - sem
+  - akm
+  - omsk
+
+sem:
+  - kra
+  - uri
+  - kir
+  - akm
+
+kir:
+  - sem
+  - uri
+  - kag
+  - tas
+  - akm
+
+kag:
+  - uri
+  - sik
+  - tib
+  - kam
+  - afg
+  - tas
+  - kir
+
+uri:
+  - kra
+  - mon
+  - sik
+  - kag
+  - kir
+  - sem
+
+kam:
+  - kag
+  - tib
+  - pun
+  - afg
+
+pun:
+  - kam
+  - tib
+  - nep
+  - del
+  - raj
+  - kar
+  - afg
+
+raj:
+  - pun
+  - del
+  - nag
+  - bom
+  - aras
+  - kar
+
+bom:
+  - nag
+  - hyd
+  - mys
+  - aras
+  - raj
+
+mys:
+  - bom
+  - hyd
+  - mad
+  - wio
+  - aras
+
+mad:
+  - hyd
+  - gom
+  - wio
+  - mys
+
+cey:
+  - gom
+  - eio
+  - wio
+
+tib:
+  - sik
+  - ass
+  - ben
+  - pun
+  - kam
+  - kag
+
+nep:
+  - ben
+  - luc
+  - del
+  - pun
+
+del:
+  - nep
+  - luc
+  - nag
+  - raj
+  - pun
+
+nag:
+  - luc
+  - hyd
+  - bom
+  - raj
+  - del
+
+hyd:
+  - luc
+  - ben
+  - bob
+  - gom
+  - mad
+  - mys
+  - bom
+  - nag
+
+luc:
+  - nep
+  - ben
+  - hyd
+  - nag
+  - del
+
+ben:
+  - tib
+  - ass
+  - ubur
+  - bob
+  - hyd
+  - luc
+  - nep
+
+irk:
+  - vla
+  - mac
+  - mon
+  - kra
+
+mon:
+  - irk
+  - mac
+  - pek
+  - lan
+  - sik
+  - uri
+  - kra
+
+sik:
+  - mon
+  - lan
+  - chu
+  - yun
+  - ass
+  - tib
+  - kag
+  - uri
+
+ass:
+  - sik
+  - yun
+  - ubur
+  - ben
+  - tib
+
+ubur:
+  - yun
+  - may
+  - ran
+  - bob
+  - ben
+  - ass
+
+bob:
+  - ubur
+  - ran
+  - as
+  - gom
+  - hyd
+  - ben
+
+gom:
+  - bob
+  - as
+  - eio
+  - cey
+  - wio
+  - mad
+  - hyd
+
+eio:
+  - gom
+  - as
+  - sum
+  - sio
+  - wio
+  - cey
+
+sio:
+  - eio
+  - sum
+  - js
+  - java
+  - ts
+  - wio
+
+pek:
+  - mac
+  - sha
+  - lan
+  - mon
+
+lan:
+  - pek
+  - sha
+  - nan
+  - chu
+  - sik
+  - mon
+
+chu:
+  - lan
+  - nan
+  - can
+  - yun
+  - sik
+
+yun:
+  - chu
+  - can
+  - may
+  - ubur
+  - ass
+  - sik
+
+may:
+  - yun
+  - can
+  - ton
+  - nsam
+  - ran
+  - ubur
+
+ran:
+  - may
+  - nsam
+  - ban
+  - as
+  - bob
+  - ubur
+
+as:
+  - ran
+  - ban
+  - mal
+  - js
+  - sum
+  - eio
+  - gom
+  - bob
+
+sum:
+  - js
+  - sio
+  - eio
+  - as
+
+vla:
+  - os
+  - soj
+  - seo
+  - mac
+  - irk
+
+mac:
+  - vla
+  - seo
+  - par
+  - ys
+  - sha
+  - pek
+  - mon
+  - irk
+
+sha:
+  - mac
+  - ys
+  - ecs
+  - nan
+  - lan
+  - pek
+
+nan:
+  - sha
+  - ecs
+  - scs
+  - can
+  - chu
+  - lan
+
+can:
+  - chu
+  - nan
+  - scs
+  - hk
+  - ton
+  - may
+  - yun
+
+ton:
+  - can
+  - scs
+  - ann
+  - cam
+  - nsam
+  - may
+
+nsam:
+  - ton
+  - cam
+  - ban
+  - ran
+  - may
+
+ban:
+  - nsam
+  - cam
+  - gos
+  - mal
+  - as
+  - ran
+
+mal:
+  - gos
+  - suns
+  - js
+  - sin
+  - as
+  - ban
+
+sin:
+  - js
+  - mal
+
+js:
+  - sar
+  - bor
+  - cs
+  - cel
+  - ts
+  - java
+  - sio
+  - sum
+  - as
+  - sin
+  - mal
+  - suns
+
+java:
+  - js
+  - ts
+  - sio
+
+ann:
+  - scs
+  - gos
+  - coc
+  - cam
+  - ton
+
+cam:
+  - ton
+  - ann
+  - coc
+  - gos
+  - ban
+  - nsam
+
+coc:
+  - ann
+  - gos
+  - cam
+
+gos:
+  - coc
+  - ann
+  - scs
+  - suns
+  - mal
+  - ban
+  - cam
+
+suns:
+  - scs
+  - suls
+  - sar
+  - js
+  - mal
+
+sar:
+  - suls
+  - cs
+  - bor
+  - js
+  - suns
+
+bor:
+  - sar
+  - cs
+  - js
+
+ts:
+  - cel
+  - cs
+  - new
+  - sio
+  - java
+  - js
+
+cel:
+  - cs
+  - ts
+  - js
+
+cs:
+  - dav
+  - lp
+  - new
+  - ts
+  - cel
+  - js
+  - bor
+  - sar
+  - suls
+
+suls:
+  - ls
+  - cebu
+  - dav
+  - cs
+  - sar
+  - suns
+  - scs
+
+scs:
+  - ecs
+  - for
+  - ls
+  - suls
+  - suns
+  - gos
+  - ann
+  - ton
+  - hk
+  - can
+  - nan
+
+hk:
+  - can
+  - scs
+
+ecs:
+  - ys
+  - kyu
+  - up
+  - for
+  - scs
+  - nan
+  - sha
+
+ys:
+  - seo-wc
+  - fus
+  - soj
+  - kyo
+  - up
+  - kyu
+  - ecs
+  - sha
+  - mac
+  - par
+
+par:
+  - mac
+  - seo
+  - seo-wc
+  - ys
+
+seo:
+  - vla
+  - fus
+  - par
+  - mac
+
+seo-ec:
+  - vla
+  - soj
+  - fus
+
+seo-wc:
+  - fus
+  - ys
+  - par
+
+os:
+  - up
+  - tok
+  - aik
+  - soj
+  - ota
+  - vla
+  - sak
+
+sak:
+  - os
+  - ota
+
+soj:
+  - os
+  - ota
+  - aki
+  - kyo
+  - ys
+  - fus
+  - seo-ec
+  - vla
+
+fus:
+  - seo-ec
+  - soj
+  - ys
+  - seo
+  - seo-wc
+
+ota:
+  - os
+  - aki
+  - soj
+  - sak
+
+aki:
+  - ota
+  - os
+  - tok
+  - kyo
+  - soj
+
+kyo:
+  - aki
+  - tok
+  - up
+  - kyu
+  - ys
+  - soj
+
+tok:
+  - os
+  - up
+  - kyo
+  - aki
+
+kyu:
+  - kyo
+  - up
+  - ecs
+  - ys
+
+for:
+  - up
+  - mp
+  - ls
+  - scs
+  - ecs
+
+up:
+  - tok
+  - os
+  - mp
+  - for
+  - ecs
+  - kyu
+  - ys
+  - kyo
+
+mp:
+  - up
+  - lp
+  - cebu
+  - mna
+  - ls
+  - for
+
+mna:
+  - mp
+  - cebu
+  - ls
+
+cebu:
+  - mna
+  - mp
+  - lp
+  - dav
+  - suls
+  - ls
+
+dav:
+  - cebu
+  - lp
+  - cs
+  - suls
+
+lp:
+  - mp
+  - new
+  - cs
+  - dav
+  - cebu
+
+new:
+  - lp
+  - ts
+  - cs
+
+
+

@@ -1,0 +1,4 @@
+England:
+- {dest: yor, loc: lon, type: retreat, unit: fleet}
+Italy:
+- {loc: bul-sc, type: disband, unit: fleet}

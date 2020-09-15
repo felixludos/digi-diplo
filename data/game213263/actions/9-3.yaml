@@ -1,0 +1,10 @@
+England:
+- {loc: iri, type: destroy, unit: the}
+France:
+- {loc: por, type: destroy, unit: the}
+Germany:
+- {loc: mun, type: build, unit: army}
+- {loc: ber, type: build, unit: army}
+- {loc: kie, type: build, unit: army}
+Italy:
+- {loc: ven, type: destroy, unit: the}

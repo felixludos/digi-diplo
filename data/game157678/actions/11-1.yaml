@@ -1,0 +1,38 @@
+Austria:
+- {dest: ser, failed: true, loc: gre, type: move, unit: army}
+- {dest: vie, failed: true, loc: tyr, type: move, unit: army}
+- {dest: bud, loc: ser, type: move, unit: army}
+- {dest: bud, loc: tri, src: ser, type: support, unit: army}
+France:
+- {dest: nwg, failed: true, loc: edi, type: move, unit: fleet}
+- {dest: cly, failed: true, loc: lvp, type: move, unit: army}
+- {dest: aeg, failed: true, loc: ion, type: move, unit: fleet}
+- {dest: ruh, failed: true, loc: bur, type: move, unit: army}
+- {dest: ven, loc: rom, type: move, unit: army}
+- {dest: adr, loc: apu, type: move, unit: fleet}
+- {dest: pie, loc: ven, type: move, unit: army}
+- {dest: mao, failed: true, loc: wes, type: move, unit: fleet}
+- {dest: nth, loc: eng, type: move, unit: fleet}
+- {dest: nao, failed: true, loc: mao, type: move, unit: fleet}
+- {dest: bur, failed: true, loc: mar, type: move, unit: army}
+- {dest: ruh, failed: true, loc: bel, src: bur, type: support, unit: army}
+- {dest: nth, loc: lon, src: eng, type: support, unit: fleet}
+Germany:
+- {dest: ruh, failed: true, loc: mun, type: move, unit: army}
+- {dest: stp, loc: mos, type: move, unit: army}
+- {dest: nao, failed: true, loc: nwg, type: move, unit: fleet}
+- {dest: bel, loc: nth, type: move, unit: fleet}
+- {dest: mun, failed: true, loc: boh, type: move, unit: army}
+- {dest: den, loc: kie, type: move, unit: fleet}
+- {dest: rum, loc: ukr, type: support-defend, unit: army}
+- {dest: vie, loc: gal, type: support-defend, unit: army}
+- {dest: nao, failed: true, loc: cly, src: nwg, type: support, unit: fleet}
+- {dest: bud, failed: true, loc: vie, src: rum, type: support, unit: army}
+- {dest: bel, loc: hol, src: nth, type: support, unit: army}
+Russia:
+- {loc: arm, type: hold, unit: army}
+- {dest: con, failed: true, loc: smy, type: move, unit: army}
+- {dest: aeg, failed: true, loc: con, type: move, unit: fleet}
+- {dest: ser, loc: bul, type: move, unit: army}
+- {dest: gre, failed: true, loc: alb, type: move, unit: army}
+- {dest: ser, loc: rum, src: bul, type: support, unit: army}

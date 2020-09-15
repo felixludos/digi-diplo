@@ -1,0 +1,39 @@
+Austria:
+- {dest: gre, failed: true, loc: aeg, type: move, unit: fleet}
+- {dest: sev, failed: true, loc: rum, type: move, unit: army}
+- {dest: tri, loc: vie, type: support-defend, unit: army}
+- {dest: gre, failed: true, loc: ser, src: aeg, type: support, unit: army}
+- {dest: ven, failed: true, loc: tri, src: tus, type: support, unit: army}
+France:
+- {loc: edi, type: hold, unit: fleet}
+- {loc: yor, type: hold, unit: army}
+- {dest: pie, loc: mar, type: move, unit: army}
+- {dest: tun, loc: naf, type: move, unit: fleet}
+- {dest: rom, failed: true, loc: tus, type: move, unit: army}
+- {dest: tys, failed: true, loc: wes, type: move, unit: fleet}
+- {dest: bur, loc: bel, type: support-defend, unit: army}
+- {dest: bel, loc: eng, type: support-defend, unit: fleet}
+- {dest: bel, loc: bur, type: support-defend, unit: army}
+Germany:
+- {dest: nwg, loc: nwy, type: move, unit: fleet}
+- {dest: mos, failed: true, loc: stp, type: move, unit: army}
+- {dest: ukr, loc: gal, type: move, unit: army}
+- {dest: lvn, loc: pru, type: move, unit: army}
+- {dest: bel, loc: ruh, type: support-defend, unit: army}
+- {dest: edi, loc: nth, type: support-defend, unit: fleet}
+- {dest: nth, loc: hol, type: support-defend, unit: fleet}
+- {dest: ruh, loc: mun, type: support-defend, unit: army}
+- {dest: ukr, loc: war, src: gal, type: support, unit: army}
+Italy:
+- {dest: ven, failed: true, loc: tyr, type: move, unit: army}
+- {dest: apu, loc: adr, type: move, unit: fleet}
+- {dest: tys, failed: true, loc: ion, type: move, unit: fleet}
+- {dest: rom, failed: true, loc: ven, type: move, unit: army}
+- {dest: bul, failed: true, loc: gre, type: support-defend, unit: army}
+Russia:
+- {dest: bul, failed: true, loc: con, type: move, unit: army}
+- {dest: ser, failed: true, loc: bul, type: move, unit: army}
+- {dest: smy, loc: arm, type: move, unit: army}
+- {dest: mos, failed: true, loc: ukr, type: move, unit: army}
+- {dest: rum, loc: sev, type: move, unit: army}
+- {dest: rum, loc: bla, src: sev, type: support, unit: fleet}

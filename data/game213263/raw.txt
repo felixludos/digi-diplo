@@ -1,0 +1,1370 @@
+Spring, 1914 Large map:
+Italy:
+
+Diplomacy
+The fleet at Tunis hold.
+The army at Tuscany support hold to Piedmont.
+The fleet at Rome support hold to Tyrrhenian Sea.
+The fleet at Tyrrhenian Sea support hold to Tunis.
+Germany:
+Diplomacy
+The army at St. Petersburg hold.
+The army at Gascony hold.
+The army at Livonia hold.
+The army at Burgundy hold.
+The army at Marseilles hold.
+The army at Prussia hold.
+The fleet at Baltic Sea hold.
+The army at Silesia hold.
+The army at Berlin hold.
+The army at Ruhr hold.
+The army at Munich hold.
+The fleet at North Africa move to Mid-Atlantic Ocean.
+The army at Spain move to Portugal.
+The fleet at Gulf of Lyons move to Spain (South Coast).
+The fleet at Picardy move to English Channel.
+The fleet at Holland move to North Sea.
+The fleet at Western Mediterranean support move to Tunis from Ionian Sea. (fail)
+Austria:
+Diplomacy
+The army at Moscow hold.
+The army at Warsaw hold.
+The army at Bohemia hold.
+The army at Tyrolia support hold to Piedmont.
+The army at Sevastopol support hold to Moscow.
+The army at Galicia support hold to Warsaw.
+The army at Ukraine support hold to Warsaw.
+The army at Vienna support hold to Bohemia.
+Turkey:
+Diplomacy
+The army at Armenia hold.
+The fleet at Greece hold.
+The fleet at Piedmont hold.
+The army at Bulgaria hold.
+The fleet at Ionian Sea support hold to Tunis.
+Autumn, 1913 Large map:
+Italy:
+
+Diplomacy
+The fleet at Tunis hold.
+The army at Tuscany support hold to Piedmont.
+The fleet at Rome support hold to Tyrrhenian Sea.
+The fleet at Tyrrhenian Sea support hold to Tunis.
+Germany:
+Diplomacy
+The army at St. Petersburg hold.
+The army at Gascony hold.
+The army at Livonia hold.
+The army at Burgundy hold.
+The army at Marseilles hold.
+The army at Prussia hold.
+The fleet at Baltic Sea hold.
+The army at Silesia hold.
+The army at Berlin hold.
+The army at Ruhr hold.
+The army at Munich hold.
+The fleet at North Africa move to Mid-Atlantic Ocean.
+The army at Spain move to Portugal.
+The fleet at Gulf of Lyons move to Spain (South Coast).
+The fleet at Picardy move to English Channel.
+The fleet at Holland move to North Sea.
+The fleet at Western Mediterranean support move to Tunis from Ionian Sea. (fail)
+Austria:
+Diplomacy
+The army at Moscow hold.
+The army at Warsaw hold.
+The army at Bohemia hold.
+The army at Tyrolia support hold to Piedmont.
+The army at Sevastopol support hold to Moscow.
+The army at Galicia support hold to Warsaw.
+The army at Ukraine support hold to Warsaw.
+The army at Vienna support hold to Bohemia.
+Turkey:
+Diplomacy
+The army at Armenia hold.
+The fleet at Greece hold.
+The fleet at Piedmont hold.
+The army at Bulgaria hold.
+The fleet at Ionian Sea support hold to Tunis.
+Spring, 1913 Large map:
+Italy:
+
+Diplomacy
+The fleet at Tunis hold.
+The army at Tuscany support hold to Piedmont.
+The fleet at Rome support hold to Tyrrhenian Sea.
+The fleet at Tyrrhenian Sea support hold to Tunis. (fail)
+Germany:
+Diplomacy
+The fleet at North Africa move to Tunis. (fail)
+The army at St. Petersburg move to Moscow. (fail)
+The army at Gascony move to Marseilles. (fail)
+The fleet at Gulf of Lyons move to Tyrrhenian Sea. (fail)
+The army at Marseilles move to Piedmont. (fail)
+The army at Prussia move to Warsaw. (fail)
+The army at Ruhr move to Munich. (fail)
+The army at Munich move to Tyrolia. (fail)
+The fleet at Belgium move to Picardy.
+The fleet at Kiel move to Holland.
+The fleet at Baltic Sea support hold to Livonia.
+The army at Berlin support hold to Silesia.
+The army at Spain support move to Marseilles from Gascony.
+The fleet at Western Mediterranean support move to Tunis from North Africa.
+The army at Livonia support move to Warsaw from Prussia.
+The army at Burgundy support move to Munich from Ruhr.
+The army at Silesia support move to Warsaw from Prussia.
+Austria:
+Diplomacy
+The army at Moscow hold.
+The army at Warsaw hold.
+The army at Bohemia hold.
+The army at Tyrolia support hold to Piedmont. (fail)
+The army at Sevastopol support hold to Moscow.
+The army at Galicia support hold to Warsaw.
+The army at Ukraine support hold to Warsaw.
+The army at Vienna support hold to Bohemia.
+Turkey:
+Diplomacy
+The army at Armenia hold.
+The fleet at Greece hold.
+The fleet at Piedmont hold.
+The army at Bulgaria hold.
+The fleet at Ionian Sea support hold to Tunis.
+Autumn, 1912 Large map:
+Italy:
+
+Diplomacy
+The army at Venice move to Tuscany.
+The fleet at Tunis move to Western Mediterranean. (fail)
+The fleet at Tyrrhenian Sea move to Gulf of Lyons. (fail)
+The fleet at Rome support move to Tuscany from Venice.
+Germany:
+Diplomacy
+The fleet at North Africa move to Tunis. (fail)
+The army at St. Petersburg move to Moscow. (fail)
+The army at Gascony move to Marseilles. (fail)
+The fleet at Gulf of Lyons move to Tyrrhenian Sea. (fail)
+The army at Marseilles move to Piedmont. (fail)
+The army at Prussia move to Warsaw. (fail)
+The fleet at Holland move to Belgium.
+The army at Burgundy support hold to Munich.
+The fleet at Baltic Sea support hold to Livonia.
+The army at Berlin support hold to Silesia.
+The army at Ruhr support hold to Munich.
+The army at Munich support hold to Silesia.
+The army at Spain support move to Marseilles from Gascony.
+The fleet at Western Mediterranean support move to Tyrrhenian Sea from Gulf of Lyons. (fail)
+The army at Livonia support move to Warsaw from Prussia.
+The army at Silesia support move to Warsaw from Prussia.
+Unit-placement
+Build fleet at Kiel.
+Austria:
+Diplomacy
+The army at Moscow hold.
+The army at Warsaw hold.
+The army at Bohemia hold.
+The army at Tyrolia support hold to Piedmont.
+The army at Sevastopol support hold to Moscow.
+The army at Galicia support hold to Warsaw.
+The army at Ukraine support hold to Warsaw.
+The army at Vienna support hold to Bohemia.
+Turkey:
+Diplomacy
+The army at Armenia hold.
+The army at Bulgaria hold.
+The fleet at Aegean Sea move to Greece.
+The fleet at Ionian Sea support hold to Tunis. (fail)
+The fleet at Piedmont support move to Tuscany from Rome. (fail)
+Spring, 1912 Large map:
+Italy:
+
+Diplomacy
+The fleet at Rome move to Naples. (fail)
+The fleet at Tyrrhenian Sea move to Naples. (fail)
+The army at Piedmont support hold to Tuscany. (fail) (dislodged)
+The fleet at Tunis support hold to Ionian Sea.
+Retreats
+The army at Piedmont retreat to Venice.
+Germany:
+Diplomacy
+The fleet at Baltic Sea hold.
+The army at St. Petersburg move to Moscow. (fail)
+The army at Gascony move to Spain.
+The army at Brest move to Gascony.
+The fleet at Mid-Atlantic Ocean move to Western Mediterranean.
+The fleet at Spain (South Coast) move to Gulf of Lyons.
+The army at Livonia move to Warsaw. (fail)
+The fleet at Kiel move to Holland.
+The army at Burgundy support hold to Munich.
+The army at Berlin support hold to Silesia.
+The army at Ruhr support hold to Munich.
+The army at Munich support hold to Silesia.
+The fleet at North Africa support move to Tunis from Ionian Sea. (fail)
+The army at Marseilles support move to Piedmont from Tuscany.
+The army at Prussia support move to Warsaw from Livonia.
+The army at Silesia support move to Warsaw from Livonia.
+Austria:
+Diplomacy
+The army at Moscow hold.
+The army at Warsaw hold.
+The army at Bohemia hold.
+The army at Tyrolia support hold to Bohemia.
+The army at Sevastopol support hold to Moscow.
+The army at Galicia support hold to Warsaw.
+The army at Ukraine support hold to Warsaw.
+The army at Vienna support hold to Bohemia.
+Turkey:
+Diplomacy
+The army at Armenia hold.
+The army at Bulgaria hold.
+The fleet at Tuscany move to Piedmont.
+The fleet at Aegean Sea support hold to Ionian Sea.
+The fleet at Ionian Sea support hold to Tunis.
+Autumn, 1911 Large map:
+Italy:
+
+Diplomacy
+The army at Piedmont move to Tuscany. (fail)
+The fleet at Tunis move to Ionian Sea. (fail)
+The fleet at Naples move to Rome.
+The fleet at Western Mediterranean move to Tyrrhenian Sea.
+Germany:
+Diplomacy
+The fleet at Mid-Atlantic Ocean move to North Africa.
+The army at St. Petersburg move to Moscow. (fail)
+The army at Spain move to Gascony.
+The army at Gascony move to Brest.
+The fleet at English Channel move to Mid-Atlantic Ocean.
+The fleet at Portugal move to Spain (South Coast).
+The army at Prussia move to Warsaw. (fail)
+The army at Burgundy support hold to Munich.
+The fleet at Baltic Sea support hold to Livonia.
+The army at Berlin support hold to Silesia.
+The army at Ruhr support hold to Munich.
+The army at Munich support hold to Silesia.
+The army at Livonia support move to Moscow from St. Petersburg.
+The army at Marseilles support move to Spain from Portugal.
+The army at Silesia support move to Warsaw from Prussia.
+Unit-placement
+Build fleet at Kiel.
+Austria:
+Diplomacy
+The army at Moscow hold.
+The army at Warsaw hold.
+The army at Bohemia hold.
+The army at Tyrolia support hold to Bohemia.
+The army at Sevastopol support hold to Moscow.
+The army at Galicia support hold to Warsaw.
+The army at Ukraine support hold to Warsaw.
+The army at Vienna support hold to Bohemia.
+Turkey:
+Diplomacy
+The army at Armenia hold.
+The army at Bulgaria hold.
+The fleet at Tyrrhenian Sea move to Ionian Sea.
+The fleet at Tuscany move to Piedmont. (fail)
+The fleet at Aegean Sea support move to Ionian Sea from Tyrrhenian Sea.
+Spring, 1911 Large map:
+Italy:
+
+Diplomacy
+The fleet at Tunis move to Ionian Sea. (fail)
+The fleet at Western Mediterranean move to Tyrrhenian Sea. (fail)
+The army at Piedmont support hold to Tuscany. (fail)
+The fleet at Naples support move to Ionian Sea from Tunis. (fail)
+Germany:
+Diplomacy
+The fleet at North Atlantic Ocean move to Mid-Atlantic Ocean.
+The army at St. Petersburg move to Moscow. (fail)
+The army at Portugal move to Spain.
+The army at Spain move to Gascony.
+The fleet at Mid-Atlantic Ocean move to Portugal.
+The army at Livonia move to Warsaw. (fail)
+The fleet at Gulf of Bothnia move to Baltic Sea.
+The army at Munich move to Silesia.
+The army at Kiel move to Munich.
+The fleet at English Channel support move to Mid-Atlantic Ocean from North Atlantic Ocean.
+The army at Burgundy support move to Munich from Kiel.
+The army at Marseilles support move to Spain from Portugal.
+The army at Prussia support move to Silesia from Munich.
+The army at Berlin support move to Silesia from Munich.
+The army at Ruhr support move to Munich from Kiel.
+Austria:
+Diplomacy
+The army at Moscow hold.
+The army at Tyrolia move to Munich. (fail)
+The army at Vienna move to Tyrolia. (fail)
+The army at Warsaw support hold to Silesia. (fail)
+The army at Sevastopol support hold to Moscow.
+The army at Ukraine support hold to Warsaw.
+The army at Silesia support move to Munich from Tyrolia. (fail) (dislodged)
+The army at Bohemia support move to Munich from Tyrolia.
+Retreats
+The army at Silesia retreat to Galicia.
+Turkey:
+Diplomacy
+The fleet at Aegean Sea move to Ionian Sea. (fail)
+The fleet at Tyrrhenian Sea move to Naples. (fail)
+The fleet at Tuscany move to Tyrrhenian Sea. (fail)
+The army at Constantinople move to Bulgaria.
+The army at Armenia support hold to Sevastopol.
+Autumn, 1910 Large map:
+France:
+
+Diplomacy
+The fleet at Gulf of Lyons move to Marseilles. (fail)
+Unit-placement
+Destroy the unit at Gulf of Lyons.
+Italy:
+Diplomacy
+The army at Piedmont move to Marseilles. (fail)
+The fleet at Western Mediterranean move to Gulf of Lyons. (fail)
+The fleet at Tunis support hold to Western Mediterranean. (fail)
+The fleet at Naples support move to Tyrrhenian Sea from Ionian Sea.
+Germany:
+Diplomacy
+The army at Marseilles hold.
+The army at Munich hold.
+The army at St. Petersburg move to Moscow. (fail)
+The army at Wales move to Portugal via convoy.
+The army at Finland move to Livonia via convoy.
+The army at Kiel move to Ruhr.
+The fleet at North Atlantic Ocean support hold to Mid-Atlantic Ocean.
+The army at Spain support hold to Marseilles.
+The army at Burgundy support hold to Munich.
+The army at Prussia support hold to Warsaw. (fail)
+The army at Berlin support hold to Munich.
+The army at Warsaw support move to Moscow from St. Petersburg. (fail) (dislodged)
+The fleet at English Channel convoy to Portugal from Wales.
+The fleet at Mid-Atlantic Ocean convoy to Portugal from Wales.
+The fleet at Gulf of Bothnia convoy to Livonia from Finland.
+Retreats
+The army at Warsaw disband.
+Unit-placement
+Build army at Kiel.
+Austria:
+Diplomacy
+The army at Tyrolia move to Munich. (fail)
+The army at Galicia move to Warsaw.
+The army at Silesia move to Prussia. (fail)
+The army at Sevastopol support hold to Moscow.
+The army at Moscow support move to Warsaw from Galicia. (fail)
+The army at Ukraine support move to Warsaw from Galicia.
+The army at Bohemia support move to Munich from Tyrolia.
+Unit-placement
+Build army at Vienna.
+Turkey:
+Diplomacy
+The army at Armenia hold.
+The army at Constantinople hold.
+The fleet at Smyrna move to Aegean Sea.
+The fleet at Ionian Sea move to Tyrrhenian Sea.
+The fleet at Tyrrhenian Sea move to Tuscany.
+Spring, 1910 Large map:
+France:
+
+Diplomacy
+The fleet at Western Mediterranean move to Gulf of Lyons.
+Italy:
+Diplomacy
+The army at Piedmont move to Marseilles. (fail)
+The fleet at Tyrrhenian Sea move to Western Mediterranean.
+The fleet at Tunis support move to Western Mediterranean from Tyrrhenian Sea.
+The fleet at Naples support move to Tyrrhenian Sea from Ionian Sea.
+Germany:
+Diplomacy
+The army at Spain hold.
+The fleet at Clyde move to North Atlantic Ocean.
+The army at St. Petersburg move to Moscow. (fail)
+The army at Liverpool move to Wales.
+The fleet at London move to English Channel.
+The fleet at Mid-Atlantic Ocean move to Western Mediterranean. (fail)
+The army at Finland move to St. Petersburg. (fail)
+The army at Warsaw move to Silesia. (fail)
+The army at Marseilles move to Piedmont. (fail)
+The fleet at Livonia move to Gulf of Bothnia.
+The army at Burgundy support hold to Munich.
+The army at Kiel support hold to Munich.
+The army at Prussia support move to Silesia from Warsaw.
+The army at Munich support move to Silesia from Warsaw. (fail)
+The army at Berlin support move to Silesia from Warsaw.
+Austria:
+Diplomacy
+The army at Tyrolia move to Munich. (fail)
+The army at Silesia move to Warsaw. (fail)
+The army at Sevastopol support hold to Moscow.
+The army at Moscow support move to Warsaw from Silesia. (fail)
+The army at Galicia support move to Warsaw from Silesia.
+The army at Ukraine support move to Warsaw from Silesia.
+The army at Bohemia support move to Munich from Tyrolia.
+Turkey:
+Diplomacy
+The army at Armenia hold.
+The fleet at Aegean Sea move to Smyrna.
+The fleet at Albania move to Ionian Sea.
+The fleet at Ionian Sea move to Tyrrhenian Sea.
+The army at Constantinople move to Portugal via convoy. (fail)
+Autumn, 1909 Large map:
+England:
+
+Diplomacy
+The fleet at Liverpool support hold to Irish Sea. (fail) (dislodged)
+The fleet at Irish Sea support move to Mid-Atlantic Ocean from English Channel. (fail)
+Retreats
+The fleet at Liverpool disband.
+Unit-placement
+Destroy the unit at Irish Sea.
+France:
+Diplomacy
+The fleet at North Africa move to Western Mediterranean.
+The fleet at Spain (South Coast) move to Portugal.
+Unit-placement
+Destroy the unit at Portugal.
+Italy:
+Diplomacy
+The army at Piedmont move to Marseilles. (fail)
+The army at Venice move to Apulia. (fail)
+The fleet at Naples move to Apulia. (fail)
+The fleet at Tunis support hold to Ionian Sea.
+The fleet at Tyrrhenian Sea support hold to Tunis.
+Unit-placement
+Destroy the unit at Venice.
+Germany:
+Diplomacy
+The army at St. Petersburg move to Moscow. (fail)
+The army at Yorkshire move to Liverpool.
+The army at Gascony move to Spain.
+The fleet at English Channel move to London.
+The fleet at Mid-Atlantic Ocean move to Irish Sea. (fail)
+The army at Finland move to St. Petersburg. (fail)
+The army at Munich move to Burgundy.
+The army at Silesia move to Warsaw.
+The fleet at Baltic Sea move to Livonia.
+The fleet at Clyde support move to Liverpool from Yorkshire.
+The army at Marseilles support move to Spain from Gascony. (fail)
+The army at Prussia support move to Warsaw from Silesia.
+Unit-placement
+Build army at Munich.
+Build army at Berlin.
+Build army at Kiel.
+Austria:
+Diplomacy
+The army at Trieste move to Tyrolia.
+The army at Galicia move to Silesia.
+The army at Rumania move to Ukraine.
+The army at Vienna move to Bohemia.
+The army at Moscow support hold to Warsaw. (fail)
+The army at Sevastopol support hold to Armenia. (fail)
+The army at Warsaw support move to Silesia from Galicia. (fail) (dislodged)
+Retreats
+The army at Warsaw retreat to Galicia.
+Turkey:
+Diplomacy
+The army at Armenia move to Sevastopol. (fail)
+The fleet at Aegean Sea move to Bulgaria (South Coast). (fail)
+The army at Constantinople move to Bulgaria. (fail)
+The fleet at Albania support hold to Ionian Sea.
+The fleet at Ionian Sea support hold to Tunis.
+Spring, 1909 Large map:
+England:
+
+Diplomacy
+The fleet at Liverpool hold.
+The fleet at Irish Sea support move to Mid-Atlantic Ocean from Brest.
+France:
+Diplomacy
+The fleet at North Africa move to Mid-Atlantic Ocean. (fail)
+The fleet at Western Mediterranean move to Spain (South Coast).
+Italy:
+Diplomacy
+The army at Marseilles hold. (dislodged)
+The army at Tyrolia move to Venice.
+The fleet at Rome move to Tyrrhenian Sea.
+The fleet at Tunis support hold to Ionian Sea.
+The fleet at Naples support move to Tyrrhenian Sea from Rome.
+Retreats
+The army at Marseilles retreat to Piedmont.
+Germany:
+Diplomacy
+The fleet at Norwegian Sea move to Clyde.
+The army at St. Petersburg move to Livonia. (fail)
+The army at Yorkshire move to Liverpool. (fail)
+The fleet at North Sea move to English Channel.
+The fleet at Brest move to Mid-Atlantic Ocean.
+The army at Finland move to St. Petersburg. (fail)
+The army at Munich move to Tyrolia. (fail)
+The army at Silesia move to Bohemia. (fail)
+The army at Burgundy move to Marseilles.
+The army at Berlin move to Prussia.
+The fleet at Kiel move to Baltic Sea.
+The army at Gascony support move to Marseilles from Burgundy.
+Austria:
+Diplomacy
+The army at Moscow move to Livonia. (fail)
+The army at Trieste move to Tyrolia. (fail)
+The army at Ukraine move to Warsaw.
+The army at Sevastopol move to Moscow. (fail)
+The army at Budapest move to Rumania.
+The army at Vienna move to Bohemia. (fail)
+The army at Galicia support move to Warsaw from Ukraine.
+Turkey:
+Diplomacy
+The fleet at Bulgaria (South Coast) move to Aegean Sea.
+The fleet at Greece move to Albania.
+The army at Ankara move to Constantinople.
+The army at Armenia support hold to Sevastopol. (fail)
+The fleet at Ionian Sea support hold to Tunis.
+Autumn, 1908 Large map:
+England:
+
+Diplomacy
+The fleet at Liverpool hold.
+The army at London hold.
+The fleet at Irish Sea move to Mid-Atlantic Ocean. (fail)
+Unit-placement
+Destroy the unit at London.
+France:
+Diplomacy
+The army at Marseilles hold. (dislodged)
+The fleet at Mid-Atlantic Ocean move to North Africa.
+The fleet at Western Mediterranean move to Tyrrhenian Sea. (fail)
+The fleet at North Atlantic Ocean move to Mid-Atlantic Ocean. (fail)
+Retreats
+The army at Marseilles retreat to Spain.
+Unit-placement
+Destroy the unit at North Atlantic Ocean.
+Destroy the unit at Spain.
+Italy:
+Diplomacy
+The army at Piedmont move to Marseilles.
+The army at Venice move to Tyrolia.
+The fleet at Ionian Sea move to Tunis.
+The fleet at Naples move to Tyrrhenian Sea. (fail)
+Unit-placement
+Build fleet at Rome.
+Germany:
+Diplomacy
+The fleet at Brest hold.
+The fleet at Norwegian Sea move to North Atlantic Ocean. (fail)
+The army at Yorkshire move to London. (fail)
+The army at Paris move to Gascony.
+The fleet at Norway move to North Sea.
+The army at Munich move to Silesia. (fail)
+The army at Silesia move to Warsaw. (fail)
+The army at Finland support hold to St. Petersburg.
+The army at St. Petersburg support move to Moscow from Warsaw.
+The army at Burgundy support move to Marseilles from Piedmont.
+Unit-placement
+Build army at Berlin.
+Build fleet at Kiel.
+Austria:
+Diplomacy
+The army at Warsaw move to Moscow.
+The army at Serbia move to Trieste.
+The army at Rumania move to Sevastopol.
+The army at Galicia move to Warsaw. (fail)
+The army at Budapest move to Rumania. (fail)
+The army at Ukraine support move to Sevastopol from Rumania.
+Unit-placement
+Build army at Vienna.
+Turkey:
+Diplomacy
+The army at Smyrna move to Armenia.
+The fleet at Bulgaria (South Coast) move to Constantinople. (fail)
+The fleet at Aegean Sea move to Greece.
+The fleet at Eastern Mediterranean move to Ionian Sea.
+The army at Ankara move to Constantinople. (fail)
+Russia:
+Diplomacy
+The army at Sevastopol move to Ukraine. (fail) (dislodged)
+The fleet at Black Sea move to Rumania. (fail)
+Retreats
+The army at Sevastopol disband.
+Unit-placement
+Destroy the unit at Black Sea.
+Spring, 1908 Large map:
+England:
+
+Diplomacy
+The army at London hold.
+The fleet at Wales move to Irish Sea.
+The fleet at Liverpool support move to Irish Sea from Wales.
+France:
+Diplomacy
+The fleet at Irish Sea move to Mid-Atlantic Ocean.
+The army at Marseilles move to Piedmont. (fail)
+The fleet at Mid-Atlantic Ocean move to Western Mediterranean.
+The fleet at North Atlantic Ocean support move to Mid-Atlantic Ocean from Irish Sea.
+Italy:
+Diplomacy
+The army at Piedmont move to Marseilles. (fail)
+The army at Venice move to Piedmont. (fail)
+The fleet at Naples support hold to Ionian Sea.
+The fleet at Ionian Sea support move to Greece from Serbia. (fail)
+Germany:
+Diplomacy
+The fleet at North Sea move to Norwegian Sea.
+The army at Norway move to St. Petersburg.
+The army at Edinburgh move to Yorkshire.
+The fleet at Sweden move to Norway.
+The fleet at English Channel move to Brest.
+The army at Kiel move to Munich.
+The army at Berlin move to Silesia.
+The army at Munich move to Burgundy.
+The army at Paris support move to Burgundy from Munich.
+The army at Finland support move to St. Petersburg from Norway.
+Austria:
+Diplomacy
+The army at Warsaw move to Moscow. (fail)
+The army at Trieste move to Serbia.
+The army at Rumania move to Ukraine.
+The army at Serbia move to Rumania.
+The army at Vienna move to Galicia.
+The army at Budapest support move to Rumania from Serbia.
+Turkey:
+Diplomacy
+The fleet at Bulgaria (South Coast) hold.
+The army at Greece move to Smyrna via convoy.
+The fleet at Eastern Mediterranean move to Ionian Sea. (fail)
+The army at Constantinople move to Ankara.
+The fleet at Aegean Sea convoy to Smyrna from Greece.
+Russia:
+Diplomacy
+The army at Sevastopol move to Moscow. (fail)
+The fleet at Black Sea support move to Bulgaria from Rumania. (fail)
+Autumn, 1907 Large map:
+England:
+
+Diplomacy
+The army at Finland move to St. Petersburg. (fail) (dislodged)
+The fleet at Wales support hold to Liverpool.
+The fleet at Liverpool support move to Clyde from Edinburgh. (fail)
+The army at Moscow support move to Warsaw from Galicia. (fail) (dislodged)
+Retreats
+The army at Moscow disband.
+The army at Finland disband.
+Unit-placement
+Build army at London.
+France:
+Diplomacy
+The army at Marseilles hold.
+The army at Clyde move to Liverpool. (fail)
+The fleet at Brest move to Mid-Atlantic Ocean.
+The fleet at Irish Sea support move to Liverpool from Clyde.
+The fleet at North Atlantic Ocean support move to Liverpool from Clyde.
+Unit-placement
+Destroy the unit at Clyde.
+Italy:
+Diplomacy
+The fleet at Ionian Sea hold.
+The army at Piedmont move to Marseilles. (fail)
+The army at Venice move to Piedmont. (fail)
+The fleet at Naples support hold to Ionian Sea.
+Germany:
+Diplomacy
+The army at Burgundy move to Paris.
+The fleet at Baltic Sea move to Sweden.
+The fleet at Belgium move to English Channel.
+The army at Sweden move to Finland.
+The army at Edinburgh support hold to Liverpool.
+The fleet at North Sea support move to English Channel from Belgium.
+The army at Norway support move to Finland from Sweden.
+Unit-placement
+Build army at Kiel.
+Build army at Berlin.
+Build army at Munich.
+Austria:
+Diplomacy
+The army at Galicia move to Warsaw.
+The army at Rumania move to Bulgaria. (fail)
+The army at Budapest move to Serbia.
+The army at Trieste support move to Serbia from Budapest.
+Unit-placement
+Build army at Vienna.
+Build army at Budapest.
+Turkey:
+Diplomacy
+The army at Greece move to Constantinople via convoy. (fail)
+The fleet at Bulgaria (South Coast) move to Greece. (fail)
+The fleet at Eastern Mediterranean move to Ionian Sea. (fail)
+The army at Constantinople move to Bulgaria. (fail)
+The fleet at Aegean Sea convoy to Constantinople from Greece. (fail)
+Russia:
+Diplomacy
+The fleet at Gulf of Bothnia move to St. Petersburg (South Coast). (fail)
+The fleet at Black Sea move to Rumania. (fail)
+The army at Warsaw move to Moscow.
+The army at Sevastopol support move to Moscow from Warsaw.
+Unit-placement
+Destroy the unit at Gulf of Bothnia.
+Destroy the unit at Moscow.
+Spring, 1907 Large map:
+England:
+
+Diplomacy
+The fleet at Irish Sea move to Mid-Atlantic Ocean. (fail) (dislodged)
+The army at Finland move to St. Petersburg. (fail)
+The fleet at Wales move to English Channel. (fail)
+The army at St. Petersburg move to Moscow.
+The fleet at Liverpool support move to Clyde from Edinburgh. (fail)
+Retreats
+The fleet at Irish Sea disband.
+France:
+Diplomacy
+The army at Marseilles hold.
+The fleet at Mid-Atlantic Ocean move to Irish Sea.
+The army at Clyde move to Liverpool. (fail)
+The fleet at Brest move to English Channel. (fail)
+The fleet at North Atlantic Ocean support move to Irish Sea from Mid-Atlantic Ocean.
+Italy:
+Diplomacy
+The army at Piedmont move to Marseilles. (fail)
+The army at Venice move to Piedmont. (fail)
+The fleet at Naples support hold to Ionian Sea.
+The fleet at Ionian Sea support move to Greece from Serbia. (fail)
+Germany:
+Diplomacy
+The army at Edinburgh hold.
+The army at Denmark move to Norway via convoy.
+The army at Munich move to Burgundy.
+The fleet at Belgium move to English Channel. (fail)
+The army at Kiel move to Sweden via convoy.
+The fleet at North Sea convoy to Norway from Denmark.
+The fleet at Baltic Sea convoy to Sweden from Kiel.
+Austria:
+Diplomacy
+The army at Vienna move to Galicia.
+The army at Trieste move to Serbia. (fail)
+The army at Serbia move to Rumania.
+The army at Budapest support move to Rumania from Serbia.
+Turkey:
+Diplomacy
+The army at Greece move to Serbia. (fail)
+The fleet at Bulgaria (South Coast) move to Constantinople. (fail)
+The fleet at Eastern Mediterranean move to Ionian Sea. (fail)
+The army at Constantinople move to Bulgaria. (fail)
+The fleet at Aegean Sea convoy to Bulgaria from Constantinople. (fail)
+Russia:
+Diplomacy
+The army at Rumania move to Sevastopol.
+The fleet at Gulf of Bothnia move to St. Petersburg (South Coast). (fail)
+The fleet at Black Sea move to Rumania. (fail)
+The army at Galicia move to Warsaw.
+Autumn, 1906 Large map:
+England:
+
+Diplomacy
+The fleet at English Channel move to Irish Sea.
+The army at Sweden move to Finland.
+The fleet at London move to Wales.
+The fleet at Irish Sea move to Liverpool.
+The army at Norway move to St. Petersburg.
+France:
+Diplomacy
+The army at Burgundy move to Marseilles.
+The army at Gascony move to Clyde via convoy.
+The fleet at Brest support hold to Mid-Atlantic Ocean.
+The fleet at Mid-Atlantic Ocean convoy to Clyde from Gascony.
+The fleet at North Atlantic Ocean convoy to Clyde from Gascony.
+Italy:
+Diplomacy
+The army at Piedmont hold.
+The army at Venice hold.
+The fleet at Naples support hold to Ionian Sea.
+The fleet at Ionian Sea support move to Greece from Albania. (fail)
+Germany:
+Diplomacy
+The army at Kiel move to Denmark.
+The army at Belgium move to Edinburgh via convoy.
+The fleet at Holland move to Belgium.
+The army at Munich support move to Bohemia from Tyrolia.
+The fleet at Baltic Sea support move to Denmark from Kiel.
+The fleet at North Sea convoy to Edinburgh from Belgium.
+Unit-placement
+Build army at Kiel.
+Austria:
+Diplomacy
+The army at Vienna move to Galicia. (fail)
+The army at Albania move to Trieste.
+The army at Serbia move to Rumania. (fail)
+The army at Budapest move to Galicia. (fail)
+The army at Tyrolia move to Bohemia.
+Unit-placement
+Destroy the unit at Bohemia.
+Turkey:
+Diplomacy
+The army at Greece move to Serbia. (fail)
+The fleet at Aegean Sea move to Greece. (fail)
+The fleet at Eastern Mediterranean move to Ionian Sea. (fail)
+The fleet at Bulgaria (South Coast) support move to Greece from Aegean Sea.
+Unit-placement
+Build army at Constantinople.
+Russia:
+Diplomacy
+The fleet at St. Petersburg (South Coast) move to Gulf of Bothnia.
+The army at Bohemia move to Vienna. (fail) (dislodged)
+The army at Galicia move to Budapest. (fail)
+The fleet at Black Sea support hold to Rumania.
+The army at Rumania support move to Budapest from Galicia. (fail)
+Retreats
+The army at Bohemia disband.
+Spring, 1906 Large map:
+England:
+
+Diplomacy
+The fleet at North Sea move to English Channel.
+The army at Sweden move to Denmark. (fail)
+The fleet at English Channel move to London.
+The army at Norway move to Sweden. (fail)
+The fleet at Irish Sea support move to English Channel from North Sea.
+France:
+Diplomacy
+The fleet at Brest move to Mid-Atlantic Ocean.
+The army at Marseilles move to Burgundy.
+The army at Burgundy move to Gascony.
+The fleet at Picardy move to Brest.
+The fleet at Mid-Atlantic Ocean move to North Atlantic Ocean.
+Italy:
+Diplomacy
+The army at Tuscany move to Piedmont.
+The army at Apulia move to Venice.
+The fleet at Ionian Sea support hold to Greece. (fail)
+The fleet at Naples support hold to Ionian Sea.
+Germany:
+Diplomacy
+The army at Belgium hold.
+The army at Munich hold.
+The fleet at Denmark move to North Sea.
+The army at Kiel move to Denmark. (fail)
+The fleet at Berlin move to Baltic Sea.
+The fleet at Holland support move to North Sea from Denmark.
+Austria:
+Diplomacy
+The army at Vienna move to Galicia. (fail)
+The army at Greece move to Bulgaria. (fail) (dislodged)
+The army at Serbia move to Rumania. (fail)
+The army at Budapest move to Galicia. (fail)
+The army at Trieste move to Tyrolia.
+Retreats
+The army at Greece retreat to Albania.
+Turkey:
+Diplomacy
+The army at Bulgaria move to Greece.
+The fleet at Constantinople move to Bulgaria (South Coast).
+The fleet at Eastern Mediterranean move to Ionian Sea. (fail)
+The fleet at Aegean Sea support move to Greece from Bulgaria.
+Russia:
+Diplomacy
+The fleet at St. Petersburg (South Coast) hold.
+The army at Rumania move to Serbia. (fail)
+The army at Bohemia move to Vienna. (fail)
+The army at Galicia move to Rumania. (fail)
+The fleet at Black Sea support move to Rumania from Galicia.
+Autumn, 1905 Large map:
+England:
+
+Diplomacy
+The army at Sweden move to Denmark. (fail)
+The army at Norway move to Sweden. (fail)
+The fleet at North Sea support hold to English Channel. (fail)
+The fleet at Irish Sea support hold to English Channel.
+The fleet at English Channel support move to Belgium from Holland. (fail)
+France:
+Diplomacy
+The army at Marseilles hold.
+The army at Burgundy move to Picardy. (fail)
+The fleet at Picardy move to English Channel. (fail)
+The fleet at Brest support hold to Mid-Atlantic Ocean.
+The fleet at Mid-Atlantic Ocean support move to English Channel from Picardy.
+Italy:
+Diplomacy
+The army at Piedmont move to Tuscany.
+The army at Venice move to Apulia.
+The fleet at Ionian Sea move to Aegean Sea. (fail)
+Unit-placement
+Build fleet at Naples.
+Germany:
+Diplomacy
+The army at Munich hold.
+The army at Ruhr move to Belgium.
+The fleet at Prussia move to Berlin.
+The fleet at Holland move to North Sea. (fail)
+The army at Kiel support hold to Denmark.
+The fleet at Denmark support move to North Sea from Holland. (fail)
+Austria:
+Diplomacy
+The army at Bulgaria hold. (dislodged)
+The army at Vienna move to Galicia. (fail)
+The army at Budapest move to Rumania. (fail)
+The army at Tyrolia move to Trieste.
+The army at Greece support hold to Bulgaria. (fail)
+Retreats
+The army at Bulgaria retreat to Serbia.
+Turkey:
+Diplomacy
+The army at Constantinople move to Bulgaria.
+The fleet at Smyrna move to Constantinople.
+The fleet at Aegean Sea move to Greece. (fail)
+The fleet at Eastern Mediterranean move to Ionian Sea. (fail)
+Russia:
+Diplomacy
+The fleet at St. Petersburg (South Coast) hold.
+The army at Silesia move to Galicia.
+The army at Rumania support move to Galicia from Silesia. (fail)
+The army at Bohemia support move to Galicia from Silesia.
+The fleet at Black Sea support move to Bulgaria from Constantinople.
+Spring, 1905 Large map:
+England:
+
+Diplomacy
+The army at Sweden move to Denmark. (fail)
+The army at Norway move to Sweden. (fail)
+The fleet at North Sea support hold to English Channel.
+The fleet at English Channel support hold to North Sea. (fail)
+The fleet at Irish Sea support hold to English Channel.
+France:
+Diplomacy
+The fleet at Picardy move to English Channel. (fail)
+The army at Marseilles support hold to Burgundy.
+The army at Burgundy support hold to Munich. (fail)
+The fleet at Brest support move to English Channel from Picardy.
+The fleet at Mid-Atlantic Ocean support move to English Channel from Picardy.
+Italy:
+Diplomacy
+The army at Apulia move to Venice.
+The fleet at Eastern Mediterranean move to Aegean Sea. (fail) (dislodged)
+The army at Piedmont support hold to Marseilles.
+The fleet at Ionian Sea support move to Aegean Sea from Eastern Mediterranean.
+Retreats
+The fleet at Eastern Mediterranean disband.
+Germany:
+Diplomacy
+The army at Holland move to Kiel.
+The army at Belgium move to Ruhr.
+The army at Munich move to Silesia. (fail)
+The fleet at Baltic Sea move to Prussia.
+The fleet at Heligoland Bight move to Holland.
+The fleet at Denmark support hold to North Sea. (fail)
+Austria:
+Diplomacy
+The army at Vienna move to Galicia. (fail)
+The army at Serbia move to Bulgaria.
+The army at Budapest move to Rumania. (fail)
+The army at Tyrolia move to Vienna. (fail)
+The army at Greece support move to Bulgaria from Serbia.
+Turkey:
+Diplomacy
+The army at Bulgaria move to Serbia. (fail) (dislodged)
+The fleet at Syria move to Eastern Mediterranean.
+The fleet at Smyrna support hold to Aegean Sea.
+The fleet at Aegean Sea support move to Eastern Mediterranean from Syria.
+Retreats
+The army at Bulgaria retreat to Constantinople.
+Russia:
+Diplomacy
+The fleet at Gulf of Bothnia move to St. Petersburg (South Coast).
+The army at Bohemia move to Galicia. (fail)
+The fleet at Black Sea support hold to Rumania.
+The army at Rumania support move to Serbia from Bulgaria. (fail)
+The army at Silesia support move to Galicia from Bohemia. (fail)
+Autumn, 1904 Large map:
+England:
+
+Diplomacy
+The army at Edinburgh move to Norway via convoy.
+The fleet at English Channel support hold to North Sea. (fail)
+The fleet at Irish Sea support hold to English Channel.
+The army at Sweden support move to Norway from Edinburgh. (fail)
+The fleet at North Sea convoy to Norway from Edinburgh.
+France:
+Diplomacy
+The army at Burgundy move to Marseilles.
+The army at Paris move to Burgundy.
+The fleet at Picardy move to English Channel. (fail)
+The fleet at Spain (South Coast) move to Mid-Atlantic Ocean.
+The fleet at Brest support move to English Channel from Picardy.
+Italy:
+Diplomacy
+The army at Piedmont move to Venice. (fail)
+The army at Apulia move to Venice. (fail)
+The fleet at Ionian Sea move to Aegean Sea. (fail)
+The fleet at Eastern Mediterranean support move to Aegean Sea from Ionian Sea. (fail)
+Germany:
+Diplomacy
+The army at Munich move to Bohemia. (fail)
+The fleet at Baltic Sea move to Sweden. (fail)
+The army at Holland support hold to Belgium.
+The army at Belgium support hold to Holland.
+The fleet at Heligoland Bight support hold to Denmark.
+The fleet at Denmark support move to Sweden from Baltic Sea.
+Austria:
+Diplomacy
+The army at Vienna move to Bohemia. (fail)
+The army at Serbia move to Rumania. (fail)
+The army at Budapest move to Galicia. (fail)
+The army at Trieste move to Tyrolia.
+The army at Greece support move to Bulgaria from Apulia. (fail)
+Turkey:
+Diplomacy
+The army at Bulgaria move to Serbia. (fail)
+The fleet at Constantinople move to Smyrna.
+The fleet at Aegean Sea move to Greece. (fail)
+The fleet at Syria move to Eastern Mediterranean. (fail)
+Russia:
+Diplomacy
+The army at Rumania move to Budapest. (fail)
+The army at Bohemia move to Galicia. (fail)
+The army at Warsaw move to Silesia.
+The fleet at Gulf of Bothnia support hold to Sweden.
+The fleet at Black Sea support hold to Bulgaria. (fail)
+Spring, 1904 Large map:
+England:
+
+Diplomacy
+The army at Edinburgh hold.
+The army at Sweden move to Denmark. (fail)
+The fleet at Irish Sea move to Mid-Atlantic Ocean. (fail)
+The fleet at English Channel support hold to North Sea.
+The fleet at North Sea support move to Denmark from Sweden. (fail)
+France:
+Diplomacy
+The fleet at Mid-Atlantic Ocean move to Brest.
+The army at Marseilles move to Burgundy.
+The army at Brest move to Paris.
+The fleet at Spain (South Coast) move to Mid-Atlantic Ocean. (fail)
+The fleet at Picardy support move to Brest from Mid-Atlantic Ocean.
+Italy:
+Diplomacy
+The army at Apulia hold.
+The fleet at Eastern Mediterranean move to Aegean Sea. (fail)
+The army at Piedmont support hold to Marseilles. (fail)
+The fleet at Ionian Sea support move to Aegean Sea from Eastern Mediterranean.
+Germany:
+Diplomacy
+The army at Burgundy move to Munich.
+The fleet at Heligoland Bight move to North Sea. (fail)
+The army at Holland support hold to Belgium.
+The army at Belgium support hold to Holland.
+The fleet at Baltic Sea support hold to Denmark.
+The fleet at Denmark support move to North Sea from Heligoland Bight. (fail)
+Austria:
+Diplomacy
+The army at Vienna move to Galicia. (fail)
+The army at Serbia move to Bulgaria. (fail)
+The army at Trieste support hold to Budapest.
+The army at Greece support move to Bulgaria from Serbia.
+The army at Budapest support move to Galicia from Vienna.
+Turkey:
+Diplomacy
+The fleet at Aegean Sea move to Eastern Mediterranean. (fail)
+The army at Bulgaria support hold to Rumania. (fail)
+The fleet at Constantinople support hold to Bulgaria.
+The fleet at Syria support move to Eastern Mediterranean from Aegean Sea.
+Russia:
+Diplomacy
+The army at Galicia move to Bohemia.
+The army at Warsaw move to Galicia. (fail)
+The fleet at Gulf of Bothnia support hold to Sweden. (fail)
+The fleet at Black Sea support hold to Rumania.
+The army at Rumania support move to Galicia from Warsaw.
+Autumn, 1903 Large map:
+England:
+
+Diplomacy
+The fleet at North Sea move to Skagerrack. (fail)
+The fleet at Irish Sea move to Mid-Atlantic Ocean. (fail)
+The army at Clyde move to Edinburgh.
+The army at Sweden support hold to Denmark. (fail)
+The fleet at English Channel support move to Mid-Atlantic Ocean from Irish Sea. (fail)
+France:
+Diplomacy
+The army at Gascony move to Marseilles.
+The army at Portugal move to Brest via convoy.
+The fleet at Picardy move to English Channel. (fail)
+The fleet at Spain (South Coast) support move to Marseilles from Gascony.
+The fleet at Mid-Atlantic Ocean convoy to Brest from Portugal.
+Italy:
+Diplomacy
+The army at Apulia hold.
+The army at Piedmont move to Marseilles. (fail)
+The fleet at Eastern Mediterranean move to Smyrna. (fail)
+The fleet at Ionian Sea support hold to Greece.
+Germany:
+Diplomacy
+The fleet at Denmark move to Skagerrack. (fail)
+The fleet at Baltic Sea move to Denmark. (fail)
+The fleet at Kiel move to Heligoland Bight.
+The army at Holland support hold to Belgium.
+The army at Belgium support hold to Holland.
+The army at Burgundy support move to Marseilles from Gascony.
+Austria:
+Diplomacy
+The army at Albania move to Serbia.
+The army at Vienna support hold to Budapest.
+The army at Greece support move to Serbia from Albania. (fail)
+The army at Budapest support move to Serbia from Albania. (fail)
+Unit-placement
+Build army at Trieste.
+Turkey:
+Diplomacy
+The fleet at Constantinople move to Smyrna. (fail)
+The fleet at Aegean Sea move to Greece. (fail)
+The fleet at Smyrna move to Syria.
+The army at Bulgaria support move to Greece from Aegean Sea.
+Russia:
+Diplomacy
+The army at Galicia move to Budapest. (fail)
+The army at Moscow move to Warsaw.
+The fleet at Gulf of Bothnia support hold to Sweden.
+The fleet at Black Sea support hold to Rumania.
+The army at Rumania support move to Serbia from Bulgaria. (fail)
+Spring, 1903 Large map:
+England:
+
+Diplomacy
+The army at Sweden hold.
+The fleet at North Sea move to Skagerrack. (fail)
+The fleet at English Channel move to North Sea. (fail)
+The fleet at Irish Sea move to English Channel. (fail)
+The army at Edinburgh move to Clyde.
+France:
+Diplomacy
+The army at Portugal hold.
+The fleet at North Atlantic Ocean move to Mid-Atlantic Ocean.
+The army at Gascony move to Marseilles. (fail)
+The fleet at Brest move to Picardy.
+The fleet at Marseilles move to Spain (South Coast).
+Italy:
+Diplomacy
+The army at Apulia hold.
+The army at Piedmont move to Marseilles. (fail)
+The fleet at Ionian Sea move to Eastern Mediterranean.
+The fleet at Tyrrhenian Sea move to Ionian Sea.
+Germany:
+Diplomacy
+The fleet at Denmark move to Skagerrack. (fail)
+The army at Ruhr move to Burgundy.
+The fleet at Kiel move to Denmark. (fail)
+The army at Holland support hold to Belgium.
+The army at Belgium support hold to Holland.
+The fleet at Baltic Sea support move to Denmark from Kiel.
+Austria:
+Diplomacy
+The fleet at Aegean Sea move to Bulgaria (South Coast). (fail) (dislodged)
+The army at Albania move to Serbia. (fail)
+The army at Vienna support hold to Budapest.
+The army at Greece support move to Bulgaria from Aegean Sea.
+The army at Budapest support move to Serbia from Albania. (fail)
+Retreats
+The fleet at Aegean Sea disband.
+Turkey:
+Diplomacy
+The army at Bulgaria hold.
+The fleet at Eastern Mediterranean move to Aegean Sea.
+The fleet at Constantinople support hold to Bulgaria.
+The fleet at Smyrna support move to Aegean Sea from Eastern Mediterranean.
+Russia:
+Diplomacy
+The army at Moscow hold.
+The army at Rumania move to Serbia. (fail)
+The army at Galicia move to Budapest. (fail)
+The fleet at Sevastopol move to Black Sea.
+The fleet at Gulf of Bothnia support hold to Sweden.
+Autumn, 1902 Large map:
+England:
+
+Diplomacy
+The fleet at North Sea move to Denmark. (fail)
+The army at Norway move to Sweden.
+The fleet at English Channel move to Brest. (fail)
+The fleet at Irish Sea move to Liverpool. (fail)
+Unit-placement
+Build army at Edinburgh.
+France:
+Diplomacy
+The fleet at North Atlantic Ocean move to Liverpool. (fail)
+The army at Gascony move to Marseilles. (fail)
+The army at Spain move to Portugal.
+The fleet at Brest move to English Channel. (fail)
+Unit-placement
+Build fleet at Marseilles.
+Italy:
+Diplomacy
+The army at Apulia hold.
+The army at Piedmont move to Marseilles. (fail)
+The fleet at Ionian Sea move to Eastern Mediterranean. (fail)
+The fleet at Tyrrhenian Sea move to Ionian Sea. (fail)
+Germany:
+Diplomacy
+The fleet at Denmark move to North Sea. (fail)
+The army at Belgium move to Holland.
+The army at Burgundy move to Belgium.
+The army at Munich move to Ruhr.
+The fleet at Baltic Sea move to Sweden. (fail)
+Unit-placement
+Build fleet at Kiel.
+Austria:
+Diplomacy
+The army at Vienna move to Budapest. (fail)
+The fleet at Aegean Sea move to Bulgaria (South Coast). (fail)
+The army at Serbia move to Greece.
+The army at Budapest move to Serbia. (fail)
+The army at Albania support move to Greece from Serbia.
+Turkey:
+Diplomacy
+The fleet at Black Sea move to Constantinople.
+The army at Greece move to Serbia. (fail) (dislodged)
+The fleet at Eastern Mediterranean move to Aegean Sea. (fail)
+The army at Bulgaria support move to Serbia from Greece. (fail)
+Retreats
+The army at Greece disband.
+Unit-placement
+Build fleet at Smyrna.
+Russia:
+Diplomacy
+The army at Moscow hold.
+The army at Rumania move to Serbia. (fail)
+The army at Warsaw move to Galicia.
+The fleet at Sevastopol move to Rumania. (fail)
+The fleet at Gulf of Bothnia support move to Sweden from Norway.
+Spring, 1902 Large map:
+England:
+
+Diplomacy
+The army at Norway move to Sweden. (fail)
+The fleet at Liverpool move to Irish Sea.
+The fleet at North Sea support hold to English Channel.
+The fleet at English Channel support move to Irish Sea from Liverpool. (fail)
+France:
+Diplomacy
+The fleet at Mid-Atlantic Ocean move to North Atlantic Ocean.
+The army at Spain move to London via convoy. (fail)
+The fleet at Brest move to English Channel. (fail)
+The army at Burgundy support move to Belgium from Holland. (fail) (dislodged)
+Retreats
+The army at Burgundy retreat to Gascony.
+Italy:
+Diplomacy
+The army at Tuscany move to Piedmont.
+The army at Tunis move to Apulia via convoy.
+The fleet at Naples move to Tyrrhenian Sea.
+The fleet at Ionian Sea convoy to Apulia from Tunis.
+Germany:
+Diplomacy
+The fleet at Denmark move to Sweden. (fail)
+The army at Holland move to Belgium.
+The army at Ruhr move to Burgundy.
+The fleet at Berlin move to Baltic Sea.
+The army at Munich support move to Burgundy from Ruhr.
+Austria:
+Diplomacy
+The army at Vienna move to Galicia. (fail)
+The fleet at Greece move to Aegean Sea.
+The army at Serbia move to Rumania. (fail)
+The army at Trieste move to Albania.
+The army at Budapest move to Rumania. (fail)
+Turkey:
+Diplomacy
+The army at Constantinople move to Bulgaria.
+The army at Bulgaria move to Greece.
+The fleet at Smyrna move to Eastern Mediterranean.
+The fleet at Black Sea support move to Bulgaria from Constantinople.
+Russia:
+Diplomacy
+The fleet at Gulf of Bothnia move to St. Petersburg (South Coast). (fail)
+The army at Warsaw move to Galicia. (fail)
+The army at Moscow move to St. Petersburg. (fail)
+The fleet at Sevastopol support hold to Rumania.
+The army at Rumania support move to Galicia from Warsaw. (fail)
+Autumn, 1901 Large map:
+England:
+
+Diplomacy
+The army at Yorkshire move to Norway via convoy.
+The fleet at London move to English Channel.
+The fleet at North Sea convoy to Norway from Yorkshire.
+Unit-placement
+Build fleet at Liverpool.
+France:
+Diplomacy
+The fleet at Brest move to Mid-Atlantic Ocean.
+The army at Burgundy move to Belgium. (fail)
+The army at Marseilles move to Spain.
+Unit-placement
+Build fleet at Brest.
+Italy:
+Diplomacy
+The army at Tuscany hold.
+The army at Apulia move to Tunis via convoy.
+The fleet at Ionian Sea convoy to Tunis from Apulia.
+Unit-placement
+Build fleet at Naples.
+Germany:
+Diplomacy
+The fleet at Denmark move to Sweden. (fail)
+The army at Kiel move to Holland.
+The army at Ruhr move to Belgium. (fail)
+Unit-placement
+Build army at Munich.
+Build fleet at Berlin.
+Austria:
+Diplomacy
+The army at Vienna move to Galicia. (fail)
+The fleet at Albania move to Greece.
+The army at Serbia support move to Greece from Albania.
+Unit-placement
+Build army at Trieste.
+Build army at Budapest.
+Turkey:
+Diplomacy
+The fleet at Ankara move to Black Sea.
+The army at Constantinople support hold to Bulgaria.
+The army at Bulgaria support hold to Constantinople.
+Unit-placement
+Build fleet at Smyrna.
+Russia:
+Diplomacy
+The army at Ukraine move to Rumania.
+The fleet at Gulf of Bothnia move to Sweden. (fail)
+The army at Warsaw move to Galicia. (fail)
+The fleet at Sevastopol support move to Rumania from Ukraine.
+Unit-placement
+Build army at Moscow.
+Spring, 1901 Large map:
+England:
+
+Diplomacy
+The fleet at Edinburgh move to North Sea.
+The army at Liverpool move to Yorkshire.
+The fleet at London move to English Channel. (fail)
+France:
+Diplomacy
+The fleet at Brest move to English Channel. (fail)
+The army at Paris move to Burgundy.
+The army at Marseilles support move to Burgundy from Paris.
+Italy:
+Diplomacy
+The army at Venice move to Tuscany.
+The army at Rome move to Apulia.
+The fleet at Naples move to Ionian Sea.
+Germany:
+Diplomacy
+The fleet at Kiel move to Denmark.
+The army at Berlin move to Kiel.
+The army at Munich move to Ruhr.
+Austria:
+Diplomacy
+The army at Vienna move to Galicia. (fail)
+The fleet at Trieste move to Albania.
+The army at Budapest move to Serbia.
+Turkey:
+Diplomacy
+The army at Smyrna move to Constantinople.
+The fleet at Ankara move to Black Sea. (fail)
+The army at Constantinople move to Bulgaria.
+Russia:
+Diplomacy
+The army at Moscow move to Ukraine.
+The fleet at St. Petersburg (South Coast) move to Gulf of Bothnia.
+The army at Warsaw move to Galicia. (fail)
+The fleet at Sevastopol move to Black Sea. (fail)

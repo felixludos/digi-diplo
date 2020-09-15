@@ -1,0 +1,29 @@
+Austria:
+- {dest: ukr, loc: gal, type: move, unit: army}
+- {dest: gre, loc: alb, type: move, unit: fleet}
+- {dest: gre, failed: true, loc: ser, src: alb, type: support, unit: army}
+England:
+- {dest: bel, loc: yor, type: convoy-move, unit: army}
+- {dest: bel, loc: eng, src: yor, type: support, unit: fleet}
+- {dest: bel, loc: nth, src: yor, type: convoy-transport, unit: fleet}
+France:
+- {dest: por, loc: mao, type: move, unit: fleet}
+- {dest: bel, failed: true, loc: bur, type: move, unit: army}
+- {dest: spa, loc: mar, type: move, unit: army}
+Germany:
+- {dest: swe, loc: den, type: move, unit: fleet}
+- {dest: hol, loc: kie, type: move, unit: army}
+- {dest: sil, loc: mun, type: move, unit: army}
+Italy:
+- {loc: ven, type: hold, unit: army}
+- {dest: tun, loc: apu, type: convoy-move, unit: army}
+- {dest: tun, loc: ion, src: apu, type: convoy-transport, unit: fleet}
+Russia:
+- {dest: rum, loc: ukr, type: move, unit: army}
+- {dest: bal, loc: bot, type: move, unit: fleet}
+- {dest: war, loc: sil, type: move, unit: army}
+- {dest: rum, loc: bla, src: ukr, type: support, unit: fleet}
+Turkey:
+- {dest: con, loc: ank, type: move, unit: army}
+- {dest: aeg, loc: con, type: move, unit: fleet}
+- {dest: ser, failed: true, loc: bul, type: move, unit: army}

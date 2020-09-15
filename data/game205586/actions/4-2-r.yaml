@@ -1,0 +1,4 @@
+England:
+- {dest: yor, loc: lon, type: retreat, unit: fleet}
+France:
+- {dest: gas, loc: bur, type: retreat, unit: army}

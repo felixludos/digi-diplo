@@ -1,0 +1,6 @@
+England:
+- {loc: fin, type: destroy, unit: the}
+Germany:
+- {loc: kie, type: build, unit: army}
+Russia:
+- {loc: stp, type: build, unit: army}

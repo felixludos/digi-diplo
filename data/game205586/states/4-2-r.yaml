@@ -1,0 +1,83 @@
+players:
+  Austria:
+    centers: [vie, tri, bud, gre, ser]
+    control: [sil, boh, gal, vie, tri, bud, alb, gre, ser]
+    home: [vie, tri, bud]
+    name: Austria
+    units:
+    - {loc: ser, type: army}
+    - {loc: sil, type: army}
+    - {loc: bud, type: army}
+    - {loc: gal, type: army}
+    - {loc: gre, type: fleet}
+  England:
+    centers: [edi, lvp, lon]
+    control: [cly, edi, lvp, yor]
+    home: [lon, edi, lvp]
+    name: England
+    units:
+    - {loc: lvp, type: fleet}
+    - {loc: lon, type: fleet}
+    - {loc: nth, type: fleet}
+  France:
+    centers: [bre, par, mar, spa, por]
+    control: [lon, wal, pic, bre, par, gas, mar, spa, por]
+    home: [par, mar, bre]
+    name: France
+    units:
+    - {loc: wes, type: fleet}
+    - {loc: lon, type: fleet}
+    - {loc: bur, type: army}
+    - {loc: mar, type: army}
+    - {loc: wal, type: army}
+  Germany:
+    centers: [kie, ber, mun, hol, den, bel]
+    control: [bur, kie, ber, ruh, mun, pru, hol, den, bel]
+    home: [ber, kie, mun]
+    name: Germany
+    units:
+    - {loc: bur, type: army}
+    - {loc: ber, type: army}
+    - {loc: hol, type: fleet}
+    - {loc: bel, type: army}
+    - {loc: mun, type: army}
+    - {loc: den, type: fleet}
+  Italy:
+    centers: [ven, rom, nap, tun]
+    control: [pie, ven, tus, rom, apu, nap, tun]
+    home: [rom, nap, ven]
+    name: Italy
+    units:
+    - {loc: pie, type: army}
+    - {loc: nap, type: army}
+    - {loc: aeg, type: fleet}
+    - {loc: tys, type: fleet}
+  Russia:
+    centers: [nwy, stp, mos, sev, war, swe, rum]
+    control: [nwy, stp, mos, lvn, ukr, sev, fin, war, swe, rum]
+    home: [mos, stp, sev, war]
+    name: Russia
+    units:
+    - {loc: war, type: army}
+    - {loc: swe, type: fleet}
+    - {loc: nwy, type: fleet}
+    - {loc: sev, type: fleet}
+    - {loc: ukr, type: army}
+    - {loc: lvn, type: army}
+    - {loc: rum, type: army}
+  Turkey:
+    centers: [con, ank, smy, bul]
+    control: [con, ank, arm, smy, syr, bul]
+    home: [con, ank, smy]
+    name: Turkey
+    units:
+    - {loc: con, type: army}
+    - {loc: bul, type: army}
+    - {loc: eas, type: fleet}
+    - {loc: bla, type: fleet}
+retreats:
+  England:
+    lon-c: [yor-c]
+  France:
+    bur: [gas, par, pic]
+time: {retreat: true, season: 2, turn: 4}

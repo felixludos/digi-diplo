@@ -1,0 +1,10 @@
+
+_meta.script_name: parse-vdip
+
+
+log-path: data\game157678\raw.txt
+
+nodes-path: data\classic\nodes.yaml
+
+name: data\game157678\actions
+

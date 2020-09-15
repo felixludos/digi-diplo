@@ -1,0 +1,7 @@
+
+_meta.script_name: render-traj
+
+parents: [viz/classic]
+
+root: data\game157678
+

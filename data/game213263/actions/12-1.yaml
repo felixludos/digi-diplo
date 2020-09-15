@@ -1,0 +1,37 @@
+Austria:
+- {loc: mos, type: hold, unit: army}
+- {loc: war, type: hold, unit: army}
+- {loc: boh, type: hold, unit: army}
+- {dest: boh, loc: tyr, type: support-defend, unit: army}
+- {dest: mos, loc: sev, type: support-defend, unit: army}
+- {dest: war, loc: gal, type: support-defend, unit: army}
+- {dest: war, loc: ukr, type: support-defend, unit: army}
+- {dest: boh, loc: vie, type: support-defend, unit: army}
+Germany:
+- {loc: bal, type: hold, unit: fleet}
+- {dest: mos, failed: true, loc: stp, type: move, unit: army}
+- {dest: spa, loc: gas, type: move, unit: army}
+- {dest: gas, loc: bre, type: move, unit: army}
+- {dest: wes, loc: mao, type: move, unit: fleet}
+- {dest: lyo, loc: spa-sc, type: move, unit: fleet}
+- {dest: war, failed: true, loc: lvn, type: move, unit: army}
+- {dest: hol, loc: kie, type: move, unit: fleet}
+- {dest: mun, loc: bur, type: support-defend, unit: army}
+- {dest: sil, loc: ber, type: support-defend, unit: army}
+- {dest: mun, loc: ruh, type: support-defend, unit: army}
+- {dest: sil, loc: mun, type: support-defend, unit: army}
+- {dest: tun, failed: true, loc: naf, src: ion, type: support, unit: fleet}
+- {dest: pie, loc: mar, src: tus, type: support, unit: army}
+- {dest: war, loc: pru, src: lvn, type: support, unit: army}
+- {dest: war, loc: sil, src: lvn, type: support, unit: army}
+Italy:
+- {dest: nap, failed: true, loc: rom, type: move, unit: fleet}
+- {dest: nap, failed: true, loc: tys, type: move, unit: fleet}
+- {dest: tus, failed: true, loc: pie, type: support-defend, unit: army}
+- {dest: ion, loc: tun, type: support-defend, unit: fleet}
+Turkey:
+- {loc: arm, type: hold, unit: army}
+- {loc: bul, type: hold, unit: army}
+- {dest: pie, loc: tus, type: move, unit: fleet}
+- {dest: ion, loc: aeg, type: support-defend, unit: fleet}
+- {dest: tun, loc: ion, type: support-defend, unit: fleet}

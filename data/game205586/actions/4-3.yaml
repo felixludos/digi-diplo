@@ -1,0 +1,4 @@
+England:
+- {loc: yor, type: destroy, unit: the}
+France:
+- {loc: par, type: build, unit: army}

@@ -1,0 +1,19 @@
+
+
+_meta.script_name: render
+
+parents: [viz/classic]
+
+#state-path: data\game205586\states\6-1.yaml
+#action-path: data\game205586\actions\6-1.yaml
+
+#state-path: data\game205586\states\2-2.yaml
+#action-path: data\game205586\actions\2-2.yaml
+
+#state-path: data\game205586\states\2-2-r.yaml
+#action-path: data\game205586\actions\2-2-r.yaml
+
+state-path: data\game205586\states\3-3.yaml
+action-path: data\game205586\actions\3-3.yaml
+
+#save-path: test2.png

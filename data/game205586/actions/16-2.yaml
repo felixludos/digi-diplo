@@ -1,0 +1,40 @@
+Austria:
+- {dest: gal, failed: true, loc: bud, type: move, unit: army}
+- {dest: tyr, failed: true, loc: pie, type: move, unit: army}
+- {dest: ser, failed: true, loc: gre, type: move, unit: army}
+- {dest: boh, failed: true, loc: tyr, type: move, unit: army}
+- {dest: tyr, loc: ven, src: pie, type: support, unit: army}
+- {dest: boh, loc: vie, src: tyr, type: support, unit: army}
+France:
+- {dest: spa, loc: por, type: support-defend, unit: fleet}
+Germany:
+- {loc: nth, type: hold, unit: fleet}
+- {dest: bre, loc: gas, type: move, unit: army}
+- {dest: pic, loc: par, type: move, unit: army}
+- {dest: nao, loc: mao, type: move, unit: fleet}
+- {dest: sev, loc: ukr, type: move, unit: army}
+- {dest: mao, loc: naf, type: move, unit: fleet}
+- {dest: ukr, loc: war, type: move, unit: army}
+- {dest: pru, loc: ber, type: move, unit: army}
+- {dest: vie, failed: true, loc: boh, type: support-defend, unit: army}
+- {dest: gal, loc: sil, type: support-defend, unit: army}
+- {dest: boh, loc: mun, type: support-defend, unit: army}
+- {dest: mar, loc: bur, type: support-defend, unit: army}
+- {dest: mao, loc: iri, src: naf, type: support, unit: fleet}
+- {dest: rum, failed: true, loc: gal, src: sev, type: support, unit: army}
+- {dest: sev, loc: mos, src: ukr, type: support, unit: army}
+- {dest: mao, loc: eng, src: naf, type: support, unit: fleet}
+Italy:
+- {dest: mar, loc: spa, type: support-defend, unit: army}
+- {dest: spa, loc: mar, type: support-defend, unit: army}
+- {dest: mar, loc: lyo, type: support-defend, unit: fleet}
+- {dest: spa, loc: wes, type: support-defend, unit: fleet}
+- {dest: wes, loc: tun, type: support-defend, unit: fleet}
+Russia:
+- {dest: ser, failed: true, loc: rum, type: move, unit: army}
+- {dest: rum, failed: true, loc: sev, type: move, unit: army}
+Turkey:
+- {dest: sev, failed: true, loc: arm, type: move, unit: army}
+- {dest: bul-ec, loc: con, type: move, unit: fleet}
+- {dest: rum, loc: bul-ec, type: move, unit: fleet}
+- {dest: rum, loc: bla, src: bul, type: support, unit: fleet}

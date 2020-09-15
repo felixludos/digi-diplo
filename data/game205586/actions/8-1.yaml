@@ -1,0 +1,41 @@
+Austria:
+- {dest: gal, loc: vie, type: move, unit: army}
+- {dest: rum, failed: true, loc: ser, type: move, unit: army}
+- {dest: sil, loc: gal, type: move, unit: army}
+- {dest: aeg, failed: true, loc: gre, src: ion, type: support, unit: fleet}
+- {dest: gal, loc: bud, src: vie, type: support, unit: army}
+England:
+- {dest: yor, loc: lon, type: move, unit: fleet}
+- {dest: eng, failed: true, loc: wal, type: move, unit: fleet}
+- {dest: yor, failed: true, loc: edi, src: lon, type: support, unit: fleet}
+France:
+- {dest: mar, failed: true, loc: gas, type: move, unit: army}
+- {dest: wes, failed: true, loc: mao, type: move, unit: fleet}
+- {dest: mar, failed: true, loc: spa-sc, src: gas, type: support, unit: fleet}
+Germany:
+- {dest: pic, loc: bel, type: move, unit: army}
+- {dest: par, loc: bur, type: move, unit: army}
+- {dest: eng, failed: true, loc: bre, type: move, unit: fleet}
+- {dest: edi, loc: yor, type: move, unit: army}
+- {dest: mun, loc: kie, type: support-defend, unit: army}
+- {dest: kie, loc: mun, type: support-defend, unit: army}
+- {dest: edi, loc: nth, src: yor, type: support, unit: fleet}
+Italy:
+- {dest: ven, loc: apu, type: move, unit: army}
+- {dest: spa-sc, failed: true, loc: lyo, type: move, unit: fleet}
+- {dest: wes, failed: true, loc: tys, type: move, unit: fleet}
+- {dest: spa, failed: true, loc: mar, src: lyo, type: support, unit: army}
+- {dest: aeg, failed: true, loc: bul-sc, src: gre, type: support, unit: fleet}
+- {dest: aeg, failed: true, loc: ion, src: gre, type: support, unit: fleet}
+Russia:
+- {loc: swe, type: hold, unit: fleet}
+- {dest: gal, failed: true, loc: war, type: move, unit: army}
+- {dest: war, failed: true, loc: lvn, type: move, unit: army}
+- {dest: rum, loc: sev, type: support-defend, unit: fleet}
+- {dest: nth, loc: nwy, type: support-defend, unit: fleet}
+- {dest: rum, loc: ukr, type: support-defend, unit: army}
+- {dest: gal, failed: true, loc: rum, src: war, type: support, unit: army}
+Turkey:
+- {dest: con, loc: smy, type: move, unit: army}
+- {dest: aeg, loc: eas, type: support-defend, unit: fleet}
+- {dest: con, loc: aeg, src: smy, type: support, unit: fleet}

@@ -1,0 +1,13 @@
+
+colors:
+  England: "#EFC4E4"
+  France: "#5EF1F2"
+  Russia: "#644B5F"
+  Austria: "#C48F85"
+  Italy: "#A4C499"
+  Germany: "#A08A75"
+  Turkey: "#EAEAAF"
+
+  neutral: "#E2C69E"
+  sea: "#C5DFEA"
+  center: "#FFFFFF"

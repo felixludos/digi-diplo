@@ -1,0 +1,47 @@
+
+
+
+#_meta.script_name: collect-pos
+#_meta.script_name: node-locs
+#_meta.script_name: mapping
+
+#_meta.script_name: parse-vdip
+
+#parents: [test/render_state]
+parents: [test/render_traj]
+#parents: [test/traj]
+#parents: [test/take_step]
+#parents: [test/new_game]
+#parents: [test/parse_vdip]
+#parents: [test/collect-pos]
+#parents: [test/fills]
+
+#log_path: extra\raw.txt
+
+#_meta.script_name: new-diplo
+
+#map:
+#  _type: map
+
+#root: C:\Users\anwan\Nextcloud\Khan\projects\ludos\examples\diplomacy
+
+#image_path: extra\vanilla_blank.gif
+#edges_path: data\base_edges.yaml
+
+#name: test
+#
+#image_path: extra\standard_c.gif
+#nodes_path: test_nodes.yaml
+#edges_path: test_edges.yaml
+
+#pos_path: <>out_path
+
+#out_path: data\base_pos.yaml
+
+
+#base: False
+#text: False
+#retreat: False
+
+
+

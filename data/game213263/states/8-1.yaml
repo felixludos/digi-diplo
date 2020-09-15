@@ -1,0 +1,78 @@
+players:
+  Austria:
+    centers: [vie, tri, bud, ser, war, rum]
+    control: [vie, tri, bud, alb, ser, tyr, boh, gal, war, rum]
+    home: [vie, tri, bud]
+    name: Austria
+    units:
+    - {loc: bud, type: army}
+    - {loc: rum, type: army}
+    - {loc: vie, type: army}
+    - {loc: war, type: army}
+    - {loc: ser, type: army}
+    - {loc: tri, type: army}
+  England:
+    centers: [lvp, lon, stp]
+    control: [lvp, yor, wal, lon, stp]
+    home: [lon, edi, lvp]
+    name: England
+    units:
+    - {loc: wal, type: fleet}
+    - {loc: lon, type: army}
+    - {loc: lvp, type: fleet}
+  France:
+    centers: [bre, mar, spa, por]
+    control: [cly, pic, bre, gas, mar, spa, por]
+    home: [par, mar, bre]
+    name: France
+    units:
+    - {loc: iri, type: fleet}
+    - {loc: mar, type: army}
+    - {loc: nao, type: fleet}
+    - {loc: mao, type: fleet}
+  Germany:
+    centers: [nwy, swe, par, edi, kie, ber, mun, den, hol, bel]
+    control: [nwy, swe, fin, par, bur, edi, kie, ber, ruh, mun, pru, den, hol, bel]
+    home: [ber, kie, mun]
+    name: Germany
+    units:
+    - {loc: eng, type: fleet}
+    - {loc: fin, type: army}
+    - {loc: nth, type: fleet}
+    - {loc: par, type: army}
+    - {loc: swe, type: fleet}
+    - {loc: nwy, type: army}
+    - {loc: kie, type: army}
+    - {loc: edi, type: army}
+    - {loc: ber, type: army}
+    - {loc: mun, type: army}
+  Italy:
+    centers: [ven, rom, nap, tun]
+    control: [pie, ven, tus, rom, apu, nap, tun]
+    home: [rom, nap, ven]
+    name: Italy
+    units:
+    - {loc: nap, type: fleet}
+    - {loc: ion, type: fleet}
+    - {loc: ven, type: army}
+    - {loc: pie, type: army}
+  Russia:
+    centers: [mos, sev]
+    control: [sil, mos, lvn, ukr, sev]
+    home: [mos, stp, sev, war]
+    name: Russia
+    units:
+    - {loc: bla, type: fleet}
+    - {loc: sev, type: army}
+  Turkey:
+    centers: [gre, con, ank, smy, bul]
+    control: [gre, con, ank, arm, smy, syr, bul]
+    home: [con, ank, smy]
+    name: Turkey
+    units:
+    - {loc: bul-sc, type: fleet}
+    - {loc: aeg, type: fleet}
+    - {loc: gre, type: army}
+    - {loc: con, type: army}
+    - {loc: eas, type: fleet}
+time: {season: 1, turn: 8}

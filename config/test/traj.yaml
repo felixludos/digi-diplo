@@ -1,0 +1,12 @@
+
+_meta.script_name: diplo-traj
+
+root: data\classic
+
+action-dir: data\game157678\actions
+
+state-dir: data\game157678\states
+
+map._type: map
+
+

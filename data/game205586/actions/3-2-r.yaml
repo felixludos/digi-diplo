@@ -1,0 +1,4 @@
+England:
+- {dest: fin, loc: nwy, type: retreat, unit: army}
+Germany:
+- {loc: nth, type: disband, unit: fleet}

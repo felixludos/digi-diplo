@@ -1,0 +1,8 @@
+France:
+- {loc: mar, type: build, unit: fleet}
+Germany:
+- {loc: kie, type: build, unit: army}
+Italy:
+- {loc: ion, type: destroy, unit: the}
+Russia:
+- {loc: gal, type: destroy, unit: the}

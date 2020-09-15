@@ -1,0 +1,40 @@
+Austria:
+- {dest: ser, loc: alb, type: move, unit: army}
+- {dest: bud, loc: vie, type: support-defend, unit: army}
+- {dest: ser, failed: true, loc: gre, src: alb, type: support, unit: army}
+- {dest: ser, failed: true, loc: bud, src: alb, type: support, unit: army}
+England:
+- {dest: ska, failed: true, loc: nth, type: move, unit: fleet}
+- {dest: mao, failed: true, loc: iri, type: move, unit: fleet}
+- {dest: edi, loc: cly, type: move, unit: army}
+- {dest: den, failed: true, loc: swe, type: support-defend, unit: army}
+- {dest: mao, failed: true, loc: eng, src: iri, type: support, unit: fleet}
+France:
+- {dest: mar, loc: gas, type: move, unit: army}
+- {dest: bre, loc: por, type: convoy-move, unit: army}
+- {dest: eng, failed: true, loc: pic, type: move, unit: fleet}
+- {dest: mar, loc: spa-sc, src: gas, type: support, unit: fleet}
+- {dest: bre, loc: mao, src: por, type: convoy-transport, unit: fleet}
+Germany:
+- {dest: ska, failed: true, loc: den, type: move, unit: fleet}
+- {dest: den, failed: true, loc: bal, type: move, unit: fleet}
+- {dest: hel, loc: kie, type: move, unit: fleet}
+- {dest: bel, loc: hol, type: support-defend, unit: army}
+- {dest: hol, loc: bel, type: support-defend, unit: army}
+- {dest: mar, loc: bur, src: gas, type: support, unit: army}
+Italy:
+- {loc: apu, type: hold, unit: army}
+- {dest: mar, failed: true, loc: pie, type: move, unit: army}
+- {dest: smy, failed: true, loc: eas, type: move, unit: fleet}
+- {dest: gre, loc: ion, type: support-defend, unit: fleet}
+Russia:
+- {dest: bud, failed: true, loc: gal, type: move, unit: army}
+- {dest: war, loc: mos, type: move, unit: army}
+- {dest: swe, loc: bot, type: support-defend, unit: fleet}
+- {dest: rum, loc: bla, type: support-defend, unit: fleet}
+- {dest: ser, failed: true, loc: rum, src: bul, type: support, unit: army}
+Turkey:
+- {dest: smy, failed: true, loc: con, type: move, unit: fleet}
+- {dest: gre, failed: true, loc: aeg, type: move, unit: fleet}
+- {dest: syr, loc: smy, type: move, unit: fleet}
+- {dest: gre, loc: bul, src: aeg, type: support, unit: army}

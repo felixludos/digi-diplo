@@ -1,0 +1,6 @@
+Austria:
+- {loc: boh, type: destroy, unit: the}
+Germany:
+- {loc: kie, type: build, unit: army}
+Turkey:
+- {loc: con, type: build, unit: army}

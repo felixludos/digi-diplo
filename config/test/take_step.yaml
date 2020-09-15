@@ -1,0 +1,14 @@
+
+_meta.script_name: diplo-step
+
+
+players-path: players.yaml
+
+root: data\classic
+
+save-path: test2.yaml
+
+action-path: data\game157678\actions\3-2-r.yaml
+state-path: data\game157678\states\3-2-r.yaml
+
+map._type: map

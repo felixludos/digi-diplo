@@ -1,0 +1,82 @@
+disbands:
+  England:
+  - {loc: fin, type: army}
+players:
+  Austria:
+    centers: [vie, tri, bud, ser]
+    control: [vie, tri, bud, alb, ser, tyr, boh, gal, war, rum]
+    home: [vie, tri, bud]
+    name: Austria
+    units:
+    - {loc: war, type: army}
+    - {loc: rum, type: army}
+    - {loc: ser, type: army}
+    - {loc: tri, type: army}
+  England:
+    centers: [lvp, lon, nwy, swe, stp]
+    control: [lvp, yor, wal, lon, stp]
+    home: [lon, edi, lvp]
+    name: England
+    units:
+    - {loc: wal, type: fleet}
+    - {loc: lvp, type: fleet}
+    - {loc: mos, type: army}
+  France:
+    centers: [bre, par, mar, spa, por]
+    control: [cly, pic, bre, gas, mar, spa, por]
+    home: [par, mar, bre]
+    name: France
+    units:
+    - {loc: mar, type: army}
+    - {loc: cly, type: army}
+    - {loc: mao, type: fleet}
+    - {loc: iri, type: fleet}
+    - {loc: nao, type: fleet}
+  Germany:
+    centers: [edi, kie, ber, mun, den, hol, bel]
+    control: [nwy, swe, fin, par, bur, edi, kie, ber, ruh, mun, pru, den, hol, bel]
+    home: [ber, kie, mun]
+    name: Germany
+    units:
+    - {loc: par, type: army}
+    - {loc: swe, type: fleet}
+    - {loc: eng, type: fleet}
+    - {loc: fin, type: army}
+    - {loc: edi, type: army}
+    - {loc: nth, type: fleet}
+    - {loc: nwy, type: army}
+  Italy:
+    centers: [ven, rom, nap, tun]
+    control: [pie, ven, tus, rom, apu, nap, tun]
+    home: [rom, nap, ven]
+    name: Italy
+    units:
+    - {loc: ion, type: fleet}
+    - {loc: pie, type: army}
+    - {loc: ven, type: army}
+    - {loc: nap, type: fleet}
+  Russia:
+    centers: [mos, sev, war, rum]
+    control: [sil, mos, lvn, ukr, sev]
+    home: [mos, stp, sev, war]
+    name: Russia
+    units:
+    - {loc: bot, type: fleet}
+    - {loc: bla, type: fleet}
+    - {loc: mos, type: army}
+    - {loc: sev, type: army}
+  Turkey:
+    centers: [gre, con, ank, smy, bul]
+    control: [gre, con, ank, arm, smy, syr, bul]
+    home: [con, ank, smy]
+    name: Turkey
+    units:
+    - {loc: gre, type: army}
+    - {loc: bul-sc, type: fleet}
+    - {loc: eas, type: fleet}
+    - {loc: con, type: army}
+    - {loc: aeg, type: fleet}
+retreats:
+  England:
+    mos: [ukr, lvn]
+time: {retreat: true, season: 2, turn: 7}

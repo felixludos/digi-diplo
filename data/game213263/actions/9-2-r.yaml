@@ -1,0 +1,4 @@
+Austria:
+- {dest: gal, loc: war, type: retreat, unit: army}
+England:
+- {loc: lvp, type: disband, unit: fleet}

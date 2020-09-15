@@ -1,0 +1,40 @@
+Austria:
+- {dest: rum, failed: true, loc: bul, type: move, unit: army}
+- {dest: apu, failed: true, loc: ven, type: move, unit: army}
+- {dest: pie, failed: true, loc: tyr, type: move, unit: army}
+- {dest: ven, failed: true, loc: tri, type: move, unit: army}
+- {dest: gal, failed: true, loc: vie, type: move, unit: army}
+- {dest: gal, loc: bud, src: vie, type: support, unit: army}
+- {dest: bul, failed: true, loc: gre, src: con, type: support, unit: fleet}
+England:
+- {dest: lon, failed: true, loc: wal, type: move, unit: fleet}
+France:
+- {dest: spa-nc, failed: true, loc: por, type: move, unit: fleet}
+Germany:
+- {dest: gas, loc: bre, type: move, unit: army}
+- {dest: bur, loc: gas, type: move, unit: army}
+- {dest: den, failed: true, loc: kie, type: move, unit: army}
+- {dest: wal, loc: lon, type: move, unit: fleet}
+- {dest: lvp, loc: edi, type: move, unit: army}
+- {dest: sil, loc: ber, type: move, unit: army}
+- {dest: wal, loc: eng, src: lon, type: support, unit: fleet}
+- {dest: sil, loc: mun, src: ber, type: support, unit: army}
+- {dest: den, failed: true, loc: nth, src: kie, type: support, unit: fleet}
+Italy:
+- {dest: por, failed: true, loc: spa, type: move, unit: army}
+- {dest: pie, loc: mar, type: move, unit: army}
+- {dest: apu, failed: true, loc: ion, type: move, unit: fleet}
+- {dest: rom, loc: tys, type: move, unit: fleet}
+- {dest: pie, loc: lyo, src: mar, type: support, unit: fleet}
+Russia:
+- {loc: rum, type: hold, unit: army}
+- {dest: den, failed: true, loc: swe, type: move, unit: fleet}
+- {dest: nth, failed: true, loc: nwy, type: move, unit: fleet}
+- {dest: sil, failed: true, loc: war, type: move, unit: army}
+- {dest: rum, loc: bla, type: support-defend, unit: fleet}
+- {dest: gal, loc: ukr, type: support-defend, unit: army}
+- {dest: sil, failed: true, loc: gal, src: war, type: support, unit: army}
+Turkey:
+- {dest: con, failed: true, loc: ank, type: move, unit: army}
+- {dest: bul-sc, failed: true, loc: con, type: move, unit: fleet}
+- {dest: gre, failed: true, loc: aeg, type: move, unit: fleet}

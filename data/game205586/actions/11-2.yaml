@@ -1,0 +1,40 @@
+Austria:
+- {dest: apu, failed: true, loc: ven, type: move, unit: army}
+- {dest: ven, failed: true, loc: tyr, type: move, unit: army}
+- {dest: rum, failed: true, loc: ser, type: move, unit: army}
+- {dest: gal, loc: vie, type: move, unit: army}
+- {dest: bul, loc: gre, type: support-defend, unit: fleet}
+- {dest: gal, loc: bud, src: vie, type: support, unit: army}
+- {dest: con, failed: true, loc: bul, src: aeg, type: support, unit: army}
+France:
+- {dest: por, failed: true, loc: mao, type: move, unit: fleet}
+Germany:
+- {dest: bre, failed: true, loc: gas, type: move, unit: army}
+- {dest: mun, failed: true, loc: bur, type: move, unit: army}
+- {dest: bre, failed: true, loc: eng, type: move, unit: fleet}
+- {dest: sil, failed: true, loc: mun, type: move, unit: army}
+- {dest: nwy, failed: true, loc: edi, type: convoy-move, unit: army}
+- {dest: war, failed: true, loc: sil, type: move, unit: army}
+- {dest: swe, loc: ska, type: move, unit: fleet}
+- {dest: bal, loc: ber, type: move, unit: fleet}
+- {dest: war, loc: lvn, src: sil, type: support, unit: army}
+- {dest: swe, loc: den, src: ska, type: support, unit: army}
+- {dest: nwy, failed: true, loc: nth, src: edi, type: convoy-transport, unit: fleet}
+Italy:
+- {loc: mar, type: hold, unit: army}
+- {loc: rom, type: hold, unit: fleet}
+- {dest: por, failed: true, loc: spa, type: move, unit: army}
+- {dest: apu, failed: true, loc: ion, type: move, unit: fleet}
+- {dest: mar, loc: lyo, type: support-defend, unit: fleet}
+Russia:
+- {loc: rum, type: hold, unit: army}
+- {dest: nwy, failed: true, loc: swe, type: move, unit: fleet}
+- {dest: war, loc: gal, type: move, unit: army}
+- {dest: stp-nc, loc: nwy, type: move, unit: fleet}
+- {dest: rum, loc: bla, type: support-defend, unit: fleet}
+- {dest: war, loc: ukr, src: gal, type: support, unit: army}
+- {dest: war, loc: mos, src: gal, type: support, unit: army}
+Turkey:
+- {dest: con, loc: ank, type: support-defend, unit: army}
+- {dest: aeg, loc: con, type: support-defend, unit: fleet}
+- {dest: con, loc: aeg, type: support-defend, unit: fleet}

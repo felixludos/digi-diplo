@@ -1,0 +1,79 @@
+players:
+  Austria:
+    centers: [vie, tri, bud, gre, ser]
+    control: [boh, vie, tri, bud, alb, gre, ser, tyr, gal, pie]
+    home: [vie, tri, bud]
+    name: Austria
+    units:
+    - {loc: tyr, type: army}
+    - {loc: gal, type: army}
+    - {loc: tri, type: army}
+    - {loc: ser, type: army}
+    - {loc: pie, type: army}
+  England:
+    centers: []
+    control: [cly, yor]
+    home: [lon, edi, lvp]
+    name: England
+    units: []
+  France:
+    centers: [por]
+    control: [por]
+    home: [par, mar, bre]
+    name: France
+    units:
+    - {loc: por, type: fleet}
+  Germany:
+    centers: [lvp, lon, edi, par, bre, kie, ber, mun, hol, den, bel, swe, nwy, war,
+      stp, mos]
+    control: [lvp, sil, wal, lon, edi, par, pic, bre, bur, kie, ber, ruh, mun, pru,
+      hol, den, bel, lvn, swe, nwy, war, fin, stp, mos, ukr, gas]
+    home: [ber, kie, mun]
+    name: Germany
+    units:
+    - {loc: eng, type: fleet}
+    - {loc: gas, type: army}
+    - {loc: iri, type: fleet}
+    - {loc: mao, type: fleet}
+    - {loc: ruh, type: army}
+    - {loc: pru, type: army}
+    - {loc: ber, type: army}
+    - {loc: par, type: army}
+    - {loc: mos, type: army}
+    - {loc: sil, type: army}
+    - {loc: ukr, type: army}
+    - {loc: war, type: army}
+    - {loc: bur, type: army}
+    - {loc: nao, type: fleet}
+    - {loc: mun, type: army}
+  Italy:
+    centers: [ven, mar, spa, rom, nap, tun]
+    control: [ven, mar, spa, tus, rom, apu, nap, tun]
+    home: [rom, nap, ven]
+    name: Italy
+    units:
+    - {loc: spa, type: army}
+    - {loc: tys, type: fleet}
+    - {loc: bre, type: fleet}
+    - {loc: mar, type: army}
+    - {loc: lyo, type: fleet}
+    - {loc: apu, type: fleet}
+  Russia:
+    centers: [sev, rum]
+    control: [sev, rum]
+    home: [mos, stp, sev, war]
+    name: Russia
+    units:
+    - {loc: rum, type: army}
+    - {loc: sev, type: army}
+  Turkey:
+    centers: [bul, con, ank, smy]
+    control: [bul, con, ank, arm, smy, syr]
+    home: [con, ank, smy]
+    name: Turkey
+    units:
+    - {loc: arm, type: army}
+    - {loc: con, type: fleet}
+    - {loc: bul-ec, type: fleet}
+    - {loc: aeg, type: fleet}
+time: {season: 2, turn: 14}

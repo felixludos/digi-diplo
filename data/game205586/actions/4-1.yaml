@@ -1,0 +1,41 @@
+Austria:
+- {dest: bul-sc, failed: true, loc: gre, type: move, unit: fleet}
+- {dest: rum, failed: true, loc: bud, type: move, unit: army}
+- {dest: gal, loc: sil, type: support-defend, unit: army}
+- {dest: rum, failed: true, loc: gal, src: bud, type: support, unit: army}
+- {dest: rum, failed: true, loc: ser, src: bud, type: support, unit: army}
+England:
+- {dest: lon, loc: nth, type: move, unit: fleet}
+- {dest: nth, loc: ska, type: move, unit: fleet}
+- {dest: cly, loc: edi, type: move, unit: fleet}
+France:
+- {dest: wal, loc: pic, type: convoy-move, unit: army}
+- {dest: tys, failed: true, loc: wes, type: support-defend, unit: fleet}
+- {dest: bel, loc: bur, type: support-defend, unit: army}
+- {dest: bur, loc: mar, type: support-defend, unit: army}
+- {dest: wal, loc: eng, src: pic, type: convoy-transport, unit: fleet}
+Germany:
+- {dest: mun, loc: ber, type: move, unit: army}
+- {dest: bur, loc: bel, type: support-defend, unit: army}
+- {dest: bel, loc: ruh, type: support-defend, unit: army}
+- {dest: bel, loc: hol, type: support-defend, unit: fleet}
+- {dest: den, loc: kie, type: support-defend, unit: army}
+- {dest: nth, failed: true, loc: den, src: nwy, type: support, unit: fleet}
+Italy:
+- {loc: pie, type: hold, unit: army}
+- {loc: apu, type: hold, unit: army}
+- {dest: tun, failed: true, loc: ion, type: move, unit: fleet}
+- {dest: tun, failed: true, loc: tys, type: move, unit: fleet}
+Russia:
+- {dest: ska, loc: swe, type: move, unit: fleet}
+- {dest: gal, failed: true, loc: ukr, type: move, unit: army}
+- {dest: lvn, loc: stp, type: move, unit: army}
+- {dest: rum, loc: sev, type: support-defend, unit: fleet}
+- {dest: gal, failed: true, loc: rum, src: ukr, type: support, unit: army}
+- {dest: gal, loc: war, src: ukr, type: support, unit: army}
+- {dest: ska, loc: nwy, src: swe, type: support, unit: fleet}
+Turkey:
+- {dest: bul, failed: true, loc: con, type: move, unit: army}
+- {dest: ser, failed: true, loc: bul, type: move, unit: army}
+- {dest: ion, failed: true, loc: eas, type: move, unit: fleet}
+- {dest: bul, loc: bla, src: con, type: support, unit: fleet}

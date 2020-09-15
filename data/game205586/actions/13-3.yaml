@@ -1,0 +1,9 @@
+Austria:
+- {loc: gre, type: destroy, unit: the}
+Germany:
+- {loc: kie, type: build, unit: army}
+Italy:
+- {loc: rom, type: build, unit: fleet}
+Russia:
+- {loc: ukr, type: destroy, unit: the}
+- {loc: bla, type: destroy, unit: the}

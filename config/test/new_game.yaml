@@ -1,0 +1,17 @@
+
+_meta.script_name: diplo-new
+
+players-path: players.yaml
+
+#nodes_path: data\base\nodes.yaml
+#edges_path: data\base\edges.yaml
+#
+#pos_path: data\base_pos.yaml
+
+root: data\classic
+
+save-path: test.yaml
+
+map._type: map
+
+

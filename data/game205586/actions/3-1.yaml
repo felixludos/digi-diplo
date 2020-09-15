@@ -1,0 +1,41 @@
+Austria:
+- {dest: gal, failed: true, loc: vie, type: move, unit: army}
+- {dest: rum, failed: true, loc: bud, type: move, unit: army}
+- {dest: sil, loc: gal, type: move, unit: army}
+- {dest: aeg, failed: true, loc: gre, src: ion, type: support, unit: fleet}
+- {dest: rum, failed: true, loc: ser, src: bud, type: support, unit: army}
+England:
+- {dest: nwg, loc: bar, type: move, unit: fleet}
+- {dest: stp, failed: true, loc: nwy, type: move, unit: army}
+- {dest: ska, loc: nth, type: move, unit: fleet}
+- {dest: nth, failed: true, loc: edi, type: move, unit: fleet}
+France:
+- {dest: mao, loc: por, type: move, unit: fleet}
+- {dest: eng, loc: bre, type: move, unit: fleet}
+- {dest: bur, loc: mar, type: support-defend, unit: army}
+- {dest: bur, loc: pic, type: support-defend, unit: army}
+- {dest: bel, failed: true, loc: bur, src: nth, type: support, unit: army}
+Germany:
+- {dest: nth, loc: hel, type: move, unit: fleet}
+- {dest: den, loc: kie, type: move, unit: fleet}
+- {dest: pic, loc: bel, type: support-defend, unit: army}
+- {dest: bel, loc: ruh, type: support-defend, unit: army}
+- {dest: bur, loc: mun, type: support-defend, unit: army}
+- {dest: nth, loc: hol, src: hel, type: support, unit: fleet}
+Italy:
+- {loc: pie, type: hold, unit: army}
+- {dest: apu, loc: tun, type: convoy-move, unit: army}
+- {dest: tys, loc: nap, type: move, unit: fleet}
+- {dest: apu, loc: ion, src: tun, type: convoy-transport, unit: fleet}
+Russia:
+- {loc: stp-nc, type: hold, unit: fleet}
+- {dest: swe, loc: fin, type: move, unit: fleet}
+- {dest: gal, failed: true, loc: war, type: move, unit: army}
+- {dest: rum, loc: sev, type: support-defend, unit: fleet}
+- {dest: stp, loc: mos, type: support-defend, unit: army}
+- {dest: ser, failed: true, loc: rum, src: bul, type: support, unit: army}
+Turkey:
+- {dest: bul, failed: true, loc: con, type: move, unit: army}
+- {dest: ser, failed: true, loc: bul, type: move, unit: army}
+- {dest: eas, loc: smy, type: move, unit: fleet}
+- {dest: bul, loc: bla, src: con, type: support, unit: fleet}

@@ -1,0 +1,75 @@
+players:
+  Austria:
+    centers: [vie, tri, bud, gre, ser]
+    control: [boh, gal, vie, tri, bud, alb, gre, ser]
+    home: [vie, tri, bud]
+    name: Austria
+    units:
+    - {loc: aeg, type: fleet}
+    - {loc: ser, type: army}
+    - {loc: bud, type: army}
+    - {loc: vie, type: army}
+    - {loc: alb, type: army}
+  England:
+    centers: [edi, lvp, lon, nwy]
+    control: [cly, edi, lvp, yor, wal, lon, nwy]
+    home: [lon, edi, lvp]
+    name: England
+    units:
+    - {loc: nwy, type: army}
+    - {loc: eng, type: fleet}
+    - {loc: nth, type: fleet}
+    - {loc: iri, type: fleet}
+  France:
+    centers: [bre, par, mar, spa]
+    control: [pic, bre, par, gas, mar, spa]
+    home: [par, mar, bre]
+    name: France
+    units:
+    - {loc: gas, type: army}
+    - {loc: spa, type: army}
+    - {loc: bre, type: fleet}
+    - {loc: nao, type: fleet}
+  Germany:
+    centers: [kie, ber, mun, den, hol]
+    control: [bur, kie, ber, ruh, mun, pru, sil, den, hol]
+    home: [ber, kie, mun]
+    name: Germany
+    units:
+    - {loc: mun, type: army}
+    - {loc: bur, type: army}
+    - {loc: bal, type: fleet}
+    - {loc: bel, type: army}
+    - {loc: den, type: fleet}
+  Italy:
+    centers: [ven, rom, nap, tun]
+    control: [pie, ven, tus, rom, apu, nap, tun]
+    home: [rom, nap, ven]
+    name: Italy
+    units:
+    - {loc: apu, type: army}
+    - {loc: ion, type: fleet}
+    - {loc: tys, type: fleet}
+    - {loc: pie, type: army}
+  Russia:
+    centers: [stp, mos, sev, war, rum]
+    control: [stp, mos, lvn, ukr, sev, fin, war, rum]
+    home: [mos, stp, sev, war]
+    name: Russia
+    units:
+    - {loc: bot, type: fleet}
+    - {loc: war, type: army}
+    - {loc: rum, type: army}
+    - {loc: mos, type: army}
+    - {loc: sev, type: fleet}
+  Turkey:
+    centers: [con, ank, smy, bul]
+    control: [con, ank, arm, smy, syr, bul]
+    home: [con, ank, smy]
+    name: Turkey
+    units:
+    - {loc: eas, type: fleet}
+    - {loc: bul, type: army}
+    - {loc: bla, type: fleet}
+    - {loc: gre, type: army}
+time: {season: 2, turn: 2}

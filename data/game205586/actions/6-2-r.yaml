@@ -1,0 +1,3 @@
+France:
+- {dest: mao, loc: eng, type: retreat, unit: fleet}
+- {loc: mar, type: disband, unit: army}

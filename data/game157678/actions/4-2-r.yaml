@@ -1,0 +1,8 @@
+Austria:
+- {dest: bud, loc: tri, type: retreat, unit: army}
+England:
+- {dest: hel, loc: nth, type: retreat, unit: fleet}
+Russia:
+- {dest: sev, loc: rum, type: retreat, unit: army}
+Turkey:
+- {loc: smy, type: disband, unit: fleet}

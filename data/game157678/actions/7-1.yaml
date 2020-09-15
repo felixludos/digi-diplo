@@ -1,0 +1,39 @@
+Austria:
+- {dest: gre, failed: true, loc: bul-sc, type: move, unit: fleet}
+- {dest: rum, loc: bud, type: move, unit: army}
+- {dest: tri, loc: vie, type: support-defend, unit: army}
+- {dest: rum, failed: true, loc: ser, src: bud, type: support, unit: army}
+- {dest: ven, failed: true, loc: tri, src: tus, type: support, unit: army}
+France:
+- {dest: pie, failed: true, loc: mar, type: move, unit: army}
+- {dest: naf, loc: mao, type: move, unit: fleet}
+- {dest: rom, failed: true, loc: tus, type: move, unit: army}
+- {dest: tys, failed: true, loc: wes, type: move, unit: fleet}
+- {dest: nwg, failed: true, loc: edi, type: support-defend, unit: fleet}
+- {dest: hol, failed: true, loc: bel, type: support-defend, unit: army}
+- {dest: bel, loc: eng, type: support-defend, unit: fleet}
+- {dest: edi, loc: yor, type: support-defend, unit: army}
+- {dest: mun, loc: bur, type: support-defend, unit: army}
+Germany:
+- {dest: nwy, loc: stp-nc, type: move, unit: fleet}
+- {dest: ruh, loc: hol, type: move, unit: army}
+- {dest: stp, loc: lvn, type: move, unit: army}
+- {dest: gal, loc: sil, type: move, unit: army}
+- {dest: nth, loc: nwg, type: move, unit: fleet}
+- {dest: hol, loc: nth, type: move, unit: fleet}
+- {dest: ukr, failed: true, loc: war, type: move, unit: army}
+- {dest: pru, loc: ber, type: move, unit: army}
+- {dest: ruh, loc: mun, src: hol, type: support, unit: army}
+Italy:
+- {dest: pie, failed: true, loc: tyr, type: move, unit: army}
+- {dest: ser, failed: true, loc: gre, type: move, unit: army}
+- {dest: ion, failed: true, loc: adr, type: move, unit: fleet}
+- {dest: tys, failed: true, loc: ion, type: move, unit: fleet}
+- {dest: rom, failed: true, loc: ven, type: move, unit: army}
+Russia:
+- {dest: bla, loc: ank, type: move, unit: fleet}
+- {dest: bul, loc: rum, type: move, unit: army}
+- {dest: arm, loc: smy, type: move, unit: army}
+- {dest: ukr, loc: mos, type: move, unit: army}
+- {dest: bul, loc: con, src: rum, type: support, unit: army}
+- {dest: ukr, loc: sev, src: mos, type: support, unit: army}

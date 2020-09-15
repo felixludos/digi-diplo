@@ -1,0 +1,4 @@
+Germany:
+- {loc: ber, type: build, unit: army}
+Russia:
+- {loc: sev, type: build, unit: army}

@@ -1,0 +1,6 @@
+Austria:
+- {dest: tyr, loc: vie, type: retreat, unit: army}
+Italy:
+- {loc: rom, type: disband, unit: army}
+Russia:
+- {dest: alb, loc: ser, type: retreat, unit: army}

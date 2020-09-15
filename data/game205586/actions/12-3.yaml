@@ -1,0 +1,8 @@
+Germany:
+- {loc: ber, type: build, unit: army}
+- {loc: kie, type: build, unit: army}
+Russia:
+- {loc: bot, type: destroy, unit: the}
+- {loc: gal, type: destroy, unit: the}
+Turkey:
+- {loc: con, type: build, unit: fleet}

@@ -1,0 +1,5 @@
+Austria:
+- {dest: aeg, loc: gre, type: retreat, unit: fleet}
+- {loc: bul, type: disband, unit: army}
+Italy:
+- {dest: ven, loc: tri, type: retreat, unit: army}

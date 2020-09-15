@@ -1,0 +1,4 @@
+Austria:
+- {dest: bud, loc: rum, type: retreat, unit: army}
+Russia:
+- {dest: sev, loc: ukr, type: retreat, unit: army}

@@ -1,0 +1,9 @@
+Austria:
+- {loc: tri, type: build, unit: army}
+- {loc: vie, type: build, unit: army}
+England:
+- {loc: yor, type: destroy, unit: the}
+France:
+- {loc: mao, type: destroy, unit: the}
+Germany:
+- {loc: ber, type: build, unit: army}

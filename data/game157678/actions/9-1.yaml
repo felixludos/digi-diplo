@@ -1,0 +1,39 @@
+Austria:
+- {dest: gre, failed: true, loc: ser, type: move, unit: army}
+- {dest: tri, failed: true, loc: vie, type: move, unit: army}
+- {dest: ser, failed: true, loc: tri, type: move, unit: army}
+- {dest: ser, loc: bud, src: tri, type: support, unit: army}
+France:
+- {dest: rom, failed: true, loc: ven, type: move, unit: army}
+- {dest: lon, failed: true, loc: eng, type: move, unit: fleet}
+- {dest: lon, failed: true, loc: yor, type: move, unit: army}
+- {dest: ion, loc: tun, type: move, unit: fleet}
+- {dest: nap, loc: tys, type: move, unit: fleet}
+- {dest: mar, loc: gas, type: move, unit: army}
+- {dest: spa-sc, loc: mar, type: move, unit: fleet}
+- {dest: hol, loc: bel, type: support-defend, unit: army}
+- {dest: bel, loc: bur, type: support-defend, unit: army}
+- {dest: nth, failed: true, loc: edi, src: nwg, type: support, unit: fleet}
+- {dest: rom, failed: true, loc: tus, src: ven, type: support, unit: army}
+Germany:
+- {dest: tyr, loc: mun, type: move, unit: army}
+- {dest: boh, loc: sil, type: move, unit: army}
+- {dest: gal, loc: war, type: move, unit: army}
+- {dest: war, loc: lvn, type: move, unit: army}
+- {dest: ruh, loc: kie, type: move, unit: army}
+- {dest: nth, loc: nwg, type: support-defend, unit: fleet}
+- {dest: ukr, loc: mos, type: support-defend, unit: army}
+- {dest: edi, loc: nth, type: support-defend, unit: fleet}
+- {dest: nth, loc: hol, type: support-defend, unit: fleet}
+- {dest: gal, loc: ukr, src: war, type: support, unit: army}
+Italy:
+- {dest: tus, failed: true, loc: pie, type: move, unit: army}
+- {dest: ven, loc: rom, type: move, unit: army}
+- {dest: ven, loc: apu, src: rom, type: support, unit: fleet}
+Russia:
+- {dest: bul, failed: true, loc: con, type: move, unit: army}
+- {dest: gre, failed: true, loc: bul, type: move, unit: army}
+- {dest: rum, loc: bla, type: support-defend, unit: fleet}
+- {dest: sev, loc: arm, type: support-defend, unit: army}
+- {dest: mos, loc: sev, type: support-defend, unit: army}
+- {dest: bul, loc: rum, src: con, type: support, unit: army}

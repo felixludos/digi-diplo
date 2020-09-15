@@ -1,0 +1,39 @@
+Austria:
+- {dest: gre, failed: true, loc: ser, type: move, unit: army}
+- {dest: ser, failed: true, loc: tri, type: move, unit: army}
+- {dest: bud, loc: vie, type: support-defend, unit: army}
+- {dest: ser, failed: true, loc: bud, src: tri, type: support, unit: army}
+France:
+- {dest: ven, loc: pie, type: move, unit: army}
+- {dest: tys, failed: true, loc: tun, type: move, unit: fleet}
+- {dest: nap, failed: true, loc: tys, type: move, unit: fleet}
+- {dest: gas, loc: mar, type: move, unit: army}
+- {dest: bur, loc: bel, type: support-defend, unit: army}
+- {dest: bel, loc: eng, type: support-defend, unit: fleet}
+- {dest: edi, loc: yor, type: support-defend, unit: army}
+- {dest: bel, loc: bur, type: support-defend, unit: army}
+- {dest: nth, failed: true, loc: edi, src: nwg, type: support, unit: fleet}
+- {dest: ven, loc: tus, src: pie, type: support, unit: army}
+Germany:
+- {dest: mun, loc: ruh, type: move, unit: army}
+- {dest: mos, loc: stp, type: move, unit: army}
+- {dest: ukr, loc: mos, type: move, unit: army}
+- {dest: sil, loc: mun, type: move, unit: army}
+- {dest: nth, loc: nwg, type: support-defend, unit: fleet}
+- {dest: edi, loc: nth, type: support-defend, unit: fleet}
+- {dest: nth, loc: hol, type: support-defend, unit: fleet}
+- {dest: ukr, loc: war, src: mos, type: support, unit: army}
+- {dest: mos, loc: lvn, src: stp, type: support, unit: army}
+Italy:
+- {dest: pie, loc: tyr, type: move, unit: army}
+- {dest: nap, failed: true, loc: apu, type: move, unit: fleet}
+- {dest: tys, failed: true, loc: ion, type: move, unit: fleet}
+- {dest: rom, loc: ven, type: move, unit: army}
+Russia:
+- {dest: bul, failed: true, loc: con, type: move, unit: army}
+- {dest: gre, failed: true, loc: bul, type: move, unit: army}
+- {dest: sev, failed: true, loc: arm, type: move, unit: army}
+- {dest: bud, failed: true, loc: rum, type: move, unit: army}
+- {dest: rum, failed: true, loc: sev, type: move, unit: army}
+- {dest: rum, loc: bla, src: sev, type: support, unit: fleet}
+- {dest: bud, loc: gal, src: rum, type: support, unit: army}

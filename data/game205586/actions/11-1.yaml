@@ -1,0 +1,40 @@
+Austria:
+- {loc: bud, type: hold, unit: army}
+- {dest: apu, failed: true, loc: ven, type: move, unit: army}
+- {dest: ven, failed: true, loc: tyr, type: move, unit: army}
+- {dest: bul, loc: gre, type: support-defend, unit: fleet}
+- {dest: gre, loc: ser, type: support-defend, unit: army}
+- {dest: bud, loc: vie, type: support-defend, unit: army}
+- {dest: con, failed: true, loc: bul, src: aeg, type: support, unit: army}
+France:
+- {dest: por, failed: true, loc: mao, type: move, unit: fleet}
+Germany:
+- {dest: mun, loc: ruh, type: move, unit: army}
+- {dest: nth, loc: lon, type: move, unit: fleet}
+- {dest: edi, loc: lvp, type: move, unit: army}
+- {dest: sil, loc: mun, type: move, unit: army}
+- {dest: ska, loc: nth, type: move, unit: fleet}
+- {dest: lvn, loc: pru, type: move, unit: army}
+- {dest: den, loc: kie, type: move, unit: army}
+- {dest: bal, failed: true, loc: ber, type: move, unit: fleet}
+- {dest: mar, loc: gas, type: support-defend, unit: army}
+- {dest: gas, loc: bur, type: support-defend, unit: army}
+- {dest: nth, loc: eng, src: lon, type: support, unit: fleet}
+Italy:
+- {loc: mar, type: hold, unit: army}
+- {loc: rom, type: hold, unit: fleet}
+- {dest: por, failed: true, loc: spa, type: move, unit: army}
+- {dest: spa-sc, failed: true, loc: lyo, type: move, unit: fleet}
+- {dest: apu, failed: true, loc: ion, type: move, unit: fleet}
+Russia:
+- {dest: bal, failed: true, loc: swe, type: move, unit: fleet}
+- {dest: nth, failed: true, loc: nwy, type: move, unit: fleet}
+- {dest: mos, loc: war, type: move, unit: army}
+- {dest: bud, loc: rum, type: support-defend, unit: army}
+- {dest: rum, loc: bla, type: support-defend, unit: fleet}
+- {dest: gal, loc: ukr, type: support-defend, unit: army}
+- {dest: boh, failed: true, loc: gal, src: vie, type: support, unit: army}
+Turkey:
+- {dest: bul-sc, failed: true, loc: con, type: move, unit: fleet}
+- {dest: con, failed: true, loc: ank, type: support-defend, unit: army}
+- {dest: bul, loc: aeg, src: con, type: support, unit: fleet}

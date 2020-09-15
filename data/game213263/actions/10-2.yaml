@@ -1,0 +1,37 @@
+Austria:
+- {dest: mun, failed: true, loc: tyr, type: move, unit: army}
+- {dest: war, loc: gal, type: move, unit: army}
+- {dest: pru, failed: true, loc: sil, type: move, unit: army}
+- {dest: mos, loc: sev, type: support-defend, unit: army}
+- {dest: war, failed: true, loc: mos, src: gal, type: support, unit: army}
+- {dest: war, loc: ukr, src: gal, type: support, unit: army}
+- {dest: mun, loc: boh, src: tyr, type: support, unit: army}
+France:
+- {dest: mar, failed: true, loc: lyo, type: move, unit: fleet}
+Germany:
+- {loc: mar, type: hold, unit: army}
+- {loc: mun, type: hold, unit: army}
+- {dest: mos, failed: true, loc: stp, type: move, unit: army}
+- {dest: por, loc: wal, type: convoy-move, unit: army}
+- {dest: lvn, loc: fin, type: convoy-move, unit: army}
+- {dest: ruh, loc: kie, type: move, unit: army}
+- {dest: mao, loc: nao, type: support-defend, unit: fleet}
+- {dest: mar, loc: spa, type: support-defend, unit: army}
+- {dest: mun, loc: bur, type: support-defend, unit: army}
+- {dest: war, failed: true, loc: pru, type: support-defend, unit: army}
+- {dest: mun, loc: ber, type: support-defend, unit: army}
+- {dest: mos, failed: true, loc: war, src: stp, type: support, unit: army}
+- {dest: por, loc: eng, src: wal, type: convoy-transport, unit: fleet}
+- {dest: por, loc: mao, src: wal, type: convoy-transport, unit: fleet}
+- {dest: lvn, loc: bot, src: fin, type: convoy-transport, unit: fleet}
+Italy:
+- {dest: mar, failed: true, loc: pie, type: move, unit: army}
+- {dest: lyo, failed: true, loc: wes, type: move, unit: fleet}
+- {dest: wes, failed: true, loc: tun, type: support-defend, unit: fleet}
+- {dest: tys, loc: nap, src: ion, type: support, unit: fleet}
+Turkey:
+- {loc: arm, type: hold, unit: army}
+- {loc: con, type: hold, unit: army}
+- {dest: aeg, loc: smy, type: move, unit: fleet}
+- {dest: tys, loc: ion, type: move, unit: fleet}
+- {dest: tus, loc: tys, type: move, unit: fleet}

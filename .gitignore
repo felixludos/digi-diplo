@@ -1,3 +1,14 @@
+
+.idea/
+ludos.egg-info/
+__pycache__/
+.ipynb_checkpoints/
+extra/
+logs/
+examples/innovation/data
+examples/wise_otherwise/data
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

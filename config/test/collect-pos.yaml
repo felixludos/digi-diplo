@@ -1,0 +1,19 @@
+
+_meta.script_name: collect-pos
+
+out-path: data\classic\pos.yaml
+
+parents: [colors/classic]
+
+image-path: extra\standard_c_simple.gif
+
+map:
+  _type: map
+  root: data\classic
+
+base: True
+text: True
+retreat: False
+coast-retreat: True
+edge: False
+

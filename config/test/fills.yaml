@@ -1,0 +1,9 @@
+
+_meta.script_name: collect-fills
+
+
+image-path: extra\standard_c_simple.gif
+
+nodes-path: data\classic\nodes.yaml
+
+pos-path: pos.yaml
