@@ -217,3 +217,4 @@ Since the Diplomacy adjudicator is independent of the specific map, you can crea
 - generate list of all possible actions for each player given the state and map (and script to select actions)
 - add script to parse actions from raw text
 - add progress bars to all scripts (especially `render`, `diplo-step`, and `diplo-traj`)
+- script to print out order log nicely
