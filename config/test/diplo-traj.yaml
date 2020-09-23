@@ -3,7 +3,7 @@
 
 root: test/4
 
-action-dir: test/7/actions
+action-dir: test/7
 
 state-dir: test_states
 

@@ -170,7 +170,7 @@ If you have a sequence of consecutive action files (eg. parsed from a web-diplom
 #### Example Commands
 
     fig diplo-traj --root test/4 --state-dir test_states --action-dir test/7 --save-path test_new_state.yaml
-    fig diplo-step test/diplo-traj
+    fig diplo-traj test/diplo-traj
     
 
 ### `render-traj`
