@@ -1,0 +1,122 @@
+
+Britain:
+
+  name: Britain
+
+#  owns: [aden, kam, pun, raj, del, luc, ben, nag, bom, hyd, mys, mad, cey, sin, hk]
+  owns: [aden, pun, raj, del, luc, nag, bom, hyd, mys, mad, sin, hk]
+  home: [aden, del, bom, mad, sin, hk]
+
+  units:
+    - type: fleet
+      loc: aden
+    - type: fleet
+      loc: bom
+    - type: army
+      loc: del
+    - type: army
+      loc: mad
+    - type: fleet
+      loc: hk
+    - type: fleet
+      loc: sin
+
+China:
+
+  name: China
+
+#  owns: [mac, mon, uri, kag, tib, sik, lan, pek, sha, nan, chu, yun, can]
+  owns: [mac, uri, tib, sik, lan, pek, sha, nan, yun, can]
+
+  units:
+    - type: army
+      loc: mac
+    - type: army
+      loc: pek
+    - type: army
+      loc: sik
+    - type: army
+      loc: can
+    - type: army
+      loc: sha
+
+Russia:
+
+  name: Russia
+
+#  owns: [ode, mos, perm, omsk, kra, irk, vla, sak, par, sem, akm, ore, kir, tas, bok, baku]
+  owns: [ode, mos, perm, omsk, kra, irk, vla, par, sem, akm, ore, kir, bok, baku]
+
+  units:
+    - type: fleet
+      loc: ode
+    - type: army
+      loc: mos
+    - type: army
+      loc: omsk
+    - type: army
+      loc: vla
+    - type: fleet
+      loc: par
+
+Japan:
+
+  name: Japan
+
+  owns: [ota, aki, kyo, tok, kyu]
+
+  units:
+    - type: fleet
+      loc: ota
+    - type: army
+      loc: kyo
+    - type: fleet
+      loc: tok
+    - type: fleet
+      loc: kyu
+
+
+France:
+
+  name: France
+
+  owns: [ton, ann, cam, coc]
+
+  units:
+    - type: army
+      loc: ton
+    - type: fleet
+      loc: ann
+    - type: army
+      loc: coc
+
+
+Holland:
+
+  name: Holland
+
+  owns: [sum, bor, cel, java]
+
+  units:
+    - type: army
+      loc: bor
+    - type: fleet
+      loc: sum
+    - type: fleet
+      loc: java
+
+
+Turkey:
+
+  name: Turkey
+
+  owns: [con, ang, arm, syr, bag, mec]
+
+  units:
+    - type: army
+      loc: ang
+    - type: fleet
+      loc: con
+    - type: fleet
+      loc: bag
+

@@ -4,10 +4,14 @@ import sys, os
 
 import omnifig as fig
 
+import numpy as np
+
 # import numpy as np
 from omnibelt import load_yaml, save_yaml
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+# import matplotlib.image as mpimg
+
+from PIL import Image
 
 from src import util
 
@@ -19,7 +23,7 @@ def _pick_edges(ename, locs, pos, names, edges, edges_path, img,
 	todo = locs.copy()
 	done = []
 	
-	fig, ax = plt.subplots(figsize=(12, 8))
+	fg, ax = plt.subplots(figsize=(12, 8))
 	
 	plt.imshow(img)
 	plt.axis('off')
@@ -129,8 +133,8 @@ def _pick_edges(ename, locs, pos, names, edges, edges_path, img,
 					adj[current].clear()
 					todo.append(current)
 	
-	cid = fig.canvas.mpl_connect('pick_event', onpick)
-	bid = fig.canvas.mpl_connect('key_press_event', onkey)
+	cid = fg.canvas.mpl_connect('pick_event', onpick)
+	bid = fg.canvas.mpl_connect('key_press_event', onkey)
 	
 	onkey()
 	
@@ -146,27 +150,32 @@ def _pick_edges(ename, locs, pos, names, edges, edges_path, img,
 
 @fig.Script('mapping', 'Collects map adjacencies for diplomacy')
 def _collect_adj(A):
+	'''
+	Select the coordinates of the nodes and edges for a map
+	
+	Instructions:
+	If the node locations have not been specified yet, then the "node-locs" script is run.
+	Once all the node locations are specified, you can specify the edges between nodes first for armies then fleets.
+	
+	First, a window will open for the edges of armies.
+	Click on a node location to add an edge between
+	Press space to move to the next node
+	Press backspace to clear all selected edges and move to the previous node.
+	All selected coordinates are saved automatically to the an edges yaml file when the window is closed.
+	After the army edges are specified, another window opens for the fleets.
+	'''
 	mlp_backend = A.pull('mlp-backend', 'qt5agg')
 	if mlp_backend is not None:
 		plt.switch_backend(mlp_backend)
 	
-	root = A.pull('root', None)
+	nodes_path, edges_path = util.get_map_paths(A, 'nodes', 'edges')
 	
 	image_path = A.pull('image-path')
 	
-	name = A.pull('name', 'unnamed')
-	
-	nodes_path = A.pull('nodes-path', f'{name}_nodes.yaml')
-	edges_path = A.pull('edges-path', f'{name}_edges.yaml')
-	
-	if root is not None:
-		image_path = os.path.join(root, image_path)
-		nodes_path = os.path.join(root, nodes_path)
-		edges_path = os.path.join(root, edges_path)
-	
 	nodes = load_yaml(nodes_path)
 	for name, node in nodes.items():
-		if 'pos' not in node:
+		if 'pos' not in node or ('dirs' in node and ('coast-pos' not in node
+		                                             or len(node['coast-pos'])!=len(node['dirs']))):
 			nodes = fig.run('node-locs', A)
 			break
 	
@@ -179,7 +188,7 @@ def _collect_adj(A):
 	pos = {n:node['pos'] for n, node in nodes.items()}
 	pos.update({c:nodes[coast['coast-of']]['coast-pos'][coast['dir']] for c, coast in coasts.items()})
 	
-	img = mpimg.imread(image_path)
+	img = np.array(Image.open(image_path).convert("RGB"))
 	
 	locs = [name for name, node in nodes.items() if node['type'] in {'land', 'coast'}]
 	names = {name:node['name'] if 'name' in node else name for name, node in nodes.items()
@@ -200,27 +209,28 @@ def _collect_adj(A):
 
 @fig.Script('node-locs', 'Set positions for nodes in a Diplomacy map')
 def _node_locs(A):
+	'''
+	Select the coordinates of the nodes to then specify all the edges (using the "mapping" script)
+	
+	Instructions:
+	Left-click - select coordinates for the named node
+	Right-click - return to the previous node
+	All selected coordinates are saved automatically to the provided nodes yaml file when the window is closed.
+	'''
 
 	mlp_backend = A.pull('mlp_backend', 'qt5agg')
 	if mlp_backend is not None:
 		plt.switch_backend(mlp_backend)
 	
-	image_path = A.pull('image_path')
-	
-	name = A.pull('name', 'unnamed')
-
-	root = A.pull('root', None)
-	nodes_path = A.pull('nodes_path', f'{name}_nodes.yaml')
-
-	if root is not None:
-		nodes_path = os.path.join(root, nodes_path)
+	nodes_path = util.get_map_paths(A, 'nodes')
+	image_path = A.pull('image-path')
 	
 	nodes = load_yaml(nodes_path)
 	coasts = util.separate_coasts(nodes, dir_only=True)
 	
-	fig, ax = plt.subplots(figsize=(12, 8))
+	fg, ax = plt.subplots(figsize=(12, 8))
 	
-	img = mpimg.imread(image_path)
+	img = np.array(Image.open(image_path).convert("RGB"))
 	
 	plt.imshow(img)
 	plt.axis('off')
@@ -245,8 +255,9 @@ def _node_locs(A):
 			
 			node = nodes[current] if current in nodes else coasts[current]
 			
-			if 'pos' in node:
-				x,y = node['pos']
+			if 'pos' in node or ('coast-of' in node and 'coast-pos' in nodes[node['coast-of']]
+			                     and node['dir'] in nodes[node['coast-of']]['coast-pos']):
+				x,y = node['pos'] if 'pos' in node else nodes[node['coast-of']]['coast-pos'][node['dir']]
 				# plt.scatter([x], [y], color='k', marker='o', s=15)
 				plt.plot([x], [y], picker=10, color='r', ls='', markersize=12,
 				         markeredgewidth=3, marker='o', markeredgecolor='k', zorder=5)
@@ -311,7 +322,7 @@ def _node_locs(A):
 			return
 		
 	
-	cid = fig.canvas.mpl_connect('button_press_event', onclick)
+	cid = fg.canvas.mpl_connect('button_press_event', onclick)
 	
 	_next_prompt()
 	

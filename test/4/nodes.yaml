@@ -1,0 +1,339 @@
+
+
+nao:
+  name: North Atlantic Ocean
+  type: sea
+
+mao:
+  name: Mid Atlantic Ocean
+  type: sea
+
+por:
+  name: Portugal
+  type: coast
+  sc: 1
+
+naf:
+  name: North Africa
+  type: coast
+
+iri:
+  name: Irish Sea
+  type: sea
+
+eng:
+  name: English Channel
+  type: sea
+
+bre:
+  name: Brest
+  type: coast
+  sc: 1
+
+gas:
+  name: Gascony
+  type: coast
+
+spa:
+  name: Spain
+  type: coast
+  dirs: [nc, sc]
+  sc: 1
+
+wes:
+  name: Western Meditteranean Sea
+  type: sea
+
+tun:
+  name: Tunisia
+  type: coast
+  sc: 1
+
+nwg:
+  name: Norwegian Sea
+  type: sea
+
+nth:
+  name: Nothern Sea
+  type: sea
+
+cly:
+  name: Clyde
+  type: coast
+
+lvp:
+  name: Liverpool
+  type: coast
+  sc: 1
+
+wal:
+  name: Wales
+  type: coast
+
+edi:
+  name: Edinburgh
+  type: coast
+  sc: 1
+
+yor:
+  name: York
+  type: coast
+
+lon:
+  name: London
+  type: coast
+  sc: 1
+
+pic:
+  name: Picardy
+  type: coast
+
+par:
+  name: Paris
+  type: land
+  sc: 1
+
+bur:
+  name: Burgundy
+  type: land
+
+mar:
+  name: Marseilles
+  type: coast
+  sc: 1
+
+lyo:
+  name: Gulf of Lyons
+  type: sea
+
+hel:
+  name: Heligoland Bight
+  type: sea
+
+ska:
+  name: Skagerrack
+  type: sea
+
+bal:
+  name: Baltic Sea
+  type: sea
+
+bot:
+  name: Gulf of Bothnia
+  type: sea
+
+nwy:
+  name: Norway
+  type: coast
+  sc: 1
+
+swe:
+  name: Sweden
+  type: coast
+  sc: 1
+
+fin:
+  name: Finland
+  type: coast
+
+bar:
+  name: Barents Sea
+  type: sea
+
+stp:
+  name: St. Petersburg
+  type: coast
+  dirs: [nc, sc]
+  sc: 1
+
+mos:
+  name: Moscow
+  type: land
+  sc: 1
+
+sev:
+  name: Sevastopol
+  type: coast
+  sc: 1
+
+arm:
+  name: Armenia
+  type: coast
+
+syr:
+  name: Syria
+  type: coast
+
+eas:
+  name: Eastern Mediterranean Sea
+  type: sea
+
+aeg:
+  name: Aegean Sea
+  type: sea
+
+ion:
+  name: Ionian Sea
+  type: sea
+
+adr:
+  name: Adriatic Sea
+  type: sea
+
+tys:
+  name: Tyrrhenian Sea
+  type: sea
+
+bel:
+  name: Belgium
+  type: coast
+  sc: 1
+
+hol:
+  name: Holland
+  type: coast
+  sc: 1
+
+ruh:
+  name: Ruhr
+  type: land
+
+mun:
+  name: Munich
+  type: land
+  sc: 1
+
+kie:
+  name: Kiel
+  type: coast
+  sc: 1
+
+ber:
+  name: Berlin
+  type: coast
+  sc: 1
+
+den:
+  name: Denmark
+  type: coast
+  sc: 1
+
+pru:
+  name: Prussia
+  type: coast
+
+sil:
+  name: Silesia
+  type: land
+
+boh:
+  name: Bohemia
+  type: land
+
+tyr:
+  name: Tyrolia
+  type: land
+
+ven:
+  name: Venice
+  type: coast
+  sc: 1
+
+pie:
+  name: Piedmont
+  type: coast
+
+tus:
+  name: Tuscany
+  type: coast
+
+rom:
+  name: Rome
+  type: coast
+  sc: 1
+
+nap:
+  name: Naples
+  type: coast
+  sc: 1
+
+apu:
+  name: Apulia
+  type: coast
+
+vie:
+  name: Vienna
+  type: land
+  sc: 1
+
+tri:
+  name: Trieste
+  type: coast
+  sc: 1
+
+bud:
+  name: Budapest
+  type: land
+  sc: 1
+
+ser:
+  name: Serbia
+  type: land
+  sc: 1
+
+alb:
+  name: Albania
+  type: coast
+
+lvn:
+  name: Livonia
+  type: coast
+
+war:
+  name: Warsaw
+  type: land
+  sc: 1
+
+gal:
+  name: Galicia
+  type: land
+
+ukr:
+  name: Ukraine
+  type: land
+
+rum:
+  name: Rumania
+  type: coast
+  sc: 1
+
+bul:
+  name: Bulgaria
+  type: coast
+  dirs: [ec, sc]
+  sc: 1
+
+gre:
+  name: Greece
+  type: coast
+  sc: 1
+
+con:
+  name: Constantinople
+  type: coast
+  sc: 1
+
+ank:
+  name: Ankara
+  type: coast
+  sc: 1
+
+smy:
+  name: Smyrna
+  type: coast
+  sc: 1
+
+bla:
+  name: Black Sea
+  type: sea
+

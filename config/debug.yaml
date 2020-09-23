@@ -4,17 +4,33 @@
 #_meta.script_name: collect-pos
 #_meta.script_name: node-locs
 #_meta.script_name: mapping
+_meta.script_name: diplo-step
 
 #_meta.script_name: parse-vdip
 
+#parents: ["test/node-locs"]
+#parents: ["test/mapping"]
+#parents: ["test/collect-pos"]
+#parents: ["test/collect-fills"]
+
+
 #parents: [test/render_state]
-parents: [test/render_traj]
+#parents: [test/render_traj]
 #parents: [test/traj]
 #parents: [test/take_step]
 #parents: [test/new_game]
 #parents: [test/parse_vdip]
 #parents: [test/collect-pos]
 #parents: [test/fills]
+
+parents: [colors/vdip, viz/classic]
+
+state-path: extra\mygame1\states\7-1.yaml
+action-path: extra\mygame1\tentative.yaml
+
+render-state: True
+render-actions: True
+view: True
 
 #log_path: extra\raw.txt
 

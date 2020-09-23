@@ -1,4 +1,4 @@
-
+import sys, os
 from pydip.player.unit import UnitTypes
 
 UNIT_TYPES = {
@@ -13,6 +13,28 @@ COAST_NAMES = {
 	'wc': 'Western Coast',
 	'nc': 'Northern Coast',
 }
+
+def get_map_paths(A, *keys):
+	
+	if len(keys):
+		
+		root = A.pull('root', None)
+		name = A.pull('name', None)
+		
+		paths = []
+		
+		for key in keys:
+			path = A.pull(f'{key}-path', None)
+			if path is None:
+				path = f'{key}.yaml' if name is None else f'{name}_{key}.yaml'
+			if root is not None:
+				path = os.path.join(root, path)
+			paths.append(path)
+		
+		if len(paths) == 1:
+			return paths[0]
+		return paths
+	
 
 def is_coast(name):
 	return name.endswith('-c') or name.endswith('-ec') or name.endswith('-sc') \

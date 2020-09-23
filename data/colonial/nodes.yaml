@@ -1,155 +1,552 @@
-aby: {name: Abyssinia, type: land}
-aden: {name: Aden, type: coast}
-afg: {name: Afghanistan, type: land}
-aki: {name: Akita, type: coast}
-akm: {name: Akmolinsk, type: land}
-ang: {name: Angora, sc: 1, type: coast}
-ann: {name: Annam, sc: 1, type: coast}
-ara:
-  coasts: [nc, sc]
-  name: Saudi Arabia
+aby:
+  name: Abyssinia
+  pos: [273.21772039180746, 1024.9229741763133]
+  type: land
+aden:
+  name: Aden
+  pos: [403.0485307212821, 886.0761353517362]
   type: coast
-aras: {name: Arabian Sea, type: sea}
-arm: {name: Armenia, type: coast}
-as: {name: Andaman Sea, type: sea}
-ass: {name: Assam, sc: 1, type: land}
-bag: {name: Baghdad, sc: 1, type: coast}
-baku: {name: Baku, type: coast}
-ban:
-  coasts: [wc, ec]
-  name: Bangkok
+  sc: 1
+afg:
+  name: Afghanistan
+  pos: [733.0351736420301, 480.354853072128]
+  type: land
+aki:
+  name: Akita
+  pos: [1854.6291184327692, 352.3272484416739]
+  type: coast
+akm:
+  name: Akmolinsk
+  pos: [817.7858414959927, 157.58103294746184]
+  type: land
+ang:
+  name: Angora
+  pos: [190.27025823686526, 391.9977738201244]
   sc: 1
   type: coast
-ben: {name: Bengal, sc: 1, type: coast}
-bob: {name: Bay of Bengal, type: sea}
-bok: {name: Bokhara, type: land}
-bom: {name: Bombay, sc: 1, type: coast}
-bor: {name: Borneo, sc: 1, type: coast}
-bs: {name: Black Sea, type: sea}
-cam: {name: Cambodia, type: coast}
-can: {name: Canton, sc: 1, type: coast}
-cebu: {name: Cebu, sc: 1, type: coast}
-cel: {name: Celebes, type: coast}
-cey: {name: Ceylon, sc: 1, type: coast}
-chu: {name: Chungking, sc: 1, type: land}
-coc: {name: Cochin, sc: 1, type: coast}
-con: {name: Constantinople, sc: 1, type: coast}
-cs: {name: Celebes Sea, type: sea}
-dav: {name: Davao, sc: 1, type: coast}
-del: {name: Delhi, sc: 1, type: land}
-ecs: {name: East China Sea, type: sea}
-egy: {name: Egypt, sc: 1, type: coast}
-eio: {name: East Indian Ocean, type: sea}
-eri: {name: Eritrea, type: coast}
-for: {name: Formosa, sc: 1, type: coast}
-fus: {name: Fusan, sc: 1, type: coast}
-goa: {name: Gulf of Aden, type: sea}
-gom: {name: Gulf of Manaar, type: sea}
-gos: {name: Gulf of Siam, type: sea}
-hk: {name: Hong Kong, type: coast}
-hyd: {name: Hyderbad, type: coast}
+ann:
+  name: Annam
+  pos: [1499.3975957257346, 848.2088156723061]
+  sc: 1
+  type: coast
+ara:
+  coast-pos:
+    nc: [437.3094390026712, 660.6754229741761]
+    sc: [496.8152270703471, 866.2408726625109]
+  dirs: [nc, sc]
+  name: Saudi Arabia
+  pos: [413.8677649154049, 727.3940338379339]
+  type: coast
+aras:
+  name: Arabian Sea
+  pos: [736.6415850400712, 821.1607301869989]
+  type: sea
+arm:
+  name: Armenia
+  pos: [321.9042742653604, 415.4394479073907]
+  type: coast
+as:
+  name: Andaman Sea
+  pos: [1272.1936776491539, 950.9915405164735]
+  type: sea
+ass:
+  name: Assam
+  pos: [1221.7039180765805, 631.8241317898484]
+  sc: 1
+  type: land
+bag:
+  name: Baghdad
+  pos: [365.18121104185195, 530.8446126447014]
+  sc: 1
+  type: coast
+baku:
+  name: Baku
+  pos: [341.7395369545857, 305.4439002671413]
+  type: coast
+ban:
+  coast-pos:
+    ec: [1371.3699910952803, 927.5498664292072]
+    wc: [1324.486642920748, 983.4492430988421]
+  dirs: [wc, ec]
+  name: Bangkok
+  pos: [1360.5507569011575, 873.4536954585928]
+  sc: 1
+  type: coast
+ben:
+  name: Bengal
+  pos: [1135.1500445235974, 685.9203027604628]
+  sc: 1
+  type: coast
+bob:
+  name: Bay of Bengal
+  pos: [1160.3949243098841, 839.1927871772036]
+  type: sea
+bok:
+  name: Bokhara
+  pos: [595.9915405164736, 379.37533392698106]
+  type: land
+bom:
+  name: Bombay
+  pos: [893.520480854853, 779.6869991095278]
+  sc: 1
+  type: coast
+bor:
+  name: Borneo
+  pos: [1594.96749777382, 1152.9505788067672]
+  sc: 1
+  type: coast
+bs:
+  name: Black Sea
+  pos: [179.45102404274238, 310.85351736420284]
+  type: sea
+cam:
+  name: Cambodia
+  pos: [1441.6950133570792, 886.0761353517362]
+  type: coast
+can:
+  name: Canton
+  pos: [1421.8597506678539, 675.1010685663399]
+  sc: 1
+  type: coast
+cebu:
+  name: Cebu
+  pos: [1760.8624220837044, 875.2569011576134]
+  sc: 1
+  type: coast
+cel:
+  name: Celebes
+  pos: [1719.3886910062333, 1176.3922528940336]
+  type: coast
+cey:
+  name: Ceylon
+  pos: [1023.3512911843276, 1041.1518254674975]
+  sc: 1
+  type: coast
+chu:
+  name: Chungking
+  pos: [1389.4020480854851, 575.9247551202135]
+  sc: 1
+  type: land
+coc:
+  name: Cochin
+  pos: [1488.5783615316116, 905.9113980409614]
+  sc: 1
+  type: coast
+con:
+  name: Constantinople
+  pos: [44.21059661620629, 321.6727515583257]
+  sc: 1
+  type: coast
+cs:
+  name: Celebes Sea
+  pos: [1742.8303650934995, 1048.3646482635795]
+  type: sea
+dav:
+  name: Davao
+  pos: [1787.9105075690115, 952.794746215494]
+  sc: 1
+  type: coast
+del:
+  name: Delhi
+  pos: [949.4198575244878, 658.8722172751557]
+  sc: 1
+  type: land
+ecs:
+  name: East China Sea
+  pos: [1677.9149599287623, 559.6959038290291]
+  type: sea
+egy:
+  name: Egypt
+  pos: [96.50356188780026, 667.888245770258]
+  sc: 1
+  type: coast
+eio:
+  name: East Indian Ocean
+  pos: [1169.4109528049864, 1113.2800534283167]
+  type: sea
+eri:
+  name: Eritrea
+  pos: [370.59082813891337, 988.8588601959036]
+  type: coast
+for:
+  name: Formosa
+  pos: [1721.1918967052538, 626.414514692787]
+  sc: 1
+  type: coast
+fus:
+  name: Fusan
+  pos: [1679.7181656277826, 420.8490650044521]
+  sc: 1
+  type: coast
+goa:
+  name: Gulf of Aden
+  pos: [568.9434550311663, 1042.955031166518]
+  type: sea
+gom:
+  name: Gulf of Manaar
+  pos: [1091.873107747106, 960.0075690115759]
+  type: sea
+gos:
+  name: Gulf of Siam
+  pos: [1414.646927871772, 967.2203918076578]
+  type: sea
+hk:
+  name: Hong Kong
+  pos: [1513.8232413178985, 770.6709706144254]
+  type: coast
+  sc: 1
+hyd:
+  name: Hyderbad
+  pos: [1007.1224398931432, 830.1767586821013]
+  type: coast
 irk:
   name: Irkutsk
+  pos: [1367.7635796972395, 78.2399821905608]
   tsr: [kra, vla]
   type: land
-java: {name: Java, sc: 1, type: coast}
-js: {name: Java Sea, type: sea}
-kag: {name: Kashgar, sc: 1, type: land}
-kam: {name: Kashmir, sc: 1, type: land}
-kar: {name: Karachi, sc: 1, type: coast}
-kir: {name: Kirghiz, type: land}
+java:
+  name: Java
+  pos: [1517.4296527159393, 1280.9781834372216]
+  sc: 1
+  type: coast
+js:
+  name: Java Sea
+  pos: [1531.8552983081033, 1232.2916295636685]
+  type: sea
+kag:
+  name: Kashgar
+  pos: [938.600623330365, 413.6362422083703]
+  sc: 1
+  type: land
+kam:
+  name: Kashmir
+  pos: [907.9461264470168, 487.5676758682099]
+  sc: 1
+  type: land
+kar:
+  name: Karachi
+  pos: [736.6415850400712, 615.5952804986641]
+  sc: 1
+  type: coast
+kir:
+  name: Kirghiz
+  pos: [846.6371326803205, 287.4118432769367]
+  type: land
 kra:
   name: Krasnoyarsk
+  pos: [1122.5276046304539, 94.46883348174515]
   tsr: [omsk, irk]
   type: land
-kyo: {name: Kyoto, sc: 1, type: coast}
-kyu: {name: Kyoshu, sc: 1, type: coast}
-lan: {name: Lanchow, type: land}
-lp: {name: Lower Pacific Ocean, type: sea}
-luc: {name: Lucknow, type: land}
-mac: {name: Manchuria, sc: 1, type: coast}
-mad: {name: Madras, sc: 1, type: coast}
-mal: {name: Malaya, sc: 1, type: coast}
-may: {name: Mandalay, sc: 1, type: land}
-mec: {name: Mecca, type: coast}
-med: {name: Mediterranean Sea, type: sea}
-mna: {name: Manilla, sc: 1, type: coast}
-mon: {name: Mongolia, sc: 1, type: land}
+kyo:
+  name: Kyoto
+  pos: [1829.3842386464826, 428.0618878005341]
+  sc: 1
+  type: coast
+kyu:
+  name: Kyoshu
+  pos: [1760.8624220837044, 496.58370436331234]
+  sc: 1
+  type: coast
+lan:
+  name: Lanchow
+  pos: [1295.6353517364203, 404.62021371326784]
+  type: land
+lp:
+  name: Lower Pacific Ocean
+  pos: [1915.9381121994656, 1057.3806767586818]
+  type: sea
+ls:
+  name: Luzon Strait
+  pos: [1641.8508459483526, 772.4741763134459]
+  type: sea
+luc:
+  name: Lucknow
+  pos: [1039.5801424755118, 685.9203027604628]
+  type: land
+mac:
+  name: Manchuria
+  pos: [1560.706589492431, 251.34772929652695]
+  sc: 1
+  type: coast
+mad:
+  name: Madras
+  pos: [974.6647373107747, 965.4171861086373]
+  sc: 1
+  type: coast
+mal:
+  name: Malaya
+  pos: [1402.0244879786285, 1057.3806767586818]
+  sc: 1
+  type: coast
+may:
+  name: Mandalay
+  pos: [1293.8321460373998, 749.0325022261796]
+  sc: 1
+  type: land
+mec:
+  name: Mecca
+  pos: [284.0369545859303, 676.9042742653604]
+  type: coast
+med:
+  name: Mediterranean Sea
+  pos: [89.29073909171834, 492.9772929652713]
+  type: sea
+mna:
+  name: Manilla
+  pos: [1699.553428317008, 767.0645592163844]
+  sc: 1
+  type: coast
+mon:
+  name: Mongolia
+  pos: [1223.507123775601, 256.7573463935885]
+  sc: 1
+  type: land
 mos:
   name: Moscow
+  pos: [318.2978628673194, 94.46883348174515]
   sc: 1
   tsr: [perm]
   type: land
-mp: {name: Middle Pacific Ocean, type: sea}
-mys: {name: Mysore, type: coast}
-nag: {name: Nagpur, type: land}
-nan: {name: Nanchung, type: coast}
-nep: {name: Nepal, type: land}
+mp:
+  name: Middle Pacific Ocean
+  pos: [1894.29964381122, 756.2453250222616]
+  type: sea
+mys:
+  name: Mysore
+  pos: [909.7493321460373, 898.6985752448795]
+  type: coast
+nag:
+  name: Nagpur
+  pos: [985.4839715048976, 756.2453250222616]
+  type: land
+nan:
+  name: Nanchung
+  pos: [1544.4777382012467, 608.3824577025821]
+  type: coast
+nep:
+  name: Nepal
+  pos: [1041.3833481745323, 622.8081032947459]
+  type: land
 new:
   name: New Guinea
+  pos: [1932.16696349065, 1243.1108637577913]
   sc: 1
   type: coast
-nsam: {name: North Siam, type: land}
-ode: {name: Odessa, sc: 1, type: coast}
-oman: {name: Oman, type: coast}
+nsam:
+  name: North Siam
+  pos: [1364.1571682991985, 819.3575244879784]
+  type: land
+ode:
+  name: Odessa
+  pos: [165.02537845057853, 184.62911843276925]
+  sc: 1
+  type: coast
+oman:
+  name: Oman
+  pos: [597.794746215494, 752.6389136242205]
+  type: coast
 omsk:
   name: Omsk
+  pos: [850.2435440783614, 42.175868210151066]
   sc: 1
   tsr: [perm, kra]
   type: land
-ore: {name: Orenburg, type: land}
-os: {name: Okhotsk Sea, type: sea}
-ota: {name: Otaru, sc: 1, type: coast}
-par: {name: Port Arthor, sc: 1, type: coast}
-pek: {name: Peking, sc: 1, type: land}
-per: {name: Persia, sc: 1, type: coast}
-perm:
-  name: Perm
-  tsr: [mos, omsk]
+ore:
+  name: Orenburg
+  pos: [626.6460373998218, 197.25155832591258]
   type: land
-pg: {name: Persian Gulf, type: sea}
-pun: {name: Punjab, type: land}
-raj: {name: Rajputana, type: coast}
-ran: {name: Rangoon, sc: 1, type: coast}
-rs: {name: Red Sea, type: sea}
-rum: {name: Rumania, sc: 1, type: coast}
-sak: {name: Sakhalin, sc: 1, type: coast}
-sar: {name: Sarawak, sc: 1, type: coast}
-scs: {name: South China Sea, type: sea}
-sem: {name: Semipalatinsk, type: land}
-seo:
-  coasts: [wc, ec]
-  name: Seoul
+os:
+  name: Okhotsk Sea
+  pos: [1879.8739982190561, 123.32012466607284]
+  type: sea
+ota:
+  name: Otaru
+  pos: [1829.3842386464826, 256.7573463935885]
   sc: 1
   type: coast
-sha: {name: Shanghai, sc: 1, type: coast}
-shi: {name: Shiraz, sc: 1, type: land}
-sik: {name: Sinkiang, sc: 1, type: land}
-sin: {name: Singapore, sc: 1, type: coast}
-sio: {name: South Indian Ocean, type: sea}
-soj: {name: Sea of Japan, type: sea}
-som: {name: Somalia, type: coast}
-sud: {name: Sudan, type: coast}
-suls: {name: Sulu Sea, type: sea}
-sum: {name: Sumatra, sc: 1, type: coast}
-suns: {name: Sunda Sea, type: sea}
-syr: {name: Syria, type: coast}
-tab: {name: Tabriz, sc: 1, type: land}
-tas: {name: Tashkent, sc: 1, type: land}
-tib: {name: Tibet, type: land}
-tok: {name: Tokyo, type: coast}
-ton: {name: Tongking, sc: 1, type: coast}
-ts: {name: Timor Sea, type: sea}
-ubur: {name: Upper Burma, sc: 1, type: coast}
-up: {name: Upper Pacific Ocean, type: sea}
-uri: {name: Urumchi, type: land}
+par:
+  name: Port Arthor
+  pos: [1580.5418521816562, 336.0983971504895]
+  sc: 1
+  type: coast
+pek:
+  name: Peking
+  pos: [1418.2533392698128, 327.0823686553872]
+  sc: 1
+  type: land
+per:
+  name: Persia
+  pos: [599.5979519145145, 507.40293855743516]
+  sc: 1
+  type: coast
+perm:
+  name: Perm
+  pos: [574.3530721282278, 62.01113089937644]
+  tsr: [mos, omsk]
+  type: land
+pg:
+  name: Persian Gulf
+  pos: [529.2729296527158, 664.2818343722171]
+  type: sea
+pun:
+  name: Punjab
+  pos: [862.8659839715048, 543.4670525378449]
+  type: land
+raj:
+  name: Rajputana
+  pos: [852.0467497773819, 673.2978628673195]
+  type: coast
+ran:
+  name: Rangoon
+  pos: [1275.800089047195, 821.1607301869989]
+  sc: 1
+  type: coast
+rs:
+  name: Red Sea
+  pos: [282.2337488869098, 779.6869991095278]
+  type: sea
+rum:
+  name: Rumania
+  pos: [51.42341941228821, 235.1188780053426]
+  sc: 1
+  type: coast
+sak:
+  name: Sakhalin
+  pos: [1732.0111308993767, 112.50089047195002]
+  sc: 1
+  type: coast
+sar:
+  name: Sarawak
+  pos: [1594.96749777382, 1079.0191451469277]
+  sc: 1
+  type: coast
+scs:
+  name: South China Sea
+  pos: [1566.1162065894923, 788.7030276046303]
+  type: sea
+sem:
+  name: Semipalatinsk
+  pos: [931.3878005342831, 206.2675868210149]
+  type: land
+seo:
+  coast-pos:
+    ec: [1659.8829029385574, 318.06634016028465]
+    wc: [1609.3931433659839, 384.7849510240426]
+  dirs: [wc, ec]
+  name: Seoul
+  pos: [1632.8348174532503, 348.72083704363286]
+  sc: 1
+  type: coast
+sha:
+  name: Shanghai
+  pos: [1499.3975957257346, 456.9131789848618]
+  sc: 1
+  type: coast
+shi:
+  name: Shiraz
+  pos: [500.4216384683881, 559.6959038290291]
+  sc: 1
+  type: coast
+sik:
+  name: Sinkiang
+  pos: [1165.8045414069454, 485.7644701691895]
+  sc: 1
+  type: land
+sin:
+  name: Singapore
+  pos: [1445.30142475512, 1142.1313446126444]
+  sc: 1
+  type: coast
+sio:
+  name: South Indian Ocean
+  pos: [1230.7199465716828, 1270.1589492430985]
+  type: sea
+soj:
+  name: Sea of Japan
+  pos: [1746.4367764915405, 328.8855743544077]
+  type: sea
+som:
+  name: Somalia
+  pos: [370.59082813891337, 1091.641585040071]
+  type: coast
+sud:
+  name: Sudan
+  pos: [105.51959038290266, 889.6825467497772]
+  type: coast
+  sc: 1
+suls:
+  name: Sulu Sea
+  pos: [1649.0636687444346, 945.5819234194121]
+  type: sea
+sum:
+  name: Sumatra
+  pos: [1380.3860195903828, 1169.1794300979516]
+  sc: 1
+  type: coast
+suns:
+  name: Sunda Sea
+  pos: [1540.8713268032056, 1015.9069456812108]
+  type: sea
+syr:
+  name: Syria
+  pos: [264.20169189670503, 516.4189670525376]
+  type: coast
+tab:
+  name: Tabriz
+  pos: [422.88379341050734, 464.1260017809436]
+  sc: 1
+  type: land
+tas:
+  name: Tashkent
+  pos: [752.8704363312554, 332.4919857524485]
+  sc: 1
+  type: land
+tib:
+  name: Tibet
+  pos: [1055.8089937666962, 554.2862867319677]
+  type: land
+tok:
+  name: Tokyo
+  pos: [1872.661175422974, 413.6362422083703]
+  type: coast
+  sc: 1
+ton:
+  name: Tongking
+  pos: [1403.827693677649, 749.0325022261796]
+  sc: 1
+  type: coast
+ts:
+  name: Timor Sea
+  pos: [1766.272039180766, 1286.3878005342829]
+  type: sea
+ubur:
+  name: Upper Burma
+  pos: [1234.3263579697239, 702.1491540516472]
+  sc: 1
+  type: coast
+up:
+  name: Upper Pacific Ocean
+  pos: [1878.0707925200356, 550.6798753339267]
+  type: sea
+uri:
+  name: Urumchi
+  pos: [998.1064113980409, 319.86954585930516]
+  type: land
 vla:
   name: Vladivostok
+  pos: [1596.7707034728405, 114.30409617097052]
   sc: 1
   tsr: [irk]
   type: coast
-wio: {name: West Indian Ocean, type: sea}
-ys: {name: Yellow Sea, type: sea}
+wio:
+  name: West Indian Ocean
+  pos: [841.227515583259, 1080.8223508459482]
+  type: sea
+ys:
+  name: Yellow Sea
+  pos: [1629.2284060552092, 474.94523597506657]
+  type: sea
 yun:
   name: Yunnan
+  pos: [1317.273820124666, 631.8241317898484]
   type: land

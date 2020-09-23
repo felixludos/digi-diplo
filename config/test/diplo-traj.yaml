@@ -1,0 +1,10 @@
+
+#_meta.script_name: diplo-traj
+
+root: test/4
+
+action-dir: test/7/actions
+
+state-dir: test_states
+
+

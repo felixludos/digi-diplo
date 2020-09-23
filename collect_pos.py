@@ -26,6 +26,13 @@ def _post_process(pos, nodes, retreat_pos):  # make sure coastal tiles also have
 
 @fig.Script('collect-pos', 'Collects Pixel coordinates on the map for diplomacy')
 def _collect_map_pos(A):
+	'''
+	Collects the coordinates on an image for units, texts, and centers used when rendering game states.
+
+	Left-click - select coordinates for the named node
+	Right-click - clear all specified coordinates for the current node and return to the previous node
+	All selected coordinates are saved automatically to the an pos yaml file when the window is closed.
+	'''
 	
 	mlp_backend = A.pull('mlp-backend', 'qt5agg')
 	if mlp_backend is not None:
@@ -35,29 +42,27 @@ def _collect_map_pos(A):
 	
 	image_path = A.pull('image-path')
 	
-	out_path = A.pull('out-path')
+	out_path = A.pull('out-path', '<>out')
 	pos_path = A.pull('pos-path', out_path) # past pos file to update/overwrite
 	
 	if root is not None:
-		image_path = os.path.join(root, image_path)
 		pos_path = os.path.join(root, pos_path)
 		out_path = os.path.join(root, out_path)
 	
+	A.push('map._type', 'map', overwrite=False)
 	world = A.pull('map')
 	
 	nodes = world.nodes
 	nodes.update(util.separate_coasts(nodes))
 	edges = util.list_edges(world.edges)
 	
+	
 	base_pos = A.pull('base', True)
 	text_pos = A.pull('text', True)
 	center_pos = A.pull('center', True)
 	retreat_pos = A.pull('retreat', True)
-	edge_pos = A.pull('edge', True)
-	
-	# symmetric_edges = A.pull('sym-edges', True)
-	
-	coast_retreat_pos = A.pull('coast-retreat', False)
+	edge_pos = A.pull('edge', False)
+	coast_retreat_pos = A.pull('coast-retreat', True)
 	if coast_retreat_pos:
 		retreat_pos = True
 	
@@ -70,7 +75,21 @@ def _collect_map_pos(A):
 		pos = {}
 		print('No pos file found, starting from scratch')
 	
-
+	locs_key = A.pull('node-pos-key', None)
+	if locs_key is not None:
+		for ID, node in nodes.items():
+			if ID not in pos:
+				pos[ID] = {}
+			if 'pos' in node:
+				pos[ID][locs_key] = node['pos']
+		
+		for ID, coast in util.separate_coasts(nodes, dir_only=True).items():
+			if ID not in pos:
+				pos[ID] = {}
+			origin = nodes[coast['coast-of']]
+			if 'coast-pos' in origin:
+				pos[ID][locs_key] = origin['coast-pos'][coast['dir']]
+	
 	font_size = A.pull('font-size', 6)
 	use_text = A.pull('use-text', True)
 	

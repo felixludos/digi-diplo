@@ -55,6 +55,9 @@ def parse_action(raw, locs=None):
 	
 	if '(fail)' in raw:
 		info['failed'] = True
+		
+	if '(dislodged)' in raw:
+		info['dislodged'] = True
 	
 	terms = raw.split(' at ')[1].split(key)
 	
@@ -168,6 +171,16 @@ def expand_seasons(log):
 
 @fig.Script('parse-vdip', 'Parse a vdiplomacy game log to yaml')
 def parse_vdiplomacy(A):
+	'''
+	From a text file of the full order log of a game on web-diplomacy or vdiplomacy,
+	this extracts the actions in the standard format for all seasons.
+
+	Copy and paste the full order log from any game on web-diplomacy or vdiplomacy
+	into a text file. The path to this text file must then be passed in to this
+	script as the `log-path`. You should also need to provide the path to the nodes
+	(for the territory names) as `nodes-path`, and a directory to save all the output
+	actions as `out-dir`.
+	'''
 	
 	path = A.pull('log-path', '<>path')
 	

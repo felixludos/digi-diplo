@@ -22,13 +22,14 @@ _SEASONS = ['', 'Spring', 'Autumn', 'Winter']
 
 @fig.Script('render', description='Render a Diplomacy state')
 def render_diplo_state(A):
-	save_path = A.pull('save-path', None)
+	save_path = A.pull('render-path', '<>save-path', None)
 	view = A.pull('view', save_path is None)
 	
 	mlp_backend = A.pull('mlp-backend', 'qt5agg' if view else 'agg')
 	if mlp_backend is not None:
 		plt.switch_backend(mlp_backend)
 	
+	A.push('map._type', 'map', overwrite=False)
 	M = A.pull('map')
 	
 	image_path = A.pull('image-path')
@@ -66,6 +67,14 @@ def render_diplo_state(A):
 	color_by_unit = A.pull('color-by-unit', True)
 	
 	control = {}
+	
+	redraw_all = A.pull('full-redraw', True)
+	if redraw_all:
+		
+		for loc, node in M.nodes.items():
+			control[loc] = 'sea' if node['type'] == 'sea' else 'neutral'
+			pass
+	
 	units = {}
 	
 	for player, info in state['players'].items():
@@ -95,7 +104,28 @@ def render_diplo_state(A):
 	if color_by_unit:
 		tiles.update(units)
 	
-	for loc, owner in tiles.items():
+	pbar = A.pull('pbar', True)
+	
+	itr = tiles.items()
+	if pbar:
+		itr = tqdm(itr, total=len(tiles))
+	
+	if redraw_all:
+		
+		if 'neutral-lands' in M.pos and 'fill' in M.pos['neutral-lands'] and 'impassable' in colors:
+			for x, y in M.pos['neutral-lands']['fill']:
+				fill_region(img, (int(y), int(x)), val=list(ImageColor.getrgb(colors['impassable'])),
+				            threshold=threshold)
+	
+		if 'neutral-seas' in M.pos and 'fill' in M.pos['neutral-seas'] and 'sea' in colors:
+			for x, y in M.pos['neutral-seas']['fill']:
+				fill_region(img, (int(y), int(x)), val=list(ImageColor.getrgb(colors['sea'])),
+				            threshold=threshold)
+			
+	
+	for loc, owner in itr:
+		if pbar is not None:
+			itr.set_description(f'Filling in {loc}')
 		pts = M.pos.get(loc, {})
 		if owner in colors and 'fill' in pts:
 			for x, y in pts['fill']:
@@ -553,8 +583,14 @@ def render_diplo_state(A):
 	if save_path is not None:
 		plt.savefig(save_path, dpi=W / w)
 
-@fig.Script('render-traj')
+@fig.Script('render-traj', description='Render all frames in a trajectory')
 def render_traj(A):
+	'''
+	Given a set of states and actions, this script visualizes every game state.
+	
+	Visualizes the game state given a directory of states `state-dir` and actions `action-dir`.
+	You can also provide a directory to save the rendered frames as `frame-dir`.
+	'''
 	silent = A.pull('silent', False, silent=True)
 	
 	root = A.pull('root', None)

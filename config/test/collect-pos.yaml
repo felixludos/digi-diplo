@@ -1,19 +1,14 @@
 
-_meta.script_name: collect-pos
+out-path: test_pos.yaml
+root: test/2
+image-path: assets/classic.gif
 
-out-path: data\classic\pos.yaml
 
-parents: [colors/classic]
+node-pos-key: text # use the already saved node-locs as the text locations
 
-image-path: extra\standard_c_simple.gif
-
-map:
-  _type: map
-  root: data\classic
-
+# types of locations to specify
 base: True
 text: True
-retreat: False
+retreat: True
 coast-retreat: True
-edge: False
 

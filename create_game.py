@@ -49,20 +49,21 @@ def populate_map(map, players):
 
 @fig.Script('diplo-new', description='Create a new Diplomacy game')
 def new_game(A):
+	'''
+	Given the map and initial player info, this creates an initial game state yaml file.
+	
+	This script requires the nodes and edges yaml files, as well as the players file which
+	contains the starting ownership and units for every player.
+	'''
 	
 	silent = A.pull('silent', False, silent=True)
 	
-	name = A.pull('name', None)
-	root = A.pull('root', None)
-
+	A.push('map._type', 'map', overwrite=False)
 	M = A.pull('map')
 	
 	players = A.pull('players', None, silent=True)
 	if players is None:
-		players_path = A.pull('players-path', 'players.yaml' if name is None else f'{name}_players.yaml')
-		
-		if root is not None:
-			players_path = os.path.join(root, players_path)
+		players_path = util.get_map_paths(A, 'players')
 		
 		if not os.path.isfile(players_path):
 			raise Exception('no players found')

@@ -17,23 +17,20 @@ from src.colors import fill_region
 
 @fig.Script('collect-fills', 'Collects points to fill on map for control')
 def _collect_adj(A):
+	'''
+	Collects the coordinates on an image to flood fill with colors in rendering.
+
+	Click on every location that should be flood-filled when rendering a game state based on the owner of the territory
+	Press space to move to the next territory
+	All selected coordinates are saved automatically to the pos yaml file when the window is closed.
+	'''
 	mlp_backend = A.pull('mlp_backend', 'qt5agg')
 	if mlp_backend is not None:
 		plt.switch_backend(mlp_backend)
 	
-	root = A.pull('root', None)
-	
+	nodes_path, pos_path = util.get_map_paths(A, 'nodes', 'pos')
+
 	image_path = A.pull('image-path')
-	
-	name = A.pull('name', 'unnamed')
-	
-	nodes_path = A.pull('nodes-path', f'{name}_nodes.yaml')
-	pos_path = A.pull('pos-path', f'{name}_pos.yaml')
-	
-	if root is not None:
-		image_path = os.path.join(root, image_path)
-		nodes_path = os.path.join(root, nodes_path)
-		pos_path = os.path.join(root, pos_path)
 	
 	nodes = load_yaml(nodes_path)
 	
@@ -43,9 +40,15 @@ def _collect_adj(A):
 	
 	fill_val = A.pull('fill-val', [0,0,0])
 	fill_val = np.array(fill_val)
-	threshold = A.pull('threshold', 0.1)
+	threshold = A.pull('threshold', 0.001)
 	
 	todo = list(nodes)
+	
+	neutrals = A.pull('include-neutrals', True)
+	
+	if neutrals:
+		todo.extend(['neutral-lands', 'neutral-seas'])
+	
 	done = []
 	
 	current = None
@@ -79,7 +82,7 @@ def _collect_adj(A):
 				plt.plot([x], [y], color='r', ls='', markersize=12,
 				         markeredgewidth=3, marker='o', markeredgecolor='k', zorder=5)
 			
-		name = nodes[current].get('name', current)
+		name = nodes.get(current, {}).get('name', current)
 		plt.cla()
 		plt.title(name)
 		plt.imshow(img)
@@ -140,7 +143,7 @@ def _collect_adj(A):
 				fill = []
 			
 	
-	fig, ax = plt.subplots(figsize=(12, 8))
+	fg, ax = plt.subplots(figsize=(12, 8))
 	
 	plt.imshow(img)
 	plt.axis('off')
@@ -149,8 +152,8 @@ def _collect_adj(A):
 	
 	plt.tight_layout()
 	
-	bid = fig.canvas.mpl_connect('key_press_event', onkey)
-	cid = fig.canvas.mpl_connect('button_press_event', onclick)
+	bid = fg.canvas.mpl_connect('key_press_event', onkey)
+	cid = fg.canvas.mpl_connect('button_press_event', onclick)
 	
 	_next_prompt()
 	

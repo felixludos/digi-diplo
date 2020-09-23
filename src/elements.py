@@ -19,24 +19,7 @@ from . import util
 class DiploMap:
 	def __init__(self, A):
 		
-		nodes_path = A.pull('nodes-path', None)
-		edges_path = A.pull('edges-path', None)
-		pos_path = A.pull('pos-path', None)
-		
-		name = A.pull('name', None)
-		
-		if nodes_path is None:
-			nodes_path = 'nodes.yaml' if name is None else f'{name}_nodes.yaml'
-		if edges_path is None:
-			edges_path = 'edges.yaml' if name is None else f'{name}_edges.yaml'
-		if pos_path is None:
-			pos_path = 'pos.yaml' if name is None else f'{name}_pos.yaml'
-		
-		root = A.pull('root', None)
-		if root is not None:
-			nodes_path = os.path.join(root, nodes_path)
-			edges_path = os.path.join(root, edges_path)
-			pos_path = os.path.join(root, pos_path)
+		nodes_path, edges_path, pos_path = util.get_map_paths(A, 'nodes', 'edges', 'pos')
 		
 		self.nodes, self.edges = self._load_map_info(nodes_path, edges_path)
 		self.get_ID_from_name = util.make_node_dictionary(self.nodes)
@@ -192,9 +175,29 @@ class DiploMap:
 		
 		return self.fix_loc(dest, utype)
 	
+	def _fill_missing_actions(self, full):
+		
+		existing = {name: {a['loc']: a for a in actions} for name, actions in full.items()}
+		
+		for name, player in self.players.items():
+			for unit in player.units:
+				utype = util.UNIT_ENUMS[unit.unit_type]
+				loc = self.uncoastify(unit.position)
+				base = self.uncoastify(loc, True)
+				
+				if name not in existing:
+					full[name] = []
+				actions = existing.get(name, {})
+				if loc not in actions and base not in actions:
+					full[name].append({'loc':loc, 'type':'hold', 'unit':utype})
+		
+		return full
+	
 	def process_actions(self, full):
 		
 		assert hasattr(self, 'players'), 'players have not been loaded'
+		
+		full = self._fill_missing_actions(full)
 		
 		cmds = []
 		

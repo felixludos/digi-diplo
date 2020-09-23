@@ -1,7 +1,7 @@
 
 parents: [colors/classic]
 
-image-path: extra\standard_c_simple.gif
+image-path: assets/classic.gif
 
 map:
   _type: map

@@ -1,7 +1,10 @@
 
-_meta.script_name: render-traj
+#_meta.script_name: render-traj
 
 parents: [viz/classic]
 
-root: data\game157678
+root: test/4
 
+state-dir: test/8
+
+action-dir: test/7

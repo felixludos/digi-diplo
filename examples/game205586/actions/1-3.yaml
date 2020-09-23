@@ -1,0 +1,17 @@
+Austria:
+- {loc: tri, type: build, unit: army}
+- {loc: bud, type: build, unit: army}
+England:
+- {loc: edi, type: build, unit: fleet}
+France:
+- {loc: par, type: build, unit: army}
+Germany:
+- {loc: mun, type: build, unit: army}
+- {loc: kie, type: build, unit: fleet}
+Italy:
+- {loc: nap, type: build, unit: fleet}
+Russia:
+- {loc: mos, type: build, unit: army}
+- {loc: stp-nc, type: build, unit: fleet}
+Turkey:
+- {loc: smy, type: build, unit: fleet}
