@@ -1,39 +1,76 @@
-Austria:
-- {dest: bul, failed: true, loc: rum, type: move, unit: army}
-- {dest: gal, loc: bud, type: move, unit: army}
-- {dest: gal, loc: vie, src: bud, type: support, unit: army}
-- {dest: bul, loc: gre, src: rum, type: support, unit: fleet}
-- {dest: bul, loc: ser, src: rum, type: support, unit: army}
-England:
-- {dest: stp-nc, failed: true, loc: bar, type: move, unit: fleet}
-- {dest: swe, failed: true, loc: nwy, type: move, unit: army}
-- {dest: nth, loc: edi, type: move, unit: fleet}
-- {dest: kie, failed: true, loc: hel, src: hol, type: support, unit: fleet}
-France:
-- {dest: por, loc: spa-sc, type: move, unit: fleet}
-- {dest: pic, loc: par, type: move, unit: army}
-- {dest: bur, loc: mar, type: support-defend, unit: army}
-- {dest: pic, loc: bur, src: par, type: support, unit: army}
-Germany:
-- {dest: hel, loc: den, type: move, unit: fleet}
-- {dest: kie, failed: true, loc: ruh, type: move, unit: army}
-- {dest: kie, failed: true, loc: mun, type: move, unit: army}
-- {dest: bur, loc: bel, type: support-defend, unit: army}
-- {dest: hel, loc: hol, src: den, type: support, unit: fleet}
-Italy:
-- {loc: pie, type: hold, unit: army}
-- {dest: nap, failed: true, loc: tun, type: convoy-move, unit: army}
-- {dest: eas, failed: true, loc: ion, type: move, unit: fleet}
-- {dest: ion, failed: true, loc: nap, type: move, unit: fleet}
-Russia:
-- {loc: stp-nc, type: hold, unit: fleet}
-- {dest: rum, loc: ukr, type: move, unit: army}
-- {dest: swe, failed: true, loc: fin, type: move, unit: fleet}
-- {dest: gal, failed: true, loc: war, type: move, unit: army}
-- {dest: stp, loc: mos, type: support-defend, unit: army}
-- {dest: rum, loc: sev, src: ukr, type: support, unit: fleet}
-Turkey:
-- {dest: eas, failed: true, loc: smy, type: move, unit: fleet}
-- {dest: bul, loc: con, type: support-defend, unit: army}
-- {dest: bul, loc: bla, type: support-defend, unit: fleet}
-- {dest: rum, loc: bul, src: ukr, type: support, unit: army}
+players:
+  Austria:
+    centers: [vie, tri, bud, gre, ser]
+    control: [boh, gal, vie, tri, bud, alb, gre, ser]
+    home: [vie, tri, bud]
+    name: Austria
+    units:
+    - {loc: vie, type: army}
+    - {loc: ser, type: army}
+    - {loc: rum, type: army}
+    - {loc: bud, type: army}
+    - {loc: gre, type: fleet}
+  England:
+    centers: [edi, lvp, lon, nwy]
+    control: [cly, edi, lvp, yor, wal, lon, nwy]
+    home: [lon, edi, lvp]
+    name: England
+    units:
+    - {loc: nwy, type: army}
+    - {loc: edi, type: fleet}
+    - {loc: bar, type: fleet}
+    - {loc: hel, type: fleet}
+  France:
+    centers: [bre, par, mar, spa]
+    control: [pic, bre, par, bur, gas, mar, spa]
+    home: [par, mar, bre]
+    name: France
+    units:
+    - {loc: bur, type: army}
+    - {loc: par, type: army}
+    - {loc: mar, type: army}
+    - {loc: spa-sc, type: fleet}
+  Germany:
+    centers: [kie, ber, mun, hol, den]
+    control: [kie, ber, ruh, mun, pru, sil, hol, den]
+    home: [ber, kie, mun]
+    name: Germany
+    units:
+    - {loc: mun, type: army}
+    - {loc: hol, type: fleet}
+    - {loc: den, type: fleet}
+    - {loc: ruh, type: army}
+    - {loc: bel, type: army}
+  Italy:
+    centers: [ven, rom, nap, tun]
+    control: [pie, ven, tus, rom, apu, nap, tun]
+    home: [rom, nap, ven]
+    name: Italy
+    units:
+    - {loc: pie, type: army}
+    - {loc: tun, type: army}
+    - {loc: nap, type: fleet}
+    - {loc: ion, type: fleet}
+  Russia:
+    centers: [stp, mos, sev, war, swe, rum]
+    control: [stp, mos, lvn, ukr, sev, fin, war, swe, rum]
+    home: [mos, stp, sev, war]
+    name: Russia
+    units:
+    - {loc: fin, type: fleet}
+    - {loc: mos, type: army}
+    - {loc: war, type: army}
+    - {loc: sev, type: fleet}
+    - {loc: ukr, type: army}
+    - {loc: stp-nc, type: fleet}
+  Turkey:
+    centers: [con, ank, smy, bul]
+    control: [con, ank, arm, smy, syr, bul]
+    home: [con, ank, smy]
+    name: Turkey
+    units:
+    - {loc: bul, type: army}
+    - {loc: bla, type: fleet}
+    - {loc: con, type: army}
+    - {loc: smy, type: fleet}
+time: {season: 2, turn: 2}

@@ -1,39 +1,76 @@
-Austria:
-- {dest: gal, failed: true, loc: vie, type: move, unit: army}
-- {dest: rum, loc: bud, type: move, unit: army}
-- {dest: bud, loc: tri, type: move, unit: army}
-- {dest: aeg, failed: true, loc: gre, src: ion, type: support, unit: fleet}
-- {dest: rum, loc: ser, src: bud, type: support, unit: army}
-England:
-- {dest: stp, failed: true, loc: nwy, type: move, unit: army}
-- {dest: hel, loc: nth, type: move, unit: fleet}
-- {dest: nth, failed: true, loc: edi, type: move, unit: fleet}
-- {dest: stp, loc: bar, src: nwy, type: support, unit: fleet}
-France:
-- {dest: mar, failed: true, loc: spa-sc, type: move, unit: fleet}
-- {dest: bel, failed: true, loc: bur, type: move, unit: army}
-- {dest: bur, failed: true, loc: mar, type: move, unit: army}
-- {dest: bur, loc: par, src: mar, type: support, unit: army}
-Germany:
-- {dest: nth, failed: true, loc: den, type: move, unit: fleet}
-- {dest: bel, loc: hol, type: move, unit: army}
-- {dest: hol, loc: kie, type: move, unit: fleet}
-- {dest: bur, failed: true, loc: mun, type: move, unit: army}
-- {dest: bel, loc: ruh, src: hol, type: support, unit: army}
-Italy:
-- {loc: tun, type: hold, unit: army}
-- {dest: eas, failed: true, loc: ion, type: move, unit: fleet}
-- {dest: ion, failed: true, loc: nap, type: move, unit: fleet}
-- {dest: mar, failed: true, loc: pie, type: support-defend, unit: army}
-Russia:
-- {loc: stp-nc, type: hold, unit: fleet}
-- {dest: bud, failed: true, loc: rum, type: move, unit: army}
-- {dest: fin, loc: swe, type: move, unit: fleet}
-- {dest: gal, failed: true, loc: war, type: move, unit: army}
-- {dest: rum, failed: true, loc: sev, type: move, unit: fleet}
-- {dest: stp, loc: mos, type: support-defend, unit: army}
-Turkey:
-- {dest: bul, failed: true, loc: con, type: move, unit: army}
-- {dest: gre, failed: true, loc: bul, type: move, unit: army}
-- {dest: eas, failed: true, loc: smy, type: move, unit: fleet}
-- {dest: bul, loc: bla, src: con, type: support, unit: fleet}
+players:
+  Austria:
+    centers: [vie, tri, bud, gre, ser]
+    control: [boh, gal, vie, tri, bud, alb, gre, ser]
+    home: [vie, tri, bud]
+    name: Austria
+    units:
+    - {loc: gre, type: fleet}
+    - {loc: vie, type: army}
+    - {loc: ser, type: army}
+    - {loc: tri, type: army}
+    - {loc: bud, type: army}
+  England:
+    centers: [edi, lvp, lon, nwy]
+    control: [cly, edi, lvp, yor, wal, lon, nwy]
+    home: [lon, edi, lvp]
+    name: England
+    units:
+    - {loc: nth, type: fleet}
+    - {loc: nwy, type: army}
+    - {loc: edi, type: fleet}
+    - {loc: bar, type: fleet}
+  France:
+    centers: [bre, par, mar, spa]
+    control: [pic, bre, par, bur, gas, mar, spa]
+    home: [par, mar, bre]
+    name: France
+    units:
+    - {loc: bur, type: army}
+    - {loc: par, type: army}
+    - {loc: mar, type: army}
+    - {loc: spa-sc, type: fleet}
+  Germany:
+    centers: [kie, ber, mun, hol, den]
+    control: [kie, ber, ruh, mun, pru, sil, hol, den]
+    home: [ber, kie, mun]
+    name: Germany
+    units:
+    - {loc: mun, type: army}
+    - {loc: den, type: fleet}
+    - {loc: hol, type: army}
+    - {loc: kie, type: fleet}
+    - {loc: ruh, type: army}
+  Italy:
+    centers: [ven, rom, nap, tun]
+    control: [pie, ven, tus, rom, apu, nap, tun]
+    home: [rom, nap, ven]
+    name: Italy
+    units:
+    - {loc: pie, type: army}
+    - {loc: tun, type: army}
+    - {loc: nap, type: fleet}
+    - {loc: ion, type: fleet}
+  Russia:
+    centers: [stp, mos, sev, war, swe, rum]
+    control: [stp, mos, lvn, ukr, sev, fin, war, swe, rum]
+    home: [mos, stp, sev, war]
+    name: Russia
+    units:
+    - {loc: war, type: army}
+    - {loc: sev, type: fleet}
+    - {loc: stp-nc, type: fleet}
+    - {loc: rum, type: army}
+    - {loc: swe, type: fleet}
+    - {loc: mos, type: army}
+  Turkey:
+    centers: [con, ank, smy, bul]
+    control: [con, ank, arm, smy, syr, bul]
+    home: [con, ank, smy]
+    name: Turkey
+    units:
+    - {loc: bul, type: army}
+    - {loc: bla, type: fleet}
+    - {loc: con, type: army}
+    - {loc: smy, type: fleet}
+time: {season: 1, turn: 2}

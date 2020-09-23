@@ -124,7 +124,7 @@ This script requires the current state and actions (see `test/5` for examples) y
 
 #### Example Commands
 
-    fig diplo-step --root test/4 --state-path test/5/state.yaml --action-path test/5/action.yaml --save-path test_new_state.yaml
+    fig diplo-step --root test/4 --state-path test/5/state.yaml --action-path test/5/actions.yaml --save-path test_new_state.yaml
     fig diplo-step test/diplo-step
     
 
@@ -169,7 +169,7 @@ If you have a sequence of consecutive action files (eg. parsed from a web-diplom
 
 #### Example Commands
 
-    fig diplo-traj --root test/4 --state-dir test_states --action-dir test/7/actions.yaml --save-path test_new_state.yaml
+    fig diplo-traj --root test/4 --state-dir test_states --action-dir test/7 --save-path test_new_state.yaml
     fig diplo-step test/diplo-traj
     
 
@@ -183,7 +183,7 @@ Visualizes the game state given a directory of states `state-dir` and actions `a
 
 #### Example Commands
 
-    fig render-traj --root test/4 --state-dir test/8 --action-dir test/7 --frame-dir test_frames
+    fig render-traj viz/classic --root test/4 --state-dir test/8 --action-dir test/7 --frame-dir test_frames
     fig render-traj test/render-traj
     
 

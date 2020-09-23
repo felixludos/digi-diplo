@@ -124,7 +124,7 @@ def render_diplo_state(A):
 			
 	
 	for loc, owner in itr:
-		if pbar is not None:
+		if pbar:
 			itr.set_description(f'Filling in {loc}')
 		pts = M.pos.get(loc, {})
 		if owner in colors and 'fill' in pts:
@@ -635,6 +635,7 @@ def render_traj(A):
 	
 	A.push('view', False)
 	pbar = A.pull('pbar', True)
+	A.push('pbar', False, silent=True)
 	
 	if pbar:
 		state_files = tqdm(state_files)
