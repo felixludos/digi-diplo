@@ -193,7 +193,7 @@ All config files (which are also yaml files) are in `config/`. The `config/test/
 
 ## Create New Map
 
-Since the Diplomacy adjudicator is independent of the specific map, you can create new custom maps with any number of territories (nodes) and players. For this example, 
+Since the Diplomacy adjudicator is independent of the specific map, you can create new custom maps with any number of territories (nodes) and players. Here's the high-level instructions to create a new map and run/visualize games with it.
 
 1. Create a yaml file that lists all the territories (nodes) in the map. Each node must have an ID (a unique short name) and a type (land, coast, or sea). The node can also optionally have a full name, and it can designate the node as a supply center. If the node has multiple coasts those must also be listed. See `data/classic/nodes.yaml` for an example of the format for the official map.
 
