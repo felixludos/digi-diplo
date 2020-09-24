@@ -4,6 +4,10 @@ This repo contains a suite of python scripts for creating, managing, and visuali
 
 The primary use case here is for groups that play Diplomacy over the internet managed by a moderator. After the players submit their moves, the moderator can run these scripts (specifically `diplo-step` and `render`) to automatically update the game state and visualize the updated game state to send to the players. Furthermore, the moderator can use other scripts (`mapping`, `collect-pos`, `collect-fills`) to play the game with custom maps.
 
+Example rendered frame (see `examples/*/frames`):
+
+![](examples/game213263/frames/4-2-actions.png){:height="200px" width="200px"}
+
 ## Installation
 
 Firstly, you must have `python` and `pip` to run the scripts and install all dependencies (it's recommended you do so using the [Anaconda distribution](https://www.anaconda.com/products/individual)).
