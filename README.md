@@ -6,7 +6,7 @@ The primary use case here is for groups that play Diplomacy over the internet ma
 
 Example rendered frame (see `examples/*/frames`):
 
-![](examples/game213263/frames/4-2-actions.png){:height="200px" width="200px"}
+![](examples/game213263/frames/4-2-actions.png)
 
 ## Installation
 
