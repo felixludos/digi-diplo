@@ -1,63 +1,224 @@
 
 
-
-#_meta.script_name: collect-pos
-#_meta.script_name: node-locs
-#_meta.script_name: mapping
-_meta.script_name: diplo-step
-
-#_meta.script_name: parse-vdip
-
-#parents: ["test/node-locs"]
-#parents: ["test/mapping"]
-#parents: ["test/collect-pos"]
-#parents: ["test/collect-fills"]
-
-
-#parents: [test/render_state]
-#parents: [test/render_traj]
-#parents: [test/traj]
-#parents: [test/take_step]
-#parents: [test/new_game]
-#parents: [test/parse_vdip]
-#parents: [test/collect-pos]
-#parents: [test/fills]
-
-parents: [colors/vdip, viz/classic]
-
-state-path: extra\mygame1\states\7-1.yaml
-action-path: extra\mygame1\tentative.yaml
-
-render-state: True
-render-actions: True
-view: True
-
-#log_path: extra\raw.txt
-
-#_meta.script_name: new-diplo
-
-#map:
-#  _type: map
-
-#root: C:\Users\anwan\Nextcloud\Khan\projects\ludos\examples\diplomacy
-
-#image_path: extra\vanilla_blank.gif
-#edges_path: data\base_edges.yaml
-
-#name: test
+parents: [automap/viz]
 #
-#image_path: extra\standard_c.gif
-#nodes_path: test_nodes.yaml
-#edges_path: test_edges.yaml
+save-path: extra/col/test-viz5.png
+#
+state-path: extra/col/adj/game/states/1-1.yaml
+#state-path: extra/col/adj/game/states/1-2.yaml
 
-#pos_path: <>out_path
+#skip-filling: True
+#skip-bgs: True
+#skip-labeling: False
 
-#out_path: data\base_pos.yaml
+#---------------------
+
+#_meta.script_name: diplo-new
+
+#save-root: extra/col/adj/game/states
+
+#---------------------
+
+#parents: [automap/parse]
+##
+#log-path: extra/col/adj/game/raw/1-1.txt
+#action-path: extra/col/adj/game/actions/1-1.yaml
+#state-path: extra/col/adj/game/states/1-1.yaml
+
+#_meta.script_name: parse-col-actions
+#
+#log-path: extra/col/adj/game/raw/1-2.txt
+#action-path: extra/col/adj/game/actions/1-2.yaml
+#state-path: extra/col/adj/game/states/1-2.yaml
+
+#---------------------
+
+#parents: [automap/step]
+##
+#action-path: extra/col/adj/game/actions/fixed/1-1.yaml
 
 
-#base: False
-#text: False
-#retreat: False
+#---------------------
+
+
+
+#parents: [automap/scs]
+
+
+#_meta.script_name: map-identities
+#_meta.script_name: view-idents
+#_meta.script_name: match-names
+#_meta.script_name: categorize-fields
+#_meta.script_name: edge-finder
+
+#_meta.script_name: viz-map
+#
+#save-path: extra/col/test-viz.png
+#nodes-path: extra/col/nodes.yaml
+#path: extra/col/full.yaml
+#
+#img-path: extra/col/col_fixed_v2.gif
+#fields-img: extra/col/col_fixed_v2_nodes.png
+#
+#names-path: extra/col/col_names.txt
+#data-path: extra/col/col_idents_v2.yaml
+#
+#fix-diagonals: False
+#
+#color-map:
+#  land: [ 44, 160, 44 ] #2ca02c
+#  sea: [ 31, 119, 180 ] #1f77b4
+#  lake: [ 23, 190, 207 ] #17becf
+#  island: [ 255, 127, 14 ] #ff7f0e
+#  background: [ 0,0,0 ]
+#  river: [ 23, 190, 207 ] #17becf
+#  mountains: [ 140, 86, 75 ] #8c564b
+#  desert: [ 188, 189, 34 ] #bcbd22
+#  background-island: [ 127, 127, 127 ] #7f7f7f
+#  ocean: [ 31, 119, 180 ] #1f77b4
+#
+#text-props:
+##  backgroundcolor: w
+#  ha: center
+#  va: center
+#  fontsize: 0.5
+#  bbox:
+#    pad: 0.05
+#    ec: k
+#    fc: w
+#    lw: 0.05
+#    alpha: 0.8
+#
+#
+#categories:
+#  0: land
+#  1: sea
+#  2: lake
+#  3: island
+#  4: background
+#  5: river
+#  6: mountains
+#  7: desert
+#  8: background-island
+#  9: ocean
+#
+#cat-decoder:
+#  land: land
+#  sea: sea
+#  coast: coast
+#  island: coast
+#  desert: land
+#  ocean: sea
+#
+#cat-colors:
+#  0: [44, 160, 44] #2ca02c
+#  1: [31, 119, 180] #1f77b4
+#  2: [23, 190, 207] #17becf
+#  3: [255, 127, 14] #ff7f0e
+#  4: [127, 127, 127] #7f7f7f
+#  5: [23, 190, 207] #17becf
+#  6: [140, 86, 75] #8c564b
+#  7: [188, 189, 34] #bcbd22
+#  8: [ 127, 127, 127 ] #7f7f7f
+#  9: [ 31, 119, 180 ] #1f77b4
+#
+#skip-coasts:
+#  - Gothenburg
+#  - Denmark
+#  - Noquet
+#  - Caucasus
+#  - Sault Ste. Marie
+#  - Athens
+#  - Konstaniniyye
+#  - Hiroshima
+#  - Eskenderiyya
+#  - Panama
+##  - Sevilla
+#
+#multi-nodes:
+#  NAO: [NAO1, NAO2, NAO3, NAO4, NAO5]
+#  PAO: [PAO1, PAO2, PAO3, PAO4, PAO5]
+#  SAO: [SAO1, SAO2, SAO3, SAO4, SAO5]
+#  INO: [INO1, INO2, INO3, INO4, INO5]
+#  ANT: [ANT1, ANT2, ANT3, ANT4, ANT5]
+#  WSA: [WSA1, WSA2, WSA3]
+#  ESA: [ESA1, ESA2, ESA3]
+#
+#split-nodes:
+#  - Beaufort Sea
+#  - Bering Strait
+#  - Northeast Pacific Ocean
+#  - PAO
+#  - PAO1
+#  - PAO2
+#  - PAO3
+#  - PAO4
+#  - PAO5
+#  - Tuamotu Archipelago
+#  - Southwest Pacific Ocean
+
+#field: 905
+
+# old ------------------------
+
+
+##_meta.script_name: collect-pos
+##_meta.script_name: node-locs
+##_meta.script_name: mapping
+#_meta.script_name: diplo-step
+#
+##_meta.script_name: parse-vdip
+#
+##parents: ["test/node-locs"]
+##parents: ["test/mapping"]
+##parents: ["test/collect-pos"]
+##parents: ["test/collect-fills"]
+#
+#
+##parents: [test/render_state]
+##parents: [test/render_traj]
+##parents: [test/traj]
+##parents: [test/take_step]
+##parents: [test/new_game]
+##parents: [test/parse_vdip]
+##parents: [test/collect-pos]
+##parents: [test/fills]
+#
+#parents: [colors/vdip, viz/classic]
+#
+#state-path: extra\mygame1\states\7-1.yaml
+#action-path: extra\mygame1\tentative.yaml
+#
+#render-state: True
+#render-actions: True
+#view: True
+#
+##log_path: extra\raw.txt
+#
+##_meta.script_name: new-diplo
+#
+##map:
+##  _type: map
+#
+##root: C:\Users\anwan\Nextcloud\Khan\projects\ludos\examples\diplomacy
+#
+##image_path: extra\vanilla_blank.gif
+##edges_path: data\base_edges.yaml
+#
+##name: test
+##
+##image_path: extra\standard_c.gif
+##nodes_path: test_nodes.yaml
+##edges_path: test_edges.yaml
+#
+##pos_path: <>out_path
+#
+##out_path: data\base_pos.yaml
+#
+#
+##base: False
+##text: False
+##retreat: False
 
 
 

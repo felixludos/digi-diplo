@@ -7,3 +7,4 @@ from . import elements
 from . import util
 from . import colors
 from . import resolution
+from . import scripts

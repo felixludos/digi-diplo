@@ -1,0 +1,98 @@
+
+_meta.script_name: viz-map
+
+parents: [automap/col]
+
+#save-path: extra/col/test-viz4.png
+
+color-water: True
+
+#skip-filling: True
+#skip-bgs: True
+
+#color-map:
+#  land: [ 44, 160, 44 ] #2ca02c
+#  sea: [ 31, 119, 180 ] #1f77b4
+#  lake: [ 23, 190, 207 ] #17becf
+#  island: [ 255, 127, 14 ] #ff7f0e
+#  background: [ 0,0,0 ]
+#  river: [ 23, 190, 207 ] #17becf
+#  mountains: [ 140, 86, 75 ] #8c564b
+#  desert: [ 188, 189, 34 ] #bcbd22
+#  background-island: [ 127, 127, 127 ] #7f7f7f
+#  ocean: [ 31, 119, 180 ] #1f77b4
+
+color-map:
+  land: '#FFFFFF'
+  coast: '#FFFFFF'
+  island: '#FFFFFF'
+  desert: '#FFFFFF'
+
+  sea: '#C2E2F6'
+  lake: '#C2E2F6'
+
+  river: '#C2E2F6'
+  edge: '#000000'
+  mountains: '#543210'
+  bg-desert: '#E0E0E0'
+  bg-island: <>bg-desert
+  ocean: '#85C3EA'
+
+text-props:
+#  backgroundcolor: w
+  ha: center
+  va: center
+  fontsize: 0.5
+  color: w
+#  bbox:
+#    pad: 0.05
+#    ec: k
+#    fc: w
+#    lw: 0.05
+#    alpha: 0.8
+
+  border:
+    linewidth: 0.1
+    foreground: k
+#    linewidth: 0.03
+#    facecolor: k
+#    edgecolor: w
+
+  zorder: 5
+
+sc-props:
+  markeredgewidth: 0.02
+  markeredgecolor: k
+  markerfacecolor: '#FFD700'
+  markersize: 1
+  marker: '*'
+  ls: ''
+  zorder: 4
+
+unit-props:
+  ms: 1.5
+  mew: 0.4
+  zorder: 3
+  mec: k
+  ls: ''
+
+retreat:
+  style: o
+  disband: x
+  size: 16
+  edge: 1
+  color: r
+
+arrow:
+  ratio: 0.8
+  width: 5
+  head-width: 20
+  edge-color: k
+
+unit-shapes:
+  army: o
+  fleet: v
+
+
+
+

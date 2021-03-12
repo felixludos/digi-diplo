@@ -4,7 +4,7 @@ from omnibelt import load_yaml, save_yaml
 
 import omnifig as fig
 
-from src import util
+from .. import util
 
 def populate_map(map, players):
 	
@@ -20,7 +20,9 @@ def populate_map(map, players):
 			
 			'centers': [tile for tile in player['owns'] if map.nodes[tile].get('sc', 0) > 0],
 			
-			'home': player['home'].copy(),
+			'home': player['home'].copy() if 'home' in player else [loc for loc in player['owns']
+			                                                        if loc in map.nodes and 'sc' in map.nodes[loc]
+			                                                        and map.nodes[loc]['sc'] > 0],
 			
 			'name': player.get('name', name),
 		

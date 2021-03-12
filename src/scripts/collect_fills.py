@@ -11,9 +11,8 @@ import matplotlib.pyplot as plt
 
 from PIL import Image
 
-from src import util
-from src.colors import fill_region
-
+from ..colors import fill_region
+from .. import util
 
 @fig.Script('collect-fills', 'Collects points to fill on map for control')
 def _collect_adj(A):

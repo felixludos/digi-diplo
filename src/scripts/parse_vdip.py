@@ -5,7 +5,7 @@ from omnibelt import create_dir, save_yaml, load_yaml
 
 import omnifig as fig
 
-from src import util
+from .. import util
 
 _players_lines = {'Germany:', 'Italy:', 'Austria:', 'Turkey:', 'England:', 'Russia:', 'France:'}
 

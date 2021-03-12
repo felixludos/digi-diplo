@@ -23,12 +23,17 @@ def fill_region(img, loc, val=None, threshold=0.1, dist='rmse', make_copy=False)
 
 
 def process_color(raw):
+	full = webcolors.HTML5SimpleColor(*raw) if isinstance(raw, (list,tuple)) \
+		else webcolors.html5_parse_legacy_color(raw)
+	return webcolors.rgb_to_hex(full)
+
+def rgb_to_hex(raw):
 	full = webcolors.html5_parse_legacy_color(raw)
 	return webcolors.rgb_to_hex(full)
 
 def hex_to_rgb(raw):
 	full = webcolors.html5_parse_legacy_color(raw)
-	return webcolors.rgb_to_hex(full)
+	return [full.red, full.green, full.blue]
 
 
 

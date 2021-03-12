@@ -14,22 +14,71 @@ from pydip.turn.adjustment import resolve_adjustment__validated, calculate_adjus
 from pydip.map.map import OwnershipMap, SupplyCenterMap
 
 from . import util
+from copy import deepcopy
 
 @fig.Component('map')
 class DiploMap:
 	def __init__(self, A):
 		
-		nodes_path, edges_path, pos_path = util.get_map_paths(A, 'nodes', 'edges', 'pos')
+		graph_path = A.pull('graph-path', None)
+		# poi_path = A.pull('poi-path', None)
 		
-		self.nodes, self.edges = self._load_map_info(nodes_path, edges_path)
+		if graph_path is not None:
+			nodes, edges = self._load_graph_info(graph_path)
+			
+			pos = None
+			
+		else:
+		
+			nodes_path, edges_path, pos_path = util.get_map_paths(A, 'nodes', 'edges', 'pos')
+			
+			pos = None if pos_path is None or not os.path.isfile(pos_path) else load_yaml(pos_path)
+			
+			nodes, edges = self._load_map_info(nodes_path, edges_path)
+		self.nodes, self.edges = nodes, edges
 		self.get_ID_from_name = util.make_node_dictionary(self.nodes)
 		
-		self.pos = None if pos_path is None or not os.path.isfile(pos_path) else load_yaml(pos_path)
+		self.pos = pos
 		
 		self.dmap = self._create_dip_map(self.nodes, self.edges)
 	
 	def get_supply_centers(self):
-		return [node for node in self.nodes if 'sc' in node]
+		return [node for node in self.nodes if 'sc' in node and node['sc'] > 0]
+
+	def _load_graph_info(self, graph_path):
+		
+		graph = load_yaml(graph_path)
+		
+		coasts = {}
+		
+		edges = {'army': {name: info['army-edges'] for name, info in graph.items() if 'army-edges' in info}}
+		
+		fleet = {}
+		edges['fleet'] = fleet
+		
+		for name, info in graph.items():
+			if 'navy-edges' in info:
+				es = info['navy-edges']
+				if isinstance(es, dict):
+					info['coasts'] = []
+					for coast, ces in es.items():
+						coast = fig.quick_run('_encode_region_name', name=name, coast=coast)
+						coasts[coast] = {'name': coast, 'type': 'coast', 'coast-of': name, 'dir': coast}
+						info['coasts'].append(coast)
+						fleet[coast] = ces
+				else:
+					if info['type'] == 'coast':
+						coast = fig.quick_run('_encode_region_name', name=name,
+						                                node_type='coast', unit_type='fleet')
+						coasts[coast] = {'name': coast, 'type': 'coast', 'coast-of': name}
+						info['coasts'] = [coast]
+					fleet[name] = es
+		
+		nodes = graph
+		
+		self.coasts = coasts
+		
+		return nodes, edges
 
 	def _load_map_info(self, nodes_path, edges_path):
 		
@@ -79,8 +128,16 @@ class DiploMap:
 			
 			start, end = e['start'], e['end']
 			
-			start = util.fix_loc(start, e['type'], nodes[start]['type']) if start in nodes else start
-			end = util.fix_loc(end, e['type'], nodes[end]['type']) if end in nodes else end
+			start = fig.quick_run('_encode_region_name', name=start,
+			                      node_type=nodes[start]['type'] if start in nodes else None,
+			                      unit_type=e['type'])
+			
+			end = fig.quick_run('_encode_region_name', name=end,
+			                    node_type=nodes[end]['type'] if end in nodes else None,
+			                      unit_type=e['type'])
+			
+			# start = util.fix_loc(start, e['type'], nodes[start]['type']) if start in nodes else start
+			# end = util.fix_loc(end, e['type'], nodes[end]['type']) if end in nodes else end
 			
 			if (end, start) not in adjacencies:
 				adjacencies.add((start, end))
@@ -92,6 +149,10 @@ class DiploMap:
 		return Map(descriptors, adjacencies)
 
 	def fix_loc(self, loc, utype):
+		if utype in util.UNIT_ENUMS:
+			utype = util.UNIT_ENUMS[utype]
+		return fig.quick_run('_encode_region_name', name=loc, unit_type=utype,
+		                     node_type=self.nodes[loc]['type'] if loc in self.nodes else None)
 		return util.fix_loc(loc, utype, self.nodes[loc]['type']) if loc in self.nodes else loc
 
 	def load_players(self, players):

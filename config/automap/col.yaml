@@ -1,0 +1,10 @@
+
+
+graph-path: extra/col/adj/graph.yaml
+bg-path: extra/col/adj/backgrounds.yaml
+poi-path: extra/col/adj/pois.yaml
+player-path: extra/col/adj/players.yaml
+
+fields-img: extra/col/adj/col_fixed_v2_nodes.png
+
+

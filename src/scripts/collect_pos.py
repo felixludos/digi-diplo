@@ -8,8 +8,7 @@ from omnibelt import load_yaml, save_yaml
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
-from src import util
-
+from .. import util
 
 
 def _post_process(pos, nodes, retreat_pos):  # make sure coastal tiles also have a retreat pos
