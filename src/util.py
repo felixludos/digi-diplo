@@ -1,4 +1,6 @@
 import sys, os
+from omnibelt import primitives
+import omnifig as fig
 from pydip.player.unit import UnitTypes
 
 UNIT_TYPES = {
@@ -115,4 +117,35 @@ def print_player(player):
 	print(f'\tControl: {tiles}')
 	print(f'\tUnits: {units}')
 
+def _flatten_kwargs(tree):
+	
+	leaves = {}
+	nodes = {}
+	
+	for name,node in tree.items():
+		if node is None or isinstance(node, primitives):
+			leaves[name] = node
+		else:
+			nodes[name] = _flatten_kwargs(node)
+	
+	for node in nodes.values():
+		node.update(leaves)
+	
+	if len(nodes):
+		return nodes
+	return leaves
 
+@fig.Component('flatten-kwargs')
+def flatten_kwargs(A):
+	
+	A.push('_type', None, silent=True)
+	
+	raw = A.pull_self()
+	
+	ignore_hidden = A.pull('_ignore_hidden', '<>skip-hidden', True)
+	if ignore_hidden:
+		raw = {k:v for k,v in raw.items() if not k.startswith('_')}
+	
+	flat = _flatten_kwargs(raw)
+	
+	return flat

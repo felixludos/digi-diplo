@@ -7,3 +7,4 @@ from . import parse_vdip
 from . import trajectory_step
 from . import automap
 from . import coldip
+from . import render_diplo

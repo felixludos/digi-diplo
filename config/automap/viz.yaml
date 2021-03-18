@@ -42,14 +42,9 @@ text-props:
 #  backgroundcolor: w
   ha: center
   va: center
-  fontsize: 0.5
+  fontsize: 0.4
+#  color: w
   color: w
-#  bbox:
-#    pad: 0.05
-#    ec: k
-#    fc: w
-#    lw: 0.05
-#    alpha: 0.8
 
   border:
     linewidth: 0.1
@@ -58,7 +53,7 @@ text-props:
 #    facecolor: k
 #    edgecolor: w
 
-  zorder: 5
+  zorder: 70
 
 sc-props:
   markeredgewidth: 0.02
@@ -67,31 +62,95 @@ sc-props:
   markersize: 1
   marker: '*'
   ls: ''
-  zorder: 4
+  zorder: 60
+
+artist._type: map-artist
+
+
+action-props:
+  _type: flatten-kwargs
+  ms: 1.8
+  mew: 0.3
+  mec: r
+  mfc: None
+  zorder: 50
+  ls: ''
+
+  retreat:
+    marker: o
+  disband:
+    marker: x
+
+action-pos-aliases:
+  disband: retreat
+
+arrow-ratio: 0.9
+retreat-arrow:
+
+  width: 5
+  lw: 0.1
+  head_width: 12
+  length_includes_head: True
+  fc: r
+  ec: k
+  zorder: 19
+
+move-arrow:
+  width: 5
+  lw: 0.1
+  head_width: 12
+  length_includes_head: True
+  facecolor: w
+  edgecolor: k
+  zorder: 15
+
+support-wedge:
+  arrowprops:
+#    width: 3
+    arrowstyle: wedge
+    capstyle: round
+    linewidth: 0.1
+    facecolor: y
+    edgecolor: k
+    connectionstyle: "arc3,rad=0.2"
+    shrinkA: 0.2
+    shrinkB: 0.2
+
+  zorder: 12
+
+support-arrow:
+  width: 5
+  ls: --
+  lw: 0.1
+  head_width: 12
+  length_includes_head: True
+  facecolor: y
+  edgecolor: k
+  zorder: 13
+
+support-dot:
+  marker: o
+  ms: 0.8
+  mew: 0.1
+  color: y
+  mec: k
+  zorder: 18
+
+
 
 unit-props:
+  _type: flatten-kwargs
+
   ms: 1.5
-  mew: 0.4
-  zorder: 3
+  mew: 0.25
+  zorder: 20
   mec: k
   ls: ''
 
-retreat:
-  style: o
-  disband: x
-  size: 16
-  edge: 1
-  color: r
-
-arrow:
-  ratio: 0.8
-  width: 5
-  head-width: 20
-  edge-color: k
-
-unit-shapes:
-  army: o
-  fleet: v
+  army:
+    marker: o
+  fleet:
+    marker: v
 
 
 

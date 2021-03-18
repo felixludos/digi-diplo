@@ -2,40 +2,51 @@
 
 parents: [automap/viz]
 #
-save-path: extra/col/test-viz5.png
+#save-path: extra/col/4-2_actions.png
 #
-state-path: extra/col/adj/game/states/1-1.yaml
-#state-path: extra/col/adj/game/states/1-2.yaml
+#state-path: extra/col/adj/game/states/4-2-r.yaml
+#save-path: extra/col/4-2-r.png
 
+state-path: extra/col/adj/game/states/4-2.yaml
+action-path: extra/col/adj/game/actions/4-2.yaml
+save-path: extra/col/4-2_actions.png
+
+#fill-units: True
 #skip-filling: True
 #skip-bgs: True
-#skip-labeling: False
+#skip-labeling: True
 
 #---------------------
 
-#_meta.script_name: diplo-new
+#parents: [automap/new]
 
+#_meta.script_name: diplo-new
+#
 #save-root: extra/col/adj/game/states
 
 #---------------------
 
 #parents: [automap/parse]
-##
-#log-path: extra/col/adj/game/raw/1-1.txt
-#action-path: extra/col/adj/game/actions/1-1.yaml
-#state-path: extra/col/adj/game/states/1-1.yaml
-
-#_meta.script_name: parse-col-actions
 #
+#log-path: extra/col/adj/game/raw/1-1.txt
+#action-path: extra/col/adj/game/actions/parsed/1-1.yaml
+
 #log-path: extra/col/adj/game/raw/1-2.txt
-#action-path: extra/col/adj/game/actions/1-2.yaml
-#state-path: extra/col/adj/game/states/1-2.yaml
+#action-path: extra/col/adj/game/actions/parsed/1-2.yaml
+
+#log-path: extra/col/adj/game/raw/4-2.txt
+#action-path: extra/col/adj/game/actions/parsed/4-2.yaml
 
 #---------------------
 
 #parents: [automap/step]
-##
-#action-path: extra/col/adj/game/actions/fixed/1-1.yaml
+
+#state-path: extra/col/adj/game/states/1-1.yaml
+#action-path: extra/col/adj/game/actions/1-1.yaml
+
+
+#state-path: extra/col/adj/game/states/4-2.yaml
+#action-path: extra/col/adj/game/actions/4-2.yaml
 
 
 #---------------------

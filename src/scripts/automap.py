@@ -24,7 +24,6 @@ from skimage.morphology import closing, square
 from skimage.color import label2rgb
 from PIL import Image
 import matplotlib.patches as mpatches
-import matplotlib.patheffects as path_effects
 from itertools import chain
 
 from scipy import misc, signal
@@ -1218,7 +1217,7 @@ def edge_finder(A):
 								break
 		
 
-			node['navy-edges'] = cedges
+			node['fleet-edges'] = cedges
 		
 		elif typ in sea_types:
 			
@@ -1227,9 +1226,9 @@ def edge_finder(A):
 			nedges = []
 			for e in naive:
 				if 'coasts' in nodes[e]:
-					assert 'navy-edges' in nodes[e], f'must work on {nodes[e]} before this node {node}'
+					assert 'fleet-edges' in nodes[e], f'must work on {nodes[e]} before this node {node}'
 					pick = None
-					for cdir, es in nodes[e]['navy-edges'].items():
+					for cdir, es in nodes[e]['fleet-edges'].items():
 						if idx in es:
 							nedges.append([e,cdir])
 							pick = cdir
@@ -1238,13 +1237,13 @@ def edge_finder(A):
 				else:
 					nedges.append(e)
 			
-			node['navy-edges'] = nedges
+			node['fleet-edges'] = nedges
 			
 		
 		# for naval-edges, check all neighbors if they have coasts, if so look at responsibility and shared coasts to identify all edges
 		
 		# if cat == 'sea':
-		# 	node['navy-edges'] = order_edges(idx, [n['idx'] for n in node['edges'] if n['env'] in {'sea', 'coast'}])
+		# 	node['fleet-edges'] = order_edges(idx, [n['idx'] for n in node['edges'] if n['env'] in {'sea', 'coast'}])
 	
 	
 	# boundary_midpoint(idx, im[extend_slice(get_region(idx).slice)]-1, seas)
@@ -1275,7 +1274,7 @@ def decode(A, name=None, allow_dir=None):
 		return name[:-5], _coast_decoder[end]
 	
 	if name.endswith(' (Coast)'):
-		return name[-8:], True
+		return name[:-8], True
 	
 	return name, None
 	
@@ -1287,9 +1286,10 @@ def encode(A, name=None, coast=unspecified_argument, node_type=None, unit_type=N
 	if coast is unspecified_argument:
 		coast = A.pull('coast', None, silent=True)
 	
-	if coast is not None:
-		assert coast in {'NC', 'SC', 'WC', 'EC'}
+	if coast is not None and coast in {'NC', 'SC', 'WC', 'EC'}:
 		return f'{name} ({coast})'
+	elif coast:
+		return f'{name} (Coast)'
 	
 	if node_type is None:
 		node_type = A.pull('node_type', None, silent=True)
@@ -1303,266 +1303,6 @@ def encode(A, name=None, coast=unspecified_argument, node_type=None, unit_type=N
 	return name
 	
 	
-@fig.Script('viz-map')
-def viz_map(A):
-	mlp_backend = A.pull('mlp_backend', 'qt5agg')
-	if mlp_backend is not None:
-		plt.switch_backend(mlp_backend)
-	
-	path = A.pull('graph-path')
-	data = load_yaml(path)
-	
-	save_path = A.pull('save-path', 'test.png')
-	
-	fpath = A.pull('fields-img')
-	if fpath is None:
-		raise NotImplementedError
-	else:
-		im = Image.open(fpath)
-		im = np.array(im)
-	
-	bgpath = A.pull('bg-path', None)
-	bgs = None if bgpath is None else load_yaml(bgpath)
-	
-	poi_path = A.pull('poi-path', None)
-	pois = None if poi_path is None else load_yaml(poi_path)
-	
-	state_path = A.pull('state-path', None)
-	state = None if state_path is None else load_yaml(state_path)
-	
-	num_units = 0
-	units = None
-	
-	if state is not None:
-		unit_state = state['players']
-	
-	player_path = A.pull('player-path', None)
-	players = None if player_path is None else load_yaml(player_path)
-	
-	if state is None:
-		unit_state = players
-	
-	owned = None
-	if unit_state is not None:
-		
-		units = {}
-		owned = {}
-		
-		for pname, info in unit_state.items():
-			if 'color' in players[pname]:
-				
-				units[pname] = info.get('units', [])
-				num_units += len(units[pname])
-				
-				ownership = info.get('owns', None)
-				if ownership is None:
-					ownership = info.get('control', None)
-				
-				if ownership is not None:
-					for loc in ownership:
-						owned[loc] = players[pname]['color']
-		
-			else:
-				
-				print(f'WARNING: no color for player: {pname}')
-		
-		pass
-	
-	# opath = A.pull('overlay-path', None)
-	# if opath is not None:
-	# 	raise NotImplementedError
-	
-	bounds = get_borders_from_expanded(im)
-	im[bounds==1] = 0
-	
-	clean = im.copy().clip(max=1)
-	# clean[bounds==1] = 0
-	clean = np.stack(3*[clean],2)*255
-	simple_colors = {'background': [0,0,0],
-	                 'land':[44, 160, 44],
-	                 'coast':[44, 160, 44],
-	                 'sea':[31, 119, 180], }
-	
-	colors = A.pull('color-map', None)
-	
-	textprops = A.pull('text-props', {})
-	text_border = None
-	if 'border' in textprops:
-		text_border = textprops['border']
-		del textprops['border']
-		print('Using text border')
-	
-	unit_props = A.pull('unit-props', {})
-	unit_shapes = A.pull('unit-shapes', {'army': 'o', 'fleet': 'v'})
-	unit_colors = A.pull('unit-colors', {})
-	lighten_units = A.pull('lighten-units', 0.1)
-	
-	skip_bgs = A.pull('skip-bgs', False)
-	skip_filling = A.pull('skip-filling', False)
-	skip_labeling = A.pull('skip-labeling', False)
-
-	scprops = A.pull('sc-props', None)
-	
-	include_owned = A.pull('include-owned', owned is not None)
-	color_water = A.pull('color-water', False)
-	use_water_area = A.pull('use-water-area', 100)
-	
-	dpi = 1200
-	H, W = im.shape
-	fg, ax = plt.subplots(figsize=(W/dpi,H/dpi))
-	
-	if bgs is not None and not skip_bgs:
-		todo = tqdm(bgs.values(), total=len(bgs), desc='Coloring in background')
-		for info in todo:
-			name = info['name']
-			# todo.set_description(f'Coloring: {name}')
-			
-			if colors is not None:
-				ev = info.get('env', None)
-				color = colors.get(ev, None)
-				if color is None:
-					color = simple_colors[info['type']]
-				
-				if color_water and include_owned and 'island' in info and owned is not None and info['island'] in owned:
-					color = owned[info['island']]
-				
-				idx = info['idx']
-				clean[im == idx + 1] = hex_to_rgb(process_color(color))
-
-	if not skip_filling:
-		todo = tqdm(data.values(), total=len(data), desc='Coloring in nodes')
-		for info in todo:
-			name = info['name']
-			# todo.set_description(f'Coloring: {name}')
-			
-			if colors is not None:
-				color = colors.get(info.get('env', None), None)
-				if color is None:
-					color = simple_colors[info['type']]
-				
-				if include_owned and owned is not None and name in owned:
-					color = owned[name]
-				
-				idx = info['idx']
-				clean[im == idx+1] = hex_to_rgb(process_color(color))
-
-	plt.imshow(clean, zorder=0)
-
-	if not skip_labeling:
-		todo = tqdm(data.values(), total=len(data), desc='Labeling nodes')
-		for info in todo:
-			name = info['name']
-			# todo.set_description(f'Labeling: {name}')
-			
-			poi = pois[name] if pois is not None and name in pois else None
-			
-			if poi is not None and 'label' in pois[name]:
-				
-				if 'water' in poi and 'label' in poi['water']:
-					x,y = poi['water']['label']
-				else:
-					x,y = poi['label']
-				
-				txt = plt.text(x, y, name, **textprops)
-				if text_border is not None:
-					# txt.set_path_effects([path_effects.PathPatchEffect(**text_border)])
-					txt.set_path_effects([path_effects.Stroke(**text_border),
-	                       path_effects.Normal()])
-				
-			elif 'pos' in info:
-				y,x = info['pos']
-				
-				txt = plt.text(x,y, name, **textprops)
-				
-				if text_border is not None:
-					# txt.set_path_effects([path_effects.PathPatchEffect(**text_border)])
-					txt.set_path_effects([path_effects.Stroke(**text_border),
-	                       path_effects.Normal()])
-				
-			if 'coast-pos' in info:
-				for coast, pos in info['coast-pos'].items():
-					y, x = pos
-					txt = plt.text(x,y, coast.upper(), **textprops)
-					
-					if text_border is not None:
-						# txt.set_path_effects([path_effects.PathPatchEffect(**text_border)])
-						txt.set_path_effects([path_effects.Stroke(**text_border),
-		                       path_effects.Normal()])
-					
-			if scprops is not None and 'sc' in info and info['sc'] > 0 and poi is not None and 'pos' in poi:
-				x,y = poi['pos'][-1]
-				plt.plot(x,y, **scprops)
-			
-	if units is not None:
-		
-		for pname in units:
-			if pname not in unit_colors:
-				unit_colors[pname] = players[pname]['color']
-				if lighten_units is not None and lighten_units > 0:
-					unit_colors[pname] = lighter(unit_colors[pname], lighten_units)
-		
-		itr = tqdm(total=num_units)
-		
-		for pname, us in units.items():
-			
-			for u in us:
-				
-				loc, coast = fig.quick_run('_decode_region_name', name=u['loc'])
-				typ = u['type']
-				poi = pois[loc]
-				shape = unit_shapes[typ]
-				color = unit_colors[pname]
-				action = u.get('action', None)
-				
-				area = data[loc]['area']
-				
-				if typ == 'fleet' and 'coast-locs' in poi:
-					poi = poi['coast-locs']
-					
-					if coast is not None:
-						poi = poi[coast]
-					
-					if action is None or action == 'normal':
-						pos = poi[1]
-					
-					elif action == 'retreat':
-						pos = poi[0]
-					
-					else:
-						raise Exception(f'unknown unit for player {pname}: {u}')
-				
-				else:
-				
-					if 'water' in poi and use_water_area is not None and area < use_water_area:
-						poi = poi['water']
-					
-					if action is None or action == 'normal':
-						pos = poi['pos'][0]
-					
-					elif action == 'retreat':
-						pos = poi['pos'][2]
-						
-					else:
-						raise Exception(f'unknown unit for player {pname}: {u}')
-				
-				x, y = pos
-				
-				plt.plot(x, y, marker=shape, mfc=color, **unit_props)
-				
-				itr.update(1)
-			
-			pass
-		
-		pass
-		
-		
-	plt.axis('off')
-	plt.subplots_adjust(0, 0, 1, 1)
-	
-	# plt.show()
-	plt.savefig(save_path, dpi=dpi)
-
-
 @fig.Script('map-attribute')
 def map_attribute(A):
 	mlp_backend = A.pull('mlp_backend', 'qt5agg')

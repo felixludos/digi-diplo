@@ -1,0 +1,5 @@
+_meta.script_name: diplo-new
+
+parents: [automap/col]
+
+save-root: extra/col/adj/game/states

@@ -2,25 +2,30 @@ import sys, os
 from itertools import chain
 from omnibelt import load_yaml, save_yaml, create_dir
 from tqdm import tqdm
-
+from copy import deepcopy
 import omnifig as fig
 
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+from matplotlib.patches import ArrowStyle
 from matplotlib.figure import figaspect
-import matplotlib.patheffects as pe
+import matplotlib.patheffects as path_effects
 
 import numpy as np
+from scipy.spatial import distance_matrix
 from PIL import ImageColor, Image
 
 from src.colors import lighter, dimmer, fill_region
+
+from .automap import get_borders_from_expanded
+from ..colors import hex_to_rgb, process_color
 
 import pydip
 
 _SEASONS = ['', 'Spring', 'Autumn', 'Winter']
 
 
-@fig.Script('render', description='Render a Diplomacy state')
+# @fig.Script('render', description='Render a Diplomacy state')
 def render_diplo_state(A):
 	save_path = A.pull('render-path', '<>save-path', None)
 	view = A.pull('view', save_path is None)
@@ -583,7 +588,7 @@ def render_diplo_state(A):
 	if save_path is not None:
 		plt.savefig(save_path, dpi=W / w)
 
-@fig.Script('render-traj', description='Render all frames in a trajectory')
+# @fig.Script('render-traj', description='Render all frames in a trajectory')
 def render_traj(A):
 	'''
 	Given a set of states and actions, this script visualizes every game state.
@@ -673,23 +678,618 @@ def render_traj(A):
 		
 	
 	print('All rendering complete')
+
+def load_image(path):
+	im = Image.open(str(path))
+	im = np.array(im)
+	return im
+
+@fig.Component('map-artist')
+class MapArtist(fig.Configurable):
+	def __init__(self, A, **kwargs):
+		
+		textprops = A.pull('text-props', {})
+		text_border = None
+		if 'border' in textprops:
+			text_border = textprops['border']
+			del textprops['border']
+			print('Using text border')
+		
+		skip_retreats = A.pull('skip-retreats', False)
+		
+		unit_props = A.pull('unit-props', {'army': {'marker':'o'}, 'fleet': {'marker':'v'}})
+		color_key = A.pull('unit-color-key', 'mfc')
+		default_color = A.pull('unit-default-color', 'w')
+		auto_color = A.pull('unit-auto-color', True)
+		unit_colors = A.pull('unit-colors', {})
+		lighten_units = A.pull('lighten-units', 0.1)
+		
+		support_wedge = A.pull('support-wedge', {})
+		support_arrow = A.pull('support-arrow', {})
+		support_dot = A.pull('support-dot', {})
+		move_arrow = A.pull('move-arrow', {})
+		
+		action_props = A.pull('action-props', {})
+		for vals in action_props.values():
+			for k, v in vals.items():
+				if v is None and k in {'color', 'c', 'mfc', 'mec'}:
+					vals[k] = str(v)
+		
+		action_aliases = A.pull('action-pos-aliases', {})
+		
+		sc_props = A.pull('sc-props', {})
+		
+		color_map = A.pull('color-map', {'background': [0, 0, 0],
+		                 'land': [44, 160, 44],
+		                 'coast': [44, 160, 44],
+		                 'sea': [31, 119, 180], })
+		
+		include_owned = A.pull('include-owned', True)
+		color_water = A.pull('color-water', False)
+		
+		arrow_ratio = A.pull('arrow-ratio', 0.8)
+		retreat_arrow = A.pull('retreat-arrow', {})
+		
+		super().__init__(A, **kwargs)
+		self.graph = None
+		self.state = None
+		self.players = None
+		self.bgs = None
+		self.actions = None
+		
+		self.skip_retreats = skip_retreats
+		
+		self.include_owned = include_owned
+		self.color_water = color_water
+		
+		self.color_map = color_map
+		
+		self.textprops = textprops
+		self.textborder = text_border
+		
+		self.move_arrow = move_arrow
+		self.support_wedge = support_wedge
+		self.support_arrow = support_arrow
+		self.support_dot = support_dot
+		
+		self.unit_props = unit_props
+		self.unit_color_key = color_key
+		self.unit_auto_color = auto_color
+		self.unit_colors = unit_colors
+		self.unit_default_color = default_color
+		self.unit_lighten_factor = lighten_units
+		
+		self.owned = None
+		self.units = None
+		self.num_units = None
+		
+		self.action_props = action_props
+		self.action_aliases = action_aliases
+		
+		self.sc_props = sc_props
+		
+		self.arrow_ratio = arrow_ratio
+		self.retreat_arrow = retreat_arrow
+		
+		self.node_img = None
+		self.target_locs = None
+		
+	def _target_locs(self, graph):
+		
+		if self.target_locs is None:
+		
+			targets = {}
+			
+			for name, info in graph.items():
+			
+				locs = info['locs']
+				
+				if 'label' in locs:
+					targets[name] = np.array(locs['label']).reshape(-1,2)
+				
+				if 'coast-label' in locs and isinstance(locs['coast-label'], dict):
+					for coast, pos in locs['coast-label'].items():
+						target = fig.quick_run('_encode_region_name', name=name, coast=coast)
+						targets[target] = np.array(pos).reshape(-1,2)
+			
+			
+			self.target_locs = targets
+		
+	def _format_actions(self, units, actions):
+		
+		unit_locs = {}
+		for us in units.values():
+			unit_locs.update({u['loc']:u for u in us})
+		
+		for name, us in units.items():
+			if name in actions:
+				acts = {a['loc']:a for a in actions[name]}
+				
+				for u in us:
+					if u['loc'] in acts:
+						cmd = acts[u['loc']]
+						if cmd['type'] == 'support-defend':
+							if cmd['dest'] in unit_locs:
+								cmd['dest-unit'] = unit_locs[cmd['dest']]
+							else:
+								raise Exception
+						elif cmd['type'] in {'support', 'convoy-transport'}:
+							if cmd['src'] in unit_locs:
+								cmd['src-unit'] = unit_locs[cmd['src']]
+							else:
+								raise Exception
+						u['command'] = cmd
+						del acts[u['loc']]
+					# else:
+					# 	print(u, acts)
+					# 	raise Exception
+				if len(acts):
+					print(acts)
+					raise Exception
+				
+		
+	def include_graph(self, graph=None, state=None, players=None, bgs=None, actions=None):
+		if graph is not None:
+			self.graph = graph
+		if state is not None:
+			self.state = state
+		if players is not None:
+			self.players = players
+		if bgs is not None:
+			self.bgs = bgs
+		if actions is not None:
+			self.actions = actions
+
+		unit_state = None
+		if state is None:
+			unit_state = players
+		else:
+			unit_state = state['players']
+		
+		num_units = 0
+		units = None
+		owned = None
+		if unit_state is not None:
+			
+			units = {}
+			owned = {}
+			
+			for pname, info in unit_state.items():
+				if 'color' in players[pname]:
+					
+					units[pname] = info.get('units', [])
+					num_units += len(units[pname])
+					
+					ownership = info.get('owns', None)
+					if ownership is None:
+						ownership = info.get('control', None)
+					
+					if ownership is not None:
+						for loc in ownership:
+							owned[loc] = players[pname]['color']
+				
+				else:
+					
+					print(f'WARNING: no color for player: {pname}')
+			
+			if state is not None:
+				if 'retreats' in state:
+					self._target_locs(self.graph)
+					for name, us in units.items():
+						if name in state['retreats']:
+							r = state['retreats'][name]
+							options = {
+								fig.quick_run('_decode_region_name', name=start)[0]:
+									[fig.quick_run('_decode_region_name', name=end)[0] for end in ends]
+								for start, ends in r.items()
+							}
+							
+							for u in us:
+								loc, coast = fig.quick_run('_decode_region_name', name=u['loc'])
+								if loc in options:
+									u['action'] = 'retreat'
+									u['retreat-options'] = options[loc]
+					
+				if 'disbands' in state:
+					for name, us in units.items():
+						if name in state['disbands']:
+							for u in state['disbands'][name]:
+								u['action'] = 'disband'
+								us.append(u)
+							
+			
+		self.num_units = num_units
+		self.owned = owned
+		self.units = units
+		
+		if self.actions is not None:
+			self.skip_retreats = True
+			self._target_locs(self.graph)
+			self._format_actions(units, actions)
+		
+	def include_image(self, img=None):
+		self.node_img = img
+		
+	def fill_region(self, img, loc, color=None):
+		
+		if loc in self.bgs:
+			
+			info = self.bgs[loc]
+			
+			if color is None and self.color_water and self.include_owned and 'island' in info \
+						and self.owned is not None:
+				color = self.owned.get(info['island'], None)
+				
+		else:
+			assert loc in self.graph
+			info = self.graph[loc]
+			
+			if color is None and self.include_owned and self.owned is not None:
+				color = self.owned.get(loc, None)
+			
+		if color is None:
+			ev = info.get('env', None)
+			color = self.color_map.get(ev, None)
+			if color is None:
+				typ = info.get('type', None)
+				color = self.color_map.get(typ, None)
+		
+		idx = info['idx'] + 1
+		
+		if color is not None:
+			img[self.node_img == idx] = hex_to_rgb(process_color(color))
+		
+		return img
+		
+	def draw_label(self, loc, include_coasts=True):
+		
+		locs = self.graph[loc]['locs']
+		pos = locs['water'].get('label', None) if 'water' in locs else locs.get('label', None)
+		if pos is None:
+			print(f'WARNING: no label found for {loc}')
+			return
+		pos = np.array(pos)
+		if len(pos.shape) == 1:
+			pos = [pos]
+		
+		out = []
+		for x,y in pos:
+		
+			txt = plt.text(x,y, loc, **self.textprops)
+			out.append(txt)
+			if self.textborder is not None:
+				txt.set_path_effects([path_effects.Stroke(**self.textborder),
+				                      path_effects.Normal()])
+			
+			if include_coasts:
+				coasts = locs.get('coast-label', None)
+				if isinstance(coasts, dict):
+					out = [out]
+					for coast, pos in coasts.items():
+						pos = np.array(pos)#[..., ::-1]
+						if len(pos.shape) == 1:
+							pos = [pos]
+						for x,y in pos:
+							txt = plt.text(x,y, coast.upper(), **self.textprops)
+							if self.textborder is not None:
+								txt.set_path_effects([path_effects.Stroke(**self.textborder),
+								                      path_effects.Normal()])
+							out.append(txt)
 	
+		if len(out) == 1:
+			return out[0]
+		return out
+		
+	def draw_sc(self, loc, val=1):
+		
+		pos = self.graph[loc]['locs'].get('sc', None)
+		if pos is None:
+			print(f'WARNING: {loc} doesnt have an sc pos')
+			return
+		pos = np.array(pos)
+		if len(pos.shape) == 2:
+			pos = pos.T
+		return plt.plot(*pos, **self.sc_props)
+		
+	def draw_all_unit_locs(self, loc):
+		
+		info = self.graph[loc].get('locs', None)
+		if info is None:
+			return
+		
+		if 'army' in info:
+			self.draw_unit({'type': 'army', 'loc': loc})
+			self.draw_unit({'type': 'army', 'loc': loc, 'action': 'retreat'})
+			
+		if 'fleet' in info:
+			for action, fleet in info['fleet'].items():
+				if not isinstance(fleet, dict):
+					fleet = {None: fleet}
+				for k, v in fleet.items():
+					uloc = fig.quick_run('_encode_region_name', name=loc, coast=k)
+					self.draw_unit({'type': 'fleet', 'loc': uloc, 'action': action})
+		
+		
+	def _auto_color(self, unit):
+		
+		if 'player' in unit:
+		
+			player = unit['player']
+			
+			color = self.players[player]['color']
+			if self.unit_lighten_factor is not None and self.unit_lighten_factor > 0:
+				color = lighter(color, self.unit_lighten_factor)
+			self.unit_colors[player] = color
+			return color
+		
+		return self.unit_default_color
+		
+	def draw_units(self, pbar=None):
+		if self.units is None or len(self.units) == 0:
+			return
+		itr = None
+		if pbar is not None:
+			itr = pbar(total=self.num_units, desc=f'Drawing {self.num_units} units')
+		
+		for pname, us in self.units.items():
+			for u in us:
+				u['player'] = pname
+				self.draw_unit(u)
+				if itr is not None:
+					itr.update(1)
+		
+	def draw_unit(self, unit):
+		
+		loc, coast = fig.quick_run('_decode_region_name', name=unit['loc'])
+		typ = unit['type']
+		player = unit.get('player', None)
+		
+		locs = self.graph[loc].get('locs', None)
+		if locs is None:
+			print(f'WARNING: no locations found for {unit}')
+			return
+			
+		props = self.unit_props.get(typ, {}).copy()
+		
+		if player in self.unit_colors:
+			color = self.unit_colors[player]
+		elif self.unit_auto_color:
+			color = self._auto_color(unit)
+		else:
+			color = self.unit_default_color
+			
+		if self.unit_color_key is not None:
+			props[self.unit_color_key] = color
+			
+		action = unit.get('action', 'occupy')
+		# area = data[loc]['area']
+		
+		if action == 'retreat' and 'zorder' in props:
+			props['zorder'] += 3
+		
+		pos = locs.get(typ, locs).get(action, None)
+		if pos is None and action in self.action_aliases:
+			pos = locs.get(typ, locs)
+			pos = pos.get(self.action_aliases[action], None)
+		
+		if pos is None:
+			return
+			
+		if isinstance(pos, dict):
+			assert coast is not None, f'{loc} {coast}, {pos}'
+			pos = pos[coast]
+		pos = np.array(pos)
+		if len(pos.shape) == 2:
+			pos = pos.T
+	
+		out = plt.plot(*pos, **props)
+	
+		if action in self.action_props:
+			out = [out, plt.plot(*pos, **self.action_props[action])]
+		
+		options = unit.get('retreat-options', [])
+		if not self.skip_retreats:
+			for dest in options:
 
-# save_path = A.pull('save-path', None)
-# if save_path is None:
-#
-# 	save_root = A.pull('save-root', None)
-#
-# 	if save_root is not None:
-# 		turn, season = new['time']['turn'], new['time']['season']
-# 		r = '-r' if 'retreat' in new['time'] else ''
-# 		new_name = f'{turn}-{season}{r}.yaml'
-#
-# 		save_path = os.path.join(save_root, new_name)
-#
-# if save_path is not None:
-# 	save_yaml(new, save_path, default_flow_style=None)
+				target = self.graph[dest]['locs'].get('label', None)
+				if target is not None:
+					target = np.array(target).reshape(-1,2)
+					if len(pos.shape) == 2:
+						pos = pos.T
+					pos = pos.reshape(-1,2)
+					
+					x,y, tx, ty = self._best_arrow_coords(pos, target)
+					dx, dy = tx - x, ty - y
+					dx, dy = dx * self.arrow_ratio, dy * self.arrow_ratio
+					
+					plt.arrow(x, y, dx, dy, **self.retreat_arrow)
+					# plt.annotate('', xy=(x, y), xytext=(dx, dy), **self.retreat_arrow)
+		
+		if 'command' in unit:
+			cmd = unit['command']
+			
+			if len(pos.shape) == 2:
+				pos = pos.T
+			pos = pos.reshape(-1, 2)
+			
+			atype = cmd['type']
+			
+			if atype == 'move' or atype == 'convoy-move' or atype == 'retreat':
+				target = self.target_locs[cmd['dest']]
+				x, y, tx, ty = self._best_arrow_coords(pos, target)
+				dx, dy = tx - x, ty - y
+				dx, dy = dx * self.arrow_ratio, dy * self.arrow_ratio
+
+				arrow = self.move_arrow.copy()
+				if 'convoy' in atype:
+					arrow['facecolor'] = 'c'
+				
+				plt.arrow(x, y, dx, dy, **arrow)
+				
+			elif atype == 'support' or atype == 'convoy-transport':
+				src = cmd['src-unit']
+				sbase, scoast = fig.quick_run('_decode_region_name', name=src['loc'])
+				spos = self.graph[sbase]['locs'][src['type']]['occupy']
+				if isinstance(spos, dict):
+					spos = spos[scoast]
+				srcpos = np.array(spos).reshape(-1,2)
+				
+				dest = cmd['dest']
+				destpos = self.target_locs[dest]
+				
+				x1, y1, x2, y2 = self._best_arrow_coords(srcpos, destpos)
+				
+				lx, ly = (x1 + x2) / 2, (y1 + y2) / 2
+				x,y, _, _ = self._best_arrow_coords(pos, destpos)
+				
+				wedge = deepcopy(self.support_wedge)
+				arrow = self.support_arrow.copy()
+				dot = self.support_dot.copy()
+				
+				style = ArrowStyle("wedge", shrink_factor=0.5, tail_width=.06)
+				wedge['arrowprops']['arrowstyle'] = style
+				
+				if 'convoy' in atype:
+					wedge['arrowprops']['facecolor'] = 'c'
+					arrow['facecolor'] = 'c'
+					dot['color'] = 'c'
+				
+				dx, dy = self.arrow_ratio * (x2 - x1), self.arrow_ratio * (y2 - y1)
+				
+				plt.annotate('', xytext=(lx, ly), xy=(x, y), **wedge)
+				plt.arrow(x1, y1, dx, dy, **arrow)
+				plt.plot([lx], [ly], **dot)
+				
+			elif atype == 'support-defend':
+				dest = cmd['dest-unit']
+				sbase, scoast = fig.quick_run('_decode_region_name', name=dest['loc'])
+				spos = self.graph[sbase]['locs'][dest['type']]['occupy']
+				if isinstance(spos, dict):
+					spos = spos[scoast]
+				destpos = np.array(spos).reshape(-1, 2)
+				
+
+				wedge = deepcopy(self.support_wedge)
+				style = ArrowStyle("wedge", shrink_factor=0.5, tail_width=.06)
+				wedge['arrowprops']['arrowstyle'] = style
+				
+				x, y, tx, ty = self._best_arrow_coords(pos, destpos)
+				plt.annotate('', xytext=(tx, ty), xy=(x, y), **wedge)
+				
+			elif atype == 'build':
+				raise NotImplementedError
+		
+		return out
+
+	def _best_arrow_coords(self, starts, targets):
+		D = distance_matrix(starts, targets)
+		ind = np.unravel_index(np.argmin(D, axis=None), D.shape)
+		return [*starts[ind[0]], *targets[ind[1]]]
+	
+	def draw_special(self):
+		pass
+
+@fig.Script('viz-map')
+def viz_map(A):
+	mlp_backend = A.pull('mlp_backend', 'qt5agg')
+	if mlp_backend is not None:
+		plt.switch_backend(mlp_backend)
+	
+	path = A.pull('graph-path')
+	data = load_yaml(path)
+	
+	save_path = A.pull('save-path', 'test.png')
+	
+	fpath = A.pull('fields-img')
+	if fpath is None:
+		raise NotImplementedError
+	else:
+		im = load_image(fpath)
+	
+	bgpath = A.pull('bg-path', None)
+	bgs = None if bgpath is None else load_yaml(bgpath)
+	
+	# poi_path = A.pull('poi-path', None)
+	# pois = None if poi_path is None else load_yaml(poi_path)
+	
+	fill_units = A.pull('fill-units', False)
+	
+	state = None
+	if not fill_units:
+		state_path = A.pull('state-path', None)
+		state = None if state_path is None else load_yaml(state_path)
+	
+	
+	player_path = A.pull('player-path', None)
+	players = None if player_path is None else load_yaml(player_path)
+	
+	action_path = A.pull('action-path', None)
+	actions = None if action_path is None else load_yaml(action_path)
+	
+	# opath = A.pull('overlay-path', None)
+	# if opath is not None:
+	# 	raise NotImplementedError
+	
+	if A.pull('force-border', True):
+		bounds = get_borders_from_expanded(im)
+		im[bounds == 1] = 0
+	
+	clean = im.copy().clip(max=1)
+	clean = np.stack(3 * [clean], 2) * 255
+	
+	
+	skip_bgs = A.pull('skip-bgs', False)
+	skip_filling = A.pull('skip-filling', False)
+	skip_labeling = A.pull('skip-labeling', False)
+	skip_units = A.pull('skip-units', False)
+	
+	artist = A.pull('artist')
+	
+	artist.include_graph(graph=data, state=state, players=players, bgs=bgs, actions=actions)
+	artist.include_image(im)
+	
+	dpi = 1200
+	H, W = im.shape
+	fg, ax = plt.subplots(figsize=(W / dpi, H / dpi))
+	
+	if bgs is not None and not skip_bgs:
+		todo = tqdm(bgs.keys(), total=len(bgs), desc='Coloring in background')
+		for loc in todo:
+			artist.fill_region(clean, loc)
+			
+	if not skip_filling:
+		todo = tqdm(data.keys(), total=len(data), desc='Coloring in nodes')
+		for loc in todo:
+			artist.fill_region(clean, loc)
+	
+	plt.imshow(clean, zorder=0)
+	
+	if not skip_labeling:
+		todo = tqdm(data.items(), total=len(data), desc='Labeling nodes')
+		for loc, info in todo:
+			artist.draw_label(loc)
+			# poi = pois[name] if pois is not None and name in pois else None
+			
+			if 'sc' in info and info['sc'] > 0:
+				artist.draw_sc(loc, info['sc'])
+			
+	if fill_units:
+		# print('Filling all unit locs')
+		todo = tqdm(data.keys(), total=len(data), desc='Filling unit locs')
+		for loc in todo:
+			artist.draw_all_unit_locs(loc)
+	elif not skip_units:
+		artist.draw_units(pbar=tqdm)
+		
+	
+	artist.draw_special()
+	
+	plt.axis('off')
+	plt.subplots_adjust(0, 0, 1, 1)
+	
+	# plt.show()
+	plt.savefig(save_path, dpi=dpi)
 
 
-if __name__ == '__main__':
-	fig.entry('render')
+
+

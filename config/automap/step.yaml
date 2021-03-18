@@ -3,8 +3,10 @@ _meta.script_name: diplo-step
 
 parents: [automap/col]
 
-action-path: extra/col/adj/game/actions/1-1.yaml
-state-path: extra/col/adj/game/states/1-1.yaml
+map._mod: [col-dip]
+
+#action-path: extra/col/adj/game/actions/1-1.yaml
+#state-path: extra/col/adj/game/states/1-1.yaml
 
 save-root: extra/col/adj/game/states/
 

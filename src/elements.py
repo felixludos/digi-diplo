@@ -1,9 +1,11 @@
 
 import sys, os
 from itertools import chain
-from omnibelt import load_yaml, save_yaml
+from omnibelt import load_yaml, save_yaml, unspecified_argument, save_json, load_json
 
 import omnifig as fig
+
+from tabulate import tabulate
 
 import pydip
 from pydip.map import Map
@@ -17,37 +19,31 @@ from . import util
 from copy import deepcopy
 
 @fig.Component('map')
-class DiploMap:
-	def __init__(self, A):
+class DiploMap(fig.Configurable):
+	def __init__(self, A, graph_path=unspecified_argument, ignore_unknown=None, **kwargs):
 		
-		graph_path = A.pull('graph-path', None)
-		# poi_path = A.pull('poi-path', None)
+		if ignore_unknown is None:
+			ignore_unknown = A.pull('ignore-unknown', type(self) != DiploMap)
 		
-		if graph_path is not None:
-			nodes, edges = self._load_graph_info(graph_path)
-			
-			pos = None
-			
-		else:
+		if graph_path is unspecified_argument:
+			graph_path = A.pull('graph-path')
 		
-			nodes_path, edges_path, pos_path = util.get_map_paths(A, 'nodes', 'edges', 'pos')
-			
-			pos = None if pos_path is None or not os.path.isfile(pos_path) else load_yaml(pos_path)
-			
-			nodes, edges = self._load_map_info(nodes_path, edges_path)
-		self.nodes, self.edges = nodes, edges
+		super().__init__(A, **kwargs)
+		
+		self.graph_path = graph_path
+		self.nodes, self.edges = self._load_graph_info(graph_path)
 		self.get_ID_from_name = util.make_node_dictionary(self.nodes)
 		
-		self.pos = pos
-		
 		self.dmap = self._create_dip_map(self.nodes, self.edges)
+		
+		self.ignore_unknown = ignore_unknown
 	
 	def get_supply_centers(self):
 		return [node for node in self.nodes if 'sc' in node and node['sc'] > 0]
 
 	def _load_graph_info(self, graph_path):
 		
-		graph = load_yaml(graph_path)
+		graph = load_yaml(graph_path) if graph_path.endswith('.yaml') else load_json(graph_path)
 		
 		coasts = {}
 		
@@ -57,8 +53,8 @@ class DiploMap:
 		edges['fleet'] = fleet
 		
 		for name, info in graph.items():
-			if 'navy-edges' in info:
-				es = info['navy-edges']
+			if 'fleet-edges' in info:
+				es = info['fleet-edges']
 				if isinstance(es, dict):
 					info['coasts'] = []
 					for coast, ces in es.items():
@@ -76,6 +72,7 @@ class DiploMap:
 		
 		nodes = graph
 		
+		self.graph = graph
 		self.coasts = coasts
 		
 		return nodes, edges
@@ -87,10 +84,6 @@ class DiploMap:
 		coasts = util.separate_coasts(nodes)
 		
 		self.coasts = coasts
-		
-		# for node in nodes.values():
-		# 	if 'coasts' in node:
-		# 		del node['coasts']
 		
 		for ID, coast in coasts.items():
 			origin = coast['coast-of']
@@ -159,6 +152,7 @@ class DiploMap:
 		
 		full = {}
 		unit_info = []
+		unit_locs = {} # base -> {loc, type}
 		
 		for name, player in players.items():
 			
@@ -166,6 +160,10 @@ class DiploMap:
 			
 			units = {unit['loc']: unit['type']
 			              for unit in player.get('units', [])}
+			
+			for loc, unit in units.items():
+				base = fig.quick_run('_decode_region_name', name=loc)[0]
+				unit_locs[base] = {'loc': loc, 'unit': unit}
 			
 			for loc in units:
 				if loc in self.coasts:
@@ -181,8 +179,14 @@ class DiploMap:
                         'unit_type': None if utype is None else util.UNIT_TYPES[utype],
 		            } for loc, utype in tiles.items()]
 			
-			full[name] = Player(name=name, game_map=self.dmap,
-		                    starting_configuration=config)
+			try:
+				full[name] = Player(name=name, game_map=self.dmap,
+			                    starting_configuration=config)
+			except AssertionError:
+				print(name)
+				raise
+		
+		self.unit_locs = unit_locs
 		
 		units = {}
 		for loc, player, utype in unit_info:
@@ -212,7 +216,11 @@ class DiploMap:
 		
 		if player is not None:
 			player = self.players.get(player, player)
-			return player.find_unit(loc)
+			try:
+				return player.find_unit(loc)
+			except:
+				print(player.name, loc, utype)
+				raise
 		
 		if utype in util.UNIT_TYPES:
 			utype = util.UNIT_TYPES[utype]
@@ -221,20 +229,14 @@ class DiploMap:
 		
 	def _find_dest(self, src, utype, dest):
 		
-		# start = self.nodes[src]
-		# if 'dirs' in start:
-		# 	pass
+		if utype in util.UNIT_ENUMS:
+			utype = util.UNIT_ENUMS[utype]
 		
-		end = self.nodes[dest]
-		if 'dirs' in end and utype in {'fleet', UnitTypes.FLEET}:
-			edges = self.edges['fleet'][src]
-			for e in edges:
-				if e in self.coasts:
-					node = self.coasts[e]
-					if 'coast-of' in node:
-						return e
+		base, coast = fig.quick_run('_decode_region_name', name=dest)
 		
-		return self.fix_loc(dest, utype)
+		return fig.quick_run('_encode_region_name', name=base, coast=coast,
+		                     node_type=self.graph[base]['type'], unit_type=utype)
+		
 	
 	def _fill_missing_actions(self, full):
 		
@@ -254,91 +256,122 @@ class DiploMap:
 		
 		return full
 	
-	def process_actions(self, full):
+	def process_actions(self, full, ignore_unknown=False):
 		
 		assert hasattr(self, 'players'), 'players have not been loaded'
 		
 		full = self._fill_missing_actions(full)
 		
 		cmds = []
+		unknown = {}
 		
 		for name, actions in full.items():
 			
 			player = self.players[name]
 			
 			for action in actions:
-				unit = self.get_unit(action['loc'], action.get('unit', None))
-				
-				if action['type'] == 'move':
-					dest = self.fix_loc(action['dest'], unit.unit_type)
-					cmds.append(command.MoveCommand(player, unit, dest))
-				elif action['type'] == 'hold':
-					cmds.append(command.HoldCommand(player, unit))
-				elif 'support' in action['type']:
-					if 'defend' in action['type']:
-						sup_unit = self.get_unit(action['dest'])
-						dest = sup_unit.position
+				try:
+					unit = self.get_unit(action['loc'], action.get('unit', None))
+					if action['type'] == 'move':
+						dest = self.fix_loc(action['dest'], unit.unit_type)
+						cmds.append(command.MoveCommand(player, unit, dest))
+					elif action['type'] == 'hold':
+						cmds.append(command.HoldCommand(player, unit))
+					elif 'support' in action['type']:
+						if 'defend' in action['type']:
+							sup_unit = self.get_unit(action['dest'])
+							dest = sup_unit.position
+						else:
+							sup_unit = self.get_unit(action['src'], utype=action.get('src-unit', None))
+							dest = self._find_dest(action['src'], sup_unit.unit_type, action['dest'])
+						try:
+							cmds.append(command.SupportCommand(player, unit, sup_unit, dest))
+						except:
+							print(player, unit, sup_unit, dest)
+							raise
+					elif action['type'] == 'convoy-move':
+						dest = self.fix_loc(action['dest'], unit.unit_type)
+						cmds.append(command.ConvoyMoveCommand(player, unit, dest))
+					elif action['type'] == 'convoy-transport':
+						transport = self.get_unit(action['src'], action.get('unit',None), player=name)
+						dest = self.fix_loc(action['dest'], transport.unit_type)
+						cmds.append(command.ConvoyTransportCommand(player, unit, transport, dest))
+					elif ignore_unknown:
+						if name not in unknown:
+							unknown[name] = []
+						unknown[name].append(action)
+						cmds.append(command.HoldCommand(player, unit))
 					else:
-						sup_unit = self.get_unit(action['src'])
-						dest = self._find_dest(action['src'], sup_unit.unit_type, action['dest'])
-					cmds.append(command.SupportCommand(player, unit, sup_unit, dest))
-				elif action['type'] == 'convoy-move':
-					dest = self.fix_loc(action['dest'], unit.unit_type)
-					cmds.append(command.ConvoyMoveCommand(player, unit, dest))
-				elif action['type'] == 'convoy-transport':
-					transport = self.get_unit(action['src'], action['unit'], player=name)
-					dest = self.fix_loc(action['dest'], transport.unit_type)
-					cmds.append(command.ConvoyTransportCommand(player, unit, transport, dest))
-				else:
-					raise Exception(f'unknown: {action}')
+						raise Exception(f'unknown: {action}')
+				except:
+					print(name, action)
+					raise
 		
-		return cmds
+		return cmds, unknown
 		
-	def process_retreats(self, full, retreats):
+	def process_retreats(self, full, retreats, ignore_unknown=False):
 		
 		assert hasattr(self, 'players'), 'players have not been loaded'
 		
 		cmds = []
+		unknown = {}
 		
 		for name, actions in full.items():
 			
 			player = self.players[name]
 			
 			for action in actions:
-				unit = self.get_unit(action['loc'], action['unit'], player=name)
-				
-				if action['type'] == 'disband':
-					if unit in retreats[name]:
-						cmds.append(command.RetreatDisbandCommand(retreats, player, unit))
-				elif action['type'] == 'retreat':
-					dest = self.fix_loc(action['dest'], unit.unit_type)
-					cmds.append(command.RetreatMoveCommand(retreats, player, unit, dest))
-				else:
-					raise Exception(f'unknown: {action}')
-		
-		return cmds
-	
-	def process_builds(self, full, ownership):
-		
-		assert hasattr(self, 'players'), 'players have not been loaded'
-		
-		cmds = []
-		
-		for name, actions in full.items():
-			
-			player = self.players[name]
-			
-			for action in actions:
-				unit = self.get_unit(action['loc'], action.get('unit', None))
+				try:
+					unit = self.get_unit(action['loc'], action.get('unit', None), player=name)
 					
-				if action['type'] == 'build':
-					cmds.append(command.AdjustmentCreateCommand(ownership, player, unit))
-				elif action['type'] == 'destroy':
-					cmds.append(command.AdjustmentDisbandCommand(player, unit))
-				else:
-					raise Exception(f'unknown: {action}')
+					if action['type'] == 'disband':
+						if unit in retreats[name]:
+							cmds.append(command.RetreatDisbandCommand(retreats, player, unit))
+					elif action['type'] == 'retreat':
+						dest = self.fix_loc(action['dest'], unit.unit_type)
+						cmds.append(command.RetreatMoveCommand(retreats, player, unit, dest))
+					elif ignore_unknown:
+						if name not in unknown:
+							unknown[name] = []
+						unknown[name].append(action)
+					else:
+						raise Exception(f'unknown: {action}')
+				except:
+					print(name, action)
+					raise
 		
-		return cmds
+		return cmds, unknown
+	
+	def process_builds(self, full, ownership, ignore_unknown=False):
+		
+		assert hasattr(self, 'players'), 'players have not been loaded'
+		
+		cmds = []
+		unknown = {}
+		
+		for name, actions in full.items():
+			
+			player = self.players[name]
+			
+			for action in actions:
+				try:
+					unit = self.get_unit(action['loc'], action.get('unit', None))
+					
+					if action['type'] == 'build':
+						cmds.append(command.AdjustmentCreateCommand(ownership, player, unit))
+					elif action['type'] == 'destroy' or action['type'] == 'disband':
+						cmds.append(command.AdjustmentDisbandCommand(player, unit))
+					elif ignore_unknown:
+						if name not in unknown:
+							unknown[name] = []
+						unknown[name].append(action)
+					else:
+						raise Exception(f'unknown: {action}')
+				except:
+					print(name, action)
+					raise
+		
+		return cmds, unknown
 		
 	def _compute_retreat_map(self, retreats, players, disbands):
 		
@@ -363,17 +396,44 @@ class DiploMap:
 		
 		return rmap
 		
-	# def _compute_ownership_map(self, players):
-	#
-	# 	raise NotImplementedError
+	def _default_retreats(self, actions, disbands):
+		for name, ds in disbands.items():
+			if name not in actions:
+				actions[name] = []
+			acts = actions[name]
+			locs = {a['loc'] for a in acts}
+			for d in ds:
+				if d['loc'] not in locs:
+					acts.append({'loc': d['loc'], 'type': 'disband', 'unit': d['type']})
 		
 	def uncoastify(self, loc, including_dirs=False):
 		return self.coasts[loc]['coast-of'] if loc in self.coasts and \
 			('dir' not in self.coasts[loc] or including_dirs) else loc
 		
-	def step(self, state, actions):
+	def fix_actions(self, actions):
+		
+		missing = []
+		
+		for name, acts in actions.items():
+			for a in acts:
+				if 'unit' not in a:
+					try:
+						base, coast = fig.quick_run('_decode_region_name', name=a['loc'])
+						a['unit'] = self.unit_locs[base]['unit']
+					except:
+						missing.append([name, str(a)])
+		
+		if len(missing):
+			print(tabulate(missing, headers=['Player', 'Action']))
+			raise Exception('missing units')
+		
+	def step(self, state, actions, ignore_unknown=None):
+		if ignore_unknown is None:
+			ignore_unknown = self.ignore_unknown
 		
 		self.load_players(state['players'])
+		
+		self.fix_actions(actions)
 		
 		turn, season = state['time']['turn'], state['time']['season']
 		retreat = 'retreat' in state['time']
@@ -398,10 +458,10 @@ class DiploMap:
 				control[ctrl] = name
 		
 		if season < 3 and not retreat:
-			actions = self.process_actions(actions)
+			commands, unknown = self.process_actions(actions, ignore_unknown=ignore_unknown)
 			
 			# resolve
-			resolution = resolve_turn(self.dmap, actions)
+			resolution = resolve_turn(self.dmap, commands)
 			
 			retreats = {}
 			disbands = {}
@@ -437,9 +497,11 @@ class DiploMap:
 			
 			retreat_map = self._compute_retreat_map(state['retreats'], state['players'], state.get('disbands', {}))
 			
-			actions = self.process_retreats(actions, retreat_map)
+			self._default_retreats(actions, state['disbands'])
 			
-			resolution = resolve_retreats(retreat_map, actions)
+			commands, unknown = self.process_retreats(actions, retreat_map, ignore_unknown=ignore_unknown)
+			
+			resolution = resolve_retreats(retreat_map, commands)
 			
 			for player, units in resolution.items():
 				for unit in units:
@@ -466,9 +528,9 @@ class DiploMap:
 			
 			omap, counts = calculate_adjustments(omap, units)
 			
-			actions = self.process_builds(actions, omap)
+			commands, unknown = self.process_builds(actions, omap, ignore_unknown=ignore_unknown)
 			
-			resolution = resolve_adjustment__validated(omap, counts, units, actions)
+			resolution = resolve_adjustment__validated(omap, counts, units, commands)
 			
 			for player, units in resolution.items():
 				for unit in units:
@@ -515,7 +577,18 @@ class DiploMap:
 			
 		else:
 			new['time'] = {'turn': turn+1, 'season': 1}
+	
+		new = self.special_rules(state, actions, unknown, new)
 
+		return new
+
+	def special_rules(self, state, actions, unknown, new):
+		out = self._special_rules(state, actions, unknown, new)
+		if out is None:
+			out = new
+		return out
+
+	def _special_rules(self, state, actions, unknown, new):
 		return new
 
 # @fig.AutoComponent('state')
