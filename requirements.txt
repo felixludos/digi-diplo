@@ -2,6 +2,7 @@ numpy
 pillow
 matplotlib
 tqdm
+omnibelt
 omnifig
 webcolors
 fuzzywuzzy
