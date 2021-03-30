@@ -1,15 +1,14 @@
 
 
-parents: [automap/viz]
+#parents: [automap/viz]
+##
 #
-#save-path: extra/col/4-2_actions.png
-#
-#state-path: extra/col/adj/game/states/4-2-r.yaml
-#save-path: extra/col/4-2-r.png
+#state-path: extra/col/adj/game/states/6-1.yaml
+#save-path: extra/col/adj/game/images/6-1.png
 
-state-path: extra/col/adj/game/states/4-2.yaml
-action-path: extra/col/adj/game/actions/4-2.yaml
-save-path: extra/col/4-2_actions.png
+#state-path: extra/col/adj/game/states/5-2.yaml
+#action-path: extra/col/adj/game/actions/5-2.yaml
+#save-path: extra/col/adj/game/images/5-2_actions.png
 
 #fill-units: True
 #skip-filling: True
@@ -28,21 +27,16 @@ save-path: extra/col/4-2_actions.png
 
 #parents: [automap/parse]
 #
-#log-path: extra/col/adj/game/raw/1-1.txt
-#action-path: extra/col/adj/game/actions/parsed/1-1.yaml
+#log-path: extra/col/adj/game/raw/5-3.txt
+#action-path: extra/col/adj/game/actions/parsed/5-3.yaml
 
-#log-path: extra/col/adj/game/raw/1-2.txt
-#action-path: extra/col/adj/game/actions/parsed/1-2.yaml
-
-#log-path: extra/col/adj/game/raw/4-2.txt
-#action-path: extra/col/adj/game/actions/parsed/4-2.yaml
 
 #---------------------
 
 #parents: [automap/step]
-
-#state-path: extra/col/adj/game/states/1-1.yaml
-#action-path: extra/col/adj/game/actions/1-1.yaml
+###
+#state-path: extra/col/adj/game/states/5-3.yaml
+#action-path: extra/col/adj/game/actions/5-3.yaml
 
 
 #state-path: extra/col/adj/game/states/4-2.yaml

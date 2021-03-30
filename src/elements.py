@@ -152,7 +152,7 @@ class DiploMap(fig.Configurable):
 		
 		full = {}
 		unit_info = []
-		unit_locs = {} # base -> {loc, type}
+		unit_locs = {} # player -> base -> {loc, type}
 		
 		for name, player in players.items():
 			
@@ -161,9 +161,12 @@ class DiploMap(fig.Configurable):
 			units = {unit['loc']: unit['type']
 			              for unit in player.get('units', [])}
 			
+			locs = {}
+			unit_locs[name] = locs
+			
 			for loc, unit in units.items():
 				base = fig.quick_run('_decode_region_name', name=loc)[0]
-				unit_locs[base] = {'loc': loc, 'unit': unit}
+				locs[base] = {'loc': loc, 'unit': unit}
 			
 			for loc in units:
 				if loc in self.coasts:
@@ -315,7 +318,8 @@ class DiploMap(fig.Configurable):
 		
 		cmds = []
 		unknown = {}
-		
+		done = set()
+		e = None
 		for name, actions in full.items():
 			
 			player = self.players[name]
@@ -327,18 +331,29 @@ class DiploMap(fig.Configurable):
 					if action['type'] == 'disband':
 						if unit in retreats[name]:
 							cmds.append(command.RetreatDisbandCommand(retreats, player, unit))
+							done.add(unit)
 					elif action['type'] == 'retreat':
 						dest = self.fix_loc(action['dest'], unit.unit_type)
 						cmds.append(command.RetreatMoveCommand(retreats, player, unit, dest))
+						done.add(unit)
 					elif ignore_unknown:
 						if name not in unknown:
 							unknown[name] = []
 						unknown[name].append(action)
 					else:
 						raise Exception(f'unknown: {action}')
-				except:
+				except Exception as e:
 					print(name, action)
-					raise
+					# raise
+		
+		for name, rs in retreats.items():
+			for unit, options in rs.items():
+				if options is not None and unit not in done:
+					cmds.append(command.RetreatDisbandCommand(retreats, self.players[name], unit))
+					
+		
+		if e is not None:
+			raise e
 		
 		return cmds, unknown
 	
@@ -419,7 +434,7 @@ class DiploMap(fig.Configurable):
 				if 'unit' not in a:
 					try:
 						base, coast = fig.quick_run('_decode_region_name', name=a['loc'])
-						a['unit'] = self.unit_locs[base]['unit']
+						a['unit'] = self.unit_locs[name][base]['unit']
 					except:
 						missing.append([name, str(a)])
 		

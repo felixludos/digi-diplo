@@ -4,5 +4,7 @@ matplotlib
 tqdm
 omnifig
 webcolors
+fuzzywuzzy
 scikit-learn
+scikit-image
 git+git://github.com/aparkins/pydip

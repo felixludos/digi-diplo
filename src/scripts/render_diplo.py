@@ -709,6 +709,11 @@ class MapArtist(fig.Configurable):
 		support_dot = A.pull('support-dot', {})
 		move_arrow = A.pull('move-arrow', {})
 		
+		transform_props = A.pull('transform-props', {})
+		if 'mfc' in transform_props and transform_props['mfc'] == None:
+			transform_props['mfc'] = 'None'
+
+		
 		action_props = A.pull('action-props', {})
 		for vals in action_props.values():
 			for k, v in vals.items():
@@ -718,6 +723,8 @@ class MapArtist(fig.Configurable):
 		action_aliases = A.pull('action-pos-aliases', {})
 		
 		sc_props = A.pull('sc-props', {})
+		capital_props = A.pull('capital-props', {})
+		home_props = A.pull('home-props', {})
 		
 		color_map = A.pull('color-map', {'background': [0, 0, 0],
 		                 'land': [44, 160, 44],
@@ -752,6 +759,8 @@ class MapArtist(fig.Configurable):
 		self.support_arrow = support_arrow
 		self.support_dot = support_dot
 		
+		self.transform_props = transform_props
+		
 		self.unit_props = unit_props
 		self.unit_color_key = color_key
 		self.unit_auto_color = auto_color
@@ -767,10 +776,13 @@ class MapArtist(fig.Configurable):
 		self.action_aliases = action_aliases
 		
 		self.sc_props = sc_props
+		self.capital_props = capital_props
+		self.home_props = home_props
 		
 		self.arrow_ratio = arrow_ratio
 		self.retreat_arrow = retreat_arrow
 		
+		self.capitals = None
 		self.node_img = None
 		self.target_locs = None
 		
@@ -835,6 +847,11 @@ class MapArtist(fig.Configurable):
 			self.state = state
 		if players is not None:
 			self.players = players
+			
+			capitals = {player['capital']: name for name, player in players.items()}
+			
+			self.capitals = capitals
+			
 		if bgs is not None:
 			self.bgs = bgs
 		if actions is not None:
@@ -989,7 +1006,17 @@ class MapArtist(fig.Configurable):
 		pos = np.array(pos)
 		if len(pos.shape) == 2:
 			pos = pos.T
-		return plt.plot(*pos, **self.sc_props)
+			
+		out = []
+		
+		if loc in self.capitals:
+			out.append(plt.plot(*pos, **self.capital_props))
+		else:
+			out.append(plt.plot(*pos, **self.sc_props))
+		
+		for name, info in self.state['players'].items():
+			if loc in info['home'] and loc in info['centers']:
+				out.append(plt.plot(*pos, mfc=self.players[name]['color'], **self.home_props))
 		
 	def draw_all_unit_locs(self, loc):
 		
@@ -1122,7 +1149,7 @@ class MapArtist(fig.Configurable):
 
 				arrow = self.move_arrow.copy()
 				if 'convoy' in atype:
-					arrow['facecolor'] = 'c'
+					arrow['facecolor'] = 'C0'
 				
 				plt.arrow(x, y, dx, dy, **arrow)
 				
@@ -1146,7 +1173,7 @@ class MapArtist(fig.Configurable):
 				arrow = self.support_arrow.copy()
 				dot = self.support_dot.copy()
 				
-				style = ArrowStyle("wedge", shrink_factor=0.5, tail_width=.06)
+				style = ArrowStyle("wedge", shrink_factor=0.5, tail_width=.05)
 				wedge['arrowprops']['arrowstyle'] = style
 				
 				if 'convoy' in atype:
@@ -1170,12 +1197,15 @@ class MapArtist(fig.Configurable):
 				
 
 				wedge = deepcopy(self.support_wedge)
-				style = ArrowStyle("wedge", shrink_factor=0.5, tail_width=.06)
+				style = ArrowStyle("wedge", shrink_factor=0.5, tail_width=.05)
 				wedge['arrowprops']['arrowstyle'] = style
 				
 				x, y, tx, ty = self._best_arrow_coords(pos, destpos)
 				plt.annotate('', xytext=(tx, ty), xy=(x, y), **wedge)
 				
+			elif atype == 'transform':
+				plt.plot(*pos.T, **self.transform_props)
+			
 			elif atype == 'build':
 				raise NotImplementedError
 		
@@ -1188,6 +1218,25 @@ class MapArtist(fig.Configurable):
 	
 	def draw_special(self):
 		pass
+
+@fig.AutoModifier('canal')
+class Canal(MapArtist):
+	def __init__(self, A, **kwargs):
+
+		canal_props = A.pull('canal-props', {})
+		
+		super().__init__(A, **kwargs)
+
+		self.canal_props = canal_props
+
+	def draw_special(self):
+		super().draw_special()
+		
+		for loc, info in self.graph.items():
+			if 'canal' in info and 'coast-pos' in info:
+				pts = np.array(list(info['coast-pos'].values()))
+				plt.plot(*pts[:,::-1].T, **self.canal_props)
+		
 
 @fig.Script('viz-map')
 def viz_map(A):

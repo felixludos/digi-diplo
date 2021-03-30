@@ -122,13 +122,16 @@ class OrderParser:
 			
 			terms.update({'type': 'build', 'loc': loc})
 		
-		elif ' disband' in line:
-			loc, _ = line.split(' disband')
-			
+		elif line.startswith('Disband '):
+			_, loc = line.split('Disband ')
 			loc = self.identify(loc, terms)
-			
 			terms.update({'type': 'disband', 'loc': loc})
 		
+		elif ' disband' in line:
+			loc, _ = line.split(' disband')
+			loc = self.identify(loc, terms)
+			terms.update({'type': 'disband', 'loc': loc})
+			
 		elif ' retreats to ' in line:
 			
 			loc, dest = line.split(' retreats to ')
@@ -231,6 +234,17 @@ class OrderParser:
 		
 		if ident.startswith('A, ') or ident.startswith('F, '):
 			terms[unit_key] = 'army' if ident.startswith('A, ') else 'fleet'
+			ident = ident[3:]
+		
+		if ident.startswith('Army '):
+			terms[unit_key] = 'army'
+			ident = ident[5:]
+		
+		elif ident.startswith('Fleet '):
+			terms[unit_key] = 'fleet'
+			ident = ident[6:]
+		
+		if ident.startswith('in '):
 			ident = ident[3:]
 		
 		if ident in self.graph:

@@ -64,8 +64,31 @@ sc-props:
   ls: ''
   zorder: 60
 
-artist._type: map-artist
+capital-props:
+  markeredgewidth: 0.02
+  markeredgecolor: k
+  markerfacecolor: '#FFD700'
+  markersize: 1.2
+  marker: [7, 1]
+  ls: ''
+  zorder: 60
 
+home-props:
+  markeredgewidth: 0.02
+  markeredgecolor: k
+  markersize: 0.32
+  marker: o
+  ls: ''
+  zorder: 61
+
+canal-props:
+  color: c
+  lw: 0.1
+  zorder: 10
+
+artist:
+  _type: map-artist
+  _mod: [canal]
 
 action-props:
   _type: flatten-kwargs
@@ -136,7 +159,14 @@ support-dot:
   mec: k
   zorder: 18
 
-
+transform-props:
+  ms: 1.8
+  mew: 0.3
+  mec: m
+  mfc: None
+  zorder: 21
+  ls: ''
+  marker: '^'
 
 unit-props:
   _type: flatten-kwargs
