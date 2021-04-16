@@ -954,6 +954,7 @@ class MapArtist(fig.Configurable):
 		idx = info['idx'] + 1
 		
 		if color is not None:
+			# img[self.node_img == idx] = (np.random.rand(3)*255).astype(int)
 			img[self.node_img == idx] = hex_to_rgb(process_color(color))
 		
 		return img
