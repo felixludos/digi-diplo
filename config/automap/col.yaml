@@ -1,6 +1,6 @@
 
 
-graph-path: extra/col/adj/game/graph.yaml
+graph-path: extra/game/graph.yaml
 bg-path: extra/col/adj/backgrounds.yaml
 poi-path: extra/col/adj/pois.yaml
 player-path: extra/col/adj/players.yaml

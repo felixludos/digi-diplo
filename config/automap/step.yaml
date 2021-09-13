@@ -8,5 +8,5 @@ map._mod: [col-dip]
 #action-path: extra/col/adj/game/actions/1-1.yaml
 #state-path: extra/col/adj/game/states/1-1.yaml
 
-save-root: extra/col/adj/game/states/
+save-root: extra/game/states/
 

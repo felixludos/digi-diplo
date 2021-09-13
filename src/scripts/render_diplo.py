@@ -824,12 +824,12 @@ class MapArtist(fig.Configurable):
 							if cmd['dest'] in unit_locs:
 								cmd['dest-unit'] = unit_locs[cmd['dest']]
 							else:
-								raise Exception
+								raise Exception(str(cmd))
 						elif cmd['type'] in {'support', 'convoy-transport'}:
 							if cmd['src'] in unit_locs:
 								cmd['src-unit'] = unit_locs[cmd['src']]
 							else:
-								raise Exception
+								raise Exception(str(cmd))
 						u['command'] = cmd
 						del acts[u['loc']]
 					# else:
@@ -1118,15 +1118,15 @@ class MapArtist(fig.Configurable):
 		options = unit.get('retreat-options', [])
 		if not self.skip_retreats:
 			for dest in options:
-
+				ps = pos.copy()
 				target = self.graph[dest]['locs'].get('label', None)
 				if target is not None:
 					target = np.array(target).reshape(-1,2)
-					if len(pos.shape) == 2:
-						pos = pos.T
-					pos = pos.reshape(-1,2)
+					if len(ps.shape) == 2:
+						ps = ps.T
+					ps = ps.reshape(-1,2)
 					
-					x,y, tx, ty = self._best_arrow_coords(pos, target)
+					x,y, tx, ty = self._best_arrow_coords(ps, target)
 					dx, dy = tx - x, ty - y
 					dx, dy = dx * self.arrow_ratio, dy * self.arrow_ratio
 					

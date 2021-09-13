@@ -1,14 +1,13 @@
 
 
 parents: [automap/viz]
+#
+#state-path: extra/game/states/8-1-r.yaml
+#save-path: extra/game/images/8-1-r.png
 
-
-state-path: extra/col/adj/game/states/8-1.yaml
-save-path: extra/col/adj/game/images/8-1.png
-
-#state-path: extra/col/adj/game/states/7-2.yaml
-#action-path: extra/col/adj/game/actions/7-2.yaml
-#save-path: extra/col/adj/game/images/7-2_actions.png
+state-path: extra/game/states/8-2.yaml
+action-path: extra/game/actions/8-2.yaml
+save-path: extra/game/images/8-2_actions.png
 
 #fill-units: True
 #skip-filling: True
@@ -21,22 +20,22 @@ save-path: extra/col/adj/game/images/8-1.png
 
 #_meta.script_name: diplo-new
 #
-#save-root: extra/col/adj/game/states
+#save-root: extra/game/states
 
 #---------------------
 
 #parents: [automap/parse]
 #
-#log-path: extra/col/adj/game/raw/7-3.txt
-#action-path: extra/col/adj/game/actions/parsed/7-3.yaml
+#log-path: extra/game/raw/8-1-r.txt
+#action-path: extra/game/actions/parsed/8-1-r.yaml
 
 
 #---------------------
 
 #parents: [automap/step]
 #
-#state-path: extra/col/adj/game/states/7-3.yaml
-#action-path: extra/col/adj/game/actions/7-3.yaml
+#state-path: extra/game/states/8-1.yaml
+#action-path: extra/game/actions/8-1.yaml
 
 
 
