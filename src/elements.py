@@ -18,6 +18,8 @@ from pydip.map.map import OwnershipMap, SupplyCenterMap
 from . import util
 from copy import deepcopy
 
+
+
 @fig.Component('map')
 class DiploMap(fig.Configurable):
 	def __init__(self, A, graph_path=unspecified_argument, ignore_unknown=None, **kwargs):
@@ -38,12 +40,32 @@ class DiploMap(fig.Configurable):
 		
 		self.ignore_unknown = ignore_unknown
 	
+	
 	def get_supply_centers(self):
 		return [node for node in self.nodes if 'sc' in node and node['sc'] > 0]
+
+
+	@staticmethod
+	def _encode_region_name(name=None, coast=unspecified_argument, node_type=None, unit_type=None):
+		args = dict(name=name, unit_type=unit_type, node_type=node_type)
+		if coast is not unspecified_argument:
+			args['coast'] = coast
+		return fig.quick_run('_encode_region_name', **args)
+	
+	
+	@staticmethod
+	def _decode_region_name(name=None, allow_dir=None):
+		return fig.quick_run('_decode_region_name', name=name, allow_dir=allow_dir)
+	
 
 	def _load_graph_info(self, graph_path):
 		
 		graph = load_yaml(graph_path) if graph_path.endswith('.yaml') else load_json(graph_path)
+		for info in graph.values():
+			if 'army' in info['edges']:
+				info['army-edges'] = info['edges']['army']
+			if 'fleet' in info['edges']:
+				info['fleet-edges'] = info['edges']['fleet']
 		
 		coasts = {}
 		
@@ -58,14 +80,13 @@ class DiploMap(fig.Configurable):
 				if isinstance(es, dict):
 					info['coasts'] = []
 					for coast, ces in es.items():
-						coast = fig.quick_run('_encode_region_name', name=name, coast=coast)
+						coast = self._encode_region_name(name=name, coast=coast)
 						coasts[coast] = {'name': coast, 'type': 'coast', 'coast-of': name, 'dir': coast}
 						info['coasts'].append(coast)
 						fleet[coast] = ces
 				else:
 					if info['type'] == 'coast':
-						coast = fig.quick_run('_encode_region_name', name=name,
-						                                node_type='coast', unit_type='fleet')
+						coast = self._encode_region_name(name=name, node_type='coast', unit_type='fleet')
 						coasts[coast] = {'name': coast, 'type': 'coast', 'coast-of': name}
 						info['coasts'] = [coast]
 					fleet[name] = es
@@ -99,8 +120,8 @@ class DiploMap(fig.Configurable):
 		
 		return nodes, edges
 
-	@staticmethod
-	def _create_dip_map(nodes, edges):
+	@classmethod
+	def _create_dip_map(cls, nodes, edges):
 		
 		# descriptors
 		
@@ -108,43 +129,65 @@ class DiploMap(fig.Configurable):
 		
 		for ID, node in nodes.items():
 			desc = {'name': ID}
-			if node['type'] != 'sea':
-				desc['coasts'] = node.get('coasts', [])
+			# if node['type'] != 'sea':
+			# 	desc['coasts'] = node.get('coasts', [])
+			desc['coasts'] = []
+			if 'fleet' in node['edges']:
+				if isinstance(node['edges']['fleet'], dict):
+					desc['coasts'] = [cls._encode_region_name(name=ID, unit_type='fleet', coast=coast)
+					                  for coast in node['edges']['fleet']]
+				else:
+					desc['coasts'] = [cls._encode_region_name(name=ID, unit_type='fleet', coast=True)]
 			descriptors.append(desc)
 			
 		# adjacencies
 		
-		all_edges = util.list_edges(edges, nodes)
-		adjacencies = set()
+		# all_edges = util.list_edges(edges, nodes)
+		# adjacencies = set()
+		
+		# for e in all_edges:
+		#
+		# 	start, end = e['start'], e['end']
+		#
+		# 	start = cls._encode_region_name(name=start,
+		# 	                      node_type=nodes[start]['type'] if start in nodes else None,
+		# 	                      unit_type=e['type'])
+		#
+		# 	end = cls._encode_region_name(name=end,
+		# 	                    node_type=nodes[end]['type'] if end in nodes else None,
+		# 	                      unit_type=e['type'])
+		#
+		# 	# start = util.fix_loc(start, e['type'], nodes[start]['type']) if start in nodes else start
+		# 	# end = util.fix_loc(end, e['type'], nodes[end]['type']) if end in nodes else end
+		#
+		# 	if (end, start) not in adjacencies:
+		# 		adjacencies.add((start, end))
+		# 	# adjacencies.add((start, end))
 
-		for e in all_edges:
-			
-			start, end = e['start'], e['end']
-			
-			start = fig.quick_run('_encode_region_name', name=start,
-			                      node_type=nodes[start]['type'] if start in nodes else None,
-			                      unit_type=e['type'])
-			
-			end = fig.quick_run('_encode_region_name', name=end,
-			                    node_type=nodes[end]['type'] if end in nodes else None,
-			                      unit_type=e['type'])
-			
-			# start = util.fix_loc(start, e['type'], nodes[start]['type']) if start in nodes else start
-			# end = util.fix_loc(end, e['type'], nodes[end]['type']) if end in nodes else end
-			
-			if (end, start) not in adjacencies:
-				adjacencies.add((start, end))
-			# adjacencies.add((start, end))
+		adjacencies = set()
+		for ID, node in nodes.items():
+			for utype, edges in node['edges'].items():
+				start = cls._encode_region_name(name=ID, unit_type=utype)
+				if isinstance(edges, dict):
+					for coast, edges in edges.items():
+						start = cls._encode_region_name(name=ID, unit_type=utype, coast=coast)
+						for neighbor in edges:
+							end = cls._encode_region_name(name=neighbor, unit_type=utype)
+							if (end, start) not in adjacencies:
+								adjacencies.add((start, end))
+				else:
+					for neighbor in edges:
+						end = cls._encode_region_name(name=neighbor, unit_type=utype)
+						if (end, start) not in adjacencies:
+							adjacencies.add((start, end))
 
 		adjacencies = list(adjacencies)
-		
-		
 		return Map(descriptors, adjacencies)
 
 	def fix_loc(self, loc, utype):
 		if utype in util.UNIT_ENUMS:
 			utype = util.UNIT_ENUMS[utype]
-		return fig.quick_run('_encode_region_name', name=loc, unit_type=utype,
+		return self._encode_region_name(name=loc, unit_type=utype,
 		                     node_type=self.nodes[loc]['type'] if loc in self.nodes else None)
 		return util.fix_loc(loc, utype, self.nodes[loc]['type']) if loc in self.nodes else loc
 
@@ -165,7 +208,7 @@ class DiploMap(fig.Configurable):
 			unit_locs[name] = locs
 			
 			for loc, unit in units.items():
-				base = fig.quick_run('_decode_region_name', name=loc)[0]
+				base = self._decode_region_name(name=loc)[0]
 				locs[base] = {'loc': loc, 'unit': unit}
 			
 			for loc in units:
@@ -235,9 +278,9 @@ class DiploMap(fig.Configurable):
 		if utype in util.UNIT_ENUMS:
 			utype = util.UNIT_ENUMS[utype]
 		
-		base, coast = fig.quick_run('_decode_region_name', name=dest)
+		base, coast = self._decode_region_name(name=dest)
 		
-		return fig.quick_run('_encode_region_name', name=base, coast=coast,
+		return self._encode_region_name(name=base, coast=coast,
 		                     node_type=self.graph[base]['type'], unit_type=utype)
 		
 	
@@ -433,7 +476,7 @@ class DiploMap(fig.Configurable):
 			for a in acts:
 				if 'unit' not in a:
 					try:
-						base, coast = fig.quick_run('_decode_region_name', name=a['loc'])
+						base, coast = self._decode_region_name(name=a['loc'])
 						a['unit'] = self.unit_locs[name][base]['unit']
 					except:
 						missing.append([name, str(a)])
@@ -614,6 +657,47 @@ class DiploMap(fig.Configurable):
 # 			data = load_yaml(data_path)
 # 		if data is None:
 # 			data = {}
+
+
+@fig.AutoModifier('dash-coasts')
+class DashCoast(DiploMap):
+	
+	@classmethod
+	def _encode_region_name(cls, name=None, coast=None, node_type=None, unit_type=None):
+		assert name is not None
 		
+		if coast is None:
+			name, coast = cls._decode_region_name(name)
 		
+		if coast is not None and coast in {'nc', 'sc', 'wc', 'ec'}:
+			return f'{name}-{coast}'
+		elif coast:
+			return f'{name}-c'
+		
+		if unit_type == 'fleet' and node_type == 'coast':
+			return f'{name}-c'
+		
+		return name
+	
+	_coast_decoder = {'-nc': 'nc', '-sc': 'sc', '-wc': 'wc', '-ec': 'ec'}
+	
+	@classmethod
+	def _decode_region_name(cls, name=None, allow_dir=None):
+		if len(name) < 3:
+			return name, None
+		
+		end = name[-3:]
+		if end in cls._coast_decoder:
+			if allow_dir:
+				return name, cls._coast_decoder[end]
+			return name[:-3], cls._coast_decoder[end]
+		
+		if name.endswith('-c'):
+			return name[:-2], True
+		return name, None
+
+
+
+		
+
 		

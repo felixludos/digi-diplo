@@ -1,13 +1,31 @@
 
+_meta.script_name: start-bot
 
-parents: [automap/viz]
+parents: [wd/paths]
+
+game-root: extra/wd/games/game1
+
+admins: [felixludos#9043]
+
+client._type: diplomacy-bot
+
+
+manager:
+  _type: diplo-manager
+
+  map:
+    _type: map
+    _mod.dash-coasts: 1
+
+
+#parents: [automap/viz]
+##
+##state-path: extra/game/states/8-1-r.yaml
+##save-path: extra/game/images/8-1-r.png
 #
-#state-path: extra/game/states/8-1-r.yaml
-#save-path: extra/game/images/8-1-r.png
-
-state-path: extra/game/states/8-2.yaml
-action-path: extra/game/actions/8-2.yaml
-save-path: extra/game/images/8-2_actions.png
+#state-path: extra/game/states/8-2.yaml
+#action-path: extra/game/actions/8-2.yaml
+#save-path: extra/game/images/8-2_actions_new.png
 
 #fill-units: True
 #skip-filling: True

@@ -1,0 +1,27 @@
+# Move order
+[X] to [Y]
+
+# Support move order
+[X] supports [Y] to [Z]
+
+# Support hold older
+[X] support holds [Y]
+
+# Convoy order
+[X] convoys [Y] to [Z]
+
+# Hold order
+[X] holds
+
+# Retreat order
+[X] retreats to [Y]
+
+# Disband order
+[X] disbands
+
+# Build order
+Build [T] in [X]
+
+
+# Where [X], [Y], and [Z] must be a region name (with suffix "-nc", "-wc", "-sc", "-ec" for coasts)
+# [T] must be "A" for army or "F" for fleet
