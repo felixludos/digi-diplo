@@ -131,8 +131,11 @@ class DiploMap(fig.Configurable):
 			desc = {'name': ID}
 			# if node['type'] != 'sea':
 			# 	desc['coasts'] = node.get('coasts', [])
+			
 			desc['coasts'] = []
-			if 'fleet' in node['edges']:
+			if node['type'] == 'sea':
+				del desc['coasts']
+			elif 'fleet' in node['edges']:
 				if isinstance(node['edges']['fleet'], dict):
 					desc['coasts'] = [cls._encode_region_name(name=ID, unit_type='fleet', coast=coast)
 					                  for coast in node['edges']['fleet']]
@@ -167,17 +170,21 @@ class DiploMap(fig.Configurable):
 		adjacencies = set()
 		for ID, node in nodes.items():
 			for utype, edges in node['edges'].items():
-				start = cls._encode_region_name(name=ID, unit_type=utype)
+				start = cls._encode_region_name(name=ID, unit_type=utype,
+				                                node_type=nodes[ID]['type'] if ID in nodes else None)
 				if isinstance(edges, dict):
 					for coast, edges in edges.items():
-						start = cls._encode_region_name(name=ID, unit_type=utype, coast=coast)
+						start = cls._encode_region_name(name=ID, unit_type=utype, coast=coast,
+				                                node_type=nodes[ID]['type'] if ID in nodes else None)
 						for neighbor in edges:
-							end = cls._encode_region_name(name=neighbor, unit_type=utype)
+							end = cls._encode_region_name(name=neighbor, unit_type=utype,
+				                                node_type=nodes[neighbor]['type'] if neighbor in nodes else None)
 							if (end, start) not in adjacencies:
 								adjacencies.add((start, end))
 				else:
 					for neighbor in edges:
-						end = cls._encode_region_name(name=neighbor, unit_type=utype)
+						end = cls._encode_region_name(name=neighbor, unit_type=utype,
+				                                node_type=nodes[neighbor]['type'] if neighbor in nodes else None)
 						if (end, start) not in adjacencies:
 							adjacencies.add((start, end))
 

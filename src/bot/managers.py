@@ -155,6 +155,7 @@ class DiplomacyManager(fig.Configurable):
 		self.player_info = load_yaml(self.player_path)
 		
 		self.set_state(self._find_latest_state(self.states_root))
+		print(f'Loaded state: {self.time}')
 		
 		
 	def set_state(self, state):
