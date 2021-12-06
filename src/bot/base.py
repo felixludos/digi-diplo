@@ -15,11 +15,14 @@ class AdminError(Exception):
 
 @fig.Component('discord-bot')
 class DiscordBot(OmniBot):
-	def __init__(self, A, admins=None, intents=unspecified_argument, seed=unspecified_argument, **kwargs):
+	def __init__(self, A, admins=None,
+	             intents=unspecified_argument, seed=unspecified_argument, **kwargs):
 		
 		if intents is unspecified_argument:
 			intents = discord.Intents.default()
 			intents.members = True
+		
+		servername = A.pull('server-name', None)
 		
 		if admins is None:
 			admins = A.pull('admins', [])
@@ -28,12 +31,18 @@ class DiscordBot(OmniBot):
 			seed = A.pull('seed', None)
 		
 		super().__init__(A, intents=intents, **kwargs)
-		self.admins = set(admins)
-		print(f'Enabling {len(self.admins)} admin/s: {self.admins}')
+		if admins is None:
+			print('WARNING: no admins specified, so everyone is treated as an admin!')
+			self.admins = None
+		else:
+			self.admins = set(admins)
+			print(f'Enabling {len(self.admins)} admin/s: {self.admins}')
 		
 		self._rng = random.Random()
 		if seed is not None:
 			self._rng.seed(seed)
+		
+		self._server_name = servername
 		
 		self.interfaces = {}
 		self._roles = {}
@@ -87,12 +96,12 @@ class DiscordBot(OmniBot):
 	
 	
 	def _insufficient_permissions(self, user):
-		return str(user) not in self.admins
+		return self.admins is not None and str(user) not in self.admins
 	
 	
-	@as_command('ping')
+	@as_command('ping', brief='Pings the bot')
 	async def on_ping(self, ctx):
-		role = ' (admin)' if str(ctx.author) in self.admins else ''
+		role = ' (admin)' if self.admins is None or str(ctx.author) in self.admins else ''
 		await ctx.send(f'Hello, {ctx.author.display_name}{role}')
 	
 	
@@ -152,8 +161,8 @@ class DiscordBot(OmniBot):
 		
 		self._status = 'No game running.'
 		
-		# self.guild = self.guilds[0]
-		self.guild = discord.utils.get(self.guilds, name='games')
+		self.guild = self.guilds[0] if self._server_name is None else discord.utils.get(self.guilds,
+		                                                                                name=self._server_name)
 	# self.gameroom = [c for c in self.guild.channels if c.name == 'GameRoom'][0]
 	
 	# guild = self.guilds[0]

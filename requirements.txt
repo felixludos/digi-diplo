@@ -6,6 +6,7 @@ omnibelt
 omnifig
 webcolors
 fuzzywuzzy
+discord.py
 scikit-learn
 scikit-image
 git+git://github.com/aparkins/pydip

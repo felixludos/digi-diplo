@@ -38,9 +38,6 @@ class BadNamesError(BadGraphError):
 		super().__init__('These region names are ambiguous: {}'.format(', '.join(names)))
 
 
-class DiplomacyRenderer:
-	pass
-
 
 
 @fig.Script('create-game')
@@ -127,7 +124,10 @@ class DiplomacyManager(fig.Configurable):
 			raise FileNotFoundError(str(player_path))
 		A.push('players-path', str(player_path), overwrite=False, silent=True)
 
-		A.push('region-path', str(root / 'regions.png'), overwrite=False, silent=True)
+		bg_path = root / 'bgs.yaml'
+		if bg_path.exists():
+			A.push('bgs-path', str(bg_path), overwrite=False, silent=True)
+		A.push('regions-path', str(root / 'regions.png'), overwrite=False, silent=True)
 		A.push('renderbase-path', str(root / 'renderbase.png'), overwrite=False, silent=True)
 		A.push('tiles-path', str(root / 'tiles.png'), overwrite=False, silent=True)
 		return root
@@ -187,6 +187,10 @@ class DiplomacyManager(fig.Configurable):
 	def _season_date(self, year, season, retreat):
 		return f'{year}-{season}{retreat}'
 	
+	def format_date(self):
+		rmsg = ' (retreats)' if self.retreat else ''
+		season = {1:'Spring', 2: 'Fall', 3: 'Winter'}
+		return f'Year {self.year} {season.get(self.season, self.season)}{rmsg}'
 	
 	def _get_action_path(self):
 		return self.actions_root / f'{self.time}.yaml'
@@ -235,14 +239,22 @@ class DiplomacyManager(fig.Configurable):
 			player = {}
 			player['control'] = info['territory'].copy()
 			player['centers'] = [loc for loc in info['territory'] if self.graph.get(loc, {}).get('sc', 0) > 0]
+			player['home'] = player['centers'].copy()
 			player['units'] = [{'loc': loc, 'type': typ} for typ in ['army', 'fleet'] for loc in info.get(typ, [])]
 			players[name] = player
 		return {'players': players, 'time': {'turn': 1, 'season': 1}}
 	
 	
 	def get_status(self):
-		missing = {player: len(self.units[player]) - len(self.actions.get(player, {}))
-		           for player in self.actions}
+		if self.season == 3:
+			reqs = {player: abs(delta) for player, delta in self.state.get('adjustments', {}).items()}
+		elif self.retreat:
+			reqs = {player: len(retreats) for player ,retreats in self.state.get('retreats', {}).items()}
+		else:
+			reqs = {player: len(self.units[player]) for player in self.actions}
+		missing = {player: num - len(self.actions.get(player, {}))
+		           for player, num in reqs.items()}
+		
 		return {player: num for player, num in missing.items() if num > 0}
 	
 	
@@ -324,7 +336,7 @@ class DiplomacyManager(fig.Configurable):
 			# return '*Retreat* {punit} **{loc}** to **{dest}**'.format(punit=unit, **terms)
 
 		if terms['type'] == 'build':
-			return '*Build **{punit}** *in* **{loc}**'.format(punit=unit, **terms)
+			return '*Build* **{punit}** *in* **{loc}**'.format(punit=unit, **terms)
 			# return '*Build* {punit} in **{loc}**'.format(punit=unit, **terms)
 		
 		if terms['type'] == 'hold':
@@ -343,8 +355,55 @@ class DiplomacyManager(fig.Configurable):
 		raise NotImplementedError
 
 	
-	def sample_action(self, player, n=1):
+	def format_all_actions(self, include_defaults=True):
 		
+		status = self.get_status()
+		
+		full = {}
+		
+		for player, actions in self.actions.items():
+			
+			orders = [self.format_action(player, action) for _, action in sorted(actions.items(),
+			                                                                             key= lambda x: x[0])]
+			if status.get(player, 0) and include_defaults:
+				if self.season == 3:
+					delta = self.state.get('adjustments', {}).get(player, 0)
+					if delta > 0:
+						orders.append(f'- Deferred {status.get(player,0)} build/s -')
+					elif delta < 0:
+						orders.append(f'- **Must still disband {status.get(player,0)} unit/s** -')
+						
+				elif self.retreat:
+					orders.append(f'- **Must still retreat {status[player]} unit/s** -')
+				else:
+					orders.extend(
+						'{} (by default)'.format(self.format_action(player,
+							{'type': 'hold', 'loc': unit['loc'], 'unit': unit['type']}))
+						for loc, unit in sorted(self.units[player].items(), key= lambda x: x[0])
+						if loc not in actions
+					)
+			full[player] = orders
+			
+		return full
+
+
+	def format_state(self, player=None):
+		
+		if player is None:
+			return {player: self.format_state(player) for player in self.state['players']}
+		
+		info = self.state['players'][player]
+		
+		lines = ['Centers: ' + ', '.join(info['centers'])]
+		
+		for unit in info['units']:
+			loc, typ = unit['loc'], unit['type']
+			lines.append(f'*{typ.capitalize()}* in **{loc}**')
+		
+		return lines
+
+	
+	def sample_action(self, player, n=1):
 		actions = []
 		
 		if self.retreat:
@@ -366,7 +425,7 @@ class DiplomacyManager(fig.Configurable):
 					action = {'type': 'disband', 'loc': loc, 'unit': unit}
 					actions.append(self.record_action(player, action, persistent=False))
 			else:
-				empty = [home for home in self.state['players']['home'] if self._find_unit(home) is None]
+				empty = [home for home in self.state['players'][player]['home'] if self._find_unit(home) is None]
 				delta = min(len(empty), delta)
 				locs = random.sample(empty, k=min(len(empty), delta))
 				for loc in locs:
@@ -375,10 +434,6 @@ class DiplomacyManager(fig.Configurable):
 					action = {'type': 'build', 'loc': loc, 'unit': unit}
 					actions.append(self.record_action(player, action, persistent=False))
 		else:
-			if n < 0:
-				n = max(1, len(self.units[player]) - len(self.actions[player]))
-			print(f'Generating {n} action/s for {player}.')
-			
 			weights = {
 				'move': 3,
 				'hold': 1,
@@ -388,8 +443,14 @@ class DiplomacyManager(fig.Configurable):
 			
 			typs, wts = zip(*weights.items())
 			
-			locs = random.sample([u['loc'] for loc, u in self.units[player].items()
-			                      if loc not in self.actions[player]], k=n)
+			locs = [u['loc'] for loc, u in self.units[player].items()
+			                      if loc not in self.actions[player]]
+			if n > 0:
+				locs = random.sample(locs, k=n)
+			else:
+				n = len(locs)
+			print(f'Generating {len(locs)} action/s for {player}.')
+			
 			typs = random.choices(typs, weights=wts, k=len(locs))
 			for loc, typ in zip(locs, typs):
 				unit = self._find_unit(loc, player)
@@ -614,8 +675,14 @@ class DiplomacyManager(fig.Configurable):
 		return terms
 		
 	
-	def render_latest(self, include_actions=False):
-		return self.renderer.render(self.state, self.actions if include_actions else None)
+	def render_latest(self, path=None, include_actions=False):
+		
+		if path is None:
+			name = f'{self.time}-actions.png' if include_actions else f'{self.time}.png'
+			path = self.images_root / name
+		
+		self.renderer(self.state, self.actions if include_actions else None, savepath=path)
+		return path
 	
 	
 

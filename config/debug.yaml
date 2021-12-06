@@ -1,22 +1,13 @@
 
 _meta.script_name: start-bot
 
-parents: [wd/paths]
+parents: [wd/bot]
 
 game-root: extra/wd/games/game1
 
+server-name: playground
+
 admins: [felixludos#9043]
-
-client._type: diplomacy-bot
-
-
-manager:
-  _type: diplo-manager
-
-  map:
-    _type: map
-    _mod.dash-coasts: 1
-
 
 #parents: [automap/viz]
 ##

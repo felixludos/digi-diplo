@@ -1,0 +1,15 @@
+
+parents: [wd/paths, wd/viz]
+
+
+client._type: diplomacy-bot
+
+
+manager:
+  _type: diplo-manager
+
+  map:
+    _type: map
+    _mod.dash-coasts: 1
+
+

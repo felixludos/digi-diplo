@@ -1,0 +1,12 @@
+
+
+manager.renderer._type: map-renderer
+
+bg-colors:
+  bg: "#400080"
+  mountain: "#515100"
+  lake: "#404040"
+  arctic: "#40403c"
+  sea: "#87cfd5"
+
+
