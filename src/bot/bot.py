@@ -133,34 +133,19 @@ class DiplomacyBot(DiscordBot):
 	
 	
 	@as_command('print-actions', brief='(admin) Prints out the actions of the current season')
-	async def on_print_actions(self, ctx, include_missing=False):
+	async def on_print_actions(self, ctx, player=None):
 		if self._insufficient_permissions(ctx.author):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 			return
-
-		# status = self.manager.get_status()
-		# actions = self.manager.actions
 		
-		# full = []
-		# for player, actions in self.manager.format_all_actions():
-		# 	missing = status.get(player, 0)
-		# 	lines = []
-		# 	# lines.append(f'__{player}__')
-		# 	# if len(actions):
-		# 	# 	lines.extend(actions)
-		# 	if self.manager.season == 3:
-		# 		delta = self.manager.state.get('adjustments', {}).get(player, 0)
-		# 		if delta > 0:
-		# 			lines.append(f'- {delta} build/s deferred -')
-		# 		elif delta < 0:
-		# 			lines.append(f' - **Must still disband {-delta} units** -')
-		# 		# else:
-		# 		# 	lines.append(f' - no orders needed -')
-		# 	elif self.re
+		actions = self.manager.format_all_actions()
 		
-		lines = self._line_table(self.manager.format_all_actions())
+		if player is not None:
+			actions = {player: actions[player]}
+		else:
+			await ctx.send(f'Orders for **{self.manager.format_date()}**')
 		
-		await ctx.send(f'Orders for **{self.manager.format_date()}**')
+		lines = self._line_table(actions)
 		await self._batched_send(ctx, lines)
 
 
@@ -177,7 +162,7 @@ class DiplomacyBot(DiscordBot):
 		await ctx.send('\n'.join(lines))
 	
 	@as_command('generate-all', brief='(admin) Generates all missing actions')
-	async def on_random(self, ctx):
+	async def on_random_all(self, ctx):
 		if self._insufficient_permissions(ctx.author):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 			return

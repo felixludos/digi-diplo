@@ -7,6 +7,7 @@ import omnifig as fig
 from . import bot
 from . import managers
 from . import render
+from . import scripts
 
 prt = get_printer(__file__)
 

@@ -46,7 +46,7 @@ class DiploMap(fig.Configurable):
 
 
 	@staticmethod
-	def _encode_region_name(name=None, coast=unspecified_argument, node_type=None, unit_type=None):
+	def encode_region_name(name=None, coast=unspecified_argument, node_type=None, unit_type=None):
 		args = dict(name=name, unit_type=unit_type, node_type=node_type)
 		if coast is not unspecified_argument:
 			args['coast'] = coast
@@ -54,8 +54,12 @@ class DiploMap(fig.Configurable):
 	
 	
 	@staticmethod
-	def _decode_region_name(name=None, allow_dir=None):
+	def decode_region_name(name=None, allow_dir=None):
 		return fig.quick_run('_decode_region_name', name=name, allow_dir=allow_dir)
+	
+	
+	def get_node(self, name):
+		return self.graph[name]
 	
 
 	def _load_graph_info(self, graph_path):
@@ -80,13 +84,13 @@ class DiploMap(fig.Configurable):
 				if isinstance(es, dict):
 					info['coasts'] = []
 					for coast, ces in es.items():
-						coast = self._encode_region_name(name=name, coast=coast)
+						coast = self.encode_region_name(name=name, coast=coast)
 						coasts[coast] = {'name': coast, 'type': 'coast', 'coast-of': name, 'dir': coast}
 						info['coasts'].append(coast)
 						fleet[coast] = ces
 				else:
 					if info['type'] == 'coast':
-						coast = self._encode_region_name(name=name, node_type='coast', unit_type='fleet')
+						coast = self.encode_region_name(name=name, node_type='coast', unit_type='fleet')
 						coasts[coast] = {'name': coast, 'type': 'coast', 'coast-of': name}
 						info['coasts'] = [coast]
 					fleet[name] = es
@@ -137,10 +141,10 @@ class DiploMap(fig.Configurable):
 				del desc['coasts']
 			elif 'fleet' in node['edges']:
 				if isinstance(node['edges']['fleet'], dict):
-					desc['coasts'] = [cls._encode_region_name(name=ID, unit_type='fleet', coast=coast)
+					desc['coasts'] = [cls.encode_region_name(name=ID, unit_type='fleet', coast=coast)
 					                  for coast in node['edges']['fleet']]
 				else:
-					desc['coasts'] = [cls._encode_region_name(name=ID, unit_type='fleet', coast=True)]
+					desc['coasts'] = [cls.encode_region_name(name=ID, unit_type='fleet', coast=True)]
 			descriptors.append(desc)
 			
 		# adjacencies
@@ -170,21 +174,21 @@ class DiploMap(fig.Configurable):
 		adjacencies = set()
 		for ID, node in nodes.items():
 			for utype, edges in node['edges'].items():
-				start = cls._encode_region_name(name=ID, unit_type=utype,
-				                                node_type=nodes[ID]['type'] if ID in nodes else None)
+				start = cls.encode_region_name(name=ID, unit_type=utype,
+				                               node_type=nodes[ID]['type'] if ID in nodes else None)
 				if isinstance(edges, dict):
 					for coast, edges in edges.items():
-						start = cls._encode_region_name(name=ID, unit_type=utype, coast=coast,
-				                                node_type=nodes[ID]['type'] if ID in nodes else None)
+						start = cls.encode_region_name(name=ID, unit_type=utype, coast=coast,
+						                               node_type=nodes[ID]['type'] if ID in nodes else None)
 						for neighbor in edges:
-							end = cls._encode_region_name(name=neighbor, unit_type=utype,
-				                                node_type=nodes[neighbor]['type'] if neighbor in nodes else None)
+							end = cls.encode_region_name(name=neighbor, unit_type=utype,
+							                             node_type=nodes[neighbor]['type'] if neighbor in nodes else None)
 							if (end, start) not in adjacencies:
 								adjacencies.add((start, end))
 				else:
 					for neighbor in edges:
-						end = cls._encode_region_name(name=neighbor, unit_type=utype,
-				                                node_type=nodes[neighbor]['type'] if neighbor in nodes else None)
+						end = cls.encode_region_name(name=neighbor, unit_type=utype,
+						                             node_type=nodes[neighbor]['type'] if neighbor in nodes else None)
 						if (end, start) not in adjacencies:
 							adjacencies.add((start, end))
 
@@ -194,8 +198,8 @@ class DiploMap(fig.Configurable):
 	def fix_loc(self, loc, utype):
 		if utype in util.UNIT_ENUMS:
 			utype = util.UNIT_ENUMS[utype]
-		return self._encode_region_name(name=loc, unit_type=utype,
-		                     node_type=self.nodes[loc]['type'] if loc in self.nodes else None)
+		return self.encode_region_name(name=loc, unit_type=utype,
+		                               node_type=self.nodes[loc]['type'] if loc in self.nodes else None)
 		return util.fix_loc(loc, utype, self.nodes[loc]['type']) if loc in self.nodes else loc
 
 	def load_players(self, players):
@@ -215,7 +219,7 @@ class DiploMap(fig.Configurable):
 			unit_locs[name] = locs
 			
 			for loc, unit in units.items():
-				base = self._decode_region_name(name=loc)[0]
+				base = self.decode_region_name(name=loc)[0]
 				locs[base] = {'loc': loc, 'unit': unit}
 			
 			for loc in units:
@@ -285,10 +289,10 @@ class DiploMap(fig.Configurable):
 		if utype in util.UNIT_ENUMS:
 			utype = util.UNIT_ENUMS[utype]
 		
-		base, coast = self._decode_region_name(name=dest)
+		base, coast = self.decode_region_name(name=dest)
 		
-		return self._encode_region_name(name=base, coast=coast,
-		                     node_type=self.graph[base]['type'], unit_type=utype)
+		return self.encode_region_name(name=base, coast=coast,
+		                               node_type=self.graph[base]['type'], unit_type=utype)
 		
 	
 	def _fill_missing_actions(self, full):
@@ -483,7 +487,7 @@ class DiploMap(fig.Configurable):
 			for a in acts:
 				if 'unit' not in a:
 					try:
-						base, coast = self._decode_region_name(name=a['loc'])
+						base, coast = self.decode_region_name(name=a['loc'])
 						a['unit'] = self.unit_locs[name][base]['unit']
 					except:
 						missing.append([name, str(a)])
@@ -670,11 +674,11 @@ class DiploMap(fig.Configurable):
 class DashCoast(DiploMap):
 	
 	@classmethod
-	def _encode_region_name(cls, name=None, coast=None, node_type=None, unit_type=None):
+	def encode_region_name(cls, name=None, coast=None, node_type=None, unit_type=None):
 		assert name is not None
 		
 		if coast is None:
-			name, coast = cls._decode_region_name(name)
+			name, coast = cls.decode_region_name(name)
 		
 		if coast is not None and coast in {'nc', 'sc', 'wc', 'ec'}:
 			return f'{name}-{coast}'
@@ -689,7 +693,7 @@ class DashCoast(DiploMap):
 	_coast_decoder = {'-nc': 'nc', '-sc': 'sc', '-wc': 'wc', '-ec': 'ec'}
 	
 	@classmethod
-	def _decode_region_name(cls, name=None, allow_dir=None):
+	def decode_region_name(cls, name=None, allow_dir=None):
 		if len(name) < 3:
 			return name, None
 		

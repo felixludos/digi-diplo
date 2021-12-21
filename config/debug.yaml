@@ -1,13 +1,36 @@
 
-_meta.script_name: start-bot
+#_meta.script_name: start-bot
+
+#server-name: playground
+
+#####################
+
+_meta.script_name: render-state
 
 parents: [wd/bot]
 
 game-root: extra/wd/games/game1
 
-server-name: playground
+check-image: 1-2_actions
 
-admins: [felixludos#9043]
+include-actions: yes
+
+
+admins: None
+
+view: yes
+pbar: true
+skip-control: true
+
+
+
+
+#  retreat:
+#    marker: o
+#  disband:
+#    marker: x
+
+#admins: [felixludos#9043]
 
 #parents: [automap/viz]
 ##

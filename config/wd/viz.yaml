@@ -1,12 +1,188 @@
 
 
-manager.renderer._type: map-renderer
+manager.renderer._type: default-renderer
 
-bg-colors:
-  bg: "#400080"
-  mountain: "#515100"
-  lake: "#404040"
-  arctic: "#40403c"
-  sea: "#87cfd5"
+#bg-colors:
+#  bg: "#400080"
+#  mountain: "#515100"
+#  lake: "#404040"
+#  arctic: "#40403c"
+#  sea: "#87cfd5"
+
+
+
+arrow-ratio: 0.9
+arrow-width: 3
+arrow-head: 8
+edge-width: 0.1
+
+sup-color: y
+convoy-color: c
+
+edge-color: k
+
+highlight-size: 2
+highlight-width: 0.4
+
+
+sc-props:
+  markeredgewidth: 0.05
+  markeredgecolor: k
+  markerfacecolor: '#FFD700'
+  markersize: 1.7
+  marker: [5,1]
+  ls: ''
+  zorder: 60
+capital-props:
+  markeredgewidth: 0.05
+  markeredgecolor: k
+  markerfacecolor: '#FFD700'
+  markersize: 1.9
+  marker: [7, 1]
+  ls: ''
+  zorder: 60
+home-props:
+  markeredgewidth: 0.02
+  markeredgecolor: k
+  markersize: 0.4
+  marker: o
+  ls: ''
+  zorder: 61
+
+unit-props:
+  ms: 1.5
+  mew: 0.35
+  zorder: 20
+  mec: k
+  ls: ''
+
+retreat-arrow:
+  width: <>arrow-width
+  lw: <>edge-width
+  head_width: 12
+  length_includes_head: True
+  fc: r
+  ec: k
+  zorder: 19
+retreat-action-arrow: <>retreat-arrow
+retreat-props:
+  ms: <>highlight-size
+  mew: <>highlight-width
+  mec: r
+  mfc: None
+  zorder: 50
+  ls: ''
+  shape: o
+disband-props:
+  ms: <>highlight-size
+  mew: <>highlight-width
+  mec: r
+  mfc: None
+  zorder: 50
+  ls: ''
+  shape: x
+
+hold-props:
+  color: w
+  ms: <>highlight-size
+  mew: <>highlight-width
+  ls: ''
+  mfc: 'none'
+  zorder: 6
+build-props:
+  color: g
+  ms: <>highlight-size
+  mew: <>highlight-width
+  ls: ''
+  mfc: 'none'
+  zorder: 6
+
+move-arrow:
+  width: <>arrow-width
+  lw: <>edge-width
+  head_width: <>arrow-head
+  length_includes_head: True
+  facecolor: w
+  edgecolor: k
+  zorder: 15
+
+support-arrow:
+  width: <>arrow-width
+  ls: --
+  fc: <>sup-color
+  lw: <>edge-width
+  head_width: <>arrow-head
+  length_includes_head: True
+  facecolor: <>sup-color
+  edgecolor: <>edge-color
+  zorder: 6
+support-props:
+  arrowprops:
+    shrinkA: 0
+    shrinkB: 0
+    arrowstyle: wedge,tail_width=0.05,shrink_factor=0.5
+    capstyle: round
+    linewidth: <>edge-width
+    facecolor: <>sup-color
+    edgecolor: <>edge-color
+    connectionstyle: arc3,rad=0.2
+
+  zorder: 7
+support-dot:
+  marker: .
+  ms: 1.5
+#  lw: 1
+  mew: <>edge-width
+  ls: ''
+  color: <>sup-color
+  mec: <>edge-color
+  zorder: 16
+
+support-defend-props:
+  textcoords: data
+  xycoords: data
+  arrowprops:
+    shrinkA: 0.2
+    shrinkB: 0.2
+    arrowstyle: wedge,tail_width=0.075,shrink_factor=0.5
+    capstyle: round
+    linewidth: <>edge-width
+    facecolor: <>sup-color
+    edgecolor: <>edge-color
+    connectionstyle: arc3,rad=0.2
+
+  zorder: 6
+
+convoy-arrow:
+  width: <>arrow-width
+  ls: --
+  fc: <>convoy-color
+  lw: <>edge-width
+  head_width: <>arrow-head
+  length_includes_head: True
+  facecolor: <>convoy-color
+  edgecolor: <>edge-color
+  zorder: 6
+convoy-props:
+  arrowprops:
+    shrinkA: 0
+    shrinkB: 0
+    arrowstyle: wedge,tail_width=0.05,shrink_factor=0.5
+    capstyle: round
+    linewidth: <>edge-width
+    facecolor: <>convoy-color
+    edgecolor: <>edge-color
+    connectionstyle: arc3,rad=0.2
+
+  zorder: 7
+convoy-dot:
+  marker: .
+  ms: 1.5
+#  lw: 1
+  mew: <>edge-width
+  ls: ''
+  color: <>convoy-color
+  mec: <>edge-color
+  zorder: 16
 
 

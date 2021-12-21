@@ -64,6 +64,11 @@ def _create_game(A):
 
 
 
+@fig.Component('diplo-map')
+class DiplomacyMap(fig.Configurable):
+	pass
+
+
 @fig.Component('diplo-manager')
 class DiplomacyManager(fig.Configurable):
 	def __init__(self, A, gamemap=unspecified_argument, renderer=unspecified_argument,
@@ -407,7 +412,7 @@ class DiplomacyManager(fig.Configurable):
 		actions = []
 		
 		if self.retreat:
-			if player not in self.state.get('retreats', {}):
+			if player in self.state.get('retreats', {}):
 				retreats = self.state['retreats'][player]
 				for loc, options in retreats.items():
 					unit = self._find_unit(loc, player)
@@ -599,7 +604,7 @@ class DiplomacyManager(fig.Configurable):
 		elif ' disband' in line:
 			loc, _ = line.split(' disband')
 			loc = self._parse_location(loc)
-			unit = self._find_unit(player, loc)
+			unit = self._find_unit(loc, player)
 			if unit is None:
 				raise NoUnitFoundError(loc)
 			terms.update({'type': 'disband', 'loc': loc, 'unit': unit})
@@ -607,7 +612,7 @@ class DiplomacyManager(fig.Configurable):
 		elif ' retreats to ' in line:
 			loc, dest = line.split(' retreats to ')
 			loc = self._parse_location(loc)
-			unit = self._find_unit(player, loc)
+			unit = self._find_unit(loc, player)
 			if unit is None:
 				raise NoUnitFoundError(loc)
 			dest = self._parse_location(dest)
@@ -616,7 +621,7 @@ class DiplomacyManager(fig.Configurable):
 		elif ' supports ' in line and ' to ' in line:
 			loc, rest = line.split(' supports ')
 			loc = self._parse_location(loc)
-			unit = self._find_unit(player, loc)
+			unit = self._find_unit(loc, player)
 			if unit is None:
 				raise NoUnitFoundError(loc)
 			src, dest = rest.split(' to ')
@@ -630,16 +635,16 @@ class DiplomacyManager(fig.Configurable):
 			keyword = ' support holds ' if ' support holds ' in line else ' supports '
 			loc, dest = line.split(keyword)
 			loc = self._parse_location(loc)
-			unit = self._find_unit(player, loc)
+			unit = self._find_unit(loc, player)
 			if unit is None:
 				raise NoUnitFoundError(loc)
 			dest = self._parse_location(dest)
-			terms.update({'type': 'support-defend', 'loc': loc, 'unit': unit, 'dest': dest})
+			terms.update({'type': 'support-defend', 'loc': loc, 'uit': unit, 'dest': dest})
 		
 		elif ' hold' in line:
 			loc, _ = line.split(' hold')
 			loc = self._parse_location(loc)
-			unit = self._find_unit(player, loc)
+			unit = self._find_unit(loc, player)
 			if unit is None:
 				raise NoUnitFoundError(loc)
 			terms.update({'type': 'hold', 'loc': loc, 'unit': unit})
@@ -647,7 +652,7 @@ class DiplomacyManager(fig.Configurable):
 		elif ' convoys ' in line:
 			loc, rest = line.split(' convoys ')
 			loc = self._parse_location(loc)
-			unit = self._find_unit(player, loc)
+			unit = self._find_unit(loc, player)
 			if unit is None:
 				raise NoUnitFoundError(loc)
 			src, dest = rest.split(' to ')
@@ -680,6 +685,7 @@ class DiplomacyManager(fig.Configurable):
 		if path is None:
 			name = f'{self.time}-actions.png' if include_actions else f'{self.time}.png'
 			path = self.images_root / name
+			print(f'Rendering {name}')
 		
 		self.renderer(self.state, self.actions if include_actions else None, savepath=path)
 		return path
