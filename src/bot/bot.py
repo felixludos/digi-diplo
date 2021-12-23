@@ -6,7 +6,7 @@ import omnifig as fig
 from tabulate import tabulate
 
 from .base import DiscordBot, as_command, as_event, as_loop
-from .managers import ParsingFailedError
+from ..managers import ParsingFailedError
 
 #
 # class ParsingFailedError(Exception):
@@ -56,6 +56,10 @@ class DiplomacyBot(DiscordBot):
 		await ctx.send(f'Missing {sum(num for num in status.values())} commands.')
 		return status
 	
+	@as_command('season', brief='(admin) Prints out the current season')
+	async def on_season(self, ctx):
+		await ctx.send(f'Current turn: **{self.manager.format_date()}**')
+	
 	
 	@as_command('missing', brief='(admin) Prints out the number of missing commands per nation')
 	async def on_fullstatus(self, ctx):
@@ -68,7 +72,7 @@ class DiplomacyBot(DiscordBot):
 		return status
 	
 
-	@as_command('step', brief='(admin) Prints out the number of missing commands per nation')
+	@as_command('step', brief='(admin) Adjudicates current season and updates game state')
 	async def on_step(self, ctx):
 		if self._insufficient_permissions(ctx.author):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
@@ -79,32 +83,25 @@ class DiplomacyBot(DiscordBot):
 		await ctx.send(f'Current turn: **{self.manager.format_date()}**')
 		
 	
-	@as_command('render', brief='(admin) Renders game map and state (optionally with actions)')
-	async def on_render(self, ctx, action=None):
+	@as_command('render-state', brief='(admin) Renders game map and state')
+	async def on_render_state(self, ctx):
 		if self._insufficient_permissions(ctx.author):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 			return
 		
-		path = self.manager.render_latest(include_actions=bool(action))
+		path = self.manager.render_latest(include_actions=False)
 		await ctx.send(file=discord.File(str(path)))
 	
-	async def _batched_send(self, ctx, lines):
+	
+	@as_command('render-orders', brief='(admin) Renders game map with current orders')
+	async def on_render_actions(self, ctx):
+		if self._insufficient_permissions(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+			return
 		
-		def _group_lines():
-			total = 0
-			batch = []
-			for line in lines:
-				total += len(line)
-				if total > (1900 - len(batch)):
-					yield batch
-					batch.clear()
-					total = 0
-				batch.append(line)
-			if len(batch):
-				yield batch
-		
-		for batch in _group_lines():
-			await ctx.send('\n'.join(batch))
+		path = self.manager.render_latest(include_actions=True)
+		await ctx.send(file=discord.File(str(path)))
+	
 	
 	@as_command('print-state', brief='(admin) Prints out the player state (centers and units)')
 	async def on_print_state(self, ctx, player=None):
@@ -132,7 +129,7 @@ class DiplomacyBot(DiscordBot):
 		return lines
 	
 	
-	@as_command('print-actions', brief='(admin) Prints out the actions of the current season')
+	@as_command('print-orders', brief='(admin) Prints out the orders of the current season')
 	async def on_print_actions(self, ctx, player=None):
 		if self._insufficient_permissions(ctx.author):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
@@ -161,6 +158,7 @@ class DiplomacyBot(DiscordBot):
 		lines.extend(self.manager.format_action(player, action) for action in actions)
 		await ctx.send('\n'.join(lines))
 	
+	
 	@as_command('generate-all', brief='(admin) Generates all missing actions')
 	async def on_random_all(self, ctx):
 		if self._insufficient_permissions(ctx.author):
@@ -175,7 +173,7 @@ class DiplomacyBot(DiscordBot):
 		await ctx.send(f'Generated {num} actions for all players.')
 		
 	
-	@as_command('set-order', brief='(admin) "[nation name]" [order]')
+	@as_command('set-order', brief='(admin) "[faction name]" [order]')
 	async def on_order(self, ctx, player, *terms):
 		if self._insufficient_permissions(ctx.author):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')

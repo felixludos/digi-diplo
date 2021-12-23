@@ -1,26 +1,26 @@
 
-#_meta.script_name: start-bot
+_meta.script_name: start-bot
 
-#server-name: playground
+server-name: playground
 
 #####################
 
-_meta.script_name: render-state
+#_meta.script_name: render-state
 
 parents: [wd/bot]
 
-game-root: extra/wd/games/game1
+#game-root: extra/wd/games/game1
 
-check-image: 1-2_actions
+#check-image: 1-2_actions
 
-include-actions: yes
+#include-actions: yes
 
+#admins: None
+admin-role: testhost
 
-admins: None
-
-view: yes
+#view: yes
 pbar: true
-skip-control: true
+#skip-control: true
 
 
 

@@ -6,7 +6,6 @@ from omnibelt import unspecified_argument, load_yaml, save_yaml, load_txt
 import omnifig as fig
 
 
-_DEFAULT_ROOT = str(Path(__file__).parents[0])
 
 
 class ParsingFailedError(Exception):
@@ -39,34 +38,6 @@ class BadNamesError(BadGraphError):
 
 
 
-
-@fig.Script('create-game')
-def _create_game(A):
-	root = A.pull('base-root', '<>root', None)
-	if root is None:
-		root = Path(_DEFAULT_ROOT) / 'data'
-	root = Path(root)
-	mdir = A.pull('map-path', None)
-	if mdir is None:
-		raise FileNotFoundError('You must provide the path to the directory with the map data (--map-path)')
-	
-	name = A.pull('name', None)
-	if name is None:
-		num = len(list(root.glob('*'))) + 1
-		name = f'game{num}'
-	
-	path = root / name
-	# path.mkdir(exist_ok=True)
-	shutil.copytree(str(mdir), str(path))
-	
-	print(f'Game {name} has been created (using map data in {str(mdir)})')
-	return path
-
-
-
-@fig.Component('diplo-map')
-class DiplomacyMap(fig.Configurable):
-	pass
 
 
 @fig.Component('diplo-manager')
@@ -157,8 +128,6 @@ class DiplomacyManager(fig.Configurable):
 		if len(bad_names):
 			raise BadNamesError(bad_names)
 		
-		self.player_info = load_yaml(self.player_path)
-		
 		self.set_state(self._find_latest_state(self.states_root))
 		print(f'Loaded state: {self.time}')
 		
@@ -239,6 +208,7 @@ class DiplomacyManager(fig.Configurable):
 	
 	
 	def generate_initial_state(self):
+		return self.gamemap.generate_initial_state()
 		players = {}
 		for name, info in self.player_info.items():
 			player = {}

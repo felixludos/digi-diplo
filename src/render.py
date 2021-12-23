@@ -11,7 +11,7 @@ from matplotlib.patches import ArrowStyle
 from matplotlib.figure import figaspect
 import matplotlib.patheffects as path_effects
 
-from ..colors import hex_to_rgb
+from .colors import hex_to_rgb
 
 
 class DiplomacyRenderer(fig.Configurable):
@@ -27,8 +27,6 @@ class DiplomacyRenderer(fig.Configurable):
 		img = self._render(state, actions=action, **kwargs)
 		out = self._process(img, savepath=savepath, **processargs)
 		return out
-	
-
 	
 	def _render(self, state, actions=None, **kwargs):
 		self._prep_assets(state, actions=actions, **kwargs)
@@ -169,7 +167,6 @@ class DefaultRenderer(MatplotlibRenderer):
 			'convoy-transport': self._draw_convoy,
 		}
 	
-	
 	def _prep_assets(self, state, actions=None, **kwargs):
 		super()._prep_assets(state, actions=actions, **kwargs)
 		
@@ -182,7 +179,6 @@ class DefaultRenderer(MatplotlibRenderer):
 		
 		self.figax = plt.subplots(figsize=(w, h))
 		
-	
 	def _finalize_render(self, state, actions=None, **kwargs):
 		
 		plt.imshow(self.base, zorder=-1)
@@ -197,7 +193,6 @@ class DefaultRenderer(MatplotlibRenderer):
 			# self.base[sel] = overlay[sel,:3]
 			plt.imshow(overlay)
 		
-	
 	
 	def _load_img(self, path, rgb=False):
 		img = Image.open(str(path))

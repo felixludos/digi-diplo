@@ -5,6 +5,9 @@ England:
 
   owns: [cly, edi, lvp, yor, wal, lon]
   home: [lon, edi, lvp]
+  capital: lon
+
+  color: '#4477AA'
 
   units:
     - type: fleet
@@ -21,6 +24,9 @@ France:
 
   owns: [pic, bre, par, bur, gas, mar]
   home: [par, mar, bre]
+  capital: par
+
+  color: '#66ccee'
 
   units:
     - type: fleet
@@ -36,6 +42,9 @@ Germany:
 
   owns: [kie, ber, ruh, mun, pru, sil]
   home: [ber, kie, mun]
+  capital: ber
+
+  color: '#bbbbbb'
 
   units:
     - type: fleet
@@ -52,6 +61,9 @@ Italy:
 
   owns: [pie, ven, tus, rom, apu, nap]
   home: [rom, nap, ven]
+  capital: rom
+
+  color: '#228833'
 
   units:
     - type: fleet
@@ -68,6 +80,9 @@ Russia:
 
   owns: [stp, mos, lvn, ukr, sev, fin, war]
   home: [mos, stp, sev, war]
+  capital: mos
+
+  color: '#aa3377'
 
   units:
     - type: fleet
@@ -86,6 +101,9 @@ Austria:
 
   owns: [boh, gal, vie, tri, bud]
   home: [vie, tri, bud]
+  capital: vie
+
+  color: '#ee6677'
 
   units:
     - type: fleet
@@ -102,6 +120,9 @@ Turkey:
 
   owns: [con, ank, arm, smy, syr]
   home: [con, ank, smy]
+  capital: con
+
+  color: '#ccbb44'
 
   units:
     - type: fleet

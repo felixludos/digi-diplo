@@ -1,19 +1,8 @@
 
 
-map-path: extra/wd/wd_data
-base-root: extra/wd/games
+assets-path: assets/wd
 
-#game-root: extra/wd/games
+#base-root: games
 
-#game-root: extra/wd/games/game1
-
-#
-#graph-path: extra/game/graph.yaml
-#bg-path: extra/col/adj/backgrounds.yaml
-#poi-path: extra/col/adj/pois.yaml
-#player-path: extra/col/adj/players.yaml
-#players-path: <>player-path
-#
-#fields-img: extra/col/adj/col_fixed_v2_nodes.png
 
 

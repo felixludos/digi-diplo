@@ -20,9 +20,10 @@ from copy import deepcopy
 
 
 
-@fig.Component('map')
+@fig.Component('diplo-map')
 class DiploMap(fig.Configurable):
-	def __init__(self, A, graph_path=unspecified_argument, ignore_unknown=None, **kwargs):
+	def __init__(self, A, graph_path=unspecified_argument, player_path=unspecified_argument,
+	             ignore_unknown=None, **kwargs):
 		
 		if ignore_unknown is None:
 			ignore_unknown = A.pull('ignore-unknown', type(self) != DiploMap)
@@ -30,15 +31,32 @@ class DiploMap(fig.Configurable):
 		if graph_path is unspecified_argument:
 			graph_path = A.pull('graph-path')
 		
+		if player_path is unspecified_argument:
+			player_path = A.pull('players-path', None)
+		
 		super().__init__(A, **kwargs)
 		
 		self.graph_path = graph_path
+		self.player_path = player_path
 		self.nodes, self.edges = self._load_graph_info(graph_path)
+		self.player_info = self._load_player_info(player_path)
 		self.get_ID_from_name = util.make_node_dictionary(self.nodes)
 		
 		self.dmap = self._create_dip_map(self.nodes, self.edges)
 		
 		self.ignore_unknown = ignore_unknown
+	
+	
+	def generate_initial_state(self):
+		players = {}
+		for name, info in self.player_info.items():
+			player = {}
+			player['control'] = info['territory'].copy()
+			player['centers'] = [loc for loc in info['territory'] if self.graph.get(loc, {}).get('sc', 0) > 0]
+			player['home'] = player['centers'].copy()
+			player['units'] = [{'loc': loc, 'type': typ} for typ in ['army', 'fleet'] for loc in info.get(typ, [])]
+			players[name] = player
+		return {'players': players, 'time': {'turn': 1, 'season': 1}}
 	
 	
 	def get_supply_centers(self):
@@ -61,7 +79,10 @@ class DiploMap(fig.Configurable):
 	def get_node(self, name):
 		return self.graph[name]
 	
-
+	@staticmethod
+	def _load_player_info(player_path):
+		return load_yaml(player_path)
+	
 	def _load_graph_info(self, graph_path):
 		
 		graph = load_yaml(graph_path) if graph_path.endswith('.yaml') else load_json(graph_path)
@@ -149,28 +170,6 @@ class DiploMap(fig.Configurable):
 			
 		# adjacencies
 		
-		# all_edges = util.list_edges(edges, nodes)
-		# adjacencies = set()
-		
-		# for e in all_edges:
-		#
-		# 	start, end = e['start'], e['end']
-		#
-		# 	start = cls._encode_region_name(name=start,
-		# 	                      node_type=nodes[start]['type'] if start in nodes else None,
-		# 	                      unit_type=e['type'])
-		#
-		# 	end = cls._encode_region_name(name=end,
-		# 	                    node_type=nodes[end]['type'] if end in nodes else None,
-		# 	                      unit_type=e['type'])
-		#
-		# 	# start = util.fix_loc(start, e['type'], nodes[start]['type']) if start in nodes else start
-		# 	# end = util.fix_loc(end, e['type'], nodes[end]['type']) if end in nodes else end
-		#
-		# 	if (end, start) not in adjacencies:
-		# 		adjacencies.add((start, end))
-		# 	# adjacencies.add((start, end))
-
 		adjacencies = set()
 		for ID, node in nodes.items():
 			for utype, edges in node['edges'].items():
@@ -202,7 +201,7 @@ class DiploMap(fig.Configurable):
 		                               node_type=self.nodes[loc]['type'] if loc in self.nodes else None)
 		return util.fix_loc(loc, utype, self.nodes[loc]['type']) if loc in self.nodes else loc
 
-	def load_players(self, players):
+	def prep_players(self, players):
 		
 		full = {}
 		unit_info = []
@@ -496,13 +495,15 @@ class DiploMap(fig.Configurable):
 			print(tabulate(missing, headers=['Player', 'Action']))
 			raise Exception('missing units')
 		
+		return actions
+		
 	def step(self, state, actions, ignore_unknown=None):
 		if ignore_unknown is None:
 			ignore_unknown = self.ignore_unknown
 		
-		self.load_players(state['players'])
+		self.prep_players(state['players'])
 		
-		self.fix_actions(actions)
+		actions = self.fix_actions(actions)
 		
 		turn, season = state['time']['turn'], state['time']['season']
 		retreat = 'retreat' in state['time']

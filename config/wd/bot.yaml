@@ -9,7 +9,6 @@ manager:
   _type: diplo-manager
 
   map:
-    _type: map
+    _type: diplo-map
     _mod.dash-coasts: 1
-
 

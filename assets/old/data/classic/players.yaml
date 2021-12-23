@@ -1,0 +1,133 @@
+
+England:
+
+  name: England
+
+  owns: [cly, edi, lvp, yor, wal, lon]
+  home: [lon, edi, lvp]
+  capital: lon
+
+  color: '#4477AA'
+
+  units:
+    - type: fleet
+      loc: edi
+    - type: fleet
+      loc: lon
+    - type: army
+      loc: lvp
+
+
+France:
+
+  name: France
+
+  owns: [pic, bre, par, bur, gas, mar]
+  home: [par, mar, bre]
+  capital: par
+
+  color: '#66ccee'
+
+  units:
+    - type: fleet
+      loc: bre
+    - type: army
+      loc: mar
+    - type: army
+      loc: par
+
+Germany:
+
+  name: Germany
+
+  owns: [kie, ber, ruh, mun, pru, sil]
+  home: [ber, kie, mun]
+  capital: ber
+
+  color: '#bbbbbb'
+
+  units:
+    - type: fleet
+      loc: kie
+    - type: army
+      loc: ber
+    - type: army
+      loc: mun
+
+
+Italy:
+
+  name: Italy
+
+  owns: [pie, ven, tus, rom, apu, nap]
+  home: [rom, nap, ven]
+  capital: rom
+
+  color: '#228833'
+
+  units:
+    - type: fleet
+      loc: nap
+    - type: army
+      loc: rom
+    - type: army
+      loc: ven
+
+
+Russia:
+
+  name: Russia
+
+  owns: [stp, mos, lvn, ukr, sev, fin, war]
+  home: [mos, stp, sev, war]
+  capital: mos
+
+  color: '#aa3377'
+
+  units:
+    - type: fleet
+      loc: sev
+    - type: fleet
+      loc: stp-sc
+    - type: army
+      loc: mos
+    - type: army
+      loc: war
+
+
+Austria:
+
+  name: Austria
+
+  owns: [boh, gal, vie, tri, bud]
+  home: [vie, tri, bud]
+  capital: vie
+
+  color: '#ee6677'
+
+  units:
+    - type: fleet
+      loc: tri
+    - type: army
+      loc: bud
+    - type: army
+      loc: vie
+
+
+Turkey:
+
+  name: Turkey
+
+  owns: [con, ank, arm, smy, syr]
+  home: [con, ank, smy]
+  capital: con
+
+  color: '#ccbb44'
+
+  units:
+    - type: fleet
+      loc: ank
+    - type: army
+      loc: con
+    - type: army
+      loc: smy

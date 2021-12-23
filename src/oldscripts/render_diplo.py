@@ -47,7 +47,7 @@ def render_diplo_state(A):
 		
 		state = load_yaml(state_path)
 	
-	M.load_players(state['players'])
+	M.prep_players(state['players'])
 	
 	# action edges
 	

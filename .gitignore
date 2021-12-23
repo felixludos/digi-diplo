@@ -8,6 +8,8 @@ logs/
 examples/innovation/data
 examples/wise_otherwise/data
 
+games/
+assets/wd/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
