@@ -20,7 +20,7 @@ game-root: games/game4
 admin-role: testhost
 
 #view: yes
-pbar: true
+#pbar: true
 #skip-control: true
 
 

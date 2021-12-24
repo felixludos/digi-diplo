@@ -26,17 +26,38 @@ The recommended way to use this repo is with a discord bot (run locally). This b
 
 6. Finally, rerun `fig start-bot`, this time there should be no error, and after some loading, the last console should say something along the lines of `Logged on as [bot-name]`.
 
-7. You can confirm that the bot is ready for use by submitting `.ping` on a public channel in the discord guild, and the bot should greet you.
+7. You can confirm that the bot is ready for use by submitting `.ping` on a public channel in the discord guild, and the bot should greet you. Once you get this far, the setup is complete, and now it's only a matter of configuring the bot to behave as you wish (e.g. run the variant you want to play).
 
-### Bot Structure
+8. Lastly, it is strongly recommended create a discord role for all the game managers, as only they should be allowed to run certain commands on the bot (e.g. adjudicating the current season). For the purposes of this guide, the role will be called "Host", but you can use any role by replacing "Host" where necessary in the commands below.
+
+### Starting a Game
+
+If you just want to start playing the vanilla Diplomacy, you can start the bot with the following command:
+
+```bash
+
+fig start-bot classic/bot --admin-role Host
+
+```
+
+This will start the bot and will automatically create a new game and store all the corresponding files in `games/`. If you want to load an existing game (e.g. `games/game1`) instead of starting one from scratch when starting the bot, use the command:
+
+```bash
+
+fig start-bot classic/bot --admin-role Host --game-root games/game1
+
+```
+
+While the bot is running, you can submit the message `.help` to see a list of all the commands the bot can respond to. 
+
+[More detailed documentation coming soon]
+
+## Customizing the Bot/Game
 
 ![](assets/misc/bot_structure.png)
 
 
 The bot can be started with the `start-bot` command, and must be provided a manager (e.g. `diplo-manager`) which will keep track of the game state and actions. The manager keeps track of the map (see the `diplo-map` component) and optionally a renderer which can draw the current game state and/or submitted orders (see the `diplo-renderer`).
-
-
-
 
 
 ## Creating maps/variants
