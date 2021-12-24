@@ -19,7 +19,7 @@ class DiplomacyRenderer(fig.Configurable):
 
 		self.map = A.pull('map', None)
 
-		self._use_pbar = A.pull('pbar', False)
+		self._use_pbar = A.pull('pbar', True)
 		self._pbar = None
 		self._quiet = A.pull('quiet', False)
 		
@@ -79,7 +79,8 @@ class DiplomacyRenderer(fig.Configurable):
 			itr = tqdm(itr, total=len(state['players']))
 		
 		for player, info in itr:
-			itr.set_description(f'Rendering: {player}')
+			if not self._quiet and self._use_pbar:
+				itr.set_description(f'Rendering: {player}')
 			self._draw_player(player, state, actions=actions, **kwargs)
 	
 	

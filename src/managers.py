@@ -290,7 +290,7 @@ class DiplomacyManager(fig.Configurable):
 		sunit = 'A' if terms.get('src-unit') == 'army' else 'F'
 		
 		if terms['type'] == 'move':
-			return '*Move* **{loc}** *to* **{dest}**'.format(punit=unit, **terms)
+			return '**{loc}** *to* **{dest}**'.format(punit=unit, **terms)
 			# return 'Move {punit} **{loc}** *to* **{dest}**'.format(punit=unit, **terms)
 		
 		if terms['type'] == 'support':
@@ -324,7 +324,7 @@ class DiplomacyManager(fig.Configurable):
 			#                                                                                punit=unit, **terms)
 		
 		if terms['type'] == 'convoy-move':
-			return '*Move* **{loc}** *to* **{dest}** (by convoy)'.format(punit=unit, **terms)
+			return '**{loc}** *to* **{dest}** (by convoy)'.format(punit=unit, **terms)
 			# return 'Move {punit} **{loc}** *to* **{dest}** (by convoy)'.format(punit=unit, **terms)
 		
 		raise NotImplementedError

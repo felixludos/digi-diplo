@@ -565,9 +565,10 @@ class DiploMap(fig.Configurable):
 			
 		elif retreat:
 			
-			retreat_map = self._compute_retreat_map(state['retreats'], state['players'], state.get('disbands', {}))
+			retreat_map = self._compute_retreat_map(state.get('retreats', {}), state['players'],
+			                                        state.get('disbands', {}))
 			
-			self._default_retreats(actions, state['disbands'])
+			self._default_retreats(actions, state.get('disbands', {}))
 			
 			commands, unknown = self.process_retreats(actions, retreat_map, ignore_unknown=ignore_unknown)
 			

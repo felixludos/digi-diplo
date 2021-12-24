@@ -9,7 +9,7 @@ server-name: playground
 
 parents: [wd/bot]
 
-#game-root: extra/wd/games/game1
+game-root: games/game2
 
 #check-image: 1-2_actions
 

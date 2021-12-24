@@ -56,7 +56,7 @@ class DiplomacyBot(DiscordBot):
 		await ctx.send(f'Missing {sum(num for num in status.values())} commands.')
 		return status
 	
-	@as_command('season', brief='(admin) Prints out the current season')
+	@as_command('season', brief='Prints out the current season')
 	async def on_season(self, ctx):
 		await ctx.send(f'Current turn: **{self.manager.format_date()}**')
 	
@@ -78,6 +78,7 @@ class DiplomacyBot(DiscordBot):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 			return
 		old = self.manager.format_date()
+		print(f'Adjudicating: {self.manager.format_date()}')
 		self.manager.take_step(True)
 		await ctx.send(f'Finished adjudicating {old}.')
 		await ctx.send(f'Current turn: **{self.manager.format_date()}**')
@@ -88,7 +89,8 @@ class DiplomacyBot(DiscordBot):
 		if self._insufficient_permissions(ctx.author):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 			return
-		
+
+		print(f'Rendering state: {self.manager.format_date()}')
 		path = self.manager.render_latest(include_actions=False)
 		await ctx.send(file=discord.File(str(path)))
 	
