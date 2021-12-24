@@ -105,7 +105,7 @@ class DiplomacyBot(DiscordBot):
 		await ctx.send(file=discord.File(str(path)))
 	
 	
-	@as_command('print-state', brief='(admin) Prints out the player state (centers and units)')
+	@as_command('print-state', brief='(admin) Prints out the game state (centers and units)')
 	async def on_print_state(self, ctx, player=None):
 		if self._insufficient_permissions(ctx.author):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
@@ -120,8 +120,7 @@ class DiplomacyBot(DiscordBot):
 			
 		lines = self._line_table(state)
 		await self._batched_send(ctx, lines)
-		
-		
+	
 	def _line_table(self, info):
 		lines = []
 		for title, ls in info.items():

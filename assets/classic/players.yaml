@@ -3,11 +3,12 @@ England:
 
   name: England
 
-  owns: [cly, edi, lvp, yor, wal, lon]
+  territory: [cly, edi, lvp, yor, wal, lon]
   home: [lon, edi, lvp]
   capital: lon
 
-  color: '#4477AA'
+   color: '#4477AA'
+#  color: "#7C5599"
 
   units:
     - type: fleet
@@ -22,11 +23,12 @@ France:
 
   name: France
 
-  owns: [pic, bre, par, bur, gas, mar]
+  territory: [pic, bre, par, bur, gas, mar]
   home: [par, mar, bre]
   capital: par
 
-  color: '#66ccee'
+   color: '#66ccee'
+#  color: "#008099"
 
   units:
     - type: fleet
@@ -40,11 +42,12 @@ Germany:
 
   name: Germany
 
-  owns: [kie, ber, ruh, mun, pru, sil]
+  territory: [kie, ber, ruh, mun, pru, sil]
   home: [ber, kie, mun]
   capital: ber
 
-  color: '#bbbbbb'
+   color: '#bbbbbb'
+#  color: "#728699"
 
   units:
     - type: fleet
@@ -59,11 +62,12 @@ Italy:
 
   name: Italy
 
-  owns: [pie, ven, tus, rom, apu, nap]
+  territory: [pie, ven, tus, rom, apu, nap]
   home: [rom, nap, ven]
   capital: rom
 
-  color: '#228833'
+   color: '#228833'
+#  color: "#005500"
 
   units:
     - type: fleet
@@ -78,11 +82,12 @@ Russia:
 
   name: Russia
 
-  owns: [stp, mos, lvn, ukr, sev, fin, war]
+  territory: [stp, mos, lvn, ukr, sev, fin, war]
   home: [mos, stp, sev, war]
   capital: mos
 
-  color: '#aa3377'
+   color: '#aa3377'
+#  color: "#FFD599"
 
   units:
     - type: fleet
@@ -99,11 +104,12 @@ Austria:
 
   name: Austria
 
-  owns: [boh, gal, vie, tri, bud]
+  territory: [boh, gal, vie, tri, bud, tyr]
   home: [vie, tri, bud]
   capital: vie
 
-  color: '#ee6677'
+   color: '#ee6677'
+#  color: "#CC0000"
 
   units:
     - type: fleet
@@ -118,11 +124,12 @@ Turkey:
 
   name: Turkey
 
-  owns: [con, ank, arm, smy, syr]
+  territory: [con, ank, arm, smy, syr]
   home: [con, ank, smy]
   capital: con
 
-  color: '#ccbb44'
+   color: '#ccbb44'
+#  color: "#FFAA00"
 
   units:
     - type: fleet

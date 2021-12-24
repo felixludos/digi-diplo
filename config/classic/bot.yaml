@@ -1,7 +1,8 @@
 
-parents: [wd/style]
 
-assets-path: assets/wd
+parents: [classic/style]
+
+assets-path: assets/classic
 
 client._type: diplomacy-bot
 

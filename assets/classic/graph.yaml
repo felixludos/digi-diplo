@@ -1,4 +1,5 @@
 adr:
+  ID: 1
   edges:
     fleet: [tri, alb, ion, apu, ven]
   locs:
@@ -11,8 +12,10 @@ adr:
   name: Adriatic Sea
   region-coords:
   - [1049.9904161459963, 1554.1339059856841]
+  tiles: [96]
   type: sea
 aeg:
+  ID: 2
   edges:
     fleet: [bul-sc, con, smy, eas, ion, gre]
   locs:
@@ -25,8 +28,10 @@ aeg:
   name: Aegean Sea
   region-coords:
   - [1439.1563100573594, 1708.915795609522]
+  tiles: [114]
   type: sea
 alb:
+  ID: 3
   edges:
     army: [ser, gre, tri]
     fleet: [tri, adr, ion, gre]
@@ -44,8 +49,10 @@ alb:
   name: Albania
   region-coords:
   - [1215.8281550286792, 1591.7237934657592]
+  tiles: [111]
   type: coast
 ank:
+  ID: 4
   edges:
     army: [arm, smy, con]
     fleet: [arm, bla, con]
@@ -66,8 +73,10 @@ ank:
   region-coords:
   - [1815.707479964381, 1602.260017809439]
   sc: 1
+  tiles: [105]
   type: coast
 apu:
+  ID: 5
   edges:
     army: [nap, rom, ven]
     fleet: [nap, ion, adr, ven]
@@ -85,8 +94,10 @@ apu:
   name: Apulia
   region-coords:
   - [1041.1457367389198, 1624.8913412422958]
+  tiles: [112]
   type: coast
 arm:
+  ID: 6
   edges:
     army: [sev, syr, smy, ank]
     fleet: [sev, bla, ank]
@@ -104,8 +115,10 @@ arm:
   name: Armenia
   region-coords:
   - [1930.036017150102, 1686.804097091831]
+  tiles: [102]
   type: coast
 bal:
+  ID: 7
   edges:
     fleet: [bot, lvn, pru, ber, kie, den, swe]
   locs:
@@ -118,8 +131,10 @@ bal:
   name: Baltic Sea
   region-coords:
   - [1083.1579639225329, 892.9941203067201]
+  tiles: [42]
   type: sea
 bar:
+  ID: 8
   edges:
     fleet: [stp-nc, nwy, nwg]
   locs:
@@ -132,8 +147,10 @@ bar:
   name: Barents Sea
   region-coords:
   - [1412.6222718361305, 94.7618038180708]
+  tiles: [4]
   type: sea
 bel:
+  ID: 9
   edges:
     army: [hol, ruh, bur, pic]
     fleet: [hol, nth, eng, pic]
@@ -154,8 +171,10 @@ bel:
   region-coords:
   - [680.7250509005548, 1169.390351777859]
   sc: 1
+  tiles: [73]
   type: coast
 ber:
+  ID: 10
   edges:
     army: [pru, sil, mun, kie]
     fleet: [pru, bal, kie]
@@ -176,8 +195,10 @@ ber:
   region-coords:
   - [926.1649044469259, 1072.098878300018]
   sc: 1
+  tiles: [61]
   type: coast
 bla:
+  ID: 11
   edges:
     fleet: [sev, arm, ank, con, bul-ec, rum]
   locs:
@@ -191,8 +212,10 @@ bla:
   region-coords:
   - [1628.6148708815672, 1449.913178984862]
   - [1704.7383100777163, 1303.0308437915548]
+  tiles: [84, 88]
   type: sea
 boh:
+  ID: 12
   edges:
     army: [sil, gal, vie, tyr, mun]
   locs:
@@ -205,8 +228,10 @@ boh:
   name: Bohemia
   region-coords:
   - [1030.0898874800741, 1215.8249186650103]
+  tiles: [78]
   type: land
 bot:
+  ID: 13
   edges:
     fleet: [fin, stp-sc, lvn, bal, swe]
   locs:
@@ -219,8 +244,10 @@ bot:
   name: Gulf of Bothnia
   region-coords:
   - [1127.3813609579151, 738.2122306828821]
+  tiles: [17]
   type: sea
 bre:
+  ID: 14
   edges:
     army: [pic, par, gas]
     fleet: [pic, eng, mao, gas]
@@ -241,8 +268,10 @@ bre:
   region-coords:
   - [490.56444364841127, 1308.694052439313]
   sc: 1
+  tiles: [80]
   type: coast
 bud:
+  ID: 15
   edges:
     army: [gal, rum, ser, tri, vie]
   locs:
@@ -258,8 +287,10 @@ bud:
   region-coords:
   - [1231.3063439910634, 1368.395638437079]
   sc: 1
+  tiles: [83]
   type: land
 bul:
+  ID: 16
   dirs: [ec, sc]
   edges:
     army: [rum, con, gre, ser]
@@ -294,8 +325,10 @@ bul:
   region-coords:
   - [1403.777592429054, 1538.6557170233004]
   sc: 1
+  tiles: [98]
   type: coast
 bur:
+  ID: 17
   edges:
     army: [bel, ruh, mun, mar, gas, par, pic]
   locs:
@@ -308,8 +341,10 @@ bur:
   name: Burgundy
   region-coords:
   - [724.9484479359369, 1315.3275619946203]
+  tiles: [81]
   type: land
 cly:
+  ID: 18
   edges:
     army: [edi, lvp]
     fleet: [lvp, nao, nwg, edi]
@@ -327,8 +362,10 @@ cly:
   name: Clyde
   region-coords:
   - [430.8628576506453, 844.3483835677996]
+  tiles: [36]
   type: coast
 con:
+  ID: 19
   edges:
     army: [ank, smy, bul]
     fleet: [bul-sc, aeg, smy, ank, bla, bul-ec]
@@ -350,8 +387,10 @@ con:
   - [1649.217445975425, 1598.3573030210664]
   - [1476.7461975374345, 1560.7674155409916]
   sc: 1
+  tiles: [104, 107]
   type: coast
 den:
+  ID: 20
   edges:
     army: [swe, kie]
     fleet: [kie, bal, swe, ska, nth, hel]
@@ -375,8 +414,10 @@ den:
   - [897.4196963739275, 943.8510268974096]
   - [897.4196963739275, 977.0185746739462]
   sc: 1
+  tiles: [43, 52, 49, 59]
   type: coast
 eas:
+  ID: 21
   edges:
     fleet: [smy, syr, ion, aeg]
   locs:
@@ -389,8 +430,10 @@ eas:
   name: Eastern Mediterranean Sea
   region-coords:
   - [1596.1493695329664, 1952.1444793041242]
+  tiles: [136]
   type: sea
 edi:
+  ID: 22
   edges:
     army: [yor, lvp, cly]
     fleet: [cly, nwg, nth, yor]
@@ -411,8 +454,10 @@ edi:
   region-coords:
   - [459.6080657236437, 859.8265725301833]
   sc: 1
+  tiles: [37]
   type: coast
 eng:
+  ID: 23
   edges:
     fleet: [wal, lon, nth, bel, pic, bre, mao, iri]
   locs:
@@ -425,8 +470,10 @@ eng:
   name: English Channel
   region-coords:
   - [437.49636720595254, 1195.9243899990884]
+  tiles: [74]
   type: sea
 fin:
+  ID: 24
   edges:
     army: [stp, swe, nwy]
     fleet: [swe, bot, stp-sc]
@@ -444,8 +491,10 @@ fin:
   name: Finland
   region-coords:
   - [1222.461664583987, 373.3692051409789]
+  tiles: [10]
   type: coast
 gal:
+  ID: 25
   edges:
     army: [war, ukr, rum, bud, vie, boh, sil]
   locs:
@@ -458,8 +507,10 @@ gal:
   name: Galicia
   region-coords:
   - [1308.6972888029823, 1213.6137488132413]
+  tiles: [75]
   type: land
 gas:
+  ID: 26
   edges:
     army: [bre, par, bur, mar, spa]
     fleet: [bre, mao, spa-nc]
@@ -477,8 +528,10 @@ gas:
   name: Gascony
   region-coords:
   - [503.83146275902595, 1474.5317913219963]
+  tiles: [93]
   type: coast
 gre:
+  ID: 27
   edges:
     army: [bul, alb, ser]
     fleet: [alb, ion, aeg, bul-sc]
@@ -499,8 +552,10 @@ gre:
   region-coords:
   - [1291.0079299888293, 1686.804097091831]
   sc: 1
+  tiles: [113]
   type: coast
 hel:
+  ID: 28
   edges:
     fleet: [den, kie, hol, nth]
   locs:
@@ -513,8 +568,10 @@ hel:
   name: Heligoland Bight
   region-coords:
   - [751.4824861571662, 968.1738952668697]
+  tiles: [51]
   type: sea
 hol:
+  ID: 29
   edges:
     army: [kie, ruh, bel]
     fleet: [kie, hel, nth, bel]
@@ -535,8 +592,10 @@ hol:
   region-coords:
   - [713.8925986770914, 1109.688765780093]
   sc: 1
+  tiles: [66]
   type: coast
 ion:
+  ID: 30
   edges:
     fleet: [adr, alb, gre, aeg, eas, tun, tys, nap, apu]
   locs:
@@ -549,8 +608,10 @@ ion:
   name: Ionian Sea
   region-coords:
   - [1162.760078586221, 1854.8530058262834]
+  tiles: [121]
   type: sea
 iri:
+  ID: 31
   edges:
     fleet: [lvp, wal, eng, mao, nao]
   locs:
@@ -563,8 +624,10 @@ iri:
   name: Irish Sea
   region-coords:
   - [331.3602143210353, 1103.0552562247856]
+  tiles: [55]
   type: sea
 kie:
+  ID: 32
   edges:
     army: [den, ber, mun, ruh, hol]
     fleet: [ber, bal, den, hel, hol]
@@ -586,8 +649,10 @@ kie:
   - [824.4510912655469, 1067.6765385964798]
   - [822.2399214137779, 983.6520842292537]
   sc: 1
+  tiles: [64, 54]
   type: coast
 lon:
+  ID: 33
   edges:
     army: [yor, wal]
     fleet: [yor, nth, eng, wal]
@@ -608,8 +673,10 @@ lon:
   region-coords:
   - [530.3655009802553, 1103.0552562247856]
   sc: 1
+  tiles: [69]
   type: coast
 lvn:
+  ID: 34
   edges:
     army: [stp, mos, war, pru]
     fleet: [stp-sc, bot, bal, pru]
@@ -627,8 +694,10 @@ lvn:
   name: Livonia
   region-coords:
   - [1282.163250581753, 950.4845364527168]
+  tiles: [32]
   type: coast
 lvp:
+  ID: 35
   edges:
     army: [cly, edi, yor, wal]
     fleet: [wal, iri, nao, cly]
@@ -649,8 +718,10 @@ lvp:
   region-coords:
   - [459.6080657236437, 1025.6643114128667]
   sc: 1
+  tiles: [48]
   type: coast
 lyo:
+  ID: 36
   edges:
     fleet: [mar, pie, tus, tys, wes, spa-sc]
   locs:
@@ -663,8 +734,10 @@ lyo:
   name: Gulf of Lyons
   region-coords:
   - [691.7809001594003, 1660.2700588706016]
+  tiles: [101]
   type: sea
 mao:
+  ID: 37
   edges:
     fleet: [nao, iri, eng, bre, gas, spa-nc, por, spa-sc, wes, naf]
   locs:
@@ -677,8 +750,10 @@ mao:
   name: Mid Atlantic Ocean
   region-coords:
   - [163.31130558658288, 1306.4828825875438]
+  tiles: [71]
   type: sea
 mar:
+  ID: 38
   edges:
     army: [bur, pie, spa, gas]
     fleet: [spa-sc, lyo, pie]
@@ -699,8 +774,10 @@ mar:
   region-coords:
   - [643.1351634204798, 1470.109451618458]
   sc: 1
+  tiles: [95]
   type: coast
 mos:
+  ID: 39
   edges:
     army: [stp, sev, ukr, war, lvn]
   locs:
@@ -716,8 +793,10 @@ mos:
   region-coords:
   - [1713.341371676729, 875.3047614925672]
   sc: 1
+  tiles: [27]
   type: land
 mun:
+  ID: 40
   edges:
     army: [kie, ber, sil, boh, tyr, bur, ruh]
   locs:
@@ -733,8 +812,10 @@ mun:
   region-coords:
   - [868.6744883009292, 1273.3153348110072]
   sc: 1
+  tiles: [77]
   type: land
 naf:
+  ID: 41
   edges:
     army: [tun]
     fleet: [mao, wes, tun]
@@ -752,8 +833,10 @@ naf:
   name: North Africa
   region-coords:
   - [621.0234649027889, 1918.9769315275876]
+  tiles: [150]
   type: coast
 nao:
+  ID: 42
   edges:
     fleet: [nwg, cly, lvp, iri, mao]
   locs:
@@ -766,8 +849,10 @@ nao:
   name: North Atlantic Ocean
   region-coords:
   - [181.0006644007358, 791.2803071253409]
+  tiles: [2]
   type: sea
 nap:
+  ID: 43
   edges:
     army: [apu, rom]
     fleet: [rom, tys, ion, apu]
@@ -788,8 +873,10 @@ nap:
   region-coords:
   - [1047.779246294227, 1671.3259081294473]
   sc: 1
+  tiles: [116]
   type: coast
 nth:
+  ID: 44
   edges:
     fleet: [nwg, nwy, ska, den, hel, hol, bel, eng, lon, yor, edi]
   locs:
@@ -802,8 +889,10 @@ nth:
   name: Nothern Sea
   region-coords:
   - [691.7809001594003, 890.7829504549509]
+  tiles: [28]
   type: sea
 nwg:
+  ID: 45
   edges:
     fleet: [bar, nwy, nth, edi, cly, nao]
   locs:
@@ -816,8 +905,10 @@ nwg:
   name: Norwegian Sea
   region-coords:
   - [656.4021825310945, 519.3064153577402]
+  tiles: [3]
   type: sea
 nwy:
+  ID: 46
   edges:
     army: [stp, fin, swe]
     fleet: [stp-nc, bar, nwg, nth, ska, swe]
@@ -838,8 +929,10 @@ nwy:
   region-coords:
   - [811.1840721549322, 698.4111733510383]
   sc: 1
+  tiles: [7]
   type: coast
 par:
+  ID: 47
   edges:
     army: [pic, bur, gas, bre]
   locs:
@@ -855,8 +948,10 @@ par:
   region-coords:
   - [605.545275940405, 1282.1600142180837]
   sc: 1
+  tiles: [85]
   type: land
 pic:
+  ID: 48
   edges:
     army: [bel, bur, par, bre]
     fleet: [bel, eng, bre]
@@ -874,8 +969,10 @@ pic:
   name: Picardy
   region-coords:
   - [603.334106088636, 1200.3467297026264]
+  tiles: [79]
   type: coast
 pie:
+  ID: 49
   edges:
     army: [tyr, ven, tus, mar]
     fleet: [mar, lyo, tus]
@@ -893,8 +990,10 @@ pie:
   name: Piedmont
   region-coords:
   - [824.4510912655469, 1443.5754133972287]
+  tiles: [94]
   type: coast
 por:
+  ID: 50
   edges:
     army: [spa]
     fleet: [spa-nc, mao, spa-sc]
@@ -915,8 +1014,10 @@ por:
   region-coords:
   - [158.88896588304465, 1604.9908125763739]
   sc: 1
+  tiles: [103]
   type: coast
 pru:
+  ID: 51
   edges:
     army: [lvn, war, sil, ber]
     fleet: [lvn, bal, ber]
@@ -934,8 +1035,10 @@ pru:
   name: Prussia
   region-coords:
   - [1120.747851402608, 1014.608462154021]
+  tiles: [50]
   type: coast
 rom:
+  ID: 52
   edges:
     army: [ven, apu, nap, tus]
     fleet: [tus, tys, nap]
@@ -956,8 +1059,10 @@ rom:
   region-coords:
   - [932.7984140022331, 1585.090283910452]
   sc: 1
+  tiles: [108]
   type: coast
 ruh:
+  ID: 53
   edges:
     army: [kie, mun, bur, bel, hol]
   locs:
@@ -970,8 +1075,10 @@ ruh:
   name: Ruhr
   region-coords:
   - [780.2276942301646, 1198.1355598508574]
+  tiles: [72]
   type: land
 rum:
+  ID: 54
   edges:
     army: [ukr, sev, bul, ser, bud, gal]
     fleet: [bul-ec, bla, sev]
@@ -992,8 +1099,10 @@ rum:
   region-coords:
   - [1412.6222718361305, 1352.917449474695]
   sc: 1
+  tiles: [86]
   type: coast
 ser:
+  ID: 55
   edges:
     army: [bud, rum, bul, gre, alb, tri]
   locs:
@@ -1009,8 +1118,10 @@ ser:
   region-coords:
   - [1242.3621932499086, 1452.420092804305]
   sc: 1
+  tiles: [97]
   type: land
 sev:
+  ID: 56
   edges:
     army: [mos, arm, rum, ukr]
     fleet: [rum, bla, arm]
@@ -1032,8 +1143,10 @@ sev:
   - [1680.1738239001925, 1176.0238613331662]
   - [1695.6520128625766, 1357.3397891782333]
   sc: 1
+  tiles: [68, 89]
   type: coast
 sil:
+  ID: 57
   edges:
     army: [pru, war, gal, boh, mun, ber]
   locs:
@@ -1046,8 +1159,10 @@ sil:
   name: Silesia
   region-coords:
   - [1069.890944811918, 1138.4339738530914]
+  tiles: [70]
   type: land
 ska:
+  ID: 58
   edges:
     fleet: [nwy, swe, den, nth]
   locs:
@@ -1060,8 +1175,10 @@ ska:
   name: Skagerrack
   region-coords:
   - [837.7181103761616, 800.1249865324173]
+  tiles: [35]
   type: sea
 smy:
+  ID: 59
   edges:
     army: [ank, arm, syr, con]
     fleet: [con, aeg, eas, syr]
@@ -1082,8 +1199,10 @@ smy:
   region-coords:
   - [1615.251113089938, 1687.7880676758682]
   sc: 1
+  tiles: [115]
   type: coast
 spa:
+  ID: 60
   edges:
     army: [gas, mar, por]
     fleet:
@@ -1117,8 +1236,10 @@ spa:
   region-coords:
   - [329.1490444692663, 1666.9035684259088]
   sc: 1
+  tiles: [99]
   type: coast
 stp:
+  ID: 61
   dirs: [nc, sc]
   edges:
     army: [mos, lvn, fin, nwy]
@@ -1153,8 +1274,10 @@ stp:
   region-coords:
   - [1635.9504268648102, 492.77237713651084]
   sc: 1
+  tiles: [6]
   type: coast
 swe:
+  ID: 62
   edges:
     army: [fin, den, nwy]
     fleet: [nwy, ska, den, bal, bot, fin]
@@ -1175,8 +1298,10 @@ swe:
   region-coords:
   - [1010.189358814152, 477.29418817412716]
   sc: 1
+  tiles: [15]
   type: coast
 syr:
+  ID: 63
   edges:
     army: [arm, smy]
     fleet: [smy, eas]
@@ -1194,8 +1319,10 @@ syr:
   name: Syria
   region-coords:
   - [1903.5019789288726, 1905.7099124169729]
+  tiles: [146]
   type: coast
 tri:
+  ID: 64
   edges:
     army: [vie, bud, ser, alb, ven, tyr]
     fleet: [ven, adr, alb]
@@ -1216,8 +1343,10 @@ tri:
   region-coords:
   - [1078.7356242189944, 1439.1530736936904]
   sc: 1
+  tiles: [91]
   type: coast
 tun:
+  ID: 65
   edges:
     army: [naf]
     fleet: [naf, wes, tys, ion]
@@ -1238,8 +1367,10 @@ tun:
   region-coords:
   - [806.761732451394, 1903.4987425652039]
   sc: 1
+  tiles: [149]
   type: coast
 tus:
+  ID: 66
   edges:
     army: [ven, rom, pie]
     fleet: [pie, lyo, tys, rom]
@@ -1257,8 +1388,12 @@ tus:
   name: Tuscany
   region-coords:
   - [884.1526772633129, 1527.5998677644548]
+  tiles: [100]
   type: coast
 tyr:
+  ID: 67
+  edges:
+    army: [mun, boh, vie, tri, ven, pie]
   locs:
     label:
     - [990.2888301482303, 1319.7499016981585]
@@ -1269,8 +1404,10 @@ tyr:
   name: Tyrolia
   region-coords:
   - [981.4441507411539, 1333.0169208087732]
+  tiles: [87]
   type: land
 tys:
+  ID: 68
   edges:
     fleet: [tus, rom, nap, ion, tun, wes, lyo]
   locs:
@@ -1283,8 +1420,10 @@ tys:
   name: Tyrrhenian Sea
   region-coords:
   - [890.7861868186203, 1713.3381353130603]
+  tiles: [106]
   type: sea
 ukr:
+  ID: 69
   edges:
     army: [mos, sev, rum, gal, war]
   locs:
@@ -1297,8 +1436,10 @@ ukr:
   name: Ukraine
   region-coords:
   - [1450.212159316205, 1193.7132201473191]
+  tiles: [67]
   type: land
 ven:
+  ID: 70
   edges:
     army: [tyr, tri, apu, rom, tus, pie]
     fleet: [apu, adr, tri]
@@ -1319,8 +1460,10 @@ ven:
   region-coords:
   - [899.6308662256968, 1417.0413751759993]
   sc: 1
+  tiles: [92]
   type: coast
 vie:
+  ID: 71
   edges:
     army: [gal, bud, tri, tyr, boh]
   locs:
@@ -1336,8 +1479,10 @@ vie:
   region-coords:
   - [1127.3813609579151, 1282.1600142180837]
   sc: 1
+  tiles: [82]
   type: land
 wal:
+  ID: 72
   edges:
     army: [lvp, yor, lon]
     fleet: [lon, eng, iri, lvp]
@@ -1355,8 +1500,10 @@ wal:
   name: Wales
   region-coords:
   - [461.8192355754129, 1089.788237114171]
+  tiles: [65]
   type: coast
 war:
+  ID: 73
   edges:
     army: [lvn, mos, ukr, gal, sil, pru]
   locs:
@@ -1372,8 +1519,10 @@ war:
   region-coords:
   - [1218.0393248804485, 1103.0552562247856]
   sc: 1
+  tiles: [62]
   type: land
 wes:
+  ID: 74
   edges:
     fleet: [lyo, tys, tun, naf, mao, spa-sc]
   locs:
@@ -1386,8 +1535,10 @@ wes:
   name: Western Meditteranean Sea
   region-coords:
   - [632.0793141616343, 1761.9838720519806]
+  tiles: [127]
   type: sea
 yor:
+  ID: 75
   edges:
     army: [edi, lon, wal, lvp]
     fleet: [edi, nth, lon]
@@ -1405,4 +1556,5 @@ yor:
   name: York
   region-coords:
   - [512.6761421661024, 992.4967636363301]
+  tiles: [53]
   type: coast

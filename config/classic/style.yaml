@@ -2,56 +2,99 @@
 
 manager.renderer._type: default-renderer
 
-#bg-colors:
-#  bg: "#400080"
-#  mountain: "#515100"
-#  lake: "#404040"
-#  arctic: "#40403c"
-#  sea: "#87cfd5"
+highlight-size: 8
+highlight-width: 1
 
+sc-size: 5
+capital-size: 5.5
+home-size: 1.5
+sc-edge-width: 0.2
+home-edge-width: 0.1
 
+unit-size: 6
+unit-edge-width: 1.5
 
 arrow-ratio: 0.9
-arrow-width: 3
-arrow-head: 8
-edge-width: 0.1
+arrow-width: 10
+arrow-head: 24
+edge-width: 0.45
 
+
+hold-color: <>sup-color
 sup-color: y
 convoy-color: c
-
 edge-color: k
 
-highlight-size: 2
-highlight-width: 0.4
+wedge-dot-size: 2.5
 
+support-style: wedge,tail_width=0.2,shrink_factor=0.5
+support-shrink: 0
+
+support-defend-style: wedge,tail_width=0.3,shrink_factor=0.5
+support-defend-shrink: 0.1
+
+convoy-style: wedge,tail_width=0.2,shrink_factor=0.5
+convoy-shrink: 0
+
+label-size: 4
+coast-label-size: 3.5
+label-padding: 0.4
+
+label-props:
+  size: <>label-size
+  weight: normal
+  va: center
+  ha: center
+  bbox:
+#    facecolor: w
+#    edgecolor: k
+    facecolor: none
+    edgecolor: none
+    lw: 0.4
+    pad: <>label-padding
+  zorder: 3
+coast-label-props:
+  size: <>coast-label-size
+  weight: normal
+  va: center
+  ha: center
+  bbox:
+#    facecolor: w
+#    edgecolor: k
+    facecolor: none
+    edgecolor: none
+    lw: 0.4
+    pad: <>label-padding
+  zorder: 3
 
 sc-props:
-  markeredgewidth: 0.05
+  markersize: <>sc-size
+  markeredgewidth: <>sc-edge-width
+
   markeredgecolor: k
   markerfacecolor: '#FFD700'
-  markersize: 1.7
   marker: [5,1]
   ls: ''
   zorder: 60
 capital-props:
-  markeredgewidth: 0.05
+  markersize: <>capital-size
+  markeredgewidth: <>sc-edge-width
   markeredgecolor: k
   markerfacecolor: '#FFD700'
-  markersize: 1.9
   marker: [7, 1]
   ls: ''
   zorder: 60
 home-props:
-  markeredgewidth: 0.02
+  markeredgewidth: <>home-edge-width
   markeredgecolor: k
-  markersize: 0.4
+  markersize: <>home-size
   marker: o
   ls: ''
   zorder: 61
 
 unit-props:
-  ms: 1.5
-  mew: 0.35
+  ms: <>unit-size
+  mew: <>unit-edge-width
   zorder: 20
   mec: k
   ls: ''
@@ -59,7 +102,7 @@ unit-props:
 retreat-arrow:
   width: <>arrow-width
   lw: <>edge-width
-  head_width: 12
+  head_width: <>arrow-head
   length_includes_head: True
   fc: r
   ec: k
@@ -72,7 +115,7 @@ retreat-props:
   mfc: None
   zorder: 50
   ls: ''
-  shape: o
+  marker: o
 disband-props:
   ms: <>highlight-size
   mew: <>highlight-width
@@ -80,21 +123,21 @@ disband-props:
   mfc: None
   zorder: 50
   ls: ''
-  shape: x
+  marker: x
 
 hold-props:
-  color: w
+  color: <>hold-color
   ms: <>highlight-size
   mew: <>highlight-width
   ls: ''
   mfc: 'none'
-  zorder: 6
+  zorder: 21
 build-props:
-  color: g
+  color: '#00ff00'
   ms: <>highlight-size
   mew: <>highlight-width
   ls: ''
-  mfc: 'none'
+#  mfc: 'none'
   zorder: 6
 
 move-arrow:
@@ -105,6 +148,7 @@ move-arrow:
   facecolor: w
   edgecolor: k
   zorder: 15
+
 
 support-arrow:
   width: <>arrow-width
@@ -118,9 +162,9 @@ support-arrow:
   zorder: 6
 support-props:
   arrowprops:
-    shrinkA: 0
-    shrinkB: 0
-    arrowstyle: wedge,tail_width=0.05,shrink_factor=0.5
+    shrinkA: <>support-shrink
+    shrinkB: <>support-shrink
+    arrowstyle: <>support-style
     capstyle: round
     linewidth: <>edge-width
     facecolor: <>sup-color
@@ -129,8 +173,8 @@ support-props:
 
   zorder: 7
 support-dot:
-  marker: .
-  ms: 1.5
+  marker: o
+  ms: <>wedge-dot-size
 #  lw: 1
   mew: <>edge-width
   ls: ''
@@ -142,9 +186,9 @@ support-defend-props:
   textcoords: data
   xycoords: data
   arrowprops:
-    shrinkA: 0.2
-    shrinkB: 0.2
-    arrowstyle: wedge,tail_width=0.075,shrink_factor=0.5
+    shrinkA: <>support-defend-shrink
+    shrinkB: <>support-defend-shrink
+    arrowstyle: <>support-defend-style
     capstyle: round
     linewidth: <>edge-width
     facecolor: <>sup-color
@@ -152,6 +196,7 @@ support-defend-props:
     connectionstyle: arc3,rad=0.2
 
   zorder: 6
+
 
 convoy-arrow:
   width: <>arrow-width
@@ -165,9 +210,9 @@ convoy-arrow:
   zorder: 6
 convoy-props:
   arrowprops:
-    shrinkA: 0
-    shrinkB: 0
-    arrowstyle: wedge,tail_width=0.05,shrink_factor=0.5
+    shrinkA: <>convoy-shrink
+    shrinkB: <>convoy-shrink
+    arrowstyle: <>convoy-style
     capstyle: round
     linewidth: <>edge-width
     facecolor: <>convoy-color
@@ -176,8 +221,8 @@ convoy-props:
 
   zorder: 7
 convoy-dot:
-  marker: .
-  ms: 1.5
+  marker: o
+  ms: <>wedge-dot-size
 #  lw: 1
   mew: <>edge-width
   ls: ''

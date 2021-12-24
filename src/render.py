@@ -122,16 +122,30 @@ class DefaultRenderer(MatplotlibRenderer):
 		
 		self.skip_control = A.pull('skip-control', False)
 		
+		self.label_props = A.pull('label-props', {})
+		if self.label_props.get('bbox', {}).get('facecolor', '') is None:
+			self.label_props['bbox']['facecolor'] = 'none'
+		if self.label_props.get('bbox', {}).get('edgecolor', '') is None:
+			self.label_props['bbox']['edgecolor'] = 'none'
+		self.coast_label_props = A.pull('coast-label-props', {})
+		if self.coast_label_props.get('bbox', {}).get('facecolor', '') is None:
+			self.coast_label_props['bbox']['facecolor'] = 'none'
+		if self.coast_label_props.get('bbox', {}).get('edgecolor', '') is None:
+			self.coast_label_props['bbox']['edgecolor'] = 'none'
 		self.unit_shapes = A.pull('unit-shapes', {'army': 'o', 'fleet': 'v'})
 		self.unit_props = A.pull('unit-props', {})
 		self.sc_props = A.pull('sc-props', {})
 		self.capital_props = A.pull('capital-props', {})
 		self.home_props = A.pull('home-props', {})
 		self.retreat_props = A.pull('retreat-props', {})
+		if self.retreat_props.get('mfc', '') is None:
+			self.retreat_props['mfc'] = 'none'
 		self.retreat_arrow = A.pull('retreat-arrow', {})
 		self.disband_props = A.pull('disband-props', {})
 		self.arrow_ratio = A.pull('arrow-ratio', 0.9)
 		self.build_props = A.pull('build-props', {})
+		if self.build_props.get('mfc', '') is None:
+			self.build_props['mfc'] = 'none'
 		self.hold_props = A.pull('hold-props', {})
 		if self.hold_props.get('mfc', '') is None:
 			self.hold_props['mfc'] = 'none'
@@ -158,7 +172,7 @@ class DefaultRenderer(MatplotlibRenderer):
 		self._known_action_drawers = {
 			'build': self._draw_build,
 			'retreat': self._draw_retreat,
-			'disband': self._draw_destroy,
+			'disband': self._draw_disband,
 			'destroy': self._draw_destroy,
 			'hold': self._draw_hold,
 			'move': self._draw_move,
@@ -189,16 +203,18 @@ class DefaultRenderer(MatplotlibRenderer):
 		                    wspace=0, hspace=0)
 		
 		if self.overlay_path.exists():
-			overlay = self._load_img(self.overlay_path)
+			overlay = self._load_overlay()
 			# sel = overlay[...,-1] > 0
 			# self.base[sel] = overlay[sel,:3]
 			plt.imshow(overlay)
 		
 	
-	def _load_img(self, path, rgb=False):
+	def _load_img(self, path, rgb=False, rgba=False):
 		img = Image.open(str(path))
 		if rgb:
 			img = img.convert("RGB")
+		if rgba:
+			img = img.convert('RGBA')
 		return np.array(img)
 	
 	def _save_img(self, img, path):
@@ -206,7 +222,9 @@ class DefaultRenderer(MatplotlibRenderer):
 	
 	def _load_renderbase(self):
 		return self._load_img(self.base_path, rgb=True)
-	
+
+	def _load_overlay(self):
+		return self._load_img(self.overlay_path, rgba=True)
 	
 	def _get_unit_pos(self, loc, retreat=False):
 		base, coast = self.map.decode_region_name(loc)
@@ -214,20 +232,30 @@ class DefaultRenderer(MatplotlibRenderer):
 		
 		if retreat:
 			pos = node['locs']['retreat'] if coast is None or 'coast-unit' not in node['locs'] \
-				else [node['locs']['coast-retreat'][coast]]
+				else node['locs']['coast-retreat'][coast]
 		else:
 			pos = node['locs']['unit'] if coast is None or 'coast-unit' not in node['locs'] \
-				else [node['locs']['coast-unit'][coast]]
+				else node['locs']['coast-unit'][coast]
 		
 		pos = list(map(np.array, zip(*pos)))
-		return pos[::-1]
+		return pos#[::-1]
 	
-	def _get_label_pos(self, loc):
-		base, coast = self.map.decode_region_name(loc)
+	def _get_label_pos(self, loc, coast=None):
+		if coast is None:
+			base, coast = self.map.decode_region_name(loc)
+		else:
+			base, coast = loc, coast
 		node = self.map.nodes[base]
-		pos = node['locs']['label']
+		pos = node['locs']['label'] if coast is None or 'coast-label' not in node['locs'] \
+			else node['locs']['coast-label'][coast]
 		pos = list(map(np.array, zip(*pos)))
-		return pos[::-1]
+		return pos#[::-1]
+	
+	def _get_sc_pos(self, loc):
+		pos = self.map.nodes[loc]['locs'].get('sc')
+		if pos is not None:
+			pos = list(map(np.array, zip(*pos)))
+			return pos#[::-1]
 	
 	def _draw_shortest_arrow(self, start, end, arrow_props={}, use_annotation=False):
 		x, y = start
@@ -251,8 +279,27 @@ class DefaultRenderer(MatplotlibRenderer):
 	def _draw_bg(self, state, actions=None):
 		pass
 	
+	
 	def _draw_labels(self, state, actions=None):
-		pass
+		for name, node in self.map.nodes.items():
+			
+			self._draw_label(name)
+			
+			if 'fleet' in node.get('edges', {}) and isinstance(node['edges']['fleet'], dict):
+				for coast in node['edges']['fleet']:
+					self._draw_label(name, coast)
+					
+	
+	def _draw_label(self, loc, coast=None):
+		
+		pos = self._get_label_pos(loc, coast=coast)
+		if coast is None:
+			plt.text(*pos, s=loc.upper(), **self.label_props)
+		else:
+			# name = self.map.encode_region_name(loc, coast=coast)
+			name = coast
+			plt.text(*pos, s=name.upper(), **self.coast_label_props)
+			
 	
 	def _draw_scs(self, state, actions=None):
 		
@@ -266,13 +313,12 @@ class DefaultRenderer(MatplotlibRenderer):
 		
 		# color = self.players.get(owner, {}).get('color')
 		
-		coords = self.map.nodes[loc]['locs'].get('sc')
-		if coords is not None:
-			for pos in coords:
-				if loc in self.capitals:
-					return plt.plot(*pos[::-1], **self.capital_props)
-				else:
-					return plt.plot(*pos[::-1], **self.sc_props)
+		pos = self._get_sc_pos(loc)
+		if pos is not None:
+			if loc in self.capitals:
+				return plt.plot(*pos, **self.capital_props)
+			else:
+				return plt.plot(*pos, **self.sc_props)
 	
 	def _draw_player(self, player, state, actions=None, **kwargs):
 		info = state['players'][player]
@@ -309,11 +355,9 @@ class DefaultRenderer(MatplotlibRenderer):
 	
 	def _draw_home(self, player, loc):
 		color = self.players.get(player, {}).get('color')
-		coords = self.map.nodes[loc]['locs'].get('sc')
-		if coords is not None:
-			for pos in coords:
-				y, x = pos
-				return plt.plot(x, y, color=color, **self.home_props)
+		pos = self._get_sc_pos(loc)
+		if pos is not None:
+			return plt.plot(*pos, color=color, **self.home_props)
 	
 	def _draw_unit(self, player, loc, utype, retreat=False):
 		shape = self.unit_shapes.get(utype)
@@ -329,8 +373,10 @@ class DefaultRenderer(MatplotlibRenderer):
 		        for option in options]
 		return [mk, *rets]
 	
-	def _draw_disband(self, player, loc):
-		x, y = self._get_unit_pos(loc, retreat=True)
+	def _draw_disband(self, player, loc, retreat=False):
+		if isinstance(loc, dict):
+			loc = loc['loc']
+		x, y = self._get_unit_pos(loc, retreat=retreat)
 		return plt.plot(x, y, **self.disband_props)
 	
 	
@@ -346,7 +392,7 @@ class DefaultRenderer(MatplotlibRenderer):
 		plt.plot(x, y, marker=shape, **self.build_props)
 	
 	def _draw_destroy(self, player, action):
-		return self._draw_disband(player, action['loc'])
+		return self._draw_disband(player, action['loc'], retreat=True)
 	
 	def _draw_retreat(self, player, action):
 		self._draw_shortest_arrow(self._get_unit_pos(action['loc']), self._get_label_pos(action['dest']),

@@ -8,10 +8,11 @@ server-name: playground
 #_meta.script_name: render-state
 
 parents: [wd/bot]
+#parents: [classic/bot]
 
-game-root: games/game2
+game-root: games/game4
 
-#check-image: 1-2_actions
+#check-image: 1-1-actions
 
 #include-actions: yes
 

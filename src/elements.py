@@ -55,6 +55,7 @@ class DiploMap(fig.Configurable):
 			player['centers'] = [loc for loc in info['territory'] if self.graph.get(loc, {}).get('sc', 0) > 0]
 			player['home'] = player['centers'].copy()
 			player['units'] = [{'loc': loc, 'type': typ} for typ in ['army', 'fleet'] for loc in info.get(typ, [])]
+			player['units'].extend(unit.copy() for unit in info.get('units', []))
 			players[name] = player
 		return {'players': players, 'time': {'turn': 1, 'season': 1}}
 	
