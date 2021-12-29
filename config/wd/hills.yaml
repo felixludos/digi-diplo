@@ -1,19 +1,84 @@
 
 
-manager.renderer._type: wd-renderer
+manager.renderer._type: wd-hills-rendering
 
-
-highlight-size: 2.1
+highlight-size: 1.8
 highlight-width: 0.3
 
-sc-size: 1.7
-capital-size: 1.9
-home-size: 0.4
-sc-edge-width: 0.05
-home-edge-width: 0.02
+unit-size: 1.2
+unit-bg-size: 1.5
+unit-edge-width: 0.24
+#unit-padding: 0.2
 
-unit-size: 1.5
-unit-edge-width: 0.35
+unit-delta: [-0.5, 1.5]
+
+sc-size: 0.7
+capital-size: 1.5
+sc-edge-width: 0.08
+sc-color: '#EFE4B0'
+sc-dot-size: 0.16
+
+sc-dot-props:
+  ms: <>sc-dot-size
+  color: k
+#  marker: s
+#  marker: ","
+  marker: o
+  ls: ''
+  zorder: 64
+home-props:
+  markeredgewidth: <>sc-edge-width
+  markeredgecolor: k
+  markersize: <>sc-size
+  marker: s
+  ls: ''
+  zorder: 62
+sc-props:
+  markeredgewidth: <>sc-edge-width
+  markerfacecolor: <>sc-color
+  markeredgecolor: k
+  markersize: <>sc-size
+  marker: s
+  ls: ''
+  zorder: 61
+capital-props:
+  markersize: <>capital-size
+#  markeredgewidth: <>sc-edge-width
+  markeredgecolor: k
+  markerfacecolor: k
+#  color: k
+#  marker: P
+  marker: +
+  mew: 0.4
+  ls: ''
+  zorder: 60
+
+
+label-size: 4
+coast-label-size: 3.5
+label-padding: 0.4
+
+unit-props:
+  size: <>unit-size
+  weight: heavy
+  va: center
+  ha: center
+#  bbox:
+##    facecolor: w
+##    edgecolor: k
+#    facecolor: none
+#    edgecolor: k
+#    lw: <>unit-edge-width
+##    pad: <>unit-padding
+#    boxstyle: square,pad=0.1
+  zorder: 21
+unit-bg:
+  ms: <>unit-bg-size
+  marker: s
+  mew: <>unit-edge-width
+  mec: k
+  zorder: 20
+
 
 arrow-ratio: 0.9
 arrow-width: 3
@@ -26,7 +91,7 @@ sup-color: y
 convoy-color: c
 edge-color: k
 
-wedge-dot-size: 0.7
+wedge-dot-size: 0.64
 
 support-style: wedge,tail_width=0.05,shrink_factor=0.5
 support-shrink: 0
@@ -36,47 +101,6 @@ support-defend-shrink: 0.2
 
 convoy-style: wedge,tail_width=0.05,shrink_factor=0.5
 convoy-shrink: 0
-
-sc-props:
-  markersize: <>sc-size
-  markeredgewidth: <>sc-edge-width
-
-  markeredgecolor: k
-  markerfacecolor: '#FFD700'
-  marker: [5,1]
-  ls: ''
-  zorder: 60
-capital-props:
-  markersize: <>capital-size
-  markeredgewidth: <>sc-edge-width
-  markeredgecolor: k
-  markerfacecolor: '#FFD700'
-  marker: [7, 1]
-  ls: ''
-  zorder: 60
-home-props:
-  markeredgewidth: <>home-edge-width
-  markeredgecolor: k
-  markersize: <>home-size
-  marker: o
-  ls: ''
-  zorder: 61
-core-props:
-  ms: <>highlight-size
-  mew: <>highlight-width
-  mec: '#964b00'
-  mfc: None
-  zorder: 50
-  ls: ''
-  shape: D # d
-
-
-unit-props:
-  ms: <>unit-size
-  mew: <>unit-edge-width
-  zorder: 20
-  mec: k
-  ls: ''
 
 retreat-arrow:
   width: <>arrow-width
@@ -104,18 +128,31 @@ disband-props:
   ls: ''
   marker: x
 
+
+core-props:
+  ms: <>highlight-size
+  mew: <>highlight-width
+  mec: '#964b00'
+  mfc: None
+  zorder: 50
+  ls: ''
+  marker: D # d
+
+
 hold-props:
   color: <>hold-color
   ms: <>highlight-size
   mew: <>highlight-width
   ls: ''
   mfc: 'none'
+  marker: s
   zorder: 21
 build-props:
   color: '#00ff00'
   ms: <>highlight-size
   mew: <>highlight-width
   ls: ''
+  marker: s
 #  mfc: 'none'
   zorder: 6
 
@@ -184,7 +221,6 @@ convoy-dot:
   color: <>convoy-color
   mec: <>edge-color
   zorder: 16
-
 
 
 

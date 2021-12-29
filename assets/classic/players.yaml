@@ -2,12 +2,13 @@
 England:
 
   name: England
+  demonym: English
 
   territory: [cly, edi, lvp, yor, wal, lon]
   home: [lon, edi, lvp]
   capital: lon
 
-   color: '#4477AA'
+  color: '#4477AA'
 #  color: "#7C5599"
 
   units:
@@ -22,12 +23,13 @@ England:
 France:
 
   name: France
+  demonym: French
 
   territory: [pic, bre, par, bur, gas, mar]
   home: [par, mar, bre]
   capital: par
 
-   color: '#66ccee'
+  color: '#66ccee'
 #  color: "#008099"
 
   units:
@@ -41,12 +43,13 @@ France:
 Germany:
 
   name: Germany
+  demonym: German
 
   territory: [kie, ber, ruh, mun, pru, sil]
   home: [ber, kie, mun]
   capital: ber
 
-   color: '#bbbbbb'
+  color: '#bbbbbb'
 #  color: "#728699"
 
   units:
@@ -61,12 +64,13 @@ Germany:
 Italy:
 
   name: Italy
+  demonym: Italian
 
   territory: [pie, ven, tus, rom, apu, nap]
   home: [rom, nap, ven]
   capital: rom
 
-   color: '#228833'
+  color: '#228833'
 #  color: "#005500"
 
   units:
@@ -81,12 +85,13 @@ Italy:
 Russia:
 
   name: Russia
+  demonym: Russian
 
   territory: [stp, mos, lvn, ukr, sev, fin, war]
   home: [mos, stp, sev, war]
   capital: mos
 
-   color: '#aa3377'
+  color: '#aa3377'
 #  color: "#FFD599"
 
   units:
@@ -103,12 +108,13 @@ Russia:
 Austria:
 
   name: Austria
+  demonym: Austrian
 
   territory: [boh, gal, vie, tri, bud, tyr]
   home: [vie, tri, bud]
   capital: vie
 
-   color: '#ee6677'
+  color: '#ee6677'
 #  color: "#CC0000"
 
   units:
@@ -123,12 +129,13 @@ Austria:
 Turkey:
 
   name: Turkey
+  demonym: Turkish
 
   territory: [con, ank, arm, smy, syr]
   home: [con, ank, smy]
   capital: con
 
-   color: '#ccbb44'
+  color: '#ccbb44'
 #  color: "#FFAA00"
 
   units:

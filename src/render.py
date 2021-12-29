@@ -29,6 +29,7 @@ class DiplomacyRenderer(fig.Configurable):
 		return out
 	
 	def _render(self, state, actions=None, **kwargs):
+		self.state, self.actions = state, actions
 		self._prep_assets(state, actions=actions, **kwargs)
 		
 		self._render_env(state, actions=actions, **kwargs)
@@ -188,6 +189,9 @@ class DefaultRenderer(MatplotlibRenderer):
 		self.base = self._load_renderbase()
 		self.lbls = self._load_img(self.regions_path)
 		
+		if self.overlay_path.exists():
+			self.overlay = self._load_overlay()
+		
 		H, W, _ = self.base.shape
 		w, h = figaspect(H / W)
 		w, h = self.img_scale * w, self.img_scale * h
@@ -202,11 +206,10 @@ class DefaultRenderer(MatplotlibRenderer):
 		plt.subplots_adjust(left=0, right=1, bottom=0, top=1,
 		                    wspace=0, hspace=0)
 		
-		if self.overlay_path.exists():
-			overlay = self._load_overlay()
+		if self.overlay is not None:
 			# sel = overlay[...,-1] > 0
 			# self.base[sel] = overlay[sel,:3]
-			plt.imshow(overlay)
+			plt.imshow(self.overlay)
 		
 	
 	def _load_img(self, path, rgb=False, rgba=False):
@@ -260,8 +263,10 @@ class DefaultRenderer(MatplotlibRenderer):
 	def _draw_shortest_arrow(self, start, end, arrow_props={}, use_annotation=False):
 		x, y = start
 		x, y = x.reshape(1, -1), y.reshape(1, -1)
-		dx, dy = end
-		dx, dy = dx.reshape(-1, 1) - x, dy.reshape(-1, 1) - y
+		ex, ey = end
+		ex, ey = ex.reshape(-1, 1), ey.reshape(-1, 1)
+		dx, dy = ex - x, ey - y
+		x, y = ex - dx, ey - dy
 		x, y = x.reshape(-1), y.reshape(-1)
 		dx, dy = dx.reshape(-1), dy.reshape(-1)
 		D = dx ** 2 + dy ** 2

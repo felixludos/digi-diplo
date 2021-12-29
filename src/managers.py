@@ -1,6 +1,7 @@
 import random
 import sys, os
 import shutil
+from copy import deepcopy
 from pathlib import Path
 from omnibelt import unspecified_argument, load_yaml, save_yaml, load_txt
 import omnifig as fig
@@ -93,19 +94,19 @@ class DiplomacyManager(fig.Configurable):
 		graph_path = root / 'graph.yaml'
 		if not graph_path.exists():
 			raise FileNotFoundError(str(graph_path))
-		A.push('graph-path', str(graph_path), overwrite=False, silent=True)
+		A.push('graph-path', str(graph_path), overwrite=False, silent=True, force_root=True)
 		
 		player_path = root / 'players.yaml'
 		if not player_path.exists():
 			raise FileNotFoundError(str(player_path))
-		A.push('players-path', str(player_path), overwrite=False, silent=True)
+		A.push('players-path', str(player_path), overwrite=False, silent=True, force_root=True)
 
 		bg_path = root / 'bgs.yaml'
 		if bg_path.exists():
-			A.push('bgs-path', str(bg_path), overwrite=False, silent=True)
-		A.push('regions-path', str(root / 'regions.png'), overwrite=False, silent=True)
-		A.push('renderbase-path', str(root / 'renderbase.png'), overwrite=False, silent=True)
-		A.push('tiles-path', str(root / 'tiles.png'), overwrite=False, silent=True)
+			A.push('bgs-path', str(bg_path), overwrite=False, silent=True, force_root=True)
+		A.push('regions-path', str(root / 'regions.png'), overwrite=False, silent=True, force_root=True)
+		A.push('renderbase-path', str(root / 'renderbase.png'), overwrite=False, silent=True, force_root=True)
+		A.push('tiles-path', str(root / 'tiles.png'), overwrite=False, silent=True, force_root=True)
 		return root
 		
 		
@@ -148,6 +149,59 @@ class DiplomacyManager(fig.Configurable):
 			self._checkpoint_state()
 		return new
 	
+	def get_demonym(self, player):
+		return self.gamemap.player_info.get(player, {}).get('demonym', player)
+	
+	def check_region(self, loc):
+		try:
+			base, coast = self.gamemap.decode_region_name(loc)
+		except LocationError:
+			return
+		else:
+			node = self.graph[base]
+			
+			region = {'node': deepcopy(node), 'base': base}
+			if coast is not None:
+				region['coast'] = coast
+			units = []
+			
+			for player, info in self.state.get('players', {}).items():
+				if base in info.get('home', []):
+					region['home'] = player
+				if base in info.get('control', []):
+					region['control'] = player
+				for unit in info.get('units', []):
+					if unit['loc'] == loc or unit['loc'] == base:
+						units.append({'player': player, **unit})
+			
+			for player, info in self.state.get('disbands', {}).items():
+				for unit in info:
+					if unit['loc'] == loc or unit['loc'] == base:
+						region['disband'] = {'player': player, **unit}
+						break
+			
+			if len(units) == 1:
+				region['unit'] = units[0]
+			elif len(units) > 1:
+				occupant = None
+				retreat = None
+				for unit in units:
+					ubase, _ = self.gamemap.decode_region_name(unit['loc'])
+					if retreat is None:
+						for src, options in self.state.get('retreats', {}).items():
+							if self.gamemap.decode_region_name(src)[0] == ubase:
+								retreat = {'options': options, **unit}
+								break
+						else:
+							occupant = unit
+					else:
+						occupant = unit
+				assert occupant is not None
+				region['unit'] = occupant
+				region['retreat'] = retreat
+			
+			return region
+		
 	
 	def _extract_time(self, state):
 		year = int(state['time']['turn'])
@@ -209,16 +263,6 @@ class DiplomacyManager(fig.Configurable):
 	
 	def generate_initial_state(self):
 		return self.gamemap.generate_initial_state()
-		players = {}
-		for name, info in self.player_info.items():
-			player = {}
-			player['control'] = info['territory'].copy()
-			player['centers'] = [loc for loc in info['territory'] if self.graph.get(loc, {}).get('sc', 0) > 0]
-			player['home'] = player['centers'].copy()
-			player['units'] = [{'loc': loc, 'type': typ} for typ in ['army', 'fleet'] for loc in info.get(typ, [])]
-			players[name] = player
-		return {'players': players, 'time': {'turn': 1, 'season': 1}}
-	
 	
 	def get_status(self):
 		if self.season == 3:
@@ -376,6 +420,20 @@ class DiplomacyManager(fig.Configurable):
 			lines.append(f'*{typ.capitalize()}* in **{loc}**')
 		
 		return lines
+
+	
+	@staticmethod
+	def action_format():
+		return {
+			'move': '[X] to [Y]',
+			'support move': '[X] supports [Y] to [Z]',
+			'support hold': '[X] support holds [Y]',
+			'convoy': '[X] convoys [Y] to [Z]',
+			'hold': '[X] holds',
+			'retreat': '[X] retreats to [Y]',
+			'disband': '[X] disbands',
+			'build': 'Build [T] in [X]',
+		}
 
 	
 	def sample_action(self, player, n=1):

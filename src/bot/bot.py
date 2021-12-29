@@ -70,6 +70,75 @@ class DiplomacyBot(DiscordBot):
 			               + '```')
 			# await ctx.send('\n'.join(f'{player}: {num}' for player, num in status.items()))
 		return status
+
+	@as_command('order-format', brief='(admin) Print out format for orders')
+	async def on_order_format(self, ctx):
+		if self._insufficient_permissions(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+			return
+		rules = self.manager.action_format()
+		
+		lines = [f'{name.capitalize()} order: "{format}"' for name, format in rules.items()]
+		await self._batched_send(ctx, lines)
+		
+
+	@as_command('region', brief='Prints out info about a specific territory')
+	async def on_region(self, ctx, name=None):
+		
+		info = self.manager.check_region(name)
+		
+		if info is None:
+			await ctx.send('You must provide a valid region name to check.')
+			return
+	
+		
+		node = info['node']
+		
+		lines = [''.join(['__', '{base}'.format(**info) + '*'*node.get('sc', 0), '__'])]
+		
+		if 'home' in info:
+			home = 'Home of {home}'.format(**info)
+			if 'capital' in info:
+				home += ' (capital)'
+			lines.append(home)
+		
+		if 'control' in info:
+			owner = 'Controlled by **{control}**'.format(**info)
+			lines.append(owner)
+		
+		if 'disband' in info:
+			coast = self.manager.gamemap.decode_region_name(info['disband']['loc'])[1]
+			unit = '{demo} *{utype}*'.format(
+				demo=self.manager.get_demonym(info['disband']['player']),
+				utype=info['disband']['type'])
+			if isinstance(coast, str):
+				unit += f' ({coast})'
+			unit += ' disbanding'
+			lines.append(unit)
+		
+		if 'retreat' in info:
+			coast = self.manager.gamemap.decode_region_name(info['retreat']['loc'])[1]
+			unit = '{demo} *{utype}*'.format(
+				demo=self.manager.get_demonym(info['retreat']['player']),
+				utype=info['retreat']['type'])
+			if isinstance(coast, str):
+				unit += f' ({coast})'
+			unit += ' in retreat'
+			lines.append(unit)
+		
+		if 'unit' in info:
+			coast = self.manager.gamemap.decode_region_name(info['unit']['loc'])[1]
+			unit = 'Occupied by: **{demo}** *{utype}*'.format(
+				demo=self.manager.get_demonym(info['unit']['player']),
+				utype=info['unit']['type'])
+			if isinstance(coast, str):
+				unit += f' ({coast})'
+			lines.append(unit)
+		else:
+			lines.append('- Not occupied -')
+		
+		await self._batched_send(ctx, lines)
+		
 	
 
 	@as_command('step', brief='(admin) Adjudicates current season and updates game state')

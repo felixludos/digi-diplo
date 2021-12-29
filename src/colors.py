@@ -32,9 +32,10 @@ def rgb_to_hex(raw):
 	return webcolors.rgb_to_hex(full)
 
 def hex_to_rgb(raw):
-	full = webcolors.html5_parse_legacy_color(raw)
-	return [full.red, full.green, full.blue]
-
+	if isinstance(raw, str):
+		full = webcolors.html5_parse_legacy_color(raw)
+		return [full.red, full.green, full.blue]
+	return raw
 
 
 def greyit(color, pull=0.5, base=0.1):

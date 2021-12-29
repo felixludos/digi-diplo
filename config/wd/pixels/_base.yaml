@@ -1,20 +1,45 @@
 
 
-manager.renderer._type: wd-renderer
+manager.renderer._type: wd-pixel-rendering
+
+unit-zorder: 21
+sc-zorder: 4
+
+patterns:
+  sc: [
+        [0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 0],
+        [0, 1, 0, 0, 1, 0],
+        [0, 1, 0, 0, 1, 0],
+        [0, 1, 1, 1, 1, 0],
+        [0, 0, 0, 0, 0, 0]
+    ]
+  capital: [
+        [1, 1, 1, 0, 0, 1, 1, 1],
+        [1, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 1, 1, 1, 1, 0, 1],
+        [0, 0, 1, 0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0, 1, 0, 0],
+        [1, 0, 1, 1, 1, 1, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 1],
+        [1, 1, 1, 0, 0, 1, 1, 1],
+    ]
+
+neutral-color: '#EFE4B0'
+
+default-colors: ['#000000', <>neutral-color, none]
+
+pattern-colors:
+  sc: <>default-colors
+  capital: <>default-colors
+  fleet: <>default-colors
+  army: <>default-colors
 
 
-highlight-size: 2.1
-highlight-width: 0.3
 
-sc-size: 1.7
-capital-size: 1.9
-home-size: 0.4
-sc-edge-width: 0.05
-home-edge-width: 0.02
 
-unit-size: 1.5
-unit-edge-width: 0.35
 
+#arrow-hop: 0.02
 arrow-ratio: 0.9
 arrow-width: 3
 arrow-head: 8
@@ -26,7 +51,7 @@ sup-color: y
 convoy-color: c
 edge-color: k
 
-wedge-dot-size: 0.7
+wedge-dot-size: 0.64
 
 support-style: wedge,tail_width=0.05,shrink_factor=0.5
 support-shrink: 0
@@ -36,47 +61,6 @@ support-defend-shrink: 0.2
 
 convoy-style: wedge,tail_width=0.05,shrink_factor=0.5
 convoy-shrink: 0
-
-sc-props:
-  markersize: <>sc-size
-  markeredgewidth: <>sc-edge-width
-
-  markeredgecolor: k
-  markerfacecolor: '#FFD700'
-  marker: [5,1]
-  ls: ''
-  zorder: 60
-capital-props:
-  markersize: <>capital-size
-  markeredgewidth: <>sc-edge-width
-  markeredgecolor: k
-  markerfacecolor: '#FFD700'
-  marker: [7, 1]
-  ls: ''
-  zorder: 60
-home-props:
-  markeredgewidth: <>home-edge-width
-  markeredgecolor: k
-  markersize: <>home-size
-  marker: o
-  ls: ''
-  zorder: 61
-core-props:
-  ms: <>highlight-size
-  mew: <>highlight-width
-  mec: '#964b00'
-  mfc: None
-  zorder: 50
-  ls: ''
-  shape: D # d
-
-
-unit-props:
-  ms: <>unit-size
-  mew: <>unit-edge-width
-  zorder: 20
-  mec: k
-  ls: ''
 
 retreat-arrow:
   width: <>arrow-width
@@ -94,7 +78,7 @@ retreat-props:
   mfc: None
   zorder: 50
   ls: ''
-  marker: o
+  marker: <>highligh-marker
 disband-props:
   ms: <>highlight-size
   mew: <>highlight-width
@@ -104,18 +88,32 @@ disband-props:
   ls: ''
   marker: x
 
+
+core-props:
+  ms: <>highlight-size
+  mew: <>highlight-width
+  mec: '#964b00'
+  mfc: None
+  zorder: 50
+  ls: ''
+  marker: D # d
+
+
 hold-props:
   color: <>hold-color
   ms: <>highlight-size
   mew: <>highlight-width
   ls: ''
   mfc: 'none'
+  marker: <>highligh-marker
   zorder: 21
 build-props:
-  color: '#00ff00'
+  mec: '#00ff00'
+  mfc: None
   ms: <>highlight-size
   mew: <>highlight-width
   ls: ''
+  marker: <>highligh-marker
 #  mfc: 'none'
   zorder: 6
 
@@ -184,7 +182,4 @@ convoy-dot:
   color: <>convoy-color
   mec: <>edge-color
   zorder: 16
-
-
-
 

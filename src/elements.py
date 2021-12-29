@@ -479,7 +479,7 @@ class DiploMap(fig.Configurable):
 		return self.coasts[loc]['coast-of'] if loc in self.coasts and \
 			('dir' not in self.coasts[loc] or including_dirs) else loc
 		
-	def fix_actions(self, actions):
+	def fix_actions(self, state, actions):
 		
 		missing = []
 		
@@ -504,7 +504,7 @@ class DiploMap(fig.Configurable):
 		
 		self.prep_players(state['players'])
 		
-		actions = self.fix_actions(actions)
+		actions = self.fix_actions(state, actions)
 		
 		turn, season = state['time']['turn'], state['time']['season']
 		retreat = 'retreat' in state['time']

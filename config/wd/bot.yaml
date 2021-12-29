@@ -1,15 +1,35 @@
 
-parents: [wd/style]
+#parents: [wd/style]
 
 assets-path: assets/wd
 
 client._type: diplomacy-bot
 
+map._type: wd-map
 
-manager:
-  _type: diplo-manager
+manager._type: wd-manager
 
-  map:
-    _type: diplo-map
-    _mod.dash-coasts: 1
+
+year-offset: 1870
+year-props:
+  x: 4695
+  y: 425
+  ha: left
+  va: bottom
+  fontsize: 10
+  fontfamily: monospace
+  zorder: 50
+
+season-titles:
+  1: SPRING
+  2: FALL
+  3: WINTER
+season-props:
+  x: 4695
+  y: 328
+  ha: left
+  va: bottom
+  fontsize: 9
+  fontfamily: monospace
+  zorder: 50
 

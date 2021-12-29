@@ -24,7 +24,7 @@ The recommended way to use this repo is with a discord bot (run locally). This b
 
 5. Once you have the necessary discord token, make sure it is stored as an environment variable called `DISCORD_TOKEN`.
 
-6. Finally, rerun `fig start-bot`, this time there should be no error, and after some loading, the last console should say something along the lines of `Logged on as [bot-name]`.
+6. Finally, rerun `fig start-bot`, this time there should be no error, and after some loading, the last line in the console should say something along the lines of `Logged on as [bot-name]`.
 
 7. You can confirm that the bot is ready for use by submitting `.ping` on a public channel in the discord guild, and the bot should greet you. Once you get this far, the setup is complete, and now it's only a matter of configuring the bot to behave as you wish (e.g. run the variant you want to play).
 
@@ -51,12 +51,12 @@ fig start-bot classic/bot --admin-role Host --game-root games/game1
 While the bot is running, you can submit the message `.help` to see a list of all the commands the bot can respond to. 
 
 [More detailed documentation coming soon]
-
+ 
 ## Customizing the Bot/Game
 
 ![](assets/misc/bot_structure.png)
 
-
+dd
 The bot can be started with the `start-bot` command, and must be provided a manager (e.g. `diplo-manager`) which will keep track of the game state and actions. The manager keeps track of the map (see the `diplo-map` component) and optionally a renderer which can draw the current game state and/or submitted orders (see the `diplo-renderer`).
 
 

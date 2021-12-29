@@ -7,10 +7,12 @@ server-name: playground
 
 #_meta.script_name: render-state
 
-parents: [wd/bot]
-#parents: [classic/bot]
+#parents: [wd/style, wd/bot]
+#parents: [wd/hills, wd/bot]
+#parents: [wd/std]
+parents: [classic/bot]
 
-game-root: games/game4
+#game-root: games/game6
 
 #check-image: 1-1-actions
 
@@ -18,6 +20,7 @@ game-root: games/game4
 
 #admins: None
 admin-role: testhost
+
 
 #view: yes
 #pbar: true
