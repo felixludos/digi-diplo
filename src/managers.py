@@ -347,7 +347,7 @@ class DiplomacyManager(Versioned):
 			# return '{punit} **{loc}** *support holds* **{dest}**'.format(punit=unit, **terms)
 		
 		if terms['type'] == 'disband':
-			return '*Disband* **{loc}**'.format(punit=unit, **terms)
+			return '**{loc}** *disbands*'.format(punit=unit, **terms)
 			# return '*Disband* {punit} **{loc}**'.format(punit=unit, **terms)
 		
 		if terms['type'] == 'retreat':
@@ -359,7 +359,7 @@ class DiplomacyManager(Versioned):
 			# return '*Build* {punit} in **{loc}**'.format(punit=unit, **terms)
 		
 		if terms['type'] == 'hold':
-			return '*Hold* **{loc}**'.format(punit=unit, **terms)
+			return '**{loc}** *holds*'.format(punit=unit, **terms)
 			# return '*Hold* {punit} **{loc}**'.format(punit=unit, **terms)
 		
 		if terms['type'] == 'convoy':

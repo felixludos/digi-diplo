@@ -1,5 +1,5 @@
 import random
-
+import traceback
 import discord
 from omnibelt import load_yaml, load_txt, unspecified_argument, save_yaml
 import omnifig as fig
@@ -436,12 +436,14 @@ class DiplomacyBot(Versioned, DiscordBot):
 		results = []
 		num = 0
 		for line in lines.splitlines():
+			line = line.strip()
 			if len(line):
 				try:
 					action = self.manager.record_action(player, line)
 				except ParsingFailedError as e:
 					results.append(f'"{line}" failed with {type(e).__name__}: {str(e)}')
-					raise e
+					print(traceback.format_exc())
+					# raise e
 				else:
 					num += 1
 					results.append(f'{self.manager.format_action(player, action)}')

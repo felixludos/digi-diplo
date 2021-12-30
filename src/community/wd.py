@@ -16,8 +16,8 @@ class WD_Manager(DiplomacyManager):
 	def format_action(self, player, terms):
 		unit = 'A' if terms['unit'] == 'army' else 'F'
 		
-		if terms['type'] == 'move':
-			return '**{loc}** *to* **{dest}**'.format(punit=unit, **terms)
+		if terms['type'] == 'core':
+			return '**{loc}** *core*'.format(punit=unit, **terms)
 		else:
 			return super().format_action(player, terms)
 
@@ -34,7 +34,7 @@ class WD_Manager(DiplomacyManager):
 		return out
 
 	def action_format(self):
-		return {'core': 'Core [X]', **super().action_format()}
+		return {'core': '[X] core', **super().action_format()}
 	
 	
 	def parse_action(self, player, text, terms=None):
@@ -51,6 +51,7 @@ class WD_Manager(DiplomacyManager):
 			if unit is None:
 				raise NoUnitFoundError(loc)
 			terms.update({'type': 'core', 'loc': loc, 'unit': unit})
+			return terms
 		else:
 			return super().parse_action(player, text, terms=None)
 
