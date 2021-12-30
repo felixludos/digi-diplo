@@ -5,7 +5,7 @@ from copy import deepcopy
 from pathlib import Path
 from omnibelt import unspecified_argument, load_yaml, save_yaml, load_txt
 import omnifig as fig
-
+from .util import Versioned
 
 
 
@@ -42,7 +42,7 @@ class BadNamesError(BadGraphError):
 
 
 @fig.Component('diplo-manager')
-class DiplomacyManager(fig.Configurable):
+class DiplomacyManager(Versioned):
 	def __init__(self, A, gamemap=unspecified_argument, renderer=unspecified_argument,
 	             game_root=unspecified_argument, **kwargs):
 		game_root = self._find_root(A, root=game_root)

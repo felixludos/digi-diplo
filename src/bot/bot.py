@@ -1,12 +1,14 @@
 import random
 
 import discord
-from omnibelt import load_yaml, load_txt, unspecified_argument
+from omnibelt import load_yaml, load_txt, unspecified_argument, save_yaml
 import omnifig as fig
 from tabulate import tabulate
+from tqdm import tqdm
 
 from .base import DiscordBot, as_command, as_event, as_loop
 from ..managers import ParsingFailedError
+from ..util import hash_file, Versioned
 
 #
 # class ParsingFailedError(Exception):
@@ -30,16 +32,194 @@ from ..managers import ParsingFailedError
 
 
 @fig.Component('diplomacy-bot')
-class DiplomacyBot(DiscordBot):
-	def __init__(self, A, manager=unspecified_argument, **kwargs):
+class DiplomacyBot(Versioned, DiscordBot):
+	__version__ = (1, 0)
+	def __init__(self, A, manager=unspecified_argument, intents=None, **kwargs):
 		if manager is unspecified_argument:
 			manager = A.pull('manager', None)
-		super().__init__(A, **kwargs)
+		
+		bot_data_path = A.pull('bot-data-path', None)
+		
+		if intents is None:
+			intents = discord.Intents.default()
+			intents.members = True
+			
+		super().__init__(A, intents=intents, **kwargs)
 		self.manager = manager
 		if self.manager is None:
 			print('No manager provided, but the bot has started')
 		else:
 			self.manager.load_status()
+		
+		if bot_data_path is None:
+			bot_data_path = self.manager.root / 'bot-data.yaml'
+		
+		self.bot_data_path = bot_data_path
+	
+	async def on_ready(self):
+		await super().on_ready()
+		self._load_bot_data(self.bot_data_path)
+		
+	
+	@staticmethod
+	def _find_discord_objects(base, options, silent=False):
+		missing = []
+		matches = {}
+		for name, player in base.items():
+			if '#' in name:
+				ident, num = name.split('#')
+				match = discord.utils.get(options, name=ident, discriminator=num)
+			else:
+				match = discord.utils.get(options, name=name)
+			if match is None:
+				missing.append(name)
+			else:
+				matches[match] = player
+		if not silent and len(missing):
+			print('WARNING: missing {}'.format(
+				', '.join(f'{user} ({base[user]})' for user in missing)))
+		return matches
+	
+	def _load_bot_data(self, path):
+		self.persistent = load_yaml(path) if path.exists() else {}
+		if 'players' not in self.persistent:
+			self.persistent['players'] = {}
+		if 'roles' not in self.persistent:
+			self.persistent['roles'] = {}
+		if 'channels' not in self.persistent:
+			self.persistent['channels'] = {}
+
+		self.player_users = self._find_discord_objects(self.persistent['players'], self.guild.members)
+		if len(self.player_users):
+			print(f'Found {len(self.player_users)} members that are players.')
+			
+		self.player_roles = self._find_discord_objects(self.persistent['roles'], self.guild.roles)
+		if len(self.player_roles):
+			print(f'Found {len(self.player_roles)} roles for players.')
+		
+		self.player_channels = self._find_discord_objects(self.persistent['channels'], self.guild.channels)
+		if len(self.player_channels):
+			print(f'Found {len(self.player_channels)} channels for player orders.')
+		
+	
+	def _store_bot_data(self):
+		save_yaml(self.persistent, self.bot_data_path)
+		
+		
+	@as_command('version', brief='(admin) Print out bot/map version info')
+	async def on_version(self, ctx): # hash the game files to make sure they are correct
+		
+		info = {}
+		root = self.manager.root
+		itr = tqdm(list(root.glob('*')))
+		for path in itr:
+			if not path.is_dir() and path != self.bot_data_path:
+				itr.set_description(f'Hashing {path.stem}')
+				info[path.stem] = hash_file(path)
+		
+		lines = []
+		if isinstance(self, Versioned):
+			lines.append(f'Bot: {self.manager.get_version()}')
+		if isinstance(self.manager, Versioned):
+			lines.append(f'Manager: {self.manager.get_version()}')
+		if isinstance(self.manager.gamemap, Versioned):
+			lines.append(f'Map: {self.manager.gamemap.get_version()}')
+		if isinstance(self.manager.renderer, Versioned):
+			lines.append(f'Renderer: {self.manager.renderer.get_version()}')
+		
+		lines.extend(f'{name}: {info[name][-5:].upper()}' for name in sorted(info.keys()))
+		
+		print('\n'.join(lines))
+		await self._batched_send(ctx, lines)
+		
+	
+	# @as_command('find-orders', brief='(admin) Checks orders channel of players for new orders')
+	async def on_find_orders(self, ctx):
+		if self._insufficient_permissions(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+			return
+		
+		raise NotImplementedError
+	
+	# @as_command('designate-channel', brief='(admin) Designate a channel for a player to submit orders')
+	async def on_designate_channel(self, ctx, channel, player, force=False):
+		if self._insufficient_permissions(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+			return
+		
+		if len(ctx.message.channel_mentions):
+			channel = ctx.message.channel_mentions[0]
+		else:
+			await ctx.send(f'Channel "{channel}" not found (mention an existing channel)')
+			return
+		
+		if player not in self.manager.state['players']:
+			await ctx.send(f'Unknown player: {player}')
+			return
+		
+		if channel in self.player_channels and not force:
+			await ctx.send(f'{channel.mention} is already used by {self.player_channels[channel]} (use force to replace)')
+			return
+		
+		raise NotImplementedError
+		
+		self.player_channels[channel] = player
+		self.persistent['channels'][str(channel)] = player
+		self._store_bot_data()
+		await ctx.send(f'{channel.mention} is used by {player}.')
+		
+	
+	@as_command('designate-player', brief='(admin) Designate a user for a player')
+	async def on_designate_player(self, ctx, user, player, force=False):
+		if self._insufficient_permissions(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+			return
+		
+		if len(ctx.message.mentions):
+			user = ctx.message.mentions[0]
+		else:
+			await ctx.send(f'User "{user}" not found (mention an existing member)')
+			return
+
+		if player not in self.manager.state['players']:
+			await ctx.send(f'Unknown player: {player}')
+			return
+		
+		if user in self.player_users and not force:
+			await ctx.send(f'{user.mention} is already playing {self.player_users[user]} (use force to replace)')
+			return
+		
+		self.player_users[user] = player
+		self.persistent['players'][str(user)] = player
+		self._store_bot_data()
+		await ctx.send(f'{user.mention} is now playing {player}.')
+	
+	
+	@as_command('designate-role', brief='(admin) Designate a role for a player')
+	async def on_designate_role(self, ctx, role, player, force=False):
+		if self._insufficient_permissions(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+			return
+		
+		if len(ctx.message.role_mentions):
+			role = ctx.message.role_mentions[0]
+		else:
+			await ctx.send(f'Role "{role}" not found (mention an existing role)')
+			return
+		
+		if player not in self.manager.state['players']:
+			await ctx.send(f'Unknown player: {player}')
+			return
+		
+		if role in self.player_roles and not force:
+			await ctx.send(f'{role.mention} is already used for {self.player_roles[role]} (use force to replace)')
+			return
+		
+		self.player_roles[role] = player
+		self.persistent['roles'][str(role)] = player
+		self._store_bot_data()
+		await ctx.send(f'{role.mention} is now designated for {player}.')
+	
 	
 	@as_command('status', brief='Prints out the current season and number of missing commands')
 	async def on_status(self, ctx):
@@ -216,7 +396,7 @@ class DiplomacyBot(DiscordBot):
 		await self._batched_send(ctx, lines)
 
 
-	@as_command('generate', brief='(admin) "[nation name]" [num]')
+	@as_command('generate', brief='(admin) Generate N orders for the given player')
 	async def on_random(self, ctx, player, num=1):
 		if self._insufficient_permissions(ctx.author):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
@@ -243,20 +423,47 @@ class DiplomacyBot(DiscordBot):
 		await ctx.send(f'Generated {num} actions for all players.')
 		
 	
-	@as_command('set-order', brief='(admin) "[faction name]" [order]')
-	async def on_order(self, ctx, player, *terms):
+	@as_command('set-order', brief='(admin) Submit orders for a given player (1 per line)')
+	async def on_set_order(self, ctx, player, *, lines):
 		if self._insufficient_permissions(ctx.author):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 			return
 		
-		assert player in self.manager.state['players'], f'Unknown nation: {player}'
+		if player not in self.manager.state['players']:
+			await ctx.send(f'Unknown player: {player}')
+			return
 		
-		try:
-			action = self.manager.record_action(player, ' '.join(terms))
-		except ParsingFailedError as e:
-			await ctx.send(f'Parsing the action failed: {type(e).__name__}: {str(e)}')
-			# print(e)
-			raise e
-		else:
-			await ctx.send(f'Recorded action for "{player}": {self.manager.format_action(player, action)}')
+		results = []
+		num = 0
+		for line in lines.splitlines():
+			if len(line):
+				try:
+					action = self.manager.record_action(player, line)
+				except ParsingFailedError as e:
+					results.append(f'"{line}" failed with {type(e).__name__}: {str(e)}')
+					raise e
+				else:
+					num += 1
+					results.append(f'{self.manager.format_action(player, action)}')
+		
+		results = [f'Recorded {num} action/s for {player}:', *results]
+		await self._batched_send(ctx, results)
+		
+	
+	def _to_player(self, member):
+		if member in self.player_users:
+			return self.player_users[member]
+		for role in member.roles:
+			if role in self.player_roles:
+				return self.player_roles[role]
+
+
+	@as_command('order', brief='(player) Submit order/s (1 per line)')
+	async def on_order(self, ctx, *, lines):
+		player = self._to_player(ctx.author)
+		if player is None:
+			await ctx.send(f'{ctx.author.display_name} is not a player (admins should use `.set-order`).')
+			return
+
+		await self.on_set_order(ctx, player, lines=lines)
 		

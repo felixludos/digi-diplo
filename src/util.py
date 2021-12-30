@@ -3,6 +3,15 @@ from omnibelt import primitives
 import omnifig as fig
 from pydip.player.unit import UnitTypes
 
+
+class Versioned(fig.Configurable):
+	__version__ = (0,0)
+	
+	@classmethod
+	def get_version(cls):
+		return '.'.join(map(str,cls.__version__)) if isinstance(cls.__version__, tuple) else cls.__version__
+
+
 UNIT_TYPES = {
 	'army': UnitTypes.TROOP,
 	'fleet': UnitTypes.FLEET,
@@ -108,8 +117,8 @@ def print_player(player):
 	tiles = ', '.join(f'*{tile}' if tile in player['centers'] else tile for tile in control)
 	
 	units = ', '.join('{t}:[{l}]'.format(t=_unit_codes[unit['type']], l=unit['loc'],
-	                                  s='*' if unit['loc'] in player['centers'] else '')
-	         for unit in player['units'])
+									  s='*' if unit['loc'] in player['centers'] else '')
+			 for unit in player['units'])
 	
 	scs = player['centers']
 	
@@ -149,3 +158,21 @@ def flatten_kwargs(A):
 	flat = _flatten_kwargs(raw)
 	
 	return flat
+
+
+import hashlib
+
+_hashes = {'md5': hashlib.md5, 'sha1': hashlib.sha1}
+
+def hash_file(path, hash='md5', buffer_size=65536):
+	if hash in _hashes:
+		hash = _hashes[hash]()
+	
+	with open(str(path), 'rb') as f:
+		while True:
+			data = f.read(buffer_size)
+			if not data:
+				break
+			hash.update(data)
+	return hash.hexdigest()
+

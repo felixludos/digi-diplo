@@ -9,10 +9,10 @@ server-name: playground
 
 #parents: [wd/style, wd/bot]
 #parents: [wd/hills, wd/bot]
-#parents: [wd/std]
-parents: [classic/bot]
+parents: [wd/std]
+#parents: [classic/bot]
 
-#game-root: games/game6
+game-root: games/game7
 
 #check-image: 1-1-actions
 

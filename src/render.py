@@ -11,10 +11,11 @@ from matplotlib.patches import ArrowStyle
 from matplotlib.figure import figaspect
 import matplotlib.patheffects as path_effects
 
+from .util import Versioned
 from .colors import hex_to_rgb
 
 
-class DiplomacyRenderer(fig.Configurable):
+class DiplomacyRenderer(Versioned):
 	def __init__(self, A, **kwargs):
 
 		self.map = A.pull('map', None)

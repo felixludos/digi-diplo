@@ -21,7 +21,7 @@ from copy import deepcopy
 
 
 @fig.Component('diplo-map')
-class DiploMap(fig.Configurable):
+class DiploMap(util.Versioned):
 	def __init__(self, A, graph_path=unspecified_argument, player_path=unspecified_argument,
 	             ignore_unknown=None, **kwargs):
 		
