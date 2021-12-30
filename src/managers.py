@@ -330,7 +330,7 @@ class DiplomacyManager(Versioned):
 		
 	def format_action(self, player, terms):
 		
-		unit = 'A' if terms['unit'] == 'army' else 'F'
+		unit = 'A' if terms.get('unit') == 'army' else 'F'
 		sunit = 'A' if terms.get('src-unit') == 'army' else 'F'
 		
 		if terms['type'] == 'move':
@@ -667,7 +667,7 @@ class DiplomacyManager(Versioned):
 			if unit is None:
 				raise NoUnitFoundError(loc)
 			dest = self._parse_location(dest)
-			terms.update({'type': 'support-defend', 'loc': loc, 'uit': unit, 'dest': dest})
+			terms.update({'type': 'support-defend', 'loc': loc, 'unit': unit, 'dest': dest})
 		
 		elif ' hold' in line:
 			loc, _ = line.split(' hold')

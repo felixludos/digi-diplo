@@ -9,12 +9,13 @@ from ..elements import DiploMap, DashCoast
 from ..render import DiplomacyRenderer, DefaultRenderer
 from ..managers import DiplomacyManager, NoUnitFoundError
 
+_wd_version = (1,1)
 
 @fig.Component('wd-manager')
 class WD_Manager(DiplomacyManager):
-	__version__ = (1,0)
+	__version__ = _wd_version
 	def format_action(self, player, terms):
-		unit = 'A' if terms['unit'] == 'army' else 'F'
+		unit = 'A' if terms.get('unit') == 'army' else 'F'
 		
 		if terms['type'] == 'core':
 			return '**{loc}** *core*'.format(punit=unit, **terms)
@@ -59,7 +60,7 @@ class WD_Manager(DiplomacyManager):
 
 @fig.Component('wd-renderer')
 class WD_Rendering(DefaultRenderer):
-	__version__ = (1, 0)
+	__version__ = _wd_version
 	def __init__(self, A, **kwargs):
 		super().__init__(A, **kwargs)
 		self.year_offset = A.pull('year-offset', 0)
@@ -275,7 +276,7 @@ class WD_Pixel_Rendering(WD_Rendering):
 
 @fig.Component('wd-map')
 class WD_Map(DashCoast, DiploMap):
-	__version__ = (1, 0)
+	__version__ = _wd_version
 	def generate_initial_state(self):
 		state = super().generate_initial_state()
 		
