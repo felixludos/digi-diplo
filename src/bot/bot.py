@@ -552,14 +552,16 @@ class DiplomacyBot(Versioned, DiscordBot):
 			return
 
 		await self._batched_send(ctx, self._register_orders(player, lines.splitlines()))
+	
+	
+	@as_command('submitted', brief='(player) Prints out submitted orders for this season')
+	async def on_submitted(self, ctx):
 		
-
-	# @as_command('missing', brief='(player) Prints out the missing')
-	# async def on_fullstatus(self, ctx):
-	# 	status = self.manager.get_status()
-	# 	if not self._insufficient_permissions(ctx.author):
-	# 		await ctx.send('```' + tabulate(sorted(status.items(), key=lambda x: (-x[1], x[0])),
-	# 		                                headers=['Nation', 'Missing'])
-	# 		               + '```')
-	# 		# await ctx.send('\n'.join(f'{player}: {num}' for player, num in status.items()))
-	# 	return status
+		player = self._to_player(ctx.author)
+		
+		if player is None:
+			await ctx.send(f'{ctx.author.display_name} is not a player (admins should use `.print-orders`).')
+			
+		actions = self.manager.format_all_actions()
+		lines = [f'{player} orders for **{self.manager.format_date()}**', *actions[player]]
+		await self._batched_send(ctx, lines)
