@@ -423,7 +423,7 @@ class DiplomacyManager(Versioned):
 			return '**{loc}** *holds*'.format(punit=unit, **terms)
 			# return '*Hold* {punit} **{loc}**'.format(punit=unit, **terms)
 		
-		if terms['type'] == 'convoy':
+		if terms['type'] == 'convoy-transport':
 			return '**{loc}** *convoys* **{src}** *to* **{dest}**'.format(src_unit=sunit, punit=unit, **terms)
 			# return '{punit} **{loc}** *convoys* {src_unit} **{src}** to **{dest}**'.format(src_unit=sunit,
 			#                                                                                punit=unit, **terms)
@@ -432,7 +432,8 @@ class DiplomacyManager(Versioned):
 			return '**{loc}** *to* **{dest}** (by convoy)'.format(punit=unit, **terms)
 			# return 'Move {punit} **{loc}** *to* **{dest}** (by convoy)'.format(punit=unit, **terms)
 		
-		raise NotImplementedError
+		raise Exception(f'Unknown action: {terms}')
+		
 
 	
 	def format_all_actions(self, include_defaults=True):
