@@ -1,7 +1,7 @@
-adr:
+ADR:
   ID: 1
   edges:
-    fleet: [tri, alb, ion, apu, ven]
+    fleet: [TRI, ALB, ION, APU, VEN]
   locs:
     label:
     - [1056.6239257013035, 1571.823264799837]
@@ -14,10 +14,10 @@ adr:
   - [1049.9904161459963, 1554.1339059856841]
   tiles: [96]
   type: sea
-aeg:
+AEG:
   ID: 2
   edges:
-    fleet: [bul-sc, con, smy, eas, ion, gre]
+    fleet: [BUL-sc, CON, SMY, EAS, ION, GRE]
   locs:
     label:
     - [1454.6344990197435, 1766.406211755519]
@@ -30,11 +30,11 @@ aeg:
   - [1439.1563100573594, 1708.915795609522]
   tiles: [114]
   type: sea
-alb:
+ALB:
   ID: 3
   edges:
-    army: [ser, gre, tri]
-    fleet: [tri, adr, ion, gre]
+    army: [SER, GRE, TRI]
+    fleet: [TRI, ADR, ION, GRE]
   locs:
     coast-retreat:
     - [1182.6606072521427, 1622.6801713905268]
@@ -51,11 +51,11 @@ alb:
   - [1215.8281550286792, 1591.7237934657592]
   tiles: [111]
   type: coast
-ank:
+ANK:
   ID: 4
   edges:
-    army: [arm, smy, con]
-    fleet: [arm, bla, con]
+    army: [ARM, SMY, CON]
+    fleet: [ARM, BLA, CON]
   locs:
     coast-retreat:
     - [1801.7881657474936, 1527.5998677644548]
@@ -75,11 +75,11 @@ ank:
   sc: 1
   tiles: [105]
   type: coast
-apu:
+APU:
   ID: 5
   edges:
-    army: [nap, rom, ven]
-    fleet: [nap, ion, adr, ven]
+    army: [NAP, ROM, VEN]
+    fleet: [NAP, ION, ADR, VEN]
   locs:
     coast-retreat:
     - [1127.3813609579151, 1695.6487764989074]
@@ -96,11 +96,11 @@ apu:
   - [1041.1457367389198, 1624.8913412422958]
   tiles: [112]
   type: coast
-arm:
+ARM:
   ID: 6
   edges:
-    army: [sev, syr, smy, ank]
-    fleet: [sev, bla, ank]
+    army: [SEV, SYR, SMY, ANK]
+    fleet: [SEV, BLA, ANK]
   locs:
     coast-retreat:
     - [1943.303036260717, 1518.7551883573785]
@@ -117,10 +117,10 @@ arm:
   - [1930.036017150102, 1686.804097091831]
   tiles: [102]
   type: coast
-bal:
+BAL:
   ID: 7
   edges:
-    fleet: [bot, lvn, pru, ber, kie, den, swe]
+    fleet: [BOT, LVN, PRU, BER, KIE, DEN, SWE]
   locs:
     label:
     - [1067.6797749601492, 915.105818824411]
@@ -133,10 +133,10 @@ bal:
   - [1083.1579639225329, 892.9941203067201]
   tiles: [42]
   type: sea
-bar:
+BAR:
   ID: 8
   edges:
-    fleet: [stp-nc, nwy, nwg]
+    fleet: [STP-nc, NWY, NWG]
   locs:
     label:
     - [1381.6658939113627, 77.07244500391789]
@@ -149,11 +149,11 @@ bar:
   - [1412.6222718361305, 94.7618038180708]
   tiles: [4]
   type: sea
-bel:
+BEL:
   ID: 9
   edges:
-    army: [hol, ruh, bur, pic]
-    fleet: [hol, nth, eng, pic]
+    army: [HOL, RUH, BUR, PIC]
+    fleet: [HOL, NTH, ENG, PIC]
   locs:
     coast-retreat:
     - [598.9117663850977, 1129.589294446015]
@@ -173,11 +173,11 @@ bel:
   sc: 1
   tiles: [73]
   type: coast
-ber:
+BER:
   ID: 10
   edges:
-    army: [pru, sil, mun, kie]
-    fleet: [pru, bal, kie]
+    army: [PRU, SIL, MUN, KIE]
+    fleet: [PRU, BAL, KIE]
   locs:
     coast-retreat:
     - [970.3883014823082, 988.0744239327919]
@@ -197,10 +197,10 @@ ber:
   sc: 1
   tiles: [61]
   type: coast
-bla:
+BLA:
   ID: 11
   edges:
-    fleet: [sev, arm, ank, con, bul-ec, rum]
+    fleet: [SEV, ARM, ANK, CON, BUL-ec, RUM]
   locs:
     label:
     - [1686.8073334555002, 1456.8424325078433]
@@ -214,10 +214,10 @@ bla:
   - [1704.7383100777163, 1303.0308437915548]
   tiles: [84, 88]
   type: sea
-boh:
+BOH:
   ID: 12
   edges:
-    army: [sil, gal, vie, tyr, mun]
+    army: [SIL, GAL, VIE, TYR, MUN]
   locs:
     label:
     - [1010.189358814152, 1213.6137488132413]
@@ -230,10 +230,10 @@ boh:
   - [1030.0898874800741, 1215.8249186650103]
   tiles: [78]
   type: land
-bot:
+BOT:
   ID: 13
   edges:
-    fleet: [fin, stp-sc, lvn, bal, swe]
+    fleet: [FIN, STP-sc, LVN, BAL, SWE]
   locs:
     label:
     - [1122.9590212543767, 740.4234005346514]
@@ -246,11 +246,11 @@ bot:
   - [1127.3813609579151, 738.2122306828821]
   tiles: [17]
   type: sea
-bre:
+BRE:
   ID: 14
   edges:
-    army: [pic, par, gas]
-    fleet: [pic, eng, mao, gas]
+    army: [PIC, PAR, GAS]
+    fleet: [PIC, ENG, MAO, GAS]
   locs:
     coast-retreat:
     - [408.7511591329542, 1233.5142774791632]
@@ -270,10 +270,10 @@ bre:
   sc: 1
   tiles: [80]
   type: coast
-bud:
+BUD:
   ID: 15
   edges:
-    army: [gal, rum, ser, tri, vie]
+    army: [GAL, RUM, SER, TRI, VIE]
   locs:
     label:
     - [1235.7286836946014, 1350.706279622926]
@@ -289,14 +289,14 @@ bud:
   sc: 1
   tiles: [83]
   type: land
-bul:
+BUL:
   ID: 16
   dirs: [ec, sc]
   edges:
-    army: [rum, con, gre, ser]
+    army: [RUM, CON, GRE, SER]
     fleet:
-      ec: [con, bla, rum]
-      sc: [gre, aeg, con]
+      ec: [CON, BLA, RUM]
+      sc: [GRE, AEG, CON]
   locs:
     coast-label:
       ec:
@@ -327,10 +327,10 @@ bul:
   sc: 1
   tiles: [98]
   type: coast
-bur:
+BUR:
   ID: 17
   edges:
-    army: [bel, ruh, mun, mar, gas, par, pic]
+    army: [BEL, RUH, MUN, MAR, GAS, PAR, PIC]
   locs:
     label:
     - [702.836749418246, 1319.7499016981585]
@@ -343,11 +343,11 @@ bur:
   - [724.9484479359369, 1315.3275619946203]
   tiles: [81]
   type: land
-cly:
+CLY:
   ID: 18
   edges:
-    army: [edi, lvp]
-    fleet: [lvp, nao, nwg, edi]
+    army: [EDI, LVP]
+    fleet: [LVP, NAO, NWG, EDI]
   locs:
     coast-retreat:
     - [397.6953098741087, 835.5037041607231]
@@ -364,11 +364,11 @@ cly:
   - [430.8628576506453, 844.3483835677996]
   tiles: [36]
   type: coast
-con:
+CON:
   ID: 19
   edges:
-    army: [ank, smy, bul]
-    fleet: [bul-sc, aeg, smy, ank, bla, bul-ec]
+    army: [ANK, SMY, BUL]
+    fleet: [BUL-sc, AEG, SMY, ANK, BLA, BUL-ec]
   locs:
     coast-retreat:
     - [1578.4600107188135, 1545.2892265786077]
@@ -389,11 +389,11 @@ con:
   sc: 1
   tiles: [104, 107]
   type: coast
-den:
+DEN:
   ID: 20
   edges:
-    army: [swe, kie]
-    fleet: [kie, bal, swe, ska, nth, hel]
+    army: [SWE, KIE]
+    fleet: [KIE, BAL, SWE, SKA, NTH, HEL]
   locs:
     coast-retreat:
     - [899.6308662256968, 957.1180460080243]
@@ -416,10 +416,10 @@ den:
   sc: 1
   tiles: [43, 52, 49, 59]
   type: coast
-eas:
+EAS:
   ID: 21
   edges:
-    fleet: [smy, syr, ion, aeg]
+    fleet: [SMY, SYR, ION, AEG]
   locs:
     label:
     - [1582.882350422352, 1916.7657616758186]
@@ -432,11 +432,11 @@ eas:
   - [1596.1493695329664, 1952.1444793041242]
   tiles: [136]
   type: sea
-edi:
+EDI:
   ID: 22
   edges:
-    army: [yor, lvp, cly]
-    fleet: [cly, nwg, nth, yor]
+    army: [YOR, LVP, CLY]
+    fleet: [CLY, NWG, NTH, YOR]
   locs:
     coast-retreat:
     - [506.04263261079495, 848.7707232713378]
@@ -456,10 +456,10 @@ edi:
   sc: 1
   tiles: [37]
   type: coast
-eng:
+ENG:
   ID: 23
   edges:
-    fleet: [wal, lon, nth, bel, pic, bre, mao, iri]
+    fleet: [WAL, LON, NTH, BEL, PIC, BRE, MAO, IRI]
   locs:
     label:
     - [415.3846686882616, 1198.1355598508574]
@@ -472,11 +472,11 @@ eng:
   - [437.49636720595254, 1195.9243899990884]
   tiles: [74]
   type: sea
-fin:
+FIN:
   ID: 24
   edges:
-    army: [stp, swe, nwy]
-    fleet: [swe, bot, stp-sc]
+    army: [STP, SWE, NWY]
+    fleet: [SWE, BOT, STP-sc]
   locs:
     coast-retreat:
     - [1209.194645473372, 663.0324557227325]
@@ -493,10 +493,10 @@ fin:
   - [1222.461664583987, 373.3692051409789]
   tiles: [10]
   type: coast
-gal:
+GAL:
   ID: 25
   edges:
-    army: [war, ukr, rum, bud, vie, boh, sil]
+    army: [WAR, UKR, RUM, BUD, VIE, BOH, SIL]
   locs:
     label:
     - [1273.3185711746764, 1202.5578995543956]
@@ -509,11 +509,11 @@ gal:
   - [1308.6972888029823, 1213.6137488132413]
   tiles: [75]
   type: land
-gas:
+GAS:
   ID: 26
   edges:
-    army: [bre, par, bur, mar, spa]
-    fleet: [bre, mao, spa-nc]
+    army: [BRE, PAR, BUR, MAR, SPA]
+    fleet: [BRE, MAO, SPA-nc]
   locs:
     coast-retreat:
     - [446.341046613029, 1465.6871119149198]
@@ -530,11 +530,11 @@ gas:
   - [503.83146275902595, 1474.5317913219963]
   tiles: [93]
   type: coast
-gre:
+GRE:
   ID: 27
   edges:
-    army: [bul, alb, ser]
-    fleet: [alb, ion, aeg, bul-sc]
+    army: [BUL, ALB, SER]
+    fleet: [ALB, ION, AEG, BUL-sc]
   locs:
     coast-retreat:
     - [1326.3866476171352, 1823.8966279015158]
@@ -554,10 +554,10 @@ gre:
   sc: 1
   tiles: [113]
   type: coast
-hel:
+HEL:
   ID: 28
   edges:
-    fleet: [den, kie, hol, nth]
+    fleet: [DEN, KIE, HOL, NTH]
   locs:
     label:
     - [749.2713163053972, 990.2855937845609]
@@ -570,11 +570,11 @@ hel:
   - [751.4824861571662, 968.1738952668697]
   tiles: [51]
   type: sea
-hol:
+HOL:
   ID: 29
   edges:
-    army: [kie, ruh, bel]
-    fleet: [kie, hel, nth, bel]
+    army: [KIE, RUH, BEL]
+    fleet: [KIE, HEL, NTH, BEL]
   locs:
     coast-retreat:
     - [660.8245222346327, 1098.6329165212474]
@@ -594,10 +594,10 @@ hol:
   sc: 1
   tiles: [66]
   type: coast
-ion:
+ION:
   ID: 30
   edges:
-    fleet: [adr, alb, gre, aeg, eas, tun, tys, nap, apu]
+    fleet: [ADR, ALB, GRE, AEG, EAS, TUN, TYS, NAP, APU]
   locs:
     label:
     - [1167.182418289759, 1888.02055360282]
@@ -610,10 +610,10 @@ ion:
   - [1162.760078586221, 1854.8530058262834]
   tiles: [121]
   type: sea
-iri:
+IRI:
   ID: 31
   edges:
-    fleet: [lvp, wal, eng, mao, nao]
+    fleet: [LVP, WAL, ENG, MAO, NAO]
   locs:
     label:
     - [307.03734595157516, 1100.8440863730166]
@@ -626,11 +626,11 @@ iri:
   - [331.3602143210353, 1103.0552562247856]
   tiles: [55]
   type: sea
-kie:
+KIE:
   ID: 32
   edges:
-    army: [den, ber, mun, ruh, hol]
-    fleet: [ber, bal, den, hel, hol]
+    army: [DEN, BER, MUN, RUH, HOL]
+    fleet: [BER, BAL, DEN, HEL, HOL]
   locs:
     coast-retreat:
     - [782.4388640819338, 1005.7637827469446]
@@ -651,11 +651,11 @@ kie:
   sc: 1
   tiles: [64, 54]
   type: coast
-lon:
+LON:
   ID: 33
   edges:
-    army: [yor, wal]
-    fleet: [yor, nth, eng, wal]
+    army: [YOR, WAL]
+    fleet: [YOR, NTH, ENG, WAL]
   locs:
     coast-retreat:
     - [585.644747274483, 1065.4653687447108]
@@ -675,11 +675,11 @@ lon:
   sc: 1
   tiles: [69]
   type: coast
-lvn:
+LVN:
   ID: 34
   edges:
-    army: [stp, mos, war, pru]
-    fleet: [stp-sc, bot, bal, pru]
+    army: [STP, MOS, WAR, PRU]
+    fleet: [STP-sc, BOT, BAL, PRU]
   locs:
     coast-retreat:
     - [1218.0393248804485, 804.5473262359556]
@@ -696,11 +696,11 @@ lvn:
   - [1282.163250581753, 950.4845364527168]
   tiles: [32]
   type: coast
-lvp:
+LVP:
   ID: 35
   edges:
-    army: [cly, edi, yor, wal]
-    fleet: [wal, iri, nao, cly]
+    army: [CLY, EDI, YOR, WAL]
+    fleet: [WAL, IRI, NAO, CLY]
   locs:
     coast-retreat:
     - [435.28519735418354, 1007.9749525987138]
@@ -720,10 +720,10 @@ lvp:
   sc: 1
   tiles: [48]
   type: coast
-lyo:
+LYO:
   ID: 36
   edges:
-    fleet: [mar, pie, tus, tys, wes, spa-sc]
+    fleet: [MAR, PIE, TUS, TYS, WES, SPA-sc]
   locs:
     label:
     - [678.5138810487856, 1627.102511094065]
@@ -736,10 +736,10 @@ lyo:
   - [691.7809001594003, 1660.2700588706016]
   tiles: [101]
   type: sea
-mao:
+MAO:
   ID: 37
   edges:
-    fleet: [nao, iri, eng, bre, gas, spa-nc, por, spa-sc, wes, naf]
+    fleet: [NAO, IRI, ENG, BRE, GAS, SPA-nc, POR, SPA-sc, WES, NAF]
   locs:
     label:
     - [119.08790855120083, 1337.4392605123112]
@@ -752,11 +752,11 @@ mao:
   - [163.31130558658288, 1306.4828825875438]
   tiles: [71]
   type: sea
-mar:
+MAR:
   ID: 38
   edges:
-    army: [bur, pie, spa, gas]
-    fleet: [spa-sc, lyo, pie]
+    army: [BUR, PIE, SPA, GAS]
+    fleet: [SPA-sc, LYO, PIE]
   locs:
     coast-retreat:
     - [660.8245222346327, 1538.6557170233004]
@@ -776,10 +776,10 @@ mar:
   sc: 1
   tiles: [95]
   type: coast
-mos:
+MOS:
   ID: 39
   edges:
-    army: [stp, sev, ukr, war, lvn]
+    army: [STP, SEV, UKR, WAR, LVN]
   locs:
     label:
     - [1671.329144493116, 857.6154026784143]
@@ -795,10 +795,10 @@ mos:
   sc: 1
   tiles: [27]
   type: land
-mun:
+MUN:
   ID: 40
   edges:
-    army: [kie, ber, sil, boh, tyr, bur, ruh]
+    army: [KIE, BER, SIL, BOH, TYR, BUR, RUH]
   locs:
     label:
     - [873.0968280044674, 1264.4706554039308]
@@ -814,11 +814,11 @@ mun:
   sc: 1
   tiles: [77]
   type: land
-naf:
+NAF:
   ID: 41
   edges:
-    army: [tun]
-    fleet: [mao, wes, tun]
+    army: [TUN]
+    fleet: [MAO, WES, TUN]
   locs:
     coast-retreat:
     - [691.7809001594003, 1857.0641756780524]
@@ -835,10 +835,10 @@ naf:
   - [621.0234649027889, 1918.9769315275876]
   tiles: [150]
   type: coast
-nao:
+NAO:
   ID: 42
   edges:
-    fleet: [nwg, cly, lvp, iri, mao]
+    fleet: [NWG, CLY, LVP, IRI, MAO]
   locs:
     label:
     - [172.15598499365933, 709.4670226098838]
@@ -851,11 +851,11 @@ nao:
   - [181.0006644007358, 791.2803071253409]
   tiles: [2]
   type: sea
-nap:
+NAP:
   ID: 43
   edges:
-    army: [apu, rom]
-    fleet: [rom, tys, ion, apu]
+    army: [APU, ROM]
+    fleet: [ROM, TYS, ION, APU]
   locs:
     coast-retreat:
     - [996.9223397035375, 1689.0152669436]
@@ -875,10 +875,10 @@ nap:
   sc: 1
   tiles: [116]
   type: coast
-nth:
+NTH:
   ID: 44
   edges:
-    fleet: [nwg, nwy, ska, den, hel, hol, bel, eng, lon, yor, edi]
+    fleet: [NWG, NWY, SKA, DEN, HEL, HOL, BEL, ENG, LON, YOR, EDI]
   locs:
     label:
     - [640.9239935687108, 870.882421789029]
@@ -891,10 +891,10 @@ nth:
   - [691.7809001594003, 890.7829504549509]
   tiles: [28]
   type: sea
-nwg:
+NWG:
   ID: 45
   edges:
-    fleet: [bar, nwy, nth, edi, cly, nao]
+    fleet: [BAR, NWY, NTH, EDI, CLY, NAO]
   locs:
     label:
     - [663.0356920864019, 342.4128272162113]
@@ -907,11 +907,11 @@ nwg:
   - [656.4021825310945, 519.3064153577402]
   tiles: [3]
   type: sea
-nwy:
+NWY:
   ID: 46
   edges:
-    army: [stp, fin, swe]
-    fleet: [stp-nc, bar, nwg, nth, ska, swe]
+    army: [STP, FIN, SWE]
+    fleet: [STP-nc, BAR, NWG, NTH, SKA, SWE]
   locs:
     coast-retreat:
     - [808.9729023031632, 775.8021181629572]
@@ -931,10 +931,10 @@ nwy:
   sc: 1
   tiles: [7]
   type: coast
-par:
+PAR:
   ID: 47
   edges:
-    army: [pic, bur, gas, bre]
+    army: [PIC, BUR, GAS, BRE]
   locs:
     label:
     - [579.0112377191756, 1299.8493730322366]
@@ -950,11 +950,11 @@ par:
   sc: 1
   tiles: [85]
   type: land
-pic:
+PIC:
   ID: 48
   edges:
-    army: [bel, bur, par, bre]
-    fleet: [bel, eng, bre]
+    army: [BEL, BUR, PAR, BRE]
+    fleet: [BEL, ENG, BRE]
   locs:
     coast-retreat:
     - [576.8000678674066, 1182.6573708884735]
@@ -971,11 +971,11 @@ pic:
   - [603.334106088636, 1200.3467297026264]
   tiles: [79]
   type: coast
-pie:
+PIE:
   ID: 49
   edges:
-    army: [tyr, ven, tus, mar]
-    fleet: [mar, lyo, tus]
+    army: [TYR, VEN, TUS, MAR]
+    fleet: [MAR, LYO, TUS]
   locs:
     coast-retreat:
     - [793.4947133407793, 1516.5440185056095]
@@ -992,11 +992,11 @@ pie:
   - [824.4510912655469, 1443.5754133972287]
   tiles: [94]
   type: coast
-por:
+POR:
   ID: 50
   edges:
-    army: [spa]
-    fleet: [spa-nc, mao, spa-sc]
+    army: [SPA]
+    fleet: [SPA-nc, MAO, SPA-sc]
   locs:
     coast-retreat:
     - [110.24322914412437, 1706.7046257577529]
@@ -1016,11 +1016,11 @@ por:
   sc: 1
   tiles: [103]
   type: coast
-pru:
+PRU:
   ID: 51
   edges:
-    army: [lvn, war, sil, ber]
-    fleet: [lvn, bal, ber]
+    army: [LVN, WAR, SIL, BER]
+    fleet: [LVN, BAL, BER]
   locs:
     coast-retreat:
     - [1089.79147347784, 943.8510268974096]
@@ -1037,11 +1037,11 @@ pru:
   - [1120.747851402608, 1014.608462154021]
   tiles: [50]
   type: coast
-rom:
+ROM:
   ID: 52
   edges:
-    army: [ven, apu, nap, tus]
-    fleet: [tus, tys, nap]
+    army: [VEN, APU, NAP, TUS]
+    fleet: [TUS, TYS, NAP]
   locs:
     coast-retreat:
     - [928.3760742986951, 1638.1583603529104]
@@ -1061,10 +1061,10 @@ rom:
   sc: 1
   tiles: [108]
   type: coast
-ruh:
+RUH:
   ID: 53
   edges:
-    army: [kie, mun, bur, bel, hol]
+    army: [KIE, MUN, BUR, BEL, HOL]
   locs:
     label:
     - [764.7495052677809, 1202.5578995543956]
@@ -1077,11 +1077,11 @@ ruh:
   - [780.2276942301646, 1198.1355598508574]
   tiles: [72]
   type: land
-rum:
+RUM:
   ID: 54
   edges:
-    army: [ukr, sev, bul, ser, bud, gal]
-    fleet: [bul-ec, bla, sev]
+    army: [UKR, SEV, BUL, SER, BUD, GAL]
+    fleet: [BUL-ec, BLA, SEV]
   locs:
     coast-retreat:
     - [1532.0254438316624, 1432.519564138383]
@@ -1101,10 +1101,10 @@ rum:
   sc: 1
   tiles: [86]
   type: coast
-ser:
+SER:
   ID: 55
   edges:
-    army: [bud, rum, bul, gre, alb, tri]
+    army: [BUD, RUM, BUL, GRE, ALB, TRI]
   locs:
     label:
     - [1251.206872656985, 1518.7551883573785]
@@ -1120,11 +1120,11 @@ ser:
   sc: 1
   tiles: [97]
   type: land
-sev:
+SEV:
   ID: 56
   edges:
-    army: [mos, arm, rum, ukr]
-    fleet: [rum, bla, arm]
+    army: [MOS, ARM, RUM, UKR]
+    fleet: [RUM, BLA, ARM]
   locs:
     coast-retreat:
     - [1737.6642400461897, 1315.3275619946203]
@@ -1145,10 +1145,10 @@ sev:
   sc: 1
   tiles: [68, 89]
   type: coast
-sil:
+SIL:
   ID: 57
   edges:
-    army: [pru, war, gal, boh, mun, ber]
+    army: [PRU, WAR, GAL, BOH, MUN, BER]
   locs:
     label:
     - [1052.2015859977655, 1129.589294446015]
@@ -1161,10 +1161,10 @@ sil:
   - [1069.890944811918, 1138.4339738530914]
   tiles: [70]
   type: land
-ska:
+SKA:
   ID: 58
   edges:
-    fleet: [nwy, swe, den, nth]
+    fleet: [NWY, SWE, DEN, NTH]
   locs:
     label:
     - [848.7739596350073, 802.3361563841866]
@@ -1177,11 +1177,11 @@ ska:
   - [837.7181103761616, 800.1249865324173]
   tiles: [35]
   type: sea
-smy:
+SMY:
   ID: 59
   edges:
-    army: [ank, arm, syr, con]
-    fleet: [con, aeg, eas, syr]
+    army: [ANK, ARM, SYR, CON]
+    fleet: [CON, AEG, EAS, SYR]
   locs:
     coast-retreat:
     - [1613.8387283471193, 1830.5301374568232]
@@ -1201,13 +1201,13 @@ smy:
   sc: 1
   tiles: [115]
   type: coast
-spa:
+SPA:
   ID: 60
   edges:
-    army: [gas, mar, por]
+    army: [GAS, MAR, POR]
     fleet:
-      nc: [gas, mao, por]
-      sc: [por, mao, wes, lyo, mar]
+      nc: [GAS, MAO, POR]
+      sc: [POR, MAO, WES, LYO, MAR]
   locs:
     coast-label:
       nc:
@@ -1238,14 +1238,14 @@ spa:
   sc: 1
   tiles: [99]
   type: coast
-stp:
+STP:
   ID: 61
   dirs: [nc, sc]
   edges:
-    army: [mos, lvn, fin, nwy]
+    army: [MOS, LVN, FIN, NWY]
     fleet:
-      nc: [bar, nwy]
-      sc: [fin, bot, lvn]
+      nc: [BAR, NWY]
+      sc: [FIN, BOT, LVN]
   locs:
     coast-label:
       nc:
@@ -1276,11 +1276,11 @@ stp:
   sc: 1
   tiles: [6]
   type: coast
-swe:
+SWE:
   ID: 62
   edges:
-    army: [fin, den, nwy]
-    fleet: [nwy, ska, den, bal, bot, fin]
+    army: [FIN, DEN, NWY]
+    fleet: [NWY, SKA, DEN, BAL, BOT, FIN]
   locs:
     coast-retreat:
     - [1027.878717628305, 764.7462689041115]
@@ -1300,11 +1300,11 @@ swe:
   sc: 1
   tiles: [15]
   type: coast
-syr:
+SYR:
   ID: 63
   edges:
-    army: [arm, smy]
-    fleet: [smy, eas]
+    army: [ARM, SMY]
+    fleet: [SMY, EAS]
   locs:
     coast-retreat:
     - [1777.4652973780335, 1923.3992712311258]
@@ -1321,11 +1321,11 @@ syr:
   - [1903.5019789288726, 1905.7099124169729]
   tiles: [146]
   type: coast
-tri:
+TRI:
   ID: 64
   edges:
-    army: [vie, bud, ser, alb, ven, tyr]
-    fleet: [ven, adr, alb]
+    army: [VIE, BUD, SER, ALB, VEN, TYR]
+    fleet: [VEN, ADR, ALB]
   locs:
     coast-retreat:
     - [1076.5244543672256, 1543.0780567268387]
@@ -1345,11 +1345,11 @@ tri:
   sc: 1
   tiles: [91]
   type: coast
-tun:
+TUN:
   ID: 65
   edges:
-    army: [naf]
-    fleet: [naf, wes, tys, ion]
+    army: [NAF]
+    fleet: [NAF, WES, TYS, ION]
   locs:
     coast-retreat:
     - [875.3079978562364, 1930.0327807864332]
@@ -1369,11 +1369,11 @@ tun:
   sc: 1
   tiles: [149]
   type: coast
-tus:
+TUS:
   ID: 66
   edges:
-    army: [ven, rom, pie]
-    fleet: [pie, lyo, tys, rom]
+    army: [VEN, ROM, PIE]
+    fleet: [PIE, LYO, TYS, ROM]
   locs:
     coast-retreat:
     - [844.351619931469, 1556.3450758374534]
@@ -1390,10 +1390,10 @@ tus:
   - [884.1526772633129, 1527.5998677644548]
   tiles: [100]
   type: coast
-tyr:
+TYR:
   ID: 67
   edges:
-    army: [mun, boh, vie, tri, ven, pie]
+    army: [MUN, BOH, VIE, TRI, VEN, PIE]
   locs:
     label:
     - [990.2888301482303, 1319.7499016981585]
@@ -1406,10 +1406,10 @@ tyr:
   - [981.4441507411539, 1333.0169208087732]
   tiles: [87]
   type: land
-tys:
+TYS:
   ID: 68
   edges:
-    fleet: [tus, rom, nap, ion, tun, wes, lyo]
+    fleet: [TUS, ROM, NAP, ION, TUN, WES, LYO]
   locs:
     label:
     - [908.4755456327732, 1728.816324275444]
@@ -1422,10 +1422,10 @@ tys:
   - [890.7861868186203, 1713.3381353130603]
   tiles: [106]
   type: sea
-ukr:
+UKR:
   ID: 69
   edges:
-    army: [mos, sev, rum, gal, war]
+    army: [MOS, SEV, RUM, GAL, WAR]
   locs:
     label:
     - [1445.789819612667, 1153.912162815475]
@@ -1438,11 +1438,11 @@ ukr:
   - [1450.212159316205, 1193.7132201473191]
   tiles: [67]
   type: land
-ven:
+VEN:
   ID: 70
   edges:
-    army: [tyr, tri, apu, rom, tus, pie]
-    fleet: [apu, adr, tri]
+    army: [TYR, TRI, APU, ROM, TUS, PIE]
+    fleet: [APU, ADR, TRI]
   locs:
     coast-retreat:
     - [963.099732858415, 1524.7502226179877]
@@ -1462,10 +1462,10 @@ ven:
   sc: 1
   tiles: [92]
   type: coast
-vie:
+VIE:
   ID: 71
   edges:
-    army: [gal, bud, tri, tyr, boh]
+    army: [GAL, BUD, TRI, TYR, BOH]
   locs:
     label:
     - [1120.747851402608, 1284.3711840698527]
@@ -1481,11 +1481,11 @@ vie:
   sc: 1
   tiles: [82]
   type: land
-wal:
+WAL:
   ID: 72
   edges:
-    army: [lvp, yor, lon]
-    fleet: [lon, eng, iri, lvp]
+    army: [LVP, YOR, LON]
+    fleet: [LON, ENG, IRI, LVP]
   locs:
     coast-retreat:
     - [426.4405179471071, 1142.8563135566296]
@@ -1502,10 +1502,10 @@ wal:
   - [461.8192355754129, 1089.788237114171]
   tiles: [65]
   type: coast
-war:
+WAR:
   ID: 73
   edges:
-    army: [lvn, mos, ukr, gal, sil, pru]
+    army: [LVN, MOS, UKR, GAL, SIL, PRU]
   locs:
     label:
     - [1240.1510233981398, 1094.2105768177091]
@@ -1521,10 +1521,10 @@ war:
   sc: 1
   tiles: [62]
   type: land
-wes:
+WES:
   ID: 74
   edges:
-    fleet: [lyo, tys, tun, naf, mao, spa-sc]
+    fleet: [LYO, TYS, TUN, NAF, MAO, SPA-sc]
   locs:
     label:
     - [594.4894266815595, 1790.7290801249792]
@@ -1537,11 +1537,11 @@ wes:
   - [632.0793141616343, 1761.9838720519806]
   tiles: [127]
   type: sea
-yor:
+YOR:
   ID: 75
   edges:
-    army: [edi, lon, wal, lvp]
-    fleet: [edi, nth, lon]
+    army: [EDI, LON, WAL, LVP]
+    fleet: [EDI, NTH, LON]
   locs:
     coast-retreat:
     - [556.8995392014847, 1019.0308018575594]

@@ -61,6 +61,13 @@ class DiplomacyBot(Versioned, DiscordBot):
 		self._load_bot_data(self.bot_data_path)
 		
 	
+	@as_command('reload', brief='(admind) Reload state and orders from files')
+	async def on_reload(self, ctx, name=None):
+		print('Reloading state and orders')
+		self.manager.load_status(name=name)
+		await ctx.send(f'Loaded **{self.manager.format_date()}**')
+	
+	
 	@staticmethod
 	def _find_discord_objects(base, options, silent=False):
 		missing = []
@@ -132,116 +139,159 @@ class DiplomacyBot(Versioned, DiscordBot):
 		print('\n'.join(lines))
 		await self._batched_send(ctx, lines)
 		
+	_magic_stop_scan_char = '\u2800' # used to prevent the scanning from reusing past orders
 	
-	# @as_command('find-orders', brief='(admin) Checks orders channel of players for new orders')
-	async def on_find_orders(self, ctx):
+	@as_command('scan-orders', brief='(admin) Checks orders channel of players for new orders')
+	async def on_find_orders(self, ctx, limit=100):
 		if self._insufficient_permissions(ctx.author):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 			return
 		
-		raise NotImplementedError
-	
-	# @as_command('designate-channel', brief='(admin) Designate a channel for a player to submit orders')
-	async def on_designate_channel(self, ctx, channel, player, force=False):
-		if self._insufficient_permissions(ctx.author):
-			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
-			return
+		lines = []
 		
-		if len(ctx.message.channel_mentions):
-			channel = ctx.message.channel_mentions[0]
+		itr = tqdm(self.player_channels.items())
+		for channel, player in itr:
+			itr.set_description(f'Scanning {channel.name} for {player}')
+			messages = []
+			for message in await channel.history(limit=limit).flatten():
+				if self._magic_stop_scan_char in message.clean_content:
+					break
+				messages.append(message)
+				
+			included = []
+			total = 0
+			
+			for message in reversed(messages):
+				if message.clean_content.startswith('.order') and self._to_player(message.author) == player:
+					raw = message.clean_content.replace('.order', '\n')
+					results = self._register_orders(player, raw.splitlines())
+					
+					num = int(results[0].split('Recorded ')[-1].split(' action')[0])
+					total += num
+					included.extend(results[1:])
+				
+				if self._magic_stop_scan_char in message.clean_content:
+					break
+
+			lines.append(f'Found {total} actions in {channel.mention} ({player}).')
+			lines.extend(included)
+			included = [f'Recorded {total} actions for {player}.', *included]
+			included[-1] = included[-1] + self._magic_stop_scan_char
+			await self._batched_send(channel, included)
+			
+		
+		if len(lines):
+			if ctx not in self.player_channels:
+				await self._batched_send(ctx, lines)
 		else:
-			await ctx.send(f'Channel "{channel}" not found (mention an existing channel)')
-			return
+			await ctx.send('No new orders found in ' + ', '.join(f'{channel.mention}'
+			                                                     for channel in self.player_channels))
+			
+	
+	def _designate_mentions(self, mentions, player, table, persistent, force=False):
+		lines = []
+		for ref in mentions:
+			if ref in table and not force:
+				lines.append(
+					f'{ref.mention} is already used by {table[ref]} (use force to replace)')
+			# return
+			else:
+				table[ref] = player
+				persistent[str(ref)] = player
+				lines.append(f'{ref.mention} is now associated with {player}.')
 		
+		self._store_bot_data()
+		return lines
+		
+	
+	@as_command('designate-channel', brief='(admin) Designate a channel for a player to submit orders')
+	async def on_designate_channel(self, ctx, player, *channels, force=False):
+		if self._insufficient_permissions(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+			return
+
 		if player not in self.manager.state['players']:
 			await ctx.send(f'Unknown player: {player}')
 			return
 		
-		if channel in self.player_channels and not force:
-			await ctx.send(f'{channel.mention} is already used by {self.player_channels[channel]} (use force to replace)')
-			return
-		
-		raise NotImplementedError
-		
-		self.player_channels[channel] = player
-		self.persistent['channels'][str(channel)] = player
-		self._store_bot_data()
-		await ctx.send(f'{channel.mention} is used by {player}.')
+		lines = self._designate_mentions(ctx.message.channel_mentions, player,
+		                                 self.player_channels, self.persistent['channels'], force=force)
+		await self._batched_send(ctx, lines)
 		
 	
 	@as_command('designate-player', brief='(admin) Designate a user for a player')
-	async def on_designate_player(self, ctx, user, player, force=False):
+	async def on_designate_player(self, ctx, player, *users, force=False):
 		if self._insufficient_permissions(ctx.author):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 			return
 		
-		if len(ctx.message.mentions):
-			user = ctx.message.mentions[0]
-		else:
-			await ctx.send(f'User "{user}" not found (mention an existing member)')
-			return
-
 		if player not in self.manager.state['players']:
 			await ctx.send(f'Unknown player: {player}')
 			return
 		
-		if user in self.player_users and not force:
-			await ctx.send(f'{user.mention} is already playing {self.player_users[user]} (use force to replace)')
-			return
+		lines = self._designate_mentions(ctx.message.mentions, player,
+		                                 self.player_users, self.persistent['players'], force=force)
+		await self._batched_send(ctx, lines)
 		
-		self.player_users[user] = player
-		self.persistent['players'][str(user)] = player
-		self._store_bot_data()
-		await ctx.send(f'{user.mention} is now playing {player}.')
-	
 	
 	@as_command('designate-role', brief='(admin) Designate a role for a player')
-	async def on_designate_role(self, ctx, role, player, force=False):
+	async def on_designate_role(self, ctx, player, *roles, force=False):
 		if self._insufficient_permissions(ctx.author):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
-			return
-		
-		if len(ctx.message.role_mentions):
-			role = ctx.message.role_mentions[0]
-		else:
-			await ctx.send(f'Role "{role}" not found (mention an existing role)')
 			return
 		
 		if player not in self.manager.state['players']:
 			await ctx.send(f'Unknown player: {player}')
 			return
 		
-		if role in self.player_roles and not force:
-			await ctx.send(f'{role.mention} is already used for {self.player_roles[role]} (use force to replace)')
-			return
-		
-		self.player_roles[role] = player
-		self.persistent['roles'][str(role)] = player
-		self._store_bot_data()
-		await ctx.send(f'{role.mention} is now designated for {player}.')
+		lines = self._designate_mentions(ctx.message.role_mentions, player,
+		                                 self.player_roles, self.persistent['roles'], force=force)
+		await self._batched_send(ctx, lines)
 	
 	
-	@as_command('status', brief='Prints out the current season and number of missing commands')
+	@as_command('status', brief='Prints out the current season and missing orders')
 	async def on_status(self, ctx):
-		status = self.manager.get_status()
-		if self._insufficient_permissions(ctx.author):
-			user = str(ctx.author)
-			if user in self.users and self.users[user] in status:
-				await ctx.send(f'Missing {status[self.users[user]]}/{self.manager.units[self.users[user]]} commands.')
-			else:
-				await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+		player = self._to_player(ctx.author)
+		if player is None and not self._is_admin(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 			return
 
-		await ctx.send(f'Current turn: **{self.manager.format_date()}**')
-		await ctx.send(f'Missing {sum(num for num in status.values())} commands.')
-		return status
+		status = self.manager.get_missing()
+		missing = {player: abs(missing) if isinstance(missing, int)
+			             else (len(missing) if isinstance(missing, list)
+			                   else sum(map(len, missing.values())))
+			             for player, missing in status.items()}
+		
+		lines = [f'Current turn: **{self.manager.format_date()}**']
+		
+		if player is None:
+			lines.append(f'Missing {sum(missing.values())} orders.')
+		elif missing.get(player):
+			lines.append(f'You ({player}) are missing {missing[player]} orders.')
+			todo = status[player]
+			if isinstance(todo, int):
+				lines.append(' '.join([abs(todo), 'disbands' if todo < 0 else 'builds']))
+			elif isinstance(todo, list):
+				lines.append('Units: ' + ', '.join(todo))
+			else:
+				clauses = []
+				if 'retreats' in todo:
+					clauses.append('Retreats: ' + ', '.join(todo['retreats']))
+				if 'disbands' in todo:
+					clauses.append('Disbands: ' + ', '.join(todo['disbands']))
+				lines.append('. '.join(clauses))
+		else:
+			lines.append(f'You ({player}) have submitted all orders.')
+		
+		await self._batched_send(ctx, lines)
+		
 	
 	@as_command('season', brief='Prints out the current season')
 	async def on_season(self, ctx):
 		await ctx.send(f'Current turn: **{self.manager.format_date()}**')
 	
 	
-	@as_command('missing', brief='(admin) Prints out the number of missing commands per nation')
+	@as_command('missing', brief='(admin) Prints out missing orders for all players')
 	async def on_fullstatus(self, ctx):
 		status = self.manager.get_status()
 		if not self._insufficient_permissions(ctx.author):
@@ -250,6 +300,7 @@ class DiplomacyBot(Versioned, DiscordBot):
 			               + '```')
 			# await ctx.send('\n'.join(f'{player}: {num}' for player, num in status.items()))
 		return status
+
 
 	@as_command('order-format', brief='(admin) Print out format for orders')
 	async def on_order_format(self, ctx):
@@ -262,65 +313,6 @@ class DiplomacyBot(Versioned, DiscordBot):
 		await self._batched_send(ctx, lines)
 		
 
-	@as_command('region', brief='Prints out info about a specific territory')
-	async def on_region(self, ctx, name=None):
-		
-		info = self.manager.check_region(name)
-		
-		if info is None:
-			await ctx.send('You must provide a valid region name to check.')
-			return
-	
-		
-		node = info['node']
-		
-		lines = [''.join(['__', '{base}'.format(**info) + '*'*node.get('sc', 0), '__'])]
-		
-		if 'home' in info:
-			home = 'Home of {home}'.format(**info)
-			if 'capital' in info:
-				home += ' (capital)'
-			lines.append(home)
-		
-		if 'control' in info:
-			owner = 'Controlled by **{control}**'.format(**info)
-			lines.append(owner)
-		
-		if 'disband' in info:
-			coast = self.manager.gamemap.decode_region_name(info['disband']['loc'])[1]
-			unit = '{demo} *{utype}*'.format(
-				demo=self.manager.get_demonym(info['disband']['player']),
-				utype=info['disband']['type'])
-			if isinstance(coast, str):
-				unit += f' ({coast})'
-			unit += ' disbanding'
-			lines.append(unit)
-		
-		if 'retreat' in info:
-			coast = self.manager.gamemap.decode_region_name(info['retreat']['loc'])[1]
-			unit = '{demo} *{utype}*'.format(
-				demo=self.manager.get_demonym(info['retreat']['player']),
-				utype=info['retreat']['type'])
-			if isinstance(coast, str):
-				unit += f' ({coast})'
-			unit += ' in retreat'
-			lines.append(unit)
-		
-		if 'unit' in info:
-			coast = self.manager.gamemap.decode_region_name(info['unit']['loc'])[1]
-			unit = 'Occupied by: **{demo}** *{utype}*'.format(
-				demo=self.manager.get_demonym(info['unit']['player']),
-				utype=info['unit']['type'])
-			if isinstance(coast, str):
-				unit += f' ({coast})'
-			lines.append(unit)
-		else:
-			lines.append('- Not occupied -')
-		
-		await self._batched_send(ctx, lines)
-		
-	
-
 	@as_command('step', brief='(admin) Adjudicates current season and updates game state')
 	async def on_step(self, ctx):
 		if self._insufficient_permissions(ctx.author):
@@ -329,8 +321,30 @@ class DiplomacyBot(Versioned, DiscordBot):
 		old = self.manager.format_date()
 		print(f'Adjudicating: {self.manager.format_date()}')
 		self.manager.take_step(True)
-		await ctx.send(f'Finished adjudicating {old}.')
-		await ctx.send(f'Current turn: **{self.manager.format_date()}**')
+		
+		msg = f'Finished adjudicating {old}.{self._magic_stop_scan_char}\n'\
+		      f'Current turn: **{self.manager.format_date()}**'
+		
+		for channel in self.player_channels:
+			if channel != ctx.channel:
+				await channel.send(msg)
+		await ctx.send(msg)
+		
+	
+	@as_command('prompt', brief='(admin) Prompt all player channels to submit orders')
+	async def on_prompt(self, ctx, deadline=None, ignore_above=False):
+		
+		lines = [f'Current turn: **{self.manager.format_date()}**']
+		
+		if deadline is not None:
+			lines.append(f'You have {deadline} to submit all your orders.')
+		
+		if ignore_above:
+			lines.append(f'(note any orders above this message will be ignored, '
+			             f'unless they have already been recorded by me){self._magic_stop_scan_char}')
+		
+		for channel in self.player_channels:
+			await self._batched_send(channel, lines)
 		
 	
 	@as_command('render-state', brief='(admin) Renders game map and state')
@@ -422,6 +436,25 @@ class DiplomacyBot(Versioned, DiscordBot):
 				num += len(actions)
 		await ctx.send(f'Generated {num} actions for all players.')
 		
+		
+	def _register_orders(self, player, lines):
+		results = []
+		num = 0
+		for line in lines:
+			line = line.strip()
+			if len(line):
+				try:
+					action = self.manager.record_action(player, line)
+				except ParsingFailedError as e:
+					results.append(f'"{line}" failed with {type(e).__name__}: {str(e)}')
+					print(traceback.format_exc())
+				# raise e
+				else:
+					num += 1
+					results.append(f'{self.manager.format_action(player, action)}')
+		
+		return [f'Recorded {num} actions for {player}:', *results]
+		
 	
 	@as_command('set-order', brief='(admin) Submit orders for a given player (1 per line)')
 	async def on_set_order(self, ctx, player, *, lines):
@@ -433,24 +466,65 @@ class DiplomacyBot(Versioned, DiscordBot):
 			await ctx.send(f'Unknown player: {player}')
 			return
 		
-		results = []
-		num = 0
-		for line in lines.splitlines():
-			line = line.strip()
-			if len(line):
-				try:
-					action = self.manager.record_action(player, line)
-				except ParsingFailedError as e:
-					results.append(f'"{line}" failed with {type(e).__name__}: {str(e)}')
-					print(traceback.format_exc())
-					# raise e
-				else:
-					num += 1
-					results.append(f'{self.manager.format_action(player, action)}')
+		await self._batched_send(ctx, self._register_orders(player, lines.splitlines()))
+	
+	
+	@as_command('region', brief='Prints out info about a specific territory')
+	async def on_region(self, ctx, name=None):
 		
-		results = [f'Recorded {num} action/s for {player}:', *results]
-		await self._batched_send(ctx, results)
+		info = self.manager.check_region(name)
 		
+		if info is None:
+			await ctx.send('You must provide a valid region name to check.')
+			return
+		
+		node = info['node']
+		
+		lines = [''.join(['__', '{base}'.format(**info) + '*' * node.get('sc', 0), '__'])]
+		
+		if 'home' in info:
+			home = 'Home of {home}'.format(**info)
+			if 'capital' in info:
+				home += ' (capital)'
+			lines.append(home)
+		
+		if 'control' in info:
+			owner = 'Controlled by **{control}**'.format(**info)
+			lines.append(owner)
+		
+		if 'disband' in info:
+			coast = self.manager.gamemap.decode_region_name(info['disband']['loc'])[1]
+			unit = '{demo} {utype}'.format(
+				demo=self.manager.get_demonym(info['disband']['player']),
+				utype=info['disband']['type'])
+			if isinstance(coast, str):
+				unit += f' ({coast})'
+			unit += ' disbanding'
+			lines.append(unit)
+		
+		if 'retreat' in info:
+			coast = self.manager.gamemap.decode_region_name(info['retreat']['loc'])[1]
+			unit = '{demo} {utype}'.format(
+				demo=self.manager.get_demonym(info['retreat']['player']),
+				utype=info['retreat']['type'])
+			if isinstance(coast, str):
+				unit += f' ({coast})'
+			unit += ' in retreat'
+			lines.append(unit)
+		
+		if 'unit' in info:
+			coast = self.manager.gamemap.decode_region_name(info['unit']['loc'])[1]
+			unit = 'Occupied by: **{demo}** {utype}'.format(
+				demo=self.manager.get_demonym(info['unit']['player']),
+				utype=info['unit']['type'])
+			if isinstance(coast, str):
+				unit += f' ({coast})'
+			lines.append(unit)
+		else:
+			lines.append('- Not occupied -')
+		
+		await self._batched_send(ctx, lines)
+	
 	
 	def _to_player(self, member):
 		if member in self.player_users:
@@ -458,6 +532,16 @@ class DiplomacyBot(Versioned, DiscordBot):
 		for role in member.roles:
 			if role in self.player_roles:
 				return self.player_roles[role]
+
+	@as_command('ping', brief='Pings the bot')
+	async def on_ping(self, ctx):
+		msg = [f'Hello, {ctx.author.display_name}']
+		player = self._to_player(ctx.author)
+		if player is not None:
+			msg.append(f'{player}')
+		if self._is_admin(ctx.author):
+			msg.append('(admin)')
+		await ctx.send(' '.join(msg))
 
 
 	@as_command('order', brief='(player) Submit order/s (1 per line)')
@@ -467,5 +551,15 @@ class DiplomacyBot(Versioned, DiscordBot):
 			await ctx.send(f'{ctx.author.display_name} is not a player (admins should use `.set-order`).')
 			return
 
-		await self.on_set_order(ctx, player, lines=lines)
+		await self._batched_send(ctx, self._register_orders(player, lines.splitlines()))
 		
+
+	# @as_command('missing', brief='(player) Prints out the missing')
+	# async def on_fullstatus(self, ctx):
+	# 	status = self.manager.get_status()
+	# 	if not self._insufficient_permissions(ctx.author):
+	# 		await ctx.send('```' + tabulate(sorted(status.items(), key=lambda x: (-x[1], x[0])),
+	# 		                                headers=['Nation', 'Missing'])
+	# 		               + '```')
+	# 		# await ctx.send('\n'.join(f'{player}: {num}' for player, num in status.items()))
+	# 	return status

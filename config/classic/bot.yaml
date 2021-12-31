@@ -6,6 +6,7 @@ assets-path: assets/classic
 
 client._type: diplomacy-bot
 
+year-offset: 1900
 
 manager:
   _type: diplo-manager

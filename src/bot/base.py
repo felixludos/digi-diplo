@@ -57,15 +57,20 @@ class DiscordBot(OmniBot):
 		
 		self._server_name = servername
 	
-	@staticmethod
-	async def _batched_send(ctx, lines):
+	_char_limit = 1500
+	
+	@classmethod
+	async def _batched_send(cls, ctx, lines, char_lim=None):
+		
+		if char_lim is None:
+			char_lim = cls._char_limit
 		
 		def _group_lines():
 			total = 0
 			batch = []
 			for line in lines:
 				total += len(line)
-				if total > (1900 - len(batch)):
+				if total > (char_lim - len(batch)):
 					yield batch
 					batch.clear()
 					total = 0
@@ -84,10 +89,10 @@ class DiscordBot(OmniBot):
 		return not self._is_admin(user)
 	
 	
-	@as_command('ping', brief='Pings the bot')
-	async def on_ping(self, ctx):
-		role = ' (admin)' if self._is_admin(ctx.author) else ''
-		await ctx.send(f'Hello, {ctx.author.display_name}{role}')
+	# @as_command('ping', brief='Pings the bot')
+	# async def on_ping(self, ctx):
+	# 	role = ' (admin)' if self._is_admin(ctx.author) else ''
+	# 	await ctx.send(f'Hello, {ctx.author.display_name}{role}')
 	
 	
 	async def on_ready(self):

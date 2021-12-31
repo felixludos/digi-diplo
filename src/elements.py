@@ -683,7 +683,7 @@ class DashCoast(DiploMap):
 		if coast is None:
 			name, coast = cls.decode_region_name(name)
 		
-		if coast is not None and coast in {'nc', 'sc', 'wc', 'ec'}:
+		if coast is not None and coast in {'nc', 'sc', 'wc', 'ec', 'NC', 'SC', 'WC', 'EC'}:
 			return f'{name}-{coast}'
 		elif coast:
 			return f'{name}-c'
@@ -693,7 +693,8 @@ class DashCoast(DiploMap):
 		
 		return name
 	
-	_coast_decoder = {'-nc': 'nc', '-sc': 'sc', '-wc': 'wc', '-ec': 'ec'}
+	_coast_decoder = {'-nc': 'nc', '-sc': 'sc', '-wc': 'wc', '-ec': 'ec',
+	                  '-NC': 'nc', '-SC': 'sc', '-WC': 'wc', '-EC': 'ec'}
 	
 	@classmethod
 	def decode_region_name(cls, name=None, allow_dir=None):
@@ -706,7 +707,7 @@ class DashCoast(DiploMap):
 				return name, cls._coast_decoder[end]
 			return name[:-3], cls._coast_decoder[end]
 		
-		if name.endswith('-c'):
+		if name.endswith('-c') or name.endswith('-C'):
 			return name[:-2], True
 		return name, None
 

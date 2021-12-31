@@ -13,7 +13,7 @@ _wd_version = (1,1)
 
 @fig.Component('wd-manager')
 class WD_Manager(DiplomacyManager):
-	__version__ = _wd_version
+	__version__ = (1,2)
 	def format_action(self, player, terms):
 		unit = 'A' if terms.get('unit') == 'army' else 'F'
 		
@@ -276,7 +276,7 @@ class WD_Pixel_Rendering(WD_Rendering):
 
 @fig.Component('wd-map')
 class WD_Map(DashCoast, DiploMap):
-	__version__ = _wd_version
+	__version__ = (1,2)
 	def generate_initial_state(self):
 		state = super().generate_initial_state()
 		
@@ -321,6 +321,11 @@ class WD_Map(DashCoast, DiploMap):
 				partial[loc] = player
 		new = super().step(state, actions, **kwargs)
 		
+		for player, acts in actions.items():
+			for action in acts:
+				if action['loc'] in cores or action['loc'] in capcores:
+					action['type'] = 'core'
+		
 		for player, info in new['players'].items():
 			if 'capital' in state['players'][player]:
 				info['capital'] = state['players'][player]['capital']
@@ -340,47 +345,3 @@ class WD_Map(DashCoast, DiploMap):
 	# def _special_rules(self, state, actions, unknown, new):
 	# 	pass
 
-
-
-# _sc_pattern = np.array([
-# 	[0, 0, 0, 0, 0, 0],
-# 	[0, 1, 1, 1, 1, 0],
-# 	[0, 1, 0, 0, 1, 0],
-# 	[0, 1, 0, 0, 1, 0],
-# 	[0, 1, 1, 1, 1, 0],
-# 	[0, 0, 0, 0, 0, 0]
-# ])
-# _capital_pattern = np.array([
-# 	[1, 1, 1, 0, 0, 1, 1, 1],
-# 	[1, 0, 0, 0, 0, 0, 0, 1],
-# 	[1, 0, 1, 1, 1, 1, 0, 1],
-# 	[0, 0, 1, 0, 0, 1, 0, 0],
-# 	[0, 0, 1, 0, 0, 1, 0, 0],
-# 	[1, 0, 1, 1, 1, 1, 0, 1],
-# 	[1, 0, 0, 0, 0, 0, 0, 1],
-# 	[1, 1, 1, 0, 0, 1, 1, 1],
-# ])
-# _fleet_pattern = np.array([
-# 	[0, 0, 0, 0, 0, 0, ],
-# 	[0, 1, 1, 1, 1, 0, ],
-# 	[0, 1, 1, 0, 1, 0, ],
-# 	[0, 1, 0, 1, 1, 0, ],
-# 	[0, 1, 0, 0, 1, 0, ],
-# 	[0, 1, 0, 1, 1, 0, ],
-# 	[0, 1, 0, 1, 1, 0, ],
-# 	[0, 1, 1, 1, 1, 0, ],
-# 	[0, 0, 0, 0, 0, 0, ],
-# 	[2, 0, 0, 0, 0, 0, ],
-# ])
-# _army_pattern = np.array([
-# 	[0, 0, 0, 0, 0, 0, 0, ],
-# 	[0, 1, 1, 1, 1, 1, 0, ],
-# 	[0, 1, 1, 0, 1, 1, 0, ],
-# 	[0, 1, 0, 1, 0, 1, 0, ],
-# 	[0, 1, 0, 0, 0, 1, 0, ],
-# 	[0, 1, 0, 1, 0, 1, 0, ],
-# 	[0, 1, 0, 1, 0, 1, 0, ],
-# 	[0, 1, 1, 1, 1, 1, 0, ],
-# 	[0, 0, 0, 0, 0, 0, 0, ],
-# 	[2, 0, 0, 0, 0, 0, 0, ],
-# ])

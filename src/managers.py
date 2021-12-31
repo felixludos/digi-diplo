@@ -82,6 +82,8 @@ class DiplomacyManager(Versioned):
 		
 		self.current_state = None
 		
+		self.year_offset = A.pull('year-offset', None)
+		
 		
 	@staticmethod
 	def _find_root(A, root=unspecified_argument):
@@ -110,12 +112,14 @@ class DiplomacyManager(Versioned):
 		return root
 		
 		
-	def load_status(self):
+	def load_status(self, name=None, path=None):
 		self.graph = load_yaml(self.graph_path)
 		self._get_base_region = {f'{base}-{coast}':base for base, node in self.graph.items()
 		                         if 'fleet' in node['edges'] and isinstance(node['edges']['fleet'], dict)
 		                         for coast in node['edges']['fleet']}
 		self._get_base_region.update({base: base for base in self.graph})
+		self._get_base_region.update({f'{base}-c': base for base, node in self.graph.items()
+		                              if 'fleet' in node['edges'] and 'army' in node['edges']})
 		self._get_base_region.update({base.lower(): val for base, val in self._get_base_region.items()})
 		self._get_region = {f'{base}-{coast}': f'{base}-{coast}' for base, node in self.graph.items()
 		                         if 'fleet' in node['edges'] and isinstance(node['edges']['fleet'], dict)
@@ -129,8 +133,17 @@ class DiplomacyManager(Versioned):
 		if len(bad_names):
 			raise BadNamesError(bad_names)
 		
-		self.set_state(self._find_latest_state(self.states_root))
+		if name is not None:
+			if not name.endswith('.yaml'):
+				name = f'{name}.yaml'
+			path = self.state_root / name
+		
+		if path is not None and path.exists():
+			self.set_state(load_yaml(path))
+		else:
+			self.set_state(self._find_latest_state(self.states_root))
 		print(f'Loaded state: {self.time}')
+		return self.time
 		
 		
 	def set_state(self, state):
@@ -152,9 +165,18 @@ class DiplomacyManager(Versioned):
 	def get_demonym(self, player):
 		return self.gamemap.player_info.get(player, {}).get('demonym', player)
 	
-	def check_region(self, loc):
+	def check_region(self, name):
 		try:
-			base, coast = self.gamemap.decode_region_name(loc)
+			for loc in [name.upper(), name.lower(), name.capitalize()]:
+				
+				try:
+					base, coast = self.gamemap.decode_region_name(loc)
+				except LocationError:
+					pass
+				else:
+					break
+			else:
+				base, coast = self.gamemap.decode_region_name(name)
 		except LocationError:
 			return
 		else:
@@ -171,12 +193,12 @@ class DiplomacyManager(Versioned):
 				if base in info.get('control', []):
 					region['control'] = player
 				for unit in info.get('units', []):
-					if unit['loc'] == loc or unit['loc'] == base:
+					if self._to_base_region(unit['loc']) == base:
 						units.append({'player': player, **unit})
 			
 			for player, info in self.state.get('disbands', {}).items():
 				for unit in info:
-					if unit['loc'] == loc or unit['loc'] == base:
+					if self._to_base_region(unit['loc']) == base:
 						region['disband'] = {'player': player, **unit}
 						break
 			
@@ -218,7 +240,10 @@ class DiplomacyManager(Versioned):
 	def format_date(self):
 		rmsg = ' (retreats)' if self.retreat else ''
 		season = {1:'Spring', 2: 'Fall', 3: 'Winter'}
-		return f'Year {self.year} {season.get(self.season, self.season)}{rmsg}'
+		
+		year = str(self.year + self.year_offset) if self.year_offset is not None else f'Year {self.year}'
+		
+		return f'{year} {season.get(self.season, self.season)}{rmsg}'
 	
 	def _get_action_path(self):
 		return self.actions_root / f'{self.time}.yaml'
@@ -275,6 +300,42 @@ class DiplomacyManager(Versioned):
 		           for player, num in reqs.items()}
 		
 		return {player: num for player, num in missing.items() if num > 0}
+	
+	
+	def get_missing(self):
+		if self.season == 3:
+			reqs = {player: (delta//abs(delta)) * (abs(delta)-len(self.actions.get(player, {})))
+			        for player, delta in self.state.get('adjustments', {}).items()
+			        if delta != 0 and abs(delta)-len(self.actions.get(player, {}))}
+		elif self.retreat:
+			reqs = {}
+			for player, units in self.state.get('disbands', {}).items():
+				for unit in units:
+					base = self._to_base_region(unit['loc'])
+					if base not in self.actions.get(player, {}):
+						if player not in reqs:
+							reqs[player] = {}
+						if 'disbands' not in reqs[player]:
+							reqs[player]['disbands'] = []
+						reqs[player]['disbands'].append(unit['loc'])
+			
+			for player, retreats in self.state.get('retreats', {}).items():
+				for loc in retreats:
+					base = self._to_base_region(loc)
+					if base not in self.actions.get(player, {}):
+						if player not in reqs:
+							reqs[player] = {}
+						if 'retreats' not in reqs[player]:
+							reqs[player]['retreats'] = []
+						reqs[player]['retreats'].append(loc.split('-c')[0])
+			
+		else:
+			reqs = {player: [unit['loc'] for base, unit in units.items() if base not in self.actions.get(player, {})]
+			        for player, units in self.units.items()}
+			reqs = {player: sorted(locs) for player, locs in reqs.items() if len(locs)}
+		
+		return reqs
+	
 	
 	
 	def _unformat_actions(self, actions):

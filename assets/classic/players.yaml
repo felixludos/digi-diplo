@@ -1,147 +1,78 @@
-
-England:
-
-  name: England
-  demonym: English
-
-  territory: [cly, edi, lvp, yor, wal, lon]
-  home: [lon, edi, lvp]
-  capital: lon
-
-  color: '#4477AA'
-#  color: "#7C5599"
-
-  units:
-    - type: fleet
-      loc: edi
-    - type: fleet
-      loc: lon
-    - type: army
-      loc: lvp
-
-
-France:
-
-  name: France
-  demonym: French
-
-  territory: [pic, bre, par, bur, gas, mar]
-  home: [par, mar, bre]
-  capital: par
-
-  color: '#66ccee'
-#  color: "#008099"
-
-  units:
-    - type: fleet
-      loc: bre
-    - type: army
-      loc: mar
-    - type: army
-      loc: par
-
-Germany:
-
-  name: Germany
-  demonym: German
-
-  territory: [kie, ber, ruh, mun, pru, sil]
-  home: [ber, kie, mun]
-  capital: ber
-
-  color: '#bbbbbb'
-#  color: "#728699"
-
-  units:
-    - type: fleet
-      loc: kie
-    - type: army
-      loc: ber
-    - type: army
-      loc: mun
-
-
-Italy:
-
-  name: Italy
-  demonym: Italian
-
-  territory: [pie, ven, tus, rom, apu, nap]
-  home: [rom, nap, ven]
-  capital: rom
-
-  color: '#228833'
-#  color: "#005500"
-
-  units:
-    - type: fleet
-      loc: nap
-    - type: army
-      loc: rom
-    - type: army
-      loc: ven
-
-
-Russia:
-
-  name: Russia
-  demonym: Russian
-
-  territory: [stp, mos, lvn, ukr, sev, fin, war]
-  home: [mos, stp, sev, war]
-  capital: mos
-
-  color: '#aa3377'
-#  color: "#FFD599"
-
-  units:
-    - type: fleet
-      loc: sev
-    - type: fleet
-      loc: stp-sc
-    - type: army
-      loc: mos
-    - type: army
-      loc: war
-
-
 Austria:
-
-  name: Austria
-  demonym: Austrian
-
-  territory: [boh, gal, vie, tri, bud, tyr]
-  home: [vie, tri, bud]
-  capital: vie
-
+  capital: VIE
   color: '#ee6677'
-#  color: "#CC0000"
-
+  demonym: Austrian
+  home: [VIE, TRI, BUD]
+  name: Austria
+  territory: [BOH, GAL, VIE, TRI, BUD, TYR]
   units:
-    - type: fleet
-      loc: tri
-    - type: army
-      loc: bud
-    - type: army
-      loc: vie
-
-
+  - {loc: TRI, type: fleet}
+  - {loc: BUD, type: army}
+  - {loc: VIE, type: army}
+England:
+  capital: LON
+  color: '#4477AA'
+  demonym: English
+  home: [LON, EDI, LVP]
+  name: England
+  territory: [CLY, EDI, LVP, YOR, WAL, LON]
+  units:
+  - {loc: EDI, type: fleet}
+  - {loc: LON, type: fleet}
+  - {loc: LVP, type: army}
+France:
+  capital: PAR
+  color: '#66ccee'
+  demonym: French
+  home: [PAR, MAR, BRE]
+  name: France
+  territory: [PIC, BRE, PAR, BUR, GAS, MAR]
+  units:
+  - {loc: BRE, type: fleet}
+  - {loc: MAR, type: army}
+  - {loc: PAR, type: army}
+Germany:
+  capital: BER
+  color: '#bbbbbb'
+  demonym: German
+  home: [BER, KIE, MUN]
+  name: Germany
+  territory: [KIE, BER, RUH, MUN, PRU, SIL]
+  units:
+  - {loc: KIE, type: fleet}
+  - {loc: BER, type: army}
+  - {loc: MUN, type: army}
+Italy:
+  capital: ROM
+  color: '#228833'
+  demonym: Italian
+  home: [ROM, NAP, VEN]
+  name: Italy
+  territory: [PIE, VEN, TUS, ROM, APU, NAP]
+  units:
+  - {loc: NAP, type: fleet}
+  - {loc: ROM, type: army}
+  - {loc: VEN, type: army}
+Russia:
+  capital: MOS
+  color: '#aa3377'
+  demonym: Russian
+  home: [MOS, STP, SEV, WAR]
+  name: Russia
+  territory: [STP, MOS, LVN, UKR, SEV, FIN, WAR]
+  units:
+  - {loc: SEV, type: fleet}
+  - {loc: STP-sc, type: fleet}
+  - {loc: MOS, type: army}
+  - {loc: WAR, type: army}
 Turkey:
-
-  name: Turkey
-  demonym: Turkish
-
-  territory: [con, ank, arm, smy, syr]
-  home: [con, ank, smy]
-  capital: con
-
+  capital: CON
   color: '#ccbb44'
-#  color: "#FFAA00"
-
+  demonym: Turkish
+  home: [CON, ANK, SMY]
+  name: Turkey
+  territory: [CON, ANK, ARM, SMY, SYR]
   units:
-    - type: fleet
-      loc: ank
-    - type: army
-      loc: con
-    - type: army
-      loc: smy
+  - {loc: ANK, type: fleet}
+  - {loc: CON, type: army}
+  - {loc: SMY, type: army}
