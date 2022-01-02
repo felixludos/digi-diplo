@@ -475,7 +475,7 @@ class DiplomacyBot(Versioned, DiscordBot):
 			if len(line):
 				try:
 					action = self.manager.record_action(player, line)
-				except ParsingFailedError as e:
+				except Exception as e:
 					results.append(f'"{line}" failed with {type(e).__name__}: {str(e)}')
 					print(traceback.format_exc())
 				# raise e
