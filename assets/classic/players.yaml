@@ -1,6 +1,6 @@
 Austria:
   capital: VIE
-  color: '#ee6677'
+  color: '#ee6677' # "#CC0000"
   demonym: Austrian
   home: [VIE, TRI, BUD]
   name: Austria
@@ -11,7 +11,7 @@ Austria:
   - {loc: VIE, type: army}
 England:
   capital: LON
-  color: '#4477AA'
+  color: '#4477AA' # "#7C5599"
   demonym: English
   home: [LON, EDI, LVP]
   name: England
@@ -22,7 +22,7 @@ England:
   - {loc: LVP, type: army}
 France:
   capital: PAR
-  color: '#66ccee'
+  color: '#66ccee' # "#008099"
   demonym: French
   home: [PAR, MAR, BRE]
   name: France
@@ -33,7 +33,7 @@ France:
   - {loc: PAR, type: army}
 Germany:
   capital: BER
-  color: '#bbbbbb'
+  color: '#bbbbbb' # "#728699"
   demonym: German
   home: [BER, KIE, MUN]
   name: Germany
@@ -44,7 +44,7 @@ Germany:
   - {loc: MUN, type: army}
 Italy:
   capital: ROM
-  color: '#228833'
+  color: '#228833' # #005500"
   demonym: Italian
   home: [ROM, NAP, VEN]
   name: Italy
@@ -55,7 +55,7 @@ Italy:
   - {loc: VEN, type: army}
 Russia:
   capital: MOS
-  color: '#aa3377'
+  color: '#aa3377' # "#FFD599"
   demonym: Russian
   home: [MOS, STP, SEV, WAR]
   name: Russia
@@ -67,7 +67,7 @@ Russia:
   - {loc: WAR, type: army}
 Turkey:
   capital: CON
-  color: '#ccbb44'
+  color: '#ccbb44' # "#FFAA00"
   demonym: Turkish
   home: [CON, ANK, SMY]
   name: Turkey
@@ -76,3 +76,7 @@ Turkey:
   - {loc: ANK, type: fleet}
   - {loc: CON, type: army}
   - {loc: SMY, type: army}
+
+#neutral: "#995500"
+#sea: "#003CCC"
+#center: "#FFFFFF"

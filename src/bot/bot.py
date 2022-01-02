@@ -1,7 +1,8 @@
 import random
 import traceback
 import discord
-from omnibelt import load_yaml, load_txt, unspecified_argument, save_yaml
+from discord.ext import commands as command_util
+from omnibelt import load_yaml, load_txt, unspecified_argument, save_yaml, get_now
 import omnifig as fig
 from tabulate import tabulate
 from tqdm import tqdm
@@ -10,35 +11,22 @@ from .base import DiscordBot, as_command, as_event, as_loop
 from ..managers import ParsingFailedError
 from ..util import hash_file, Versioned
 
-#
-# class ParsingFailedError(Exception):
-# 	def __init__(self, line, reason=None, num=None):
-# 		info =f'"{line}"' if reason is None else f'{reason}: "{line}"'
-# 		if num is not None:
-# 			info = f'({num}) {info}'
-# 		super().__init__(info)
-
-
-
-# class UnknownIdentError(Exception):
-# 	def __init__(self, ident, related=None, player=None, unit=None):
-# 		super().__init__(f'{ident} - {related} - {player} - {unit}')
-#
-#
-#
-# class SpecialActionError(Exception):
-# 	pass
-
-
 
 @fig.Component('diplomacy-bot')
 class DiplomacyBot(Versioned, DiscordBot):
-	__version__ = (1, 0)
-	def __init__(self, A, manager=unspecified_argument, intents=None, **kwargs):
+	__version__ = (1, 1)
+	def __init__(self, A, manager=unspecified_argument, intents=None,
+	             private_commands=None, log_commands=None, **kwargs):
 		if manager is unspecified_argument:
 			manager = A.pull('manager', None)
 		
 		bot_data_path = A.pull('bot-data-path', None)
+		
+		if private_commands is None:
+			private_commands = A.pull('private-commands', False)
+		
+		if log_commands is None:
+			log_commands = A.pull('log-commands', False)
 		
 		if intents is None:
 			intents = discord.Intents.default()
@@ -53,15 +41,51 @@ class DiplomacyBot(Versioned, DiscordBot):
 		
 		if bot_data_path is None:
 			bot_data_path = self.manager.root / 'bot-data.yaml'
-		
 		self.bot_data_path = bot_data_path
+		
+		bot_log_path = self.manager.root / 'bot-log.txt' if log_commands else None
+		self.bot_log_path = bot_log_path
+		if log_commands:
+			print(f'Will log all commands to {str(self.bot_log_path)}')
+		
+		self.private_commands = private_commands
+		if private_commands:
+			print('Players are only allowed to run commands in their private channels.')
+	
+	# @command_util.Cog.listener(name='on_command')
+	@as_event
+	async def on_command(self, ctx):
+		if self.bot_log_path is not None and ctx.guild == self.guild:
+			line = f'[ {get_now()} ] {ctx.guild.name} #{ctx.channel} @{ctx.author}: {repr(ctx.message.clean_content)}\n'
+			with self.bot_log_path.open('a+') as f:
+				f.write(line)
+			print(line)
+		
 	
 	async def on_ready(self):
 		await super().on_ready()
 		self._load_bot_data(self.bot_data_path)
 		
+		if self.bot_log_path is not None:
+			lines = ['',
+			         f'[ {get_now()} ] Starting digi-diplo bot in server {self.guild}. Game: {str(self.manager.root)}',
+			         *self._get_version_lines(pbar=False),
+			         '']
+			with self.bot_log_path.open('a+') as f:
+				f.write('\n'.join(lines))
+			
+		
+	@as_command('shutdown', brief='(admin) Shuts down the bot')
+	async def shutdown(self, ctx):
+		if self._insufficient_permissions(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+			return
+		
+		await ctx.send('Goodbye!')
+		await self.close()
+		
 	
-	@as_command('reload', brief='(admind) Reload state and orders from files')
+	@as_command('reload', brief='(admin) Reload state and orders from files')
 	async def on_reload(self, ctx, name=None):
 		print('Reloading state and orders')
 		self.manager.load_status(name=name)
@@ -112,16 +136,17 @@ class DiplomacyBot(Versioned, DiscordBot):
 	def _store_bot_data(self):
 		save_yaml(self.persistent, self.bot_data_path)
 		
-		
-	@as_command('version', brief='(admin) Print out bot/map version info')
-	async def on_version(self, ctx): # hash the game files to make sure they are correct
+	def _get_version_lines(self, pbar=True):
 		
 		info = {}
 		root = self.manager.root
-		itr = tqdm(list(root.glob('*')))
+		itr = list(root.glob('*'))
+		if pbar:
+			itr = tqdm(itr)
 		for path in itr:
 			if not path.is_dir() and path != self.bot_data_path:
-				itr.set_description(f'Hashing {path.stem}')
+				if pbar:
+					itr.set_description(f'Hashing {path.stem}')
 				info[path.stem] = hash_file(path)
 		
 		lines = []
@@ -135,7 +160,12 @@ class DiplomacyBot(Versioned, DiscordBot):
 			lines.append(f'Renderer: {self.manager.renderer.get_version()}')
 		
 		lines.extend(f'{name}: {info[name][-5:].upper()}' for name in sorted(info.keys()))
-		
+
+		return lines
+	
+	@as_command('version', brief='(admin) Print out bot/map version info')
+	async def on_version(self, ctx): # hash the game files to make sure they are correct
+		lines = self._get_version_lines()
 		print('\n'.join(lines))
 		await self._batched_send(ctx, lines)
 		
@@ -551,6 +581,10 @@ class DiplomacyBot(Versioned, DiscordBot):
 			await ctx.send(f'{ctx.author.display_name} is not a player (admins should use `.set-order`).')
 			return
 
+		if self.private_commands and self.player_channels.get(ctx.channel) != player:
+			await ctx.send(f'You can only run this command in the channel designated for your orders.')
+			return
+
 		await self._batched_send(ctx, self._register_orders(player, lines.splitlines()))
 	
 	
@@ -561,7 +595,12 @@ class DiplomacyBot(Versioned, DiscordBot):
 		
 		if player is None:
 			await ctx.send(f'{ctx.author.display_name} is not a player (admins should use `.print-orders`).')
-			
+		
+
+		if self.private_commands and self.player_channels.get(ctx.channel) != player:
+			await ctx.send(f'You can only run this command in the channel designated for your orders.')
+			return
+		
 		actions = self.manager.format_all_actions()
 		lines = [f'{player} orders for **{self.manager.format_date()}**', *actions[player]]
 		await self._batched_send(ctx, lines)

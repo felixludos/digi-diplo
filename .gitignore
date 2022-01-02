@@ -8,6 +8,9 @@ logs/
 examples/innovation/data
 examples/wise_otherwise/data
 
+doc/
+.github/
+tests/
 games/
 assets/wd/
 

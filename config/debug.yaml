@@ -9,18 +9,20 @@ server-name: playground
 
 #parents: [wd/style, wd/bot]
 #parents: [wd/hills, wd/bot]
-parents: [wd/std]
-#parents: [classic/bot]
+#parents: [wd/std]
+parents: [classic/bot]
 
-game-root: games/game5
+game-root: games/game11
 
 #check-image: 1-1-actions
 
-#include-actions: yes
+#include-orders: yes
 
 #admins: None
 admin-role: testhost
 
+log-commands: yes
+private-commands: yes
 
 #view: yes
 #pbar: true
