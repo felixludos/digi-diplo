@@ -344,7 +344,7 @@ class DiplomacyBot(Versioned, DiscordBot):
 		
 
 	@as_command('step', brief='(admin) Adjudicates current season and updates game state')
-	async def on_step(self, ctx):
+	async def on_step(self, ctx, silent=False):
 		if self._insufficient_permissions(ctx.author):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 			return
@@ -355,9 +355,10 @@ class DiplomacyBot(Versioned, DiscordBot):
 		msg = f'Finished adjudicating {old}.{self._magic_stop_scan_char}\n'\
 		      f'Current turn: **{self.manager.format_date()}**'
 		
-		for channel in self.player_channels:
-			if channel != ctx.channel:
-				await channel.send(msg)
+		if not silent:
+			for channel in self.player_channels:
+				if channel != ctx.channel:
+					await channel.send(msg)
 		await ctx.send(msg)
 		
 	
