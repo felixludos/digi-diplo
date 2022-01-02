@@ -203,9 +203,9 @@ class DiplomacyBot(Versioned, DiscordBot):
 				if self._magic_stop_scan_char in message.clean_content:
 					break
 
-			lines.append(f'Found {total} actions in {channel.mention} ({player}).')
+			lines.append(f'Found {total} new actions in {channel.mention} ({player}).')
 			lines.extend(included)
-			included = [f'Recorded {total} actions for {player}.', *included]
+			included = [f'Recorded {total} new actions for {player}.', *included]
 			included[-1] = included[-1] + self._magic_stop_scan_char
 			await self._batched_send(channel, included)
 			
