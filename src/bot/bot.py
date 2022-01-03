@@ -51,6 +51,9 @@ class DiplomacyBot(Versioned, DiscordBot):
 		self.private_commands = private_commands
 		if private_commands:
 			print('Players are only allowed to run commands in their private channels.')
+		
+		self.frozen = False
+	
 	
 	# @command_util.Cog.listener(name='on_command')
 	@as_event
@@ -165,6 +168,10 @@ class DiplomacyBot(Versioned, DiscordBot):
 	
 	@as_command('version', brief='(admin) Print out bot/map version info')
 	async def on_version(self, ctx): # hash the game files to make sure they are correct
+		if self._insufficient_permissions(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+			return
+		
 		lines = self._get_version_lines()
 		print('\n'.join(lines))
 		await self._batched_send(ctx, lines)
@@ -304,7 +311,11 @@ class DiplomacyBot(Versioned, DiscordBot):
 		if name is None and not admin:
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 			return
-
+		
+		if self.frozen:
+			await ctx.send('The bot is currently frozen, ask the admins to unfreeze to run commands.')
+			return
+		
 		if admin and player is not None:
 			name = player
 
@@ -336,6 +347,10 @@ class DiplomacyBot(Versioned, DiscordBot):
 	
 	@as_command('season', brief='Prints out the current season')
 	async def on_season(self, ctx):
+		if self.frozen:
+			await ctx.send('The bot is currently frozen, ask the admins to unfreeze to run commands.')
+			return
+		
 		await ctx.send(f'Current turn: **{self.manager.format_date()}**')
 	
 	
@@ -407,6 +422,26 @@ class DiplomacyBot(Versioned, DiscordBot):
 				prompt.append(self._format_missing(player, status[player]))
 			
 			await self._batched_send(channel, prompt)
+	
+	
+	@as_command('freeze', brief='(admin) Stop players from running commands (eg. while admins test/organize things)')
+	async def on_freeze(self, ctx):
+		if self._insufficient_permissions(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+			return
+	
+		self.frozen = True
+		await ctx.send('Bot is frozen (only admins can run commands, until unfrozen with `.unfreeze`)')
+		
+	
+	@as_command('unfreeze', brief='(admin) Unfreeze the bot to allow players to run commands again')
+	async def on_unfreeze(self, ctx):
+		if self._insufficient_permissions(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+			return
+
+		self.frozen = False
+		await ctx.send('Bot is unfrozen (so players can run commands again)')
 		
 	
 	@as_command('render-state', brief='(admin) Renders game map and state')
@@ -534,6 +569,10 @@ class DiplomacyBot(Versioned, DiscordBot):
 	@as_command('region', brief='Prints out info about a specific territory')
 	async def on_region(self, ctx, name=None):
 		
+		if self.frozen:
+			await ctx.send('The bot is currently frozen, ask the admins to unfreeze to run commands.')
+			return
+		
 		info = self.manager.check_region(name)
 		
 		if info is None:
@@ -616,7 +655,11 @@ class DiplomacyBot(Versioned, DiscordBot):
 		if self.private_commands and self.player_channels.get(ctx.channel) != player:
 			await ctx.send(f'You can only run this command in the channel designated for your orders.')
 			return
-
+		
+		if self.frozen:
+			await ctx.send('The bot is currently frozen, ask the admins to unfreeze to run commands.')
+			return
+		
 		await self._batched_send(ctx, self._register_orders(player, lines.splitlines()))
 	
 	
@@ -630,6 +673,10 @@ class DiplomacyBot(Versioned, DiscordBot):
 
 		if self.private_commands and self.player_channels.get(ctx.channel) != player:
 			await ctx.send(f'You can only run this command in the channel designated for your orders.')
+			return
+
+		if self.frozen:
+			await ctx.send('The bot is currently frozen, ask the admins to unfreeze to run commands.')
 			return
 		
 		actions = self.manager.format_all_actions()
