@@ -382,15 +382,18 @@ class DiplomacyBot(Versioned, DiscordBot):
 	
 	@as_command('prompt', brief='(admin) Prompt all player channels to submit orders')
 	async def on_prompt(self, ctx, deadline=None, ignore_above=False, mention_missing=True):
-		
+		if self._insufficient_permissions(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+			return
 		lines = [f'Current turn: **{self.manager.format_date()}**']
 		
 		if deadline is not None:
-			lines.append(f'You have {deadline} to submit all your orders.')
+			lines.append(f'You have {deadline} to submit any missing orders.')
 		
 		if ignore_above:
 			lines.append(f'(note any orders above this message will be ignored, '
-			             f'unless they have already been recorded by me){self._magic_stop_scan_char}')
+			             f'unless they have already been recorded by me, '
+			             f'use `.submitted` to check){self._magic_stop_scan_char}')
 		
 		if mention_missing:
 			status = self.manager.get_missing()
