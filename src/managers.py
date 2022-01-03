@@ -71,6 +71,10 @@ class DiplomacyManager(Versioned):
 		
 		self.gamemap = gamemap
 		self.renderer = renderer
+		self.aliases = {alias: player for player, info in self.gamemap.player_info.items()
+		                for alias in info.get('alias', [])}
+		self.aliases.update({alias.lower(): player for player, info in self.gamemap.player_info.items()
+		                     for alias in info.get('alias', [])})
 		
 		self.root = game_root
 		self.graph_path = graph_path
@@ -136,7 +140,7 @@ class DiplomacyManager(Versioned):
 		if name is not None:
 			if not name.endswith('.yaml'):
 				name = f'{name}.yaml'
-			path = self.state_root / name
+			path = self.states_root / name
 		
 		if path is not None and path.exists():
 			self.set_state(load_yaml(path))
@@ -162,7 +166,13 @@ class DiplomacyManager(Versioned):
 			self._checkpoint_state()
 		return new
 	
+	def fix_player(self, player):
+		fix = self.aliases.get(player, None)
+		return self.aliases.get(player.lower(), player) if fix is None else fix
+	
+	
 	def get_demonym(self, player):
+		player = self.fix_player(player)
 		return self.gamemap.player_info.get(player, {}).get('demonym', player)
 	
 	def check_region(self, name):
@@ -351,12 +361,14 @@ class DiplomacyManager(Versioned):
 
 
 	def verify_action(self, player, action):
+		player = self.fix_player(player)
 		return True
 	
 	
 	def record_actions(self, actions, persistent=True):
 		errors = {}
 		for player, acts in actions.items():
+			player = self.fix_player(player)
 			ers = []
 			for action in acts:
 				try:
@@ -372,6 +384,7 @@ class DiplomacyManager(Versioned):
 	
 	
 	def record_action(self, player, terms, persistent=True):
+		player = self.fix_player(player)
 		if isinstance(terms, str):
 			terms = self.parse_action(player, terms)
 		
@@ -390,6 +403,7 @@ class DiplomacyManager(Versioned):
 		
 		
 	def format_action(self, player, terms):
+		player = self.fix_player(player)
 		
 		unit = 'A' if terms.get('unit') == 'army' else 'F'
 		sunit = 'A' if terms.get('src-unit') == 'army' else 'F'
@@ -472,6 +486,8 @@ class DiplomacyManager(Versioned):
 		
 		if player is None:
 			return {player: self.format_state(player) for player in self.state['players']}
+		else:
+			player = self.fix_player(player)
 		
 		info = self.state['players'][player]
 		
@@ -499,6 +515,7 @@ class DiplomacyManager(Versioned):
 
 	
 	def sample_action(self, player, n=1):
+		player = self.fix_player(player)
 		actions = []
 		
 		if self.retreat:
@@ -678,6 +695,7 @@ class DiplomacyManager(Versioned):
 	
 	
 	def parse_action(self, player, text, terms=None):
+		player = self.fix_player(player)
 		if terms is None:
 			terms = {}
 		

@@ -18,7 +18,7 @@ from .colors import hex_to_rgb
 class DiplomacyRenderer(Versioned):
 	def __init__(self, A, **kwargs):
 
-		self.map = A.pull('map', None)
+		self.map = A.pull('map', None, ref=True)
 
 		self._use_pbar = A.pull('pbar', True)
 		self._pbar = None
@@ -341,10 +341,10 @@ class DefaultRenderer(MatplotlibRenderer):
 		for loc, options in retreats.items():
 			self._draw_retreats(player, loc, options)
 		
-		disbands = {self.map.decode_region_name(u['loc'], allow_dir=True)[0]
+		disbands = {self.map.decode_region_name(u['loc'], allow_dir=True)[0]: u['type']
 		            for u in state.get('disbands', {}).get(player, [])}
-		for loc in disbands:
-			self._draw_disband(player, loc)
+		for loc, utype in disbands.items():
+			self._draw_destroy(player, loc, utype)
 		
 		for unit in info.get('units', []):
 			self._draw_unit(player, unit['loc'], unit['type'],
@@ -379,12 +379,13 @@ class DefaultRenderer(MatplotlibRenderer):
 		        for option in options]
 		return [mk, *rets]
 	
-	def _draw_disband(self, player, loc, retreat=False):
-		if isinstance(loc, dict):
-			loc = loc['loc']
-		x, y = self._get_unit_pos(loc, retreat=retreat)
-		return plt.plot(x, y, **self.disband_props)
+	def _draw_retreat(self, player, action):
+		self._draw_shortest_arrow(self._get_unit_pos(action['loc']), self._get_label_pos(action['dest']),
+		                          self.retreat_action_props)
 	
+	def _draw_destroy(self, player, loc, utype):
+		self._draw_unit(player, loc, utype, retreat=True)
+		return self._draw_disband(player, loc, retreat=True)
 	
 	def _draw_action(self, player, action):
 		fn = self._known_action_drawers.get(action.get('type'))
@@ -397,12 +398,11 @@ class DefaultRenderer(MatplotlibRenderer):
 		shape = self.unit_shapes.get(action.get('unit'))
 		plt.plot(x, y, marker=shape, **self.build_props)
 	
-	def _draw_destroy(self, player, action):
-		return self._draw_disband(player, action['loc'], retreat=True)
-	
-	def _draw_retreat(self, player, action):
-		self._draw_shortest_arrow(self._get_unit_pos(action['loc']), self._get_label_pos(action['dest']),
-		                          self.retreat_action_props)
+	def _draw_disband(self, player, loc, retreat=False):
+		if isinstance(loc, dict):
+			loc = loc['loc']
+		x, y = self._get_unit_pos(loc, retreat=retreat)
+		return plt.plot(x, y, **self.disband_props)
 	
 	def _draw_hold(self, player, action):
 		x, y = self._get_unit_pos(action['loc'])

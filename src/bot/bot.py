@@ -240,6 +240,7 @@ class DiplomacyBot(Versioned, DiscordBot):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 			return
 
+		player = self.manager.fix_player(player)
 		if player not in self.manager.state['players']:
 			await ctx.send(f'Unknown player: {player}')
 			return
@@ -254,7 +255,8 @@ class DiplomacyBot(Versioned, DiscordBot):
 		if self._insufficient_permissions(ctx.author):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 			return
-		
+
+		player = self.manager.fix_player(player)
 		if player not in self.manager.state['players']:
 			await ctx.send(f'Unknown player: {player}')
 			return
@@ -269,7 +271,8 @@ class DiplomacyBot(Versioned, DiscordBot):
 		if self._insufficient_permissions(ctx.author):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 			return
-		
+
+		player = self.manager.fix_player(player)
 		if player not in self.manager.state['players']:
 			await ctx.send(f'Unknown player: {player}')
 			return
@@ -279,12 +282,31 @@ class DiplomacyBot(Versioned, DiscordBot):
 		await self._batched_send(ctx, lines)
 	
 	
+	def _format_missing(self, player, todo):
+		if isinstance(todo, int):
+			return ' '.join([abs(todo), 'disbands' if todo < 0 else 'builds'])
+		elif isinstance(todo, list):
+			return 'Units: ' + ', '.join(todo)
+		
+		# retreats/disbands
+		clauses = []
+		if 'retreats' in todo:
+			clauses.append('Retreats: ' + ', '.join(todo['retreats']))
+		if 'disbands' in todo:
+			clauses.append('Disbands: ' + ', '.join(todo['disbands']))
+		return '. '.join(clauses)
+	
+	
 	@as_command('status', brief='Prints out the current season and missing orders')
-	async def on_status(self, ctx):
-		player = self._to_player(ctx.author)
-		if player is None and not self._is_admin(ctx.author):
+	async def on_status(self, ctx, player=None):
+		admin = self._is_admin(ctx.author)
+		name = self._to_player(ctx.author)
+		if name is None and not admin:
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 			return
+
+		if admin and player is not None:
+			name = player
 
 		status = self.manager.get_missing()
 		missing = {player: abs(missing) if isinstance(missing, int)
@@ -294,27 +316,23 @@ class DiplomacyBot(Versioned, DiscordBot):
 		
 		lines = [f'Current turn: **{self.manager.format_date()}**']
 		
-		if player is None:
+		if name is None:
 			lines.append(f'Missing {sum(missing.values())} orders.')
-		elif missing.get(player):
-			lines.append(f'You ({player}) are missing {missing[player]} orders.')
-			todo = status[player]
-			if isinstance(todo, int):
-				lines.append(' '.join([abs(todo), 'disbands' if todo < 0 else 'builds']))
-			elif isinstance(todo, list):
-				lines.append('Units: ' + ', '.join(todo))
-			else:
-				clauses = []
-				if 'retreats' in todo:
-					clauses.append('Retreats: ' + ', '.join(todo['retreats']))
-				if 'disbands' in todo:
-					clauses.append('Disbands: ' + ', '.join(todo['disbands']))
-				lines.append('. '.join(clauses))
+		elif missing.get(name):
+			lines.append(f'{name} is missing {missing[name]} orders.' if admin
+			             else f'You ({name}) are missing {missing[name]} orders.')
+			todo = status[name]
+			lines.append(self._format_missing(name, todo))
 		else:
-			lines.append(f'You ({player}) have submitted all orders.')
+			lines.append(f'{name} has submitted all orders.' if admin
+			             else f'You ({name}) have submitted all orders.')
 		
 		await self._batched_send(ctx, lines)
 		
+	# @as_command('centers', brief='(admins) Prints out the currently occupied centers')
+	async def on_centers(self, ctx):
+		raise NotImplementedError
+	
 	
 	@as_command('season', brief='Prints out the current season')
 	async def on_season(self, ctx):
@@ -363,7 +381,7 @@ class DiplomacyBot(Versioned, DiscordBot):
 		
 	
 	@as_command('prompt', brief='(admin) Prompt all player channels to submit orders')
-	async def on_prompt(self, ctx, deadline=None, ignore_above=False):
+	async def on_prompt(self, ctx, deadline=None, ignore_above=False, mention_missing=True):
 		
 		lines = [f'Current turn: **{self.manager.format_date()}**']
 		
@@ -374,8 +392,18 @@ class DiplomacyBot(Versioned, DiscordBot):
 			lines.append(f'(note any orders above this message will be ignored, '
 			             f'unless they have already been recorded by me){self._magic_stop_scan_char}')
 		
-		for channel in self.player_channels:
-			await self._batched_send(channel, lines)
+		if mention_missing:
+			status = self.manager.get_missing()
+		
+		for channel, player in self.player_channels.items():
+			prompt = lines.copy()
+			if mention_missing and player in status:
+				objs = [role for role, p in self.player_roles.items() if p == player] \
+				       + [user for user, p in self.player_users.items() if p == player]
+				prompt.append('{} You are missing orders:'.format(', '.join(f'{obj.mention}' for obj in objs)))
+				prompt.append(self._format_missing(player, status[player]))
+			
+			await self._batched_send(channel, prompt)
 		
 	
 	@as_command('render-state', brief='(admin) Renders game map and state')
@@ -433,7 +461,7 @@ class DiplomacyBot(Versioned, DiscordBot):
 		actions = self.manager.format_all_actions()
 		
 		if player is not None:
-			actions = {player: actions[player]}
+			actions = {player: actions[self.manager.fix_player(player)]}
 		else:
 			await ctx.send(f'Orders for **{self.manager.format_date()}**')
 		
@@ -493,7 +521,7 @@ class DiplomacyBot(Versioned, DiscordBot):
 			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 			return
 		
-		if player not in self.manager.state['players']:
+		if self.manager.fix_player(player) not in self.manager.state['players']:
 			await ctx.send(f'Unknown player: {player}')
 			return
 		
@@ -596,7 +624,6 @@ class DiplomacyBot(Versioned, DiscordBot):
 		
 		if player is None:
 			await ctx.send(f'{ctx.author.display_name} is not a player (admins should use `.print-orders`).')
-		
 
 		if self.private_commands and self.player_channels.get(ctx.channel) != player:
 			await ctx.send(f'You can only run this command in the channel designated for your orders.')

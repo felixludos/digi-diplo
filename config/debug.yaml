@@ -5,31 +5,35 @@ server-name: playground
 
 #####################
 
-#_meta.script_name: render-state
+#_meta.script_name: render
 
 #parents: [wd/style, wd/bot]
 #parents: [wd/hills, wd/bot]
-#parents: [wd/std]
-parents: [classic/bot]
+parents: [wd/std]
+#parents: [classic/bot]
 
-game-root: games/game11
+#game-root: games/game2
+game-root: games/alpha
 
-#check-image: 1-1-actions
+#check-image: 1-1
+#current: 1-1
 
-#include-orders: yes
+include-orders: yes
+
 
 #admins: None
 admin-role: testhost
 
-log-commands: yes
-private-commands: yes
+#log-commands: yes
+#private-commands: yes
 
 #view: yes
 #pbar: true
-#skip-control: true
+skip-control: true
 
+#disband-props.zorder: 5000
 
-
+#manager.renderer._mod.wd-unit-arrows: 1
 
 #  retreat:
 #    marker: o

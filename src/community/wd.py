@@ -60,7 +60,7 @@ class WD_Manager(DiplomacyManager):
 
 @fig.Component('wd-renderer')
 class WD_Rendering(DefaultRenderer):
-	__version__ = _wd_version
+	__version__ = (1,2)
 	def __init__(self, A, **kwargs):
 		super().__init__(A, **kwargs)
 		self.year_offset = A.pull('year-offset', 0)
@@ -94,7 +94,7 @@ class WD_Rendering(DefaultRenderer):
 		return out
 	
 	def _get_unit_pos(self, loc, retreat=False):
-		return super()._get_unit_pos(loc, retreat=False)[::-1]
+		return super()._get_unit_pos(loc, retreat=retreat)[::-1]
 	
 	
 	def _get_label_pos(self, loc, coast=None):
@@ -183,7 +183,7 @@ class WD_Pixel_Rendering(WD_Rendering):
 		self.neutral_color = self._format_color(A.pull('neutral-color', 'w'))
 		self.pattern_bases = self._format_pattern(A.pull('patterns', {}, silent=True))
 		self.pattern_colors = self._format_pattern_colors(A.pull('pattern-colors', {}))
-		self.unit_zorder = A.pull('units-zorder', 100)
+		self.unit_zorder = A.pull('unit-zorder', 100)
 		self.sc_zorder = A.pull('sc-zorder', 100)
 	
 	def _format_pattern(self, patterns):
@@ -272,6 +272,28 @@ class WD_Pixel_Rendering(WD_Rendering):
 		return self._draw_sc(loc, home=player)
 	
 
+# @fig.AutoModifier('wd-unit-arrows')
+# class UnitArrows(WD_Rendering):
+	
+	# def _draw_shortest_arrow(self, start, end, arrow_props={}, use_annotation=False):
+	# 	x, y = start
+	# 	x, y = x.reshape(1, -1), y.reshape(1, -1)
+	# 	ex, ey = end
+	# 	ex, ey = ex.reshape(-1, 1), ey.reshape(-1, 1)
+	# 	dx, dy = ex - x, ey - y
+	# 	x, y = ex - dx, ey - dy
+	# 	x, y = x.reshape(-1), y.reshape(-1)
+	# 	dx, dy = dx.reshape(-1), dy.reshape(-1)
+	# 	D = dx ** 2 + dy ** 2
+	# 	idx = np.argmin(D)
+	#
+	# 	x, y = x[idx], y[idx]
+	# 	dx, dy = dx[idx], dy[idx]
+	# 	if use_annotation:
+	# 		return plt.annotate('', xytext=(x + dx, y + dy), xy=(x, y), **arrow_props)
+	# 	else:
+	# 		dx, dy = dx * self.arrow_ratio, dy * self.arrow_ratio
+	# 		return plt.arrow(x, y, dx, dy, **arrow_props)
 
 
 @fig.Component('wd-map')
