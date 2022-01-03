@@ -597,7 +597,7 @@ class DiplomacyBot(Versioned, DiscordBot):
 		msg = [f'Hello, {ctx.author.display_name}']
 		player = self._to_player(ctx.author)
 		if player is not None:
-			msg.append(f'{player}')
+			msg.append(f'({player})')
 		if self._is_admin(ctx.author):
 			msg.append('(admin)')
 		await ctx.send(' '.join(msg))
