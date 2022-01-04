@@ -1,2 +1,2 @@
 France:
-- {dest: pic, loc: bel, type: retreat, unit: army}
+- {dest: PIC, loc: BEL, type: retreat, unit: army}

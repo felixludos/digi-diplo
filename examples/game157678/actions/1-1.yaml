@@ -1,29 +1,29 @@
 Austria:
-- {dest: gal, loc: vie, type: move, unit: army}
-- {dest: alb, loc: tri, type: move, unit: fleet}
-- {dest: ser, loc: bud, type: move, unit: army}
+- {dest: GAL, loc: VIE, type: move, unit: army}
+- {dest: ALB, loc: TRI, type: move, unit: fleet}
+- {dest: SER, loc: BUD, type: move, unit: army}
 England:
-- {dest: nth, loc: edi, type: move, unit: fleet}
-- {dest: yor, loc: lvp, type: move, unit: army}
-- {dest: eng, loc: lon, type: move, unit: fleet}
+- {dest: NTH, loc: EDI, type: move, unit: fleet}
+- {dest: YOR, loc: LVP, type: move, unit: army}
+- {dest: ENG, loc: LON, type: move, unit: fleet}
 France:
-- {dest: mao, loc: bre, type: move, unit: fleet}
-- {dest: bur, loc: par, type: move, unit: army}
-- {dest: bur, loc: mar, src: par, type: support, unit: army}
+- {dest: MAO, loc: BRE, type: move, unit: fleet}
+- {dest: BUR, loc: PAR, type: move, unit: army}
+- {dest: BUR, loc: MAR, src: PAR, type: support, unit: army}
 Germany:
-- {dest: den, loc: kie, type: move, unit: fleet}
-- {dest: kie, loc: ber, type: move, unit: army}
-- {dest: bur, loc: mun, src: par, type: support, unit: army}
+- {dest: DEN, loc: KIE, type: move, unit: fleet}
+- {dest: KIE, loc: BER, type: move, unit: army}
+- {dest: BUR, loc: MUN, src: PAR, type: support, unit: army}
 Italy:
-- {loc: ven, type: hold, unit: army}
-- {dest: apu, loc: rom, type: move, unit: army}
-- {dest: ion, loc: nap, type: move, unit: fleet}
+- {loc: VEN, type: hold, unit: army}
+- {dest: APU, loc: ROM, type: move, unit: army}
+- {dest: ION, loc: NAP, type: move, unit: fleet}
 Russia:
-- {dest: ukr, loc: mos, type: move, unit: army}
-- {dest: bot, loc: stp-sc, type: move, unit: fleet}
-- {dest: sil, loc: war, type: move, unit: army}
-- {dest: bla, loc: sev, type: move, unit: fleet}
+- {dest: UKR, loc: MOS, type: move, unit: army}
+- {dest: BOT, loc: STP-sc, type: move, unit: fleet}
+- {dest: SIL, loc: WAR, type: move, unit: army}
+- {dest: BLA, loc: SEV, type: move, unit: fleet}
 Turkey:
-- {dest: ank, loc: smy, type: move, unit: army}
-- {dest: con, loc: ank, type: move, unit: fleet}
-- {dest: bul, loc: con, type: move, unit: army}
+- {dest: ANK, loc: SMY, type: move, unit: army}
+- {dest: CON, loc: ANK, type: move, unit: fleet}
+- {dest: BUL, loc: CON, type: move, unit: army}

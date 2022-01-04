@@ -1,6 +1,6 @@
 France:
-- {loc: bre, type: build, unit: fleet}
-- {loc: mar, type: build, unit: fleet}
+- {loc: BRE, type: build, unit: fleet}
+- {loc: MAR, type: build, unit: fleet}
 Italy:
-- {loc: apu, type: destroy, unit: the}
-- {loc: tus, type: destroy, unit: the}
+- {loc: APU, type: destroy, unit: the}
+- {loc: TUS, type: destroy, unit: the}

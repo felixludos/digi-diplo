@@ -1,2 +1,2 @@
 Germany:
-- {loc: war, type: disband, unit: army}
+- {loc: WAR, type: disband, unit: army}

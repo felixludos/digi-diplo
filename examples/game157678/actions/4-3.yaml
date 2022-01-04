@@ -1,12 +1,12 @@
 England:
-- {loc: nao, type: destroy, unit: the}
+- {loc: NAO, type: destroy, unit: the}
 France:
-- {loc: par, type: build, unit: army}
+- {loc: PAR, type: build, unit: army}
 Germany:
-- {loc: ber, type: build, unit: army}
+- {loc: BER, type: build, unit: army}
 Italy:
-- {loc: ven, type: build, unit: army}
+- {loc: VEN, type: build, unit: army}
 Russia:
-- {loc: war, type: destroy, unit: the}
+- {loc: WAR, type: destroy, unit: the}
 Turkey:
-- {loc: con, type: build, unit: army}
+- {loc: CON, type: build, unit: army}

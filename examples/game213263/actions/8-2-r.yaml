@@ -1,4 +1,4 @@
 France:
-- {dest: spa, loc: mar, type: retreat, unit: army}
+- {dest: SPA, loc: MAR, type: retreat, unit: army}
 Russia:
-- {loc: sev, type: disband, unit: army}
+- {loc: SEV, type: disband, unit: army}

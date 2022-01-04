@@ -1,14 +1,14 @@
 Austria:
-- {loc: vie, type: build, unit: army}
+- {loc: VIE, type: build, unit: army}
 England:
-- {loc: lon, type: destroy, unit: the}
+- {loc: LON, type: destroy, unit: the}
 France:
-- {loc: nao, type: destroy, unit: the}
-- {loc: spa, type: destroy, unit: the}
+- {loc: NAO, type: destroy, unit: the}
+- {loc: SPA, type: destroy, unit: the}
 Germany:
-- {loc: ber, type: build, unit: army}
-- {loc: kie, type: build, unit: fleet}
+- {loc: BER, type: build, unit: army}
+- {loc: KIE, type: build, unit: fleet}
 Italy:
-- {loc: rom, type: build, unit: fleet}
+- {loc: ROM, type: build, unit: fleet}
 Russia:
-- {loc: bla, type: destroy, unit: the}
+- {loc: BLA, type: destroy, unit: the}

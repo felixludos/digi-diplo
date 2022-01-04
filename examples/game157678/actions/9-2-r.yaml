@@ -1,2 +1,2 @@
 Austria:
-- {dest: gre, loc: ser, type: retreat, unit: army}
+- {dest: GRE, loc: SER, type: retreat, unit: army}

@@ -1,81 +1,74 @@
 players:
   Austria:
-    centers: [vie, tri, bud, gre, ser]
-    control: [vie, tri, bud, alb, ser, tyr]
-    home: [vie, tri, bud]
-    name: Austria
+    centers: [VIE, TRI, BUD, GRE, SER]
+    control: [VIE, TRI, BUD, TYR, ALB, SER]
+    home: [VIE, TRI, BUD]
     units:
-    - {loc: vie, type: army}
-    - {loc: tri, type: army}
-    - {loc: ser, type: army}
-    - {loc: bud, type: army}
-    - {loc: boh, type: army}
+    - {loc: VIE, type: army}
+    - {loc: TRI, type: army}
+    - {loc: SER, type: army}
+    - {loc: BUD, type: army}
+    - {loc: BOH, type: army}
   England:
-    centers: [edi, lvp, lon, nwy, swe]
-    control: [lvp, yor, wal, lon, nwy, swe, stp, fin]
-    home: [lon, edi, lvp]
-    name: England
+    centers: [EDI, LVP, LON, NWY, SWE]
+    control: [LVP, YOR, WAL, LON, NWY, SWE, STP, FIN]
+    home: [EDI, LVP, LON]
     units:
-    - {loc: iri, type: fleet}
-    - {loc: fin, type: army}
-    - {loc: wal, type: fleet}
-    - {loc: lvp, type: fleet}
-    - {loc: stp, type: army}
+    - {loc: IRI, type: fleet}
+    - {loc: FIN, type: army}
+    - {loc: WAL, type: fleet}
+    - {loc: LVP, type: fleet}
+    - {loc: STP, type: army}
   France:
-    centers: [bre, par, mar, spa, por]
-    control: [cly, pic, bre, par, gas, mar, spa, por, bur]
-    home: [par, mar, bre]
-    name: France
+    centers: [BRE, PAR, MAR, SPA, POR]
+    control: [CLY, PIC, BRE, PAR, GAS, MAR, SPA, POR, BUR]
+    home: [BRE, PAR, MAR]
     units:
-    - {loc: mar, type: army}
-    - {loc: cly, type: army}
-    - {loc: bre, type: fleet}
-    - {loc: mao, type: fleet}
-    - {loc: nao, type: fleet}
+    - {loc: MAR, type: army}
+    - {loc: CLY, type: army}
+    - {loc: BRE, type: fleet}
+    - {loc: MAO, type: fleet}
+    - {loc: NAO, type: fleet}
   Germany:
-    centers: [kie, ber, mun, den, hol, bel]
-    control: [edi, kie, ber, ruh, mun, pru, den, hol, bel]
-    home: [ber, kie, mun]
-    name: Germany
+    centers: [KIE, BER, MUN, DEN, HOL, BEL]
+    control: [EDI, KIE, BER, RUH, MUN, PRU, DEN, HOL, BEL]
+    home: [KIE, BER, MUN]
     units:
-    - {loc: den, type: army}
-    - {loc: edi, type: army}
-    - {loc: bel, type: fleet}
-    - {loc: mun, type: army}
-    - {loc: bal, type: fleet}
-    - {loc: nth, type: fleet}
+    - {loc: DEN, type: army}
+    - {loc: EDI, type: army}
+    - {loc: BEL, type: fleet}
+    - {loc: MUN, type: army}
+    - {loc: BAL, type: fleet}
+    - {loc: NTH, type: fleet}
   Italy:
-    centers: [ven, rom, nap, tun]
-    control: [pie, ven, tus, rom, apu, nap, tun]
-    home: [rom, nap, ven]
-    name: Italy
+    centers: [VEN, ROM, NAP, TUN]
+    control: [PIE, VEN, TUS, ROM, APU, NAP, TUN]
+    home: [VEN, ROM, NAP]
     units:
-    - {loc: pie, type: army}
-    - {loc: ven, type: army}
-    - {loc: nap, type: fleet}
-    - {loc: ion, type: fleet}
+    - {loc: PIE, type: army}
+    - {loc: VEN, type: army}
+    - {loc: NAP, type: fleet}
+    - {loc: ION, type: fleet}
   Russia:
-    centers: [stp, mos, sev, war, rum]
-    control: [sil, boh, mos, lvn, ukr, sev, war, rum, gal]
-    home: [mos, stp, sev, war]
-    name: Russia
+    centers: [STP, MOS, SEV, WAR, RUM]
+    control: [SIL, BOH, GAL, MOS, LVN, UKR, SEV, WAR, RUM]
+    home: [STP, MOS, SEV, WAR]
     units:
-    - {loc: bot, type: fleet}
-    - {loc: boh, type: army}
-    - {loc: gal, type: army}
-    - {loc: bla, type: fleet}
-    - {loc: rum, type: army}
+    - {loc: BOT, type: fleet}
+    - {loc: BOH, type: army}
+    - {loc: GAL, type: army}
+    - {loc: BLA, type: fleet}
+    - {loc: RUM, type: army}
   Turkey:
-    centers: [con, ank, smy, bul]
-    control: [gre, con, ank, arm, smy, syr, bul]
-    home: [con, ank, smy]
-    name: Turkey
+    centers: [CON, ANK, SMY, BUL]
+    control: [GRE, CON, ANK, ARM, SMY, SYR, BUL]
+    home: [CON, ANK, SMY]
     units:
-    - {loc: gre, type: army}
-    - {loc: aeg, type: fleet}
-    - {loc: eas, type: fleet}
-    - {loc: bul-sc, type: fleet}
+    - {loc: GRE, type: army}
+    - {loc: AEG, type: fleet}
+    - {loc: EAS, type: fleet}
+    - {loc: BUL-sc, type: fleet}
 retreats:
   Russia:
-    boh: [sil]
+    BOH: [SIL]
 time: {retreat: true, season: 2, turn: 6}

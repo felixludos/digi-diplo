@@ -1,8 +1,8 @@
 England:
-- {loc: edi, type: build, unit: army}
+- {loc: EDI, type: build, unit: army}
 France:
-- {loc: mar, type: build, unit: fleet}
+- {loc: MAR, type: build, unit: fleet}
 Germany:
-- {loc: kie, type: build, unit: fleet}
+- {loc: KIE, type: build, unit: fleet}
 Turkey:
-- {loc: smy, type: build, unit: fleet}
+- {loc: SMY, type: build, unit: fleet}

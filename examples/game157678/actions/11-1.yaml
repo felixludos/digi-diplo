@@ -1,38 +1,38 @@
 Austria:
-- {dest: ser, failed: true, loc: gre, type: move, unit: army}
-- {dest: vie, failed: true, loc: tyr, type: move, unit: army}
-- {dest: bud, loc: ser, type: move, unit: army}
-- {dest: bud, loc: tri, src: ser, type: support, unit: army}
+- {dest: SER, failed: true, loc: GRE, type: move, unit: army}
+- {dest: VIE, failed: true, loc: TYR, type: move, unit: army}
+- {dest: BUD, loc: SER, type: move, unit: army}
+- {dest: BUD, loc: TRI, src: SER, type: support, unit: army}
 France:
-- {dest: nwg, failed: true, loc: edi, type: move, unit: fleet}
-- {dest: cly, failed: true, loc: lvp, type: move, unit: army}
-- {dest: aeg, failed: true, loc: ion, type: move, unit: fleet}
-- {dest: ruh, failed: true, loc: bur, type: move, unit: army}
-- {dest: ven, loc: rom, type: move, unit: army}
-- {dest: adr, loc: apu, type: move, unit: fleet}
-- {dest: pie, loc: ven, type: move, unit: army}
-- {dest: mao, failed: true, loc: wes, type: move, unit: fleet}
-- {dest: nth, loc: eng, type: move, unit: fleet}
-- {dest: nao, failed: true, loc: mao, type: move, unit: fleet}
-- {dest: bur, failed: true, loc: mar, type: move, unit: army}
-- {dest: ruh, failed: true, loc: bel, src: bur, type: support, unit: army}
-- {dest: nth, loc: lon, src: eng, type: support, unit: fleet}
+- {dest: NWG, failed: true, loc: EDI, type: move, unit: fleet}
+- {dest: CLY, failed: true, loc: LVP, type: move, unit: army}
+- {dest: AEG, failed: true, loc: ION, type: move, unit: fleet}
+- {dest: RUH, failed: true, loc: BUR, type: move, unit: army}
+- {dest: VEN, loc: ROM, type: move, unit: army}
+- {dest: ADR, loc: APU, type: move, unit: fleet}
+- {dest: PIE, loc: VEN, type: move, unit: army}
+- {dest: MAO, failed: true, loc: WES, type: move, unit: fleet}
+- {dest: NTH, loc: ENG, type: move, unit: fleet}
+- {dest: NAO, failed: true, loc: MAO, type: move, unit: fleet}
+- {dest: BUR, failed: true, loc: MAR, type: move, unit: army}
+- {dest: RUH, failed: true, loc: BEL, src: BUR, type: support, unit: army}
+- {dest: NTH, loc: LON, src: ENG, type: support, unit: fleet}
 Germany:
-- {dest: ruh, failed: true, loc: mun, type: move, unit: army}
-- {dest: stp, loc: mos, type: move, unit: army}
-- {dest: nao, failed: true, loc: nwg, type: move, unit: fleet}
-- {dest: bel, loc: nth, type: move, unit: fleet}
-- {dest: mun, failed: true, loc: boh, type: move, unit: army}
-- {dest: den, loc: kie, type: move, unit: fleet}
-- {dest: rum, loc: ukr, type: support-defend, unit: army}
-- {dest: vie, loc: gal, type: support-defend, unit: army}
-- {dest: nao, failed: true, loc: cly, src: nwg, type: support, unit: fleet}
-- {dest: bud, failed: true, loc: vie, src: rum, type: support, unit: army}
-- {dest: bel, loc: hol, src: nth, type: support, unit: army}
+- {dest: RUH, failed: true, loc: MUN, type: move, unit: army}
+- {dest: STP, loc: MOS, type: move, unit: army}
+- {dest: NAO, failed: true, loc: NWG, type: move, unit: fleet}
+- {dest: BEL, loc: NTH, type: move, unit: fleet}
+- {dest: MUN, failed: true, loc: BOH, type: move, unit: army}
+- {dest: DEN, loc: KIE, type: move, unit: fleet}
+- {dest: RUM, loc: UKR, type: support-defend, unit: army}
+- {dest: VIE, loc: GAL, type: support-defend, unit: army}
+- {dest: NAO, failed: true, loc: CLY, src: NWG, type: support, unit: fleet}
+- {dest: BUD, failed: true, loc: VIE, src: RUM, type: support, unit: army}
+- {dest: BEL, loc: HOL, src: NTH, type: support, unit: army}
 Russia:
-- {loc: arm, type: hold, unit: army}
-- {dest: con, failed: true, loc: smy, type: move, unit: army}
-- {dest: aeg, failed: true, loc: con, type: move, unit: fleet}
-- {dest: ser, loc: bul, type: move, unit: army}
-- {dest: gre, failed: true, loc: alb, type: move, unit: army}
-- {dest: ser, loc: rum, src: bul, type: support, unit: army}
+- {loc: ARM, type: hold, unit: army}
+- {dest: CON, failed: true, loc: SMY, type: move, unit: army}
+- {dest: AEG, failed: true, loc: CON, type: move, unit: fleet}
+- {dest: SER, loc: BUL, type: move, unit: army}
+- {dest: GRE, failed: true, loc: ALB, type: move, unit: army}
+- {dest: SER, loc: RUM, src: BUL, type: support, unit: army}

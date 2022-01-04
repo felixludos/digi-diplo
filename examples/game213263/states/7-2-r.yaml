@@ -1,82 +1,75 @@
 disbands:
   England:
-  - {loc: fin, type: army}
+  - {loc: FIN, type: army}
 players:
   Austria:
-    centers: [vie, tri, bud, ser]
-    control: [vie, tri, bud, alb, ser, tyr, boh, gal, war, rum]
-    home: [vie, tri, bud]
-    name: Austria
+    centers: [VIE, TRI, BUD, SER]
+    control: [VIE, TRI, BUD, TYR, ALB, SER, BOH, GAL, WAR, RUM]
+    home: [VIE, TRI, BUD]
     units:
-    - {loc: war, type: army}
-    - {loc: rum, type: army}
-    - {loc: ser, type: army}
-    - {loc: tri, type: army}
+    - {loc: WAR, type: army}
+    - {loc: RUM, type: army}
+    - {loc: SER, type: army}
+    - {loc: TRI, type: army}
   England:
-    centers: [lvp, lon, nwy, swe, stp]
-    control: [lvp, yor, wal, lon, stp]
-    home: [lon, edi, lvp]
-    name: England
+    centers: [LVP, LON, NWY, SWE, STP]
+    control: [LVP, YOR, WAL, LON, STP]
+    home: [EDI, LVP, LON]
     units:
-    - {loc: wal, type: fleet}
-    - {loc: lvp, type: fleet}
-    - {loc: mos, type: army}
+    - {loc: WAL, type: fleet}
+    - {loc: LVP, type: fleet}
+    - {loc: MOS, type: army}
   France:
-    centers: [bre, par, mar, spa, por]
-    control: [cly, pic, bre, gas, mar, spa, por]
-    home: [par, mar, bre]
-    name: France
+    centers: [BRE, PAR, MAR, SPA, POR]
+    control: [CLY, PIC, BRE, GAS, MAR, SPA, POR]
+    home: [BRE, PAR, MAR]
     units:
-    - {loc: mar, type: army}
-    - {loc: cly, type: army}
-    - {loc: mao, type: fleet}
-    - {loc: iri, type: fleet}
-    - {loc: nao, type: fleet}
+    - {loc: MAR, type: army}
+    - {loc: CLY, type: army}
+    - {loc: MAO, type: fleet}
+    - {loc: IRI, type: fleet}
+    - {loc: NAO, type: fleet}
   Germany:
-    centers: [edi, kie, ber, mun, den, hol, bel]
-    control: [nwy, swe, fin, par, bur, edi, kie, ber, ruh, mun, pru, den, hol, bel]
-    home: [ber, kie, mun]
-    name: Germany
+    centers: [EDI, KIE, BER, MUN, DEN, HOL, BEL]
+    control: [NWY, SWE, FIN, PAR, BUR, EDI, KIE, BER, RUH, MUN, PRU, DEN, HOL, BEL]
+    home: [KIE, BER, MUN]
     units:
-    - {loc: par, type: army}
-    - {loc: swe, type: fleet}
-    - {loc: eng, type: fleet}
-    - {loc: fin, type: army}
-    - {loc: edi, type: army}
-    - {loc: nth, type: fleet}
-    - {loc: nwy, type: army}
+    - {loc: PAR, type: army}
+    - {loc: SWE, type: fleet}
+    - {loc: ENG, type: fleet}
+    - {loc: FIN, type: army}
+    - {loc: EDI, type: army}
+    - {loc: NTH, type: fleet}
+    - {loc: NWY, type: army}
   Italy:
-    centers: [ven, rom, nap, tun]
-    control: [pie, ven, tus, rom, apu, nap, tun]
-    home: [rom, nap, ven]
-    name: Italy
+    centers: [VEN, ROM, NAP, TUN]
+    control: [PIE, VEN, TUS, ROM, APU, NAP, TUN]
+    home: [VEN, ROM, NAP]
     units:
-    - {loc: ion, type: fleet}
-    - {loc: pie, type: army}
-    - {loc: ven, type: army}
-    - {loc: nap, type: fleet}
+    - {loc: ION, type: fleet}
+    - {loc: PIE, type: army}
+    - {loc: VEN, type: army}
+    - {loc: NAP, type: fleet}
   Russia:
-    centers: [mos, sev, war, rum]
-    control: [sil, mos, lvn, ukr, sev]
-    home: [mos, stp, sev, war]
-    name: Russia
+    centers: [MOS, SEV, WAR, RUM]
+    control: [SIL, MOS, LVN, UKR, SEV]
+    home: [STP, MOS, SEV, WAR]
     units:
-    - {loc: bot, type: fleet}
-    - {loc: bla, type: fleet}
-    - {loc: mos, type: army}
-    - {loc: sev, type: army}
+    - {loc: BOT, type: fleet}
+    - {loc: BLA, type: fleet}
+    - {loc: MOS, type: army}
+    - {loc: SEV, type: army}
   Turkey:
-    centers: [gre, con, ank, smy, bul]
-    control: [gre, con, ank, arm, smy, syr, bul]
-    home: [con, ank, smy]
-    name: Turkey
+    centers: [GRE, CON, ANK, SMY, BUL]
+    control: [GRE, CON, ANK, ARM, SMY, SYR, BUL]
+    home: [CON, ANK, SMY]
     units:
-    - {loc: gre, type: army}
-    - {loc: bul-sc, type: fleet}
-    - {loc: eas, type: fleet}
-    - {loc: con, type: army}
-    - {loc: aeg, type: fleet}
+    - {loc: GRE, type: army}
+    - {loc: BUL-sc, type: fleet}
+    - {loc: EAS, type: fleet}
+    - {loc: CON, type: army}
+    - {loc: AEG, type: fleet}
 retreats:
   England:
-    mos: [ukr, lvn]
+    MOS: [UKR, LVN]
 time: {retreat: true, season: 2, turn: 7}

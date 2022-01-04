@@ -1,8 +1,8 @@
 Austria:
-- {loc: rum, type: disband, unit: army}
+- {loc: RUM, type: disband, unit: army}
 England:
-- {dest: ruh, loc: bel, type: retreat, unit: army}
+- {dest: RUH, loc: BEL, type: retreat, unit: army}
 Germany:
-- {dest: stp-nc, loc: nwy, type: retreat, unit: fleet}
+- {dest: STP-nc, loc: NWY, type: retreat, unit: fleet}
 Russia:
-- {dest: bot, loc: swe, type: retreat, unit: fleet}
+- {dest: BOT, loc: SWE, type: retreat, unit: fleet}

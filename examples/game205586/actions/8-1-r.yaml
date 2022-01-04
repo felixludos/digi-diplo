@@ -1,2 +1,2 @@
 England:
-- {dest: cly, loc: edi, type: retreat, unit: fleet}
+- {dest: CLY, loc: EDI, type: retreat, unit: fleet}

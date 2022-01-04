@@ -1,9 +1,0 @@
-
-#_meta.script_name: diplo-step
-
-root: test/4
-
-state-path: test/5/state.yaml
-action-path: test/5/actions.yaml
-save-path: test_new_state.yaml
-

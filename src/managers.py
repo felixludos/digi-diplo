@@ -55,10 +55,10 @@ class DiplomacyManager(Versioned):
 		images_root = game_root / 'images'
 		
 		if gamemap is unspecified_argument:
-			gamemap = A.pull('map')
+			gamemap = A.pull('map', ref=True)
 		
 		if renderer is unspecified_argument:
-			renderer = A.pull('renderer', None)
+			renderer = A.pull('renderer', None, ref=True)
 		
 		super().__init__(A, **kwargs)
 		
@@ -401,6 +401,17 @@ class DiplomacyManager(Versioned):
 			self._checkpoint_actions()
 		return terms
 		
+	def remove_action(self, player, loc, persistent=True):
+		player = self.fix_player(player)
+		base = self._to_base_region(loc)
+		
+		action = None
+		if player in self.actions and base in self.actions[player]:
+			action = self.actions[player][base]
+			del self.actions[player][base]
+		if persistent:
+			self._checkpoint_actions()
+		return action
 		
 	def format_action(self, player, terms):
 		player = self.fix_player(player)
@@ -786,17 +797,28 @@ class DiplomacyManager(Versioned):
 			raise ParsingFailedError(line)
 		
 		return terms
-		
+	
+	
+	def find_image_path(self, include_actions=False):
+		path = self._generate_image_path(include_actions)
+		if path.exists():
+			return path
+	
+	
+	def _generate_image_path(self, include_actions=False):
+		name = f'{self.time}-actions.png' if include_actions else f'{self.time}.png'
+		return self.images_root / name
+	
 	
 	def render_latest(self, path=None, include_actions=False):
 		
 		if path is None:
-			name = f'{self.time}-actions.png' if include_actions else f'{self.time}.png'
-			path = self.images_root / name
-			print(f'Rendering {name}')
+			path = self._generate_image_path(include_actions)
+		print(f'Rendering {path.stem}')
 		
 		self.renderer(self.state, self.actions if include_actions else None, savepath=path)
 		return path
+	
 	
 	
 

@@ -1,39 +1,39 @@
 Austria:
-- {dest: rum, loc: ukr, type: move, unit: army}
-- {dest: gal, failed: true, loc: vie, type: move, unit: army}
-- {dest: aeg, failed: true, loc: gre, src: ion, type: support, unit: fleet}
-- {dest: rum, loc: ser, src: ukr, type: support, unit: army}
-- {dest: rum, loc: bud, src: ukr, type: support, unit: army}
+- {dest: RUM, loc: UKR, type: move, unit: army}
+- {dest: GAL, failed: true, loc: VIE, type: move, unit: army}
+- {dest: AEG, failed: true, loc: GRE, src: ION, type: support, unit: fleet}
+- {dest: RUM, loc: SER, src: UKR, type: support, unit: army}
+- {dest: RUM, loc: BUD, src: UKR, type: support, unit: army}
 England:
-- {dest: nwy, failed: true, loc: nth, type: move, unit: fleet}
-- {dest: pic, failed: true, loc: bel, type: move, unit: army}
-- {dest: nao, loc: lvp, type: move, unit: fleet}
-- {dest: pic, failed: true, loc: eng, src: bel, type: support, unit: fleet}
+- {dest: NWY, failed: true, loc: NTH, type: move, unit: fleet}
+- {dest: PIC, failed: true, loc: BEL, type: move, unit: army}
+- {dest: NAO, loc: LVP, type: move, unit: fleet}
+- {dest: PIC, failed: true, loc: ENG, src: BEL, type: support, unit: fleet}
 France:
-- {dest: mao, loc: por, type: move, unit: fleet}
-- {dest: gas, loc: spa, type: move, unit: army}
-- {dest: eng, failed: true, loc: bre, type: move, unit: fleet}
-- {dest: pic, loc: par, type: move, unit: army}
-- {dest: pic, loc: bur, src: par, type: support, unit: army}
+- {dest: MAO, loc: POR, type: move, unit: fleet}
+- {dest: GAS, loc: SPA, type: move, unit: army}
+- {dest: ENG, failed: true, loc: BRE, type: move, unit: fleet}
+- {dest: PIC, loc: PAR, type: move, unit: army}
+- {dest: PIC, loc: BUR, src: PAR, type: support, unit: army}
 Germany:
-- {dest: nwy, failed: true, loc: swe, type: move, unit: fleet}
-- {dest: mun, failed: true, loc: sil, type: move, unit: army}
-- {dest: mun, failed: true, loc: ber, type: move, unit: army}
-- {dest: hol, loc: kie, type: support-defend, unit: fleet}
-- {dest: bel, failed: true, loc: hol, src: bur, type: support, unit: army}
+- {dest: NWY, failed: true, loc: SWE, type: move, unit: fleet}
+- {dest: MUN, failed: true, loc: SIL, type: move, unit: army}
+- {dest: MUN, failed: true, loc: BER, type: move, unit: army}
+- {dest: HOL, loc: KIE, type: support-defend, unit: fleet}
+- {dest: BEL, failed: true, loc: HOL, src: BUR, type: support, unit: army}
 Italy:
-- {dest: pie, loc: ven, type: move, unit: army}
-- {dest: apu, loc: tun, type: convoy-move, unit: army}
-- {dest: tys, loc: nap, type: move, unit: fleet}
-- {dest: apu, loc: ion, src: tun, type: convoy-transport, unit: fleet}
+- {dest: PIE, loc: VEN, type: move, unit: army}
+- {dest: APU, loc: TUN, type: convoy-move, unit: army}
+- {dest: TYS, loc: NAP, type: move, unit: fleet}
+- {dest: APU, loc: ION, src: TUN, type: convoy-transport, unit: fleet}
 Russia:
-- {dest: bud, failed: true, loc: rum, type: move, unit: army}
-- {dest: swe, failed: true, loc: bal, type: move, unit: fleet}
-- {dest: gal, failed: true, loc: war, type: move, unit: army}
-- {dest: ukr, loc: mos, type: move, unit: army}
-- {dest: bul, failed: true, loc: bla, type: support-defend, unit: fleet}
+- {dest: BUD, failed: true, loc: RUM, type: move, unit: army}
+- {dest: SWE, failed: true, loc: BAL, type: move, unit: fleet}
+- {dest: GAL, failed: true, loc: WAR, type: move, unit: army}
+- {dest: UKR, loc: MOS, type: move, unit: army}
+- {dest: BUL, failed: true, loc: BLA, type: support-defend, unit: fleet}
 Turkey:
-- {dest: gre, failed: true, loc: con, type: convoy-move, unit: army}
-- {dest: gre, failed: true, loc: bul, type: move, unit: army}
-- {dest: eas, loc: smy, type: move, unit: fleet}
-- {dest: gre, failed: true, loc: aeg, src: con, type: convoy-transport, unit: fleet}
+- {dest: GRE, failed: true, loc: CON, type: convoy-move, unit: army}
+- {dest: GRE, failed: true, loc: BUL, type: move, unit: army}
+- {dest: EAS, loc: SMY, type: move, unit: fleet}
+- {dest: GRE, failed: true, loc: AEG, src: CON, type: convoy-transport, unit: fleet}

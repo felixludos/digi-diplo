@@ -1,4 +1,4 @@
 Italy:
-- {loc: eas, type: disband, unit: fleet}
+- {loc: EAS, type: disband, unit: fleet}
 Turkey:
-- {dest: con, loc: bul, type: retreat, unit: army}
+- {dest: CON, loc: BUL, type: retreat, unit: army}

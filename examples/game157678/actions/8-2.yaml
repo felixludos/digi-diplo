@@ -1,39 +1,39 @@
 Austria:
-- {dest: gre, failed: true, loc: ser, type: move, unit: army}
-- {dest: ser, failed: true, loc: tri, type: move, unit: army}
-- {dest: bud, loc: vie, type: support-defend, unit: army}
-- {dest: ser, failed: true, loc: bud, src: tri, type: support, unit: army}
+- {dest: GRE, failed: true, loc: SER, type: move, unit: army}
+- {dest: SER, failed: true, loc: TRI, type: move, unit: army}
+- {dest: BUD, loc: VIE, type: support-defend, unit: army}
+- {dest: SER, failed: true, loc: BUD, src: TRI, type: support, unit: army}
 France:
-- {dest: ven, loc: pie, type: move, unit: army}
-- {dest: tys, failed: true, loc: tun, type: move, unit: fleet}
-- {dest: nap, failed: true, loc: tys, type: move, unit: fleet}
-- {dest: gas, loc: mar, type: move, unit: army}
-- {dest: bur, loc: bel, type: support-defend, unit: army}
-- {dest: bel, loc: eng, type: support-defend, unit: fleet}
-- {dest: edi, loc: yor, type: support-defend, unit: army}
-- {dest: bel, loc: bur, type: support-defend, unit: army}
-- {dest: nth, failed: true, loc: edi, src: nwg, type: support, unit: fleet}
-- {dest: ven, loc: tus, src: pie, type: support, unit: army}
+- {dest: VEN, loc: PIE, type: move, unit: army}
+- {dest: TYS, failed: true, loc: TUN, type: move, unit: fleet}
+- {dest: NAP, failed: true, loc: TYS, type: move, unit: fleet}
+- {dest: GAS, loc: MAR, type: move, unit: army}
+- {dest: BUR, loc: BEL, type: support-defend, unit: army}
+- {dest: BEL, loc: ENG, type: support-defend, unit: fleet}
+- {dest: EDI, loc: YOR, type: support-defend, unit: army}
+- {dest: BEL, loc: BUR, type: support-defend, unit: army}
+- {dest: NTH, failed: true, loc: EDI, src: NWG, type: support, unit: fleet}
+- {dest: VEN, loc: TUS, src: PIE, type: support, unit: army}
 Germany:
-- {dest: mun, loc: ruh, type: move, unit: army}
-- {dest: mos, loc: stp, type: move, unit: army}
-- {dest: ukr, loc: mos, type: move, unit: army}
-- {dest: sil, loc: mun, type: move, unit: army}
-- {dest: nth, loc: nwg, type: support-defend, unit: fleet}
-- {dest: edi, loc: nth, type: support-defend, unit: fleet}
-- {dest: nth, loc: hol, type: support-defend, unit: fleet}
-- {dest: ukr, loc: war, src: mos, type: support, unit: army}
-- {dest: mos, loc: lvn, src: stp, type: support, unit: army}
+- {dest: MUN, loc: RUH, type: move, unit: army}
+- {dest: MOS, loc: STP, type: move, unit: army}
+- {dest: UKR, loc: MOS, type: move, unit: army}
+- {dest: SIL, loc: MUN, type: move, unit: army}
+- {dest: NTH, loc: NWG, type: support-defend, unit: fleet}
+- {dest: EDI, loc: NTH, type: support-defend, unit: fleet}
+- {dest: NTH, loc: HOL, type: support-defend, unit: fleet}
+- {dest: UKR, loc: WAR, src: MOS, type: support, unit: army}
+- {dest: MOS, loc: LVN, src: STP, type: support, unit: army}
 Italy:
-- {dest: pie, loc: tyr, type: move, unit: army}
-- {dest: nap, failed: true, loc: apu, type: move, unit: fleet}
-- {dest: tys, failed: true, loc: ion, type: move, unit: fleet}
-- {dest: rom, loc: ven, type: move, unit: army}
+- {dest: PIE, loc: TYR, type: move, unit: army}
+- {dest: NAP, failed: true, loc: APU, type: move, unit: fleet}
+- {dest: TYS, failed: true, loc: ION, type: move, unit: fleet}
+- {dest: ROM, loc: VEN, type: move, unit: army}
 Russia:
-- {dest: bul, failed: true, loc: con, type: move, unit: army}
-- {dest: gre, failed: true, loc: bul, type: move, unit: army}
-- {dest: sev, failed: true, loc: arm, type: move, unit: army}
-- {dest: bud, failed: true, loc: rum, type: move, unit: army}
-- {dest: rum, failed: true, loc: sev, type: move, unit: army}
-- {dest: rum, loc: bla, src: sev, type: support, unit: fleet}
-- {dest: bud, loc: gal, src: rum, type: support, unit: army}
+- {dest: BUL, failed: true, loc: CON, type: move, unit: army}
+- {dest: GRE, failed: true, loc: BUL, type: move, unit: army}
+- {dest: SEV, failed: true, loc: ARM, type: move, unit: army}
+- {dest: BUD, failed: true, loc: RUM, type: move, unit: army}
+- {dest: RUM, failed: true, loc: SEV, type: move, unit: army}
+- {dest: RUM, loc: BLA, src: SEV, type: support, unit: fleet}
+- {dest: BUD, loc: GAL, src: RUM, type: support, unit: army}

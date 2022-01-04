@@ -1,83 +1,76 @@
 players:
   Austria:
-    centers: [vie, tri, bud, gre, ser]
-    control: [sil, boh, gal, vie, tri, bud, alb, gre, ser]
-    home: [vie, tri, bud]
-    name: Austria
+    centers: [VIE, TRI, BUD, GRE, SER]
+    control: [BOH, GAL, VIE, TRI, BUD, TYR, ALB, GRE, SER, SIL]
+    home: [VIE, TRI, BUD]
     units:
-    - {loc: ser, type: army}
-    - {loc: sil, type: army}
-    - {loc: bud, type: army}
-    - {loc: gal, type: army}
-    - {loc: gre, type: fleet}
+    - {loc: SER, type: army}
+    - {loc: SIL, type: army}
+    - {loc: BUD, type: army}
+    - {loc: GAL, type: army}
+    - {loc: GRE, type: fleet}
   England:
-    centers: [edi, lvp, lon]
-    control: [cly, edi, lvp, yor]
-    home: [lon, edi, lvp]
-    name: England
+    centers: [EDI, LVP, LON]
+    control: [CLY, EDI, LVP, YOR, FIN]
+    home: [EDI, LVP, LON]
     units:
-    - {loc: lvp, type: fleet}
-    - {loc: lon, type: fleet}
-    - {loc: nth, type: fleet}
+    - {loc: LVP, type: fleet}
+    - {loc: LON, type: fleet}
+    - {loc: NTH, type: fleet}
   France:
-    centers: [bre, par, mar, spa, por]
-    control: [lon, wal, pic, bre, par, gas, mar, spa, por]
-    home: [par, mar, bre]
-    name: France
+    centers: [BRE, PAR, MAR, SPA, POR]
+    control: [LON, WAL, PIC, BRE, PAR, GAS, MAR, SPA, POR]
+    home: [BRE, PAR, MAR]
     units:
-    - {loc: wes, type: fleet}
-    - {loc: lon, type: fleet}
-    - {loc: bur, type: army}
-    - {loc: mar, type: army}
-    - {loc: wal, type: army}
+    - {loc: WES, type: fleet}
+    - {loc: LON, type: fleet}
+    - {loc: BUR, type: army}
+    - {loc: MAR, type: army}
+    - {loc: WAL, type: army}
   Germany:
-    centers: [kie, ber, mun, hol, den, bel]
-    control: [bur, kie, ber, ruh, mun, pru, hol, den, bel]
-    home: [ber, kie, mun]
-    name: Germany
+    centers: [KIE, BER, MUN, HOL, DEN, BEL]
+    control: [BUR, KIE, BER, RUH, MUN, PRU, HOL, DEN, BEL]
+    home: [KIE, BER, MUN]
     units:
-    - {loc: bur, type: army}
-    - {loc: ber, type: army}
-    - {loc: hol, type: fleet}
-    - {loc: bel, type: army}
-    - {loc: mun, type: army}
-    - {loc: den, type: fleet}
+    - {loc: BUR, type: army}
+    - {loc: BER, type: army}
+    - {loc: HOL, type: fleet}
+    - {loc: BEL, type: army}
+    - {loc: MUN, type: army}
+    - {loc: DEN, type: fleet}
   Italy:
-    centers: [ven, rom, nap, tun]
-    control: [pie, ven, tus, rom, apu, nap, tun]
-    home: [rom, nap, ven]
-    name: Italy
+    centers: [VEN, ROM, NAP, TUN]
+    control: [PIE, VEN, TUS, ROM, APU, NAP, TUN]
+    home: [VEN, ROM, NAP]
     units:
-    - {loc: pie, type: army}
-    - {loc: nap, type: army}
-    - {loc: aeg, type: fleet}
-    - {loc: tys, type: fleet}
+    - {loc: PIE, type: army}
+    - {loc: NAP, type: army}
+    - {loc: AEG, type: fleet}
+    - {loc: TYS, type: fleet}
   Russia:
-    centers: [nwy, stp, mos, sev, war, swe, rum]
-    control: [nwy, stp, mos, lvn, ukr, sev, fin, war, swe, rum]
-    home: [mos, stp, sev, war]
-    name: Russia
+    centers: [NWY, STP, MOS, SEV, WAR, SWE, RUM]
+    control: [NWY, STP, MOS, LVN, UKR, SEV, WAR, SWE, RUM]
+    home: [STP, MOS, SEV, WAR]
     units:
-    - {loc: war, type: army}
-    - {loc: swe, type: fleet}
-    - {loc: nwy, type: fleet}
-    - {loc: sev, type: fleet}
-    - {loc: ukr, type: army}
-    - {loc: lvn, type: army}
-    - {loc: rum, type: army}
+    - {loc: WAR, type: army}
+    - {loc: SWE, type: fleet}
+    - {loc: NWY, type: fleet}
+    - {loc: SEV, type: fleet}
+    - {loc: UKR, type: army}
+    - {loc: LVN, type: army}
+    - {loc: RUM, type: army}
   Turkey:
-    centers: [con, ank, smy, bul]
-    control: [con, ank, arm, smy, syr, bul]
-    home: [con, ank, smy]
-    name: Turkey
+    centers: [CON, ANK, SMY, BUL]
+    control: [CON, ANK, ARM, SMY, SYR, BUL]
+    home: [CON, ANK, SMY]
     units:
-    - {loc: con, type: army}
-    - {loc: bul, type: army}
-    - {loc: eas, type: fleet}
-    - {loc: bla, type: fleet}
+    - {loc: CON, type: army}
+    - {loc: BUL, type: army}
+    - {loc: EAS, type: fleet}
+    - {loc: BLA, type: fleet}
 retreats:
   England:
-    lon-c: [yor-c]
+    LON-c: [YOR-c]
   France:
-    bur: [gas, par, pic]
+    BUR: [PAR, PIC, GAS]
 time: {retreat: true, season: 2, turn: 4}

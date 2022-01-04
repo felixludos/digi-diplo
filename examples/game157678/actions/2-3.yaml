@@ -1,8 +1,8 @@
 Austria:
-- {loc: tri, type: build, unit: army}
+- {loc: TRI, type: build, unit: army}
 Germany:
-- {loc: kie, type: build, unit: fleet}
+- {loc: KIE, type: build, unit: fleet}
 Russia:
-- {loc: sev, type: build, unit: army}
+- {loc: SEV, type: build, unit: army}
 Turkey:
-- {loc: bul, type: destroy, unit: the}
+- {loc: BUL, type: destroy, unit: the}

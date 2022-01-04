@@ -100,6 +100,7 @@ class MatplotlibRenderer(DiplomacyRenderer):
 		super().__init__(A, **kwargs)
 		
 		self.img_scale = A.pull('img-scale', 1)
+		self._view = view
 	
 	
 	def _process(self, img, savepath=None, **kwargs):
@@ -108,6 +109,8 @@ class MatplotlibRenderer(DiplomacyRenderer):
 			w, h = figaspect(H / W)
 			w, h = self.img_scale * w, self.img_scale * h
 			plt.savefig(savepath, dpi=W / w)
+			if not self._view:
+				plt.close(plt.gcf())
 
 
 @fig.Component('default-renderer')
@@ -174,8 +177,8 @@ class DefaultRenderer(MatplotlibRenderer):
 		self._known_action_drawers = {
 			'build': self._draw_build,
 			'retreat': self._draw_retreat,
-			'disband': self._draw_disband,
-			'destroy': self._draw_destroy,
+			'disband': self._draw_disband, # disband due to retreat
+			'destroy': self._draw_destroy, # disband during winter
 			'hold': self._draw_hold,
 			'move': self._draw_move,
 			'support': self._draw_support,
@@ -383,9 +386,12 @@ class DefaultRenderer(MatplotlibRenderer):
 		self._draw_shortest_arrow(self._get_unit_pos(action['loc']), self._get_label_pos(action['dest']),
 		                          self.retreat_action_props)
 	
-	def _draw_destroy(self, player, loc, utype):
+	def _draw_disband(self, player, loc, utype=None):
+		if isinstance(loc, dict):
+			utype = loc.get('unit')
+			loc = loc['loc']
 		self._draw_unit(player, loc, utype, retreat=True)
-		return self._draw_disband(player, loc, retreat=True)
+		return self._draw_destroy(player, loc, retreat=True)
 	
 	def _draw_action(self, player, action):
 		fn = self._known_action_drawers.get(action.get('type'))
@@ -398,7 +404,7 @@ class DefaultRenderer(MatplotlibRenderer):
 		shape = self.unit_shapes.get(action.get('unit'))
 		plt.plot(x, y, marker=shape, **self.build_props)
 	
-	def _draw_disband(self, player, loc, retreat=False):
+	def _draw_destroy(self, player, loc, retreat=False):
 		if isinstance(loc, dict):
 			loc = loc['loc']
 		x, y = self._get_unit_pos(loc, retreat=retreat)

@@ -1,17 +1,9 @@
 
 
-parents: [classic/style]
+parents: [classic/game]
 
-assets-path: assets/classic
 
 client._type: diplomacy-bot
 
-year-offset: 1900
 
-manager:
-  _type: diplo-manager
-
-  map:
-    _type: diplo-map
-    _mod.dash-coasts: 1
 

@@ -1,38 +1,38 @@
 Austria:
-- {loc: mos, type: hold, unit: army}
-- {loc: war, type: hold, unit: army}
-- {loc: boh, type: hold, unit: army}
-- {dest: pie, loc: tyr, type: support-defend, unit: army}
-- {dest: mos, loc: sev, type: support-defend, unit: army}
-- {dest: war, loc: gal, type: support-defend, unit: army}
-- {dest: war, loc: ukr, type: support-defend, unit: army}
-- {dest: boh, loc: vie, type: support-defend, unit: army}
+- {loc: MOS, type: hold, unit: army}
+- {loc: WAR, type: hold, unit: army}
+- {loc: BOH, type: hold, unit: army}
+- {dest: PIE, loc: TYR, type: support-defend, unit: army}
+- {dest: MOS, loc: SEV, type: support-defend, unit: army}
+- {dest: WAR, loc: GAL, type: support-defend, unit: army}
+- {dest: WAR, loc: UKR, type: support-defend, unit: army}
+- {dest: BOH, loc: VIE, type: support-defend, unit: army}
 Germany:
-- {loc: stp, type: hold, unit: army}
-- {loc: gas, type: hold, unit: army}
-- {loc: lvn, type: hold, unit: army}
-- {loc: bur, type: hold, unit: army}
-- {loc: mar, type: hold, unit: army}
-- {loc: pru, type: hold, unit: army}
-- {loc: bal, type: hold, unit: fleet}
-- {loc: sil, type: hold, unit: army}
-- {loc: ber, type: hold, unit: army}
-- {loc: ruh, type: hold, unit: army}
-- {loc: mun, type: hold, unit: army}
-- {dest: mao, loc: naf, type: move, unit: fleet}
-- {dest: por, loc: spa, type: move, unit: army}
-- {dest: spa-sc, loc: lyo, type: move, unit: fleet}
-- {dest: eng, loc: pic, type: move, unit: fleet}
-- {dest: nth, loc: hol, type: move, unit: fleet}
-- {dest: tun, failed: true, loc: wes, src: ion, type: support, unit: fleet}
+- {loc: STP, type: hold, unit: army}
+- {loc: GAS, type: hold, unit: army}
+- {loc: LVN, type: hold, unit: army}
+- {loc: BUR, type: hold, unit: army}
+- {loc: MAR, type: hold, unit: army}
+- {loc: PRU, type: hold, unit: army}
+- {loc: BAL, type: hold, unit: fleet}
+- {loc: SIL, type: hold, unit: army}
+- {loc: BER, type: hold, unit: army}
+- {loc: RUH, type: hold, unit: army}
+- {loc: MUN, type: hold, unit: army}
+- {dest: MAO, loc: NAF, type: move, unit: fleet}
+- {dest: POR, loc: SPA, type: move, unit: army}
+- {dest: SPA-sc, loc: LYO, type: move, unit: fleet}
+- {dest: ENG, loc: PIC, type: move, unit: fleet}
+- {dest: NTH, loc: HOL, type: move, unit: fleet}
+- {dest: TUN, failed: true, loc: WES, src: ION, type: support, unit: fleet}
 Italy:
-- {loc: tun, type: hold, unit: fleet}
-- {dest: pie, loc: tus, type: support-defend, unit: army}
-- {dest: tys, loc: rom, type: support-defend, unit: fleet}
-- {dest: tun, loc: tys, type: support-defend, unit: fleet}
+- {loc: TUN, type: hold, unit: fleet}
+- {dest: PIE, loc: TUS, type: support-defend, unit: army}
+- {dest: TYS, loc: ROM, type: support-defend, unit: fleet}
+- {dest: TUN, loc: TYS, type: support-defend, unit: fleet}
 Turkey:
-- {loc: arm, type: hold, unit: army}
-- {loc: gre, type: hold, unit: fleet}
-- {loc: pie, type: hold, unit: fleet}
-- {loc: bul, type: hold, unit: army}
-- {dest: tun, loc: ion, type: support-defend, unit: fleet}
+- {loc: ARM, type: hold, unit: army}
+- {loc: GRE, type: hold, unit: fleet}
+- {loc: PIE, type: hold, unit: fleet}
+- {loc: BUL, type: hold, unit: army}
+- {dest: TUN, loc: ION, type: support-defend, unit: fleet}

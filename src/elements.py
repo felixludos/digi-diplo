@@ -289,14 +289,24 @@ class DiploMap(util.Versioned):
 		if utype in util.UNIT_ENUMS:
 			utype = util.UNIT_ENUMS[utype]
 		
-		base, coast = self.decode_region_name(name=dest)
+		sbase, scoast = self.decode_region_name(name=src)
+		dbase, dcoast = self.decode_region_name(name=dest)
 		
-		return self.encode_region_name(name=base, coast=coast,
-		                               node_type=self.graph[base]['type'], unit_type=utype)
+		edges = self.graph[sbase]['edges'][utype]
+		if isinstance(edges, dict):
+			edges = edges[scoast]
+		
+		for e in edges:
+			b, c = self.decode_region_name(name=e)
+			if b == dbase:
+				return self.encode_region_name(name=b, coast=c,
+				                               node_type=self.graph[b]['type'], unit_type=utype)
+		
+		return self.encode_region_name(name=dbase, coast=dcoast, unit_type=utype)
+		raise Exception(f'Cant find an edge: src={src}, utype={utype}, dest={dest}')
 		
 	
 	def _fill_missing_actions(self, full):
-		
 		existing = {name: {a['loc']: a for a in actions} for name, actions in full.items()}
 		
 		for name, player in self.players.items():
@@ -313,6 +323,36 @@ class DiploMap(util.Versioned):
 		
 		return full
 	
+	def _process_action(self, name, action):
+		player = self.players[name]
+		unit = self.get_unit(action['loc'], action.get('unit', None))
+		if action['type'] == 'move':
+			dest = self.fix_loc(action['dest'], unit.unit_type)
+			return command.MoveCommand(player, unit, dest)
+		elif action['type'] == 'hold':
+			return command.HoldCommand(player, unit)
+		elif 'support' in action['type']:
+			if 'defend' in action['type']:
+				sup_unit = self.get_unit(action['dest'])
+				dest = sup_unit.position
+			else:
+				sup_unit = self.get_unit(action['src'], utype=action.get('src-unit', None))
+				dest = self._find_dest(action['src'], sup_unit.unit_type, action['dest'])
+			try:
+				return command.SupportCommand(player, unit, sup_unit, dest)
+			except:
+				print(player, unit, sup_unit, dest)
+				raise
+		elif action['type'] == 'convoy-move':
+			dest = self.fix_loc(action['dest'], unit.unit_type)
+			return command.ConvoyMoveCommand(player, unit, dest)
+		elif action['type'] == 'convoy-transport':
+			transport = self.get_unit(action['src'], action.get('unit', None), player=name)
+			dest = self.fix_loc(action['dest'], transport.unit_type)
+			return command.ConvoyTransportCommand(player, unit, transport, dest)
+		
+		raise Exception(f'unknown: {action}')
+	
 	def process_actions(self, full, ignore_unknown=False):
 		
 		assert hasattr(self, 'players'), 'players have not been loaded'
@@ -323,48 +363,36 @@ class DiploMap(util.Versioned):
 		unknown = {}
 		
 		for name, actions in full.items():
-			
-			player = self.players[name]
-			
 			for action in actions:
 				try:
-					unit = self.get_unit(action['loc'], action.get('unit', None))
-					if action['type'] == 'move':
-						dest = self.fix_loc(action['dest'], unit.unit_type)
-						cmds.append(command.MoveCommand(player, unit, dest))
-					elif action['type'] == 'hold':
-						cmds.append(command.HoldCommand(player, unit))
-					elif 'support' in action['type']:
-						if 'defend' in action['type']:
-							sup_unit = self.get_unit(action['dest'])
-							dest = sup_unit.position
-						else:
-							sup_unit = self.get_unit(action['src'], utype=action.get('src-unit', None))
-							dest = self._find_dest(action['src'], sup_unit.unit_type, action['dest'])
-						try:
-							cmds.append(command.SupportCommand(player, unit, sup_unit, dest))
-						except:
-							print(player, unit, sup_unit, dest)
-							raise
-					elif action['type'] == 'convoy-move':
-						dest = self.fix_loc(action['dest'], unit.unit_type)
-						cmds.append(command.ConvoyMoveCommand(player, unit, dest))
-					elif action['type'] == 'convoy-transport':
-						transport = self.get_unit(action['src'], action.get('unit',None), player=name)
-						dest = self.fix_loc(action['dest'], transport.unit_type)
-						cmds.append(command.ConvoyTransportCommand(player, unit, transport, dest))
-					elif ignore_unknown:
+					cmds.append(self._process_action(name, action))
+				except:
+					print('FAILED ORDER:', name, action)
+					if ignore_unknown:
+						cmds.append(self._process_action(name, {'loc': action['loc'], 'unit': action['unit'],
+						                                        'type': 'hold'}))
 						if name not in unknown:
 							unknown[name] = []
 						unknown[name].append(action)
-						cmds.append(command.HoldCommand(player, unit))
 					else:
-						raise Exception(f'unknown: {action}')
-				except:
-					print(name, action)
-					raise
+						raise
 		
 		return cmds, unknown
+	
+
+	def _process_retreat(self, name, action, retreats):
+		player = self.players[name]
+		unit = self.get_unit(action['loc'], action.get('unit', None), player=name)
+		
+		if action['type'] == 'disband':
+			if unit in retreats[name]:
+				return command.RetreatDisbandCommand(retreats, player, unit)
+		elif action['type'] == 'retreat':
+			dest = self.fix_loc(action['dest'], unit.unit_type)
+			return command.RetreatMoveCommand(retreats, player, unit, dest)
+
+		raise Exception(f'unknown: {action}')
+		
 		
 	def process_retreats(self, full, retreats, ignore_unknown=False):
 		
@@ -373,44 +401,43 @@ class DiploMap(util.Versioned):
 		cmds = []
 		unknown = {}
 		done = set()
-		e = None
 		for name, actions in full.items():
-			
-			player = self.players[name]
-			
 			for action in actions:
 				try:
-					unit = self.get_unit(action['loc'], action.get('unit', None), player=name)
+					retreat = self._process_retreat(name, action, retreats)
+					cmds.append(retreat)
+					done.add(retreat.unit)
+				except:
+					print('FAILED ORDER:', name, action)
 					
-					if action['type'] == 'disband':
-						if unit in retreats[name]:
-							cmds.append(command.RetreatDisbandCommand(retreats, player, unit))
-							done.add(unit)
-					elif action['type'] == 'retreat':
-						dest = self.fix_loc(action['dest'], unit.unit_type)
-						cmds.append(command.RetreatMoveCommand(retreats, player, unit, dest))
-						done.add(unit)
-					elif ignore_unknown:
-						if name not in unknown:
-							unknown[name] = []
-						unknown[name].append(action)
-					else:
-						raise Exception(f'unknown: {action}')
-				except Exception as e:
-					print(name, action)
-					# raise
+					# if ignore_unknown:
+					# 	cmds.append(self._process_action(name, {'loc': action['loc'], 'unit': action['unit'],
+					# 	                                        'type': 'hold'}))
+					# 	if name not in unknown:
+					# 		unknown[name] = []
+					# 	unknown[name].append(action)
+					raise
 		
 		for name, rs in retreats.items():
 			for unit, options in rs.items():
 				if options is not None and unit not in done:
 					cmds.append(command.RetreatDisbandCommand(retreats, self.players[name], unit))
 					
-		
-		if e is not None:
-			raise e
-		
 		return cmds, unknown
 	
+
+	def _process_build(self, name, action, ownership):
+		player = self.players[name]
+		unit = self.get_unit(action['loc'], action.get('unit', None))
+		
+		if action['type'] == 'build':
+			return command.AdjustmentCreateCommand(ownership, player, unit)
+		elif action['type'] == 'destroy' or action['type'] == 'disband':
+			return command.AdjustmentDisbandCommand(player, unit)
+			
+		raise Exception(f'unknown: {action}')
+		
+		
 	def process_builds(self, full, ownership, ignore_unknown=False):
 		
 		assert hasattr(self, 'players'), 'players have not been loaded'
@@ -419,23 +446,9 @@ class DiploMap(util.Versioned):
 		unknown = {}
 		
 		for name, actions in full.items():
-			
-			player = self.players[name]
-			
 			for action in actions:
 				try:
-					unit = self.get_unit(action['loc'], action.get('unit', None))
-					
-					if action['type'] == 'build':
-						cmds.append(command.AdjustmentCreateCommand(ownership, player, unit))
-					elif action['type'] == 'destroy' or action['type'] == 'disband':
-						cmds.append(command.AdjustmentDisbandCommand(player, unit))
-					elif ignore_unknown:
-						if name not in unknown:
-							unknown[name] = []
-						unknown[name].append(action)
-					else:
-						raise Exception(f'unknown: {action}')
+					cmds.append(self._process_build(name, action, ownership))
 				except:
 					print(name, action)
 					raise

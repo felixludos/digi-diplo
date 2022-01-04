@@ -1,80 +1,73 @@
 players:
   Austria:
-    centers: [tri, vie, bud, ser]
-    control: [tri, boh, vie, bud, ser]
-    home: [vie, tri, bud]
-    name: Austria
+    centers: [VIE, BUD, SER, TRI]
+    control: [BOH, VIE, BUD, SER, TRI]
+    home: [VIE, TRI, BUD]
     units:
-    - {loc: tri, type: army}
-    - {loc: vie, type: army}
-    - {loc: bud, type: army}
-    - {loc: ser, type: army}
+    - {loc: TRI, type: army}
+    - {loc: SER, type: army}
+    - {loc: VIE, type: army}
+    - {loc: BUD, type: army}
   England:
     centers: []
     control: []
-    home: [lon, edi, lvp]
-    name: England
+    home: [EDI, LVP, LON]
     units: []
   France:
-    centers: [edi, lon, lvp, bel, bre, par, mar, por, spa, tun]
-    control: [edi, lon, cly, yor, lvp, wal, bel, pic, bre, par, bur, gas, mar, por,
-      spa, pie, tus, naf, tun]
-    home: [par, mar, bre]
-    name: France
+    centers: [EDI, LON, LVP, BEL, BRE, PAR, MAR, POR, SPA, TUN]
+    control: [EDI, LON, CLY, YOR, LVP, WAL, BEL, PIC, BRE, PAR, BUR, GAS, MAR, POR,
+      SPA, PIE, TUS, NAF, TUN]
+    home: [BRE, PAR, MAR]
     units:
-    - {loc: edi, type: fleet}
-    - {loc: tun, type: fleet}
-    - {loc: mar, type: army}
-    - {loc: wes, type: fleet}
-    - {loc: yor, type: army}
-    - {loc: bel, type: army}
-    - {loc: eng, type: fleet}
-    - {loc: pie, type: army}
-    - {loc: bur, type: army}
-    - {loc: tus, type: army}
+    - {loc: EDI, type: fleet}
+    - {loc: BEL, type: army}
+    - {loc: TUN, type: fleet}
+    - {loc: YOR, type: army}
+    - {loc: PIE, type: army}
+    - {loc: WES, type: fleet}
+    - {loc: MAR, type: army}
+    - {loc: ENG, type: fleet}
+    - {loc: TUS, type: army}
+    - {loc: BUR, type: army}
   Germany:
-    centers: [nwy, kie, ber, mun, hol, den, swe, stp, war]
-    control: [nwy, ruh, kie, ber, mun, pru, sil, hol, den, swe, stp, lvn, gal, war,
-      ukr]
-    home: [ber, kie, mun]
-    name: Germany
+    centers: [NWY, KIE, BER, MUN, HOL, DEN, SWE, STP, WAR]
+    control: [GAL, NWY, RUH, KIE, BER, MUN, PRU, SIL, HOL, DEN, SWE, STP, LVN, WAR,
+      UKR]
+    home: [KIE, BER, MUN]
     units:
-    - {loc: lvn, type: army}
-    - {loc: ukr, type: army}
-    - {loc: mun, type: army}
-    - {loc: hol, type: fleet}
-    - {loc: nwg, type: fleet}
-    - {loc: ruh, type: army}
-    - {loc: war, type: army}
-    - {loc: nth, type: fleet}
-    - {loc: stp, type: army}
+    - {loc: WAR, type: army}
+    - {loc: NWG, type: fleet}
+    - {loc: STP, type: army}
+    - {loc: RUH, type: army}
+    - {loc: UKR, type: army}
+    - {loc: NTH, type: fleet}
+    - {loc: LVN, type: army}
+    - {loc: HOL, type: fleet}
+    - {loc: MUN, type: army}
   Italy:
-    centers: [ven, rom, nap, gre]
-    control: [ven, rom, apu, nap, tyr, alb, gre]
-    home: [rom, nap, ven]
-    name: Italy
+    centers: [GRE, VEN, ROM, NAP]
+    control: [GRE, ALB, TYR, VEN, ROM, APU, NAP]
+    home: [VEN, ROM, NAP]
     units:
-    - {loc: ion, type: fleet}
-    - {loc: tyr, type: army}
-    - {loc: apu, type: fleet}
-    - {loc: ven, type: army}
+    - {loc: ION, type: fleet}
+    - {loc: VEN, type: army}
+    - {loc: APU, type: fleet}
+    - {loc: TYR, type: army}
   Russia:
-    centers: [mos, sev, ank, con, rum, smy, bul]
-    control: [mos, sev, fin, arm, ank, con, rum, smy, bul]
-    home: [mos, stp, sev, war]
-    name: Russia
+    centers: [BUL, RUM, MOS, SEV, ANK, CON, SMY]
+    control: [BUL, RUM, MOS, SEV, FIN, ARM, ANK, CON, SMY]
+    home: [STP, MOS, SEV, WAR]
     units:
-    - {loc: smy, type: army}
-    - {loc: mos, type: army}
-    - {loc: bul, type: army}
-    - {loc: sev, type: army}
-    - {loc: bla, type: fleet}
-    - {loc: con, type: army}
-    - {loc: rum, type: army}
+    - {loc: BLA, type: fleet}
+    - {loc: SEV, type: army}
+    - {loc: CON, type: army}
+    - {loc: BUL, type: army}
+    - {loc: MOS, type: army}
+    - {loc: RUM, type: army}
+    - {loc: SMY, type: army}
   Turkey:
     centers: []
-    control: [syr]
-    home: [con, ank, smy]
-    name: Turkey
+    control: [SYR]
+    home: [CON, ANK, SMY]
     units: []
 time: {season: 1, turn: 8}

@@ -1,86 +1,79 @@
 disbands:
   Austria:
-  - {loc: bul, type: army}
+  - {loc: BUL, type: army}
 players:
   Austria:
-    centers: [rum, vie, bud, gre, ser, bul]
-    control: [rum, boh, vie, bud, gre, ser, bul]
-    home: [vie, tri, bud]
-    name: Austria
+    centers: [VIE, BUD, GRE, SER, BUL, RUM]
+    control: [BOH, VIE, BUD, GRE, SER, BUL, RUM]
+    home: [VIE, TRI, BUD]
     units:
-    - {loc: gre, type: fleet}
-    - {loc: ser, type: army}
-    - {loc: tri, type: army}
-    - {loc: vie, type: army}
-    - {loc: bud, type: army}
+    - {loc: GRE, type: fleet}
+    - {loc: SER, type: army}
+    - {loc: TRI, type: army}
+    - {loc: VIE, type: army}
+    - {loc: BUD, type: army}
   England:
     centers: []
     control: []
-    home: [lon, edi, lvp]
-    name: England
+    home: [EDI, LVP, LON]
     units: []
   France:
-    centers: [edi, lon, lvp, bel, bre, par, mar, por, spa]
-    control: [edi, lon, cly, yor, lvp, wal, bel, pic, bre, par, bur, gas, mar, por,
-      spa, pie]
-    home: [par, mar, bre]
-    name: France
+    centers: [EDI, LON, LVP, BEL, BRE, PAR, MAR, POR, SPA]
+    control: [EDI, LON, CLY, YOR, LVP, WAL, BEL, PIC, BRE, PAR, BUR, GAS, MAR, POR,
+      SPA, PIE]
+    home: [BRE, PAR, MAR]
     units:
-    - {loc: cly, type: fleet}
-    - {loc: lon, type: fleet}
-    - {loc: edi, type: army}
-    - {loc: eng, type: fleet}
-    - {loc: pic, type: army}
-    - {loc: pie, type: army}
-    - {loc: mao, type: fleet}
-    - {loc: bel, type: army}
-    - {loc: bur, type: army}
+    - {loc: CLY, type: fleet}
+    - {loc: LON, type: fleet}
+    - {loc: EDI, type: army}
+    - {loc: ENG, type: fleet}
+    - {loc: PIC, type: army}
+    - {loc: PIE, type: army}
+    - {loc: MAO, type: fleet}
+    - {loc: BEL, type: army}
+    - {loc: BUR, type: army}
   Germany:
-    centers: [nwy, kie, ber, mun, hol, den, swe, stp]
-    control: [nwy, ruh, kie, ber, mun, pru, sil, hol, den, swe, stp, lvn, gal, ukr]
-    home: [ber, kie, mun]
-    name: Germany
+    centers: [NWY, KIE, BER, MUN, HOL, DEN, SWE, STP]
+    control: [GAL, NWY, RUH, KIE, BER, MUN, PRU, SIL, HOL, DEN, SWE, STP, LVN, UKR]
+    home: [KIE, BER, MUN]
     units:
-    - {loc: nwy, type: fleet}
-    - {loc: lvn, type: army}
-    - {loc: ruh, type: army}
-    - {loc: ukr, type: army}
-    - {loc: mun, type: army}
-    - {loc: nth, type: fleet}
-    - {loc: den, type: fleet}
-    - {loc: kie, type: army}
+    - {loc: NWY, type: fleet}
+    - {loc: LVN, type: army}
+    - {loc: RUH, type: army}
+    - {loc: UKR, type: army}
+    - {loc: MUN, type: army}
+    - {loc: NTH, type: fleet}
+    - {loc: DEN, type: fleet}
+    - {loc: KIE, type: army}
   Italy:
-    centers: [ven, rom, nap, tun, tri]
-    control: [ven, tus, rom, apu, nap, tun, tyr, tri, alb]
-    home: [rom, nap, ven]
-    name: Italy
+    centers: [TRI, VEN, ROM, NAP, TUN]
+    control: [ALB, TRI, TYR, VEN, TUS, ROM, APU, NAP, TUN]
+    home: [VEN, ROM, NAP]
     units:
-    - {loc: tyr, type: army}
-    - {loc: gre, type: army}
-    - {loc: tri, type: army}
-    - {loc: adr, type: fleet}
-    - {loc: ion, type: fleet}
+    - {loc: TYR, type: army}
+    - {loc: GRE, type: army}
+    - {loc: TRI, type: army}
+    - {loc: ADR, type: fleet}
+    - {loc: ION, type: fleet}
   Russia:
-    centers: [mos, sev, war, ank, con]
-    control: [mos, sev, fin, war, arm, ank, con]
-    home: [mos, stp, sev, war]
-    name: Russia
+    centers: [MOS, SEV, WAR, ANK, CON]
+    control: [MOS, SEV, FIN, WAR, ARM, ANK, CON]
+    home: [STP, MOS, SEV, WAR]
     units:
-    - {loc: mos, type: army}
-    - {loc: bul, type: army}
-    - {loc: rum, type: army}
-    - {loc: smy, type: army}
-    - {loc: bla, type: fleet}
+    - {loc: MOS, type: army}
+    - {loc: BUL, type: army}
+    - {loc: RUM, type: army}
+    - {loc: SMY, type: army}
+    - {loc: BLA, type: fleet}
   Turkey:
-    centers: [smy]
-    control: [smy, syr]
-    home: [con, ank, smy]
-    name: Turkey
+    centers: [SMY]
+    control: [SMY, SYR]
+    home: [CON, ANK, SMY]
     units:
-    - {loc: con, type: army}
+    - {loc: CON, type: army}
 retreats:
   Austria:
-    gre-c: [aeg]
+    GRE-c: [AEG]
   Italy:
-    tri: [ven, alb]
+    TRI: [ALB, VEN]
 time: {retreat: true, season: 1, turn: 6}

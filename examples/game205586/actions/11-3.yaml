@@ -1,4 +1,4 @@
 Germany:
-- {loc: ber, type: build, unit: army}
+- {loc: BER, type: build, unit: army}
 Russia:
-- {loc: stp, type: destroy, unit: the}
+- {loc: STP, type: destroy, unit: the}

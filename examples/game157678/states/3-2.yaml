@@ -1,78 +1,71 @@
 players:
   Austria:
-    centers: [rum, vie, tri, bud, gre, ser]
-    control: [rum, boh, gal, vie, tri, bud, alb, gre, ser]
-    home: [vie, tri, bud]
-    name: Austria
+    centers: [VIE, TRI, BUD, GRE, SER, RUM]
+    control: [BOH, GAL, VIE, TRI, BUD, ALB, GRE, SER, RUM]
+    home: [VIE, TRI, BUD]
     units:
-    - {loc: bul, type: army}
-    - {loc: gal, type: army}
-    - {loc: ser, type: army}
-    - {loc: bud, type: army}
-    - {loc: rum, type: army}
-    - {loc: gre, type: fleet}
+    - {loc: BUL, type: army}
+    - {loc: GAL, type: army}
+    - {loc: SER, type: army}
+    - {loc: BUD, type: army}
+    - {loc: RUM, type: army}
+    - {loc: GRE, type: fleet}
   England:
-    centers: [edi, lvp, lon, bel]
-    control: [cly, edi, lvp, yor, wal, lon, bel]
-    home: [lon, edi, lvp]
-    name: England
+    centers: [EDI, LVP, LON, BEL]
+    control: [CLY, EDI, LVP, YOR, WAL, LON, BEL]
+    home: [EDI, LVP, LON]
     units:
-    - {loc: ska, type: fleet}
-    - {loc: bel, type: army}
-    - {loc: eng, type: fleet}
-    - {loc: nwg, type: fleet}
+    - {loc: SKA, type: fleet}
+    - {loc: BEL, type: army}
+    - {loc: ENG, type: fleet}
+    - {loc: NWG, type: fleet}
   France:
-    centers: [bre, par, mar, por, spa]
-    control: [pic, bre, par, bur, gas, mar, por, spa]
-    home: [par, mar, bre]
-    name: France
+    centers: [BRE, PAR, MAR, POR, SPA]
+    control: [PIC, BRE, PAR, BUR, GAS, MAR, POR, SPA]
+    home: [BRE, PAR, MAR]
     units:
-    - {loc: bre, type: fleet}
-    - {loc: bur, type: army}
-    - {loc: mar, type: army}
-    - {loc: pic, type: army}
-    - {loc: mao, type: fleet}
+    - {loc: BRE, type: fleet}
+    - {loc: BUR, type: army}
+    - {loc: MAR, type: army}
+    - {loc: PIC, type: army}
+    - {loc: MAO, type: fleet}
   Germany:
-    centers: [kie, ber, mun, hol, nwy, den]
-    control: [kie, ber, ruh, mun, pru, sil, hol, nwy, den]
-    home: [ber, kie, mun]
-    name: Germany
+    centers: [KIE, BER, MUN, HOL, NWY, DEN]
+    control: [KIE, BER, RUH, MUN, PRU, SIL, HOL, NWY, DEN]
+    home: [KIE, BER, MUN]
     units:
-    - {loc: nwy, type: fleet}
-    - {loc: sil, type: army}
-    - {loc: ber, type: army}
-    - {loc: den, type: fleet}
-    - {loc: bal, type: fleet}
-    - {loc: hol, type: army}
+    - {loc: NWY, type: fleet}
+    - {loc: SIL, type: army}
+    - {loc: BER, type: army}
+    - {loc: DEN, type: fleet}
+    - {loc: BAL, type: fleet}
+    - {loc: HOL, type: army}
   Italy:
-    centers: [ven, rom, nap, tun]
-    control: [pie, ven, tus, rom, apu, nap, tun, tyr]
-    home: [rom, nap, ven]
-    name: Italy
+    centers: [VEN, ROM, NAP, TUN]
+    control: [TYR, PIE, VEN, TUS, ROM, APU, NAP, TUN]
+    home: [VEN, ROM, NAP]
     units:
-    - {loc: tyr, type: army}
-    - {loc: ven, type: army}
-    - {loc: tys, type: fleet}
-    - {loc: ion, type: fleet}
+    - {loc: TYR, type: army}
+    - {loc: VEN, type: army}
+    - {loc: TYS, type: fleet}
+    - {loc: ION, type: fleet}
   Russia:
-    centers: [swe, stp, mos, sev, war, ank]
-    control: [swe, stp, mos, lvn, sev, fin, war, ukr, ank]
-    home: [mos, stp, sev, war]
-    name: Russia
+    centers: [SWE, STP, MOS, SEV, WAR, ANK]
+    control: [SWE, UKR, STP, MOS, LVN, SEV, FIN, WAR, ANK]
+    home: [STP, MOS, SEV, WAR]
     units:
-    - {loc: ank, type: army}
-    - {loc: war, type: army}
-    - {loc: ukr, type: army}
-    - {loc: sev, type: army}
-    - {loc: swe, type: fleet}
-    - {loc: bla, type: fleet}
+    - {loc: ANK, type: army}
+    - {loc: WAR, type: army}
+    - {loc: UKR, type: army}
+    - {loc: SEV, type: army}
+    - {loc: SWE, type: fleet}
+    - {loc: BLA, type: fleet}
   Turkey:
-    centers: [con, smy, bul]
-    control: [con, arm, smy, syr, bul]
-    home: [con, ank, smy]
-    name: Turkey
+    centers: [CON, SMY, BUL]
+    control: [CON, ARM, SMY, SYR, BUL]
+    home: [CON, ANK, SMY]
     units:
-    - {loc: con, type: army}
-    - {loc: smy, type: fleet}
-    - {loc: aeg, type: fleet}
+    - {loc: CON, type: army}
+    - {loc: SMY, type: fleet}
+    - {loc: AEG, type: fleet}
 time: {season: 2, turn: 3}

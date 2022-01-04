@@ -12,10 +12,10 @@ sc-edge-width: 0.2
 home-edge-width: 0.1
 
 unit-size: 6
-unit-edge-width: 1.5
+unit-edge-width: 1.2
 
 arrow-ratio: 0.9
-arrow-width: 10
+arrow-width: 8
 arrow-head: 24
 edge-width: 0.45
 
@@ -27,13 +27,13 @@ edge-color: k
 
 wedge-dot-size: 2.5
 
-support-style: wedge,tail_width=0.2,shrink_factor=0.5
-support-shrink: 0
+support-style: wedge,tail_width=0.15,shrink_factor=0.5
+support-shrink: 0.05
 
-support-defend-style: wedge,tail_width=0.3,shrink_factor=0.5
-support-defend-shrink: 0.1
+support-defend-style: wedge,tail_width=0.20,shrink_factor=0.5
+support-defend-shrink: 0.2
 
-convoy-style: wedge,tail_width=0.2,shrink_factor=0.5
+convoy-style: wedge,tail_width=0.15,shrink_factor=0.5
 convoy-shrink: 0
 
 label-size: 4
@@ -75,22 +75,23 @@ sc-props:
   markerfacecolor: '#FFD700'
   marker: [5,1]
   ls: ''
-  zorder: 60
+  zorder: 4
 capital-props:
   markersize: <>capital-size
   markeredgewidth: <>sc-edge-width
   markeredgecolor: k
   markerfacecolor: '#FFD700'
-  marker: [7, 1]
+#  marker: [7, 1]
+  marker: [5, 1]
   ls: ''
-  zorder: 60
+  zorder: 4
 home-props:
   markeredgewidth: <>home-edge-width
   markeredgecolor: k
   markersize: <>home-size
   marker: o
   ls: ''
-  zorder: 61
+  zorder: 5
 
 unit-props:
   ms: <>unit-size
@@ -106,7 +107,8 @@ retreat-arrow:
   length_includes_head: True
   fc: r
   ec: k
-  zorder: 19
+#  zorder: 19
+  zorder: 45
 retreat-action-arrow: <>retreat-arrow
 retreat-props:
   ms: <>highlight-size
@@ -131,14 +133,16 @@ hold-props:
   mew: <>highlight-width
   ls: ''
   mfc: 'none'
-  zorder: 21
+#  zorder: 21
+  zorder: 25
 build-props:
   color: '#00ff00'
   ms: <>highlight-size
   mew: <>highlight-width
   ls: ''
 #  mfc: 'none'
-  zorder: 6
+#  zorder: 6
+  zorder: 50
 
 move-arrow:
   width: <>arrow-width
@@ -147,7 +151,8 @@ move-arrow:
   length_includes_head: True
   facecolor: w
   edgecolor: k
-  zorder: 15
+#  zorder: 15
+  zorder: 40
 
 
 support-arrow:
@@ -159,10 +164,12 @@ support-arrow:
   length_includes_head: True
   facecolor: <>sup-color
   edgecolor: <>edge-color
-  zorder: 6
+#  zorder: 6
+  zorder: 25
 support-props:
   arrowprops:
-    shrinkA: <>support-shrink
+#    shrinkA: <>support-shrink
+    shrinkA: 0
     shrinkB: <>support-shrink
     arrowstyle: <>support-style
     capstyle: round
@@ -171,7 +178,8 @@ support-props:
     edgecolor: <>edge-color
     connectionstyle: arc3,rad=0.2
 
-  zorder: 7
+#  zorder: 7
+  zorder: 26
 support-dot:
   marker: o
   ms: <>wedge-dot-size
@@ -180,13 +188,15 @@ support-dot:
   ls: ''
   color: <>sup-color
   mec: <>edge-color
-  zorder: 16
+#  zorder: 16
+  zorder: 41
 
 support-defend-props:
   textcoords: data
   xycoords: data
   arrowprops:
-    shrinkA: <>support-defend-shrink
+#    shrinkA: <>support-defend-shrink
+    shrinkA: 0
     shrinkB: <>support-defend-shrink
     arrowstyle: <>support-defend-style
     capstyle: round
@@ -195,7 +205,8 @@ support-defend-props:
     edgecolor: <>edge-color
     connectionstyle: arc3,rad=0.2
 
-  zorder: 6
+#  zorder: 6
+  zorder: 28
 
 
 convoy-arrow:
@@ -207,10 +218,12 @@ convoy-arrow:
   length_includes_head: True
   facecolor: <>convoy-color
   edgecolor: <>edge-color
-  zorder: 6
+#  zorder: 6
+  zorder: 30
 convoy-props:
   arrowprops:
-    shrinkA: <>convoy-shrink
+#    shrinkA: <>convoy-shrink
+    shrinkA: 0
     shrinkB: <>convoy-shrink
     arrowstyle: <>convoy-style
     capstyle: round
@@ -219,7 +232,8 @@ convoy-props:
     edgecolor: <>edge-color
     connectionstyle: arc3,rad=0.2
 
-  zorder: 7
+#  zorder: 7
+  zorder: 31
 convoy-dot:
   marker: o
   ms: <>wedge-dot-size
@@ -228,6 +242,7 @@ convoy-dot:
   ls: ''
   color: <>convoy-color
   mec: <>edge-color
-  zorder: 16
+#  zorder: 16
+  zorder: 42
 
 

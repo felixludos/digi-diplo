@@ -1,6 +1,6 @@
 Austria:
-- {loc: vie, type: build, unit: army}
+- {loc: VIE, type: build, unit: army}
 France:
-- {loc: lyo, type: destroy, unit: the}
+- {loc: LYO, type: destroy, unit: the}
 Germany:
-- {loc: kie, type: build, unit: army}
+- {loc: KIE, type: build, unit: army}

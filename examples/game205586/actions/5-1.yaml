@@ -1,41 +1,41 @@
 Austria:
-- {dest: rum, failed: true, loc: bud, type: move, unit: army}
-- {dest: war, failed: true, loc: sil, type: move, unit: army}
-- {dest: war, loc: gal, src: sil, type: support, unit: army}
-- {dest: bul, failed: true, loc: gre, src: aeg, type: support, unit: fleet}
-- {dest: bul, failed: true, loc: ser, src: aeg, type: support, unit: army}
+- {dest: RUM, failed: true, loc: BUD, type: move, unit: army}
+- {dest: WAR, failed: true, loc: SIL, type: move, unit: army}
+- {dest: WAR, loc: GAL, src: SIL, type: support, unit: army}
+- {dest: BUL, failed: true, loc: GRE, src: AEG, type: support, unit: fleet}
+- {dest: BUL, failed: true, loc: SER, src: AEG, type: support, unit: army}
 England:
-- {dest: yor, loc: nth, type: move, unit: fleet}
-- {dest: wal, failed: true, loc: lvp, type: move, unit: fleet}
+- {dest: YOR, loc: NTH, type: move, unit: fleet}
+- {dest: WAL, failed: true, loc: LVP, type: move, unit: fleet}
 France:
-- {loc: wes, type: hold, unit: fleet}
-- {loc: mar, type: hold, unit: army}
-- {loc: wal, type: hold, unit: army}
-- {dest: eng, loc: lon, type: move, unit: fleet}
-- {dest: pic, failed: true, loc: par, type: move, unit: army}
-- {dest: mar, loc: gas, type: support-defend, unit: army}
+- {loc: WES, type: hold, unit: fleet}
+- {loc: MAR, type: hold, unit: army}
+- {loc: WAL, type: hold, unit: army}
+- {dest: ENG, loc: LON, type: move, unit: fleet}
+- {dest: PIC, failed: true, loc: PAR, type: move, unit: army}
+- {dest: MAR, loc: GAS, type: support-defend, unit: army}
 Germany:
-- {dest: pic, loc: bel, type: move, unit: army}
-- {dest: bel, loc: hol, type: move, unit: fleet}
-- {dest: kie, loc: ber, type: move, unit: army}
-- {dest: bur, loc: mun, type: support-defend, unit: army}
-- {dest: pic, loc: bur, src: bel, type: support, unit: army}
-- {dest: nth, loc: den, src: nwy, type: support, unit: fleet}
+- {dest: PIC, loc: BEL, type: move, unit: army}
+- {dest: BEL, loc: HOL, type: move, unit: fleet}
+- {dest: KIE, loc: BER, type: move, unit: army}
+- {dest: BUR, loc: MUN, type: support-defend, unit: army}
+- {dest: PIC, loc: BUR, src: BEL, type: support, unit: army}
+- {dest: NTH, loc: DEN, src: NWY, type: support, unit: fleet}
 Italy:
-- {dest: mar, failed: true, loc: pie, type: move, unit: army}
-- {dest: tun, loc: nap, type: convoy-move, unit: army}
-- {dest: smy, failed: true, loc: aeg, type: move, unit: fleet}
-- {dest: tun, loc: tys, src: nap, type: convoy-transport, unit: fleet}
+- {dest: MAR, failed: true, loc: PIE, type: move, unit: army}
+- {dest: TUN, loc: NAP, type: convoy-move, unit: army}
+- {dest: SMY, failed: true, loc: AEG, type: move, unit: fleet}
+- {dest: TUN, loc: TYS, src: NAP, type: convoy-transport, unit: fleet}
 Russia:
-- {dest: nth, loc: nwy, type: move, unit: fleet}
-- {dest: den, loc: swe, type: support-defend, unit: fleet}
-- {dest: rum, loc: sev, type: support-defend, unit: fleet}
-- {dest: rum, loc: ukr, type: support-defend, unit: army}
-- {dest: war, loc: lvn, type: support-defend, unit: army}
-- {dest: ser, failed: true, loc: rum, src: bul, type: support, unit: army}
-- {dest: sil, failed: true, loc: war, src: ber, type: support, unit: army}
+- {dest: NTH, loc: NWY, type: move, unit: fleet}
+- {dest: DEN, loc: SWE, type: support-defend, unit: fleet}
+- {dest: RUM, loc: SEV, type: support-defend, unit: fleet}
+- {dest: RUM, loc: UKR, type: support-defend, unit: army}
+- {dest: WAR, loc: LVN, type: support-defend, unit: army}
+- {dest: SER, failed: true, loc: RUM, src: BUL, type: support, unit: army}
+- {dest: SIL, failed: true, loc: WAR, src: BER, type: support, unit: army}
 Turkey:
-- {dest: smy, failed: true, loc: con, type: move, unit: army}
-- {dest: con, failed: true, loc: bla, type: move, unit: fleet}
-- {dest: ser, failed: true, loc: bul, type: move, unit: army}
-- {dest: aeg, failed: true, loc: eas, type: move, unit: fleet}
+- {dest: SMY, failed: true, loc: CON, type: move, unit: army}
+- {dest: CON, failed: true, loc: BLA, type: move, unit: fleet}
+- {dest: SER, failed: true, loc: BUL, type: move, unit: army}
+- {dest: AEG, failed: true, loc: EAS, type: move, unit: fleet}

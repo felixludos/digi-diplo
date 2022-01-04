@@ -1,0 +1,82 @@
+Austria:
+  capital: VIE
+  color: '#ee6677' # "#CC0000"
+  demonym: Austrian
+  home: [VIE, TRI, BUD]
+  name: Austria
+  territory: [BOH, GAL, VIE, TRI, BUD, TYR]
+  units:
+  - {loc: TRI, type: fleet}
+  - {loc: BUD, type: army}
+  - {loc: VIE, type: army}
+England:
+  capital: LON
+  color: '#4477AA' # "#7C5599"
+  demonym: English
+  home: [LON, EDI, LVP]
+  name: England
+  territory: [CLY, EDI, LVP, YOR, WAL, LON]
+  units:
+  - {loc: EDI, type: fleet}
+  - {loc: LON, type: fleet}
+  - {loc: LVP, type: army}
+France:
+  capital: PAR
+  color: '#66ccee' # "#008099"
+  demonym: French
+  home: [PAR, MAR, BRE]
+  name: France
+  territory: [PIC, BRE, PAR, BUR, GAS, MAR]
+  units:
+  - {loc: BRE, type: fleet}
+  - {loc: MAR, type: army}
+  - {loc: PAR, type: army}
+Germany:
+  capital: BER
+  color: '#bbbbbb' # "#728699"
+  demonym: German
+  home: [BER, KIE, MUN]
+  name: Germany
+  territory: [KIE, BER, RUH, MUN, PRU, SIL]
+  units:
+  - {loc: KIE, type: fleet}
+  - {loc: BER, type: army}
+  - {loc: MUN, type: army}
+Italy:
+  capital: ROM
+  color: '#228833' # #005500"
+  demonym: Italian
+  home: [ROM, NAP, VEN]
+  name: Italy
+  territory: [PIE, VEN, TUS, ROM, APU, NAP]
+  units:
+  - {loc: NAP, type: fleet}
+  - {loc: ROM, type: army}
+  - {loc: VEN, type: army}
+Russia:
+  capital: MOS
+  color: '#aa3377' # "#FFD599"
+  demonym: Russian
+  home: [MOS, STP, SEV, WAR]
+  name: Russia
+  territory: [STP, MOS, LVN, UKR, SEV, FIN, WAR]
+  units:
+  - {loc: SEV, type: fleet}
+  - {loc: STP-sc, type: fleet}
+  - {loc: MOS, type: army}
+  - {loc: WAR, type: army}
+Turkey:
+  capital: CON
+  color: '#ccbb44' # "#FFAA00"
+  demonym: Turkish
+  home: [CON, ANK, SMY]
+  name: Turkey
+  territory: [CON, ANK, ARM, SMY, SYR]
+  units:
+  - {loc: ANK, type: fleet}
+  - {loc: CON, type: army}
+  - {loc: SMY, type: army}
+
+#neutral: "#995500"
+#sea: "#003CCC"
+#center: "#FFFFFF"

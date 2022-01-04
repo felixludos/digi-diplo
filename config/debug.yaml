@@ -1,28 +1,31 @@
 
-_meta.script_name: start-bot
+#_meta.script_name: start-bot
 
 server-name: playground
 
+#admins: None
+admin-role: testhost
+
 #####################
 
+_meta.script_name: multi-step
+#_meta.script_name: step
 #_meta.script_name: render
 
 #parents: [wd/style, wd/bot]
 #parents: [wd/hills, wd/bot]
-parents: [wd/std]
-#parents: [classic/bot]
+#parents: [wd/std]
+parents: [classic/bot]
 
-#game-root: games/game2
-game-root: games/alpha
+game-root: games/game213263
+#game-root: games/alpha
 
 #check-image: 1-1
-#current: 1-1
+#current: 2-2
 
-#include-orders: yes
-
-
-#admins: None
-admin-role: testhost
+include-orders: yes
+render-orders: yes
+render-state: yes
 
 #log-commands: yes
 #private-commands: yes

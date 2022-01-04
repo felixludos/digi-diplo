@@ -1,2 +1,2 @@
 Russia:
-- {dest: ukr, loc: rum, type: retreat, unit: army}
+- {dest: UKR, loc: RUM, type: retreat, unit: army}

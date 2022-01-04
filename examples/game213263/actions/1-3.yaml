@@ -1,16 +1,16 @@
 Austria:
-- {loc: tri, type: build, unit: army}
-- {loc: bud, type: build, unit: army}
+- {loc: TRI, type: build, unit: army}
+- {loc: BUD, type: build, unit: army}
 England:
-- {loc: lvp, type: build, unit: fleet}
+- {loc: LVP, type: build, unit: fleet}
 France:
-- {loc: bre, type: build, unit: fleet}
+- {loc: BRE, type: build, unit: fleet}
 Germany:
-- {loc: mun, type: build, unit: army}
-- {loc: ber, type: build, unit: fleet}
+- {loc: MUN, type: build, unit: army}
+- {loc: BER, type: build, unit: fleet}
 Italy:
-- {loc: nap, type: build, unit: fleet}
+- {loc: NAP, type: build, unit: fleet}
 Russia:
-- {loc: mos, type: build, unit: army}
+- {loc: MOS, type: build, unit: army}
 Turkey:
-- {loc: smy, type: build, unit: fleet}
+- {loc: SMY, type: build, unit: fleet}

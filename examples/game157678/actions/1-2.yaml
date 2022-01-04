@@ -1,29 +1,29 @@
 Austria:
-- {dest: ukr, loc: gal, type: move, unit: army}
-- {dest: gre, loc: alb, type: move, unit: fleet}
-- {dest: gre, failed: true, loc: ser, src: alb, type: support, unit: army}
+- {dest: UKR, loc: GAL, type: move, unit: army}
+- {dest: GRE, loc: ALB, type: move, unit: fleet}
+- {dest: GRE, failed: true, loc: SER, src: ALB, type: support, unit: army}
 England:
-- {dest: bel, loc: yor, type: convoy-move, unit: army}
-- {dest: bel, loc: eng, src: yor, type: support, unit: fleet}
-- {dest: bel, loc: nth, src: yor, type: convoy-transport, unit: fleet}
+- {dest: BEL, loc: YOR, type: convoy-move, unit: army}
+- {dest: BEL, loc: ENG, src: YOR, type: support, unit: fleet}
+- {dest: BEL, loc: NTH, src: YOR, type: convoy-transport, unit: fleet}
 France:
-- {dest: por, loc: mao, type: move, unit: fleet}
-- {dest: bel, failed: true, loc: bur, type: move, unit: army}
-- {dest: spa, loc: mar, type: move, unit: army}
+- {dest: POR, loc: MAO, type: move, unit: fleet}
+- {dest: BEL, failed: true, loc: BUR, type: move, unit: army}
+- {dest: SPA, loc: MAR, type: move, unit: army}
 Germany:
-- {dest: swe, loc: den, type: move, unit: fleet}
-- {dest: hol, loc: kie, type: move, unit: army}
-- {dest: sil, loc: mun, type: move, unit: army}
+- {dest: SWE, loc: DEN, type: move, unit: fleet}
+- {dest: HOL, loc: KIE, type: move, unit: army}
+- {dest: SIL, loc: MUN, type: move, unit: army}
 Italy:
-- {loc: ven, type: hold, unit: army}
-- {dest: tun, loc: apu, type: convoy-move, unit: army}
-- {dest: tun, loc: ion, src: apu, type: convoy-transport, unit: fleet}
+- {loc: VEN, type: hold, unit: army}
+- {dest: TUN, loc: APU, type: convoy-move, unit: army}
+- {dest: TUN, loc: ION, src: APU, type: convoy-transport, unit: fleet}
 Russia:
-- {dest: rum, loc: ukr, type: move, unit: army}
-- {dest: bal, loc: bot, type: move, unit: fleet}
-- {dest: war, loc: sil, type: move, unit: army}
-- {dest: rum, loc: bla, src: ukr, type: support, unit: fleet}
+- {dest: RUM, loc: UKR, type: move, unit: army}
+- {dest: BAL, loc: BOT, type: move, unit: fleet}
+- {dest: WAR, loc: SIL, type: move, unit: army}
+- {dest: RUM, loc: BLA, src: UKR, type: support, unit: fleet}
 Turkey:
-- {dest: con, loc: ank, type: move, unit: army}
-- {dest: aeg, loc: con, type: move, unit: fleet}
-- {dest: ser, failed: true, loc: bul, type: move, unit: army}
+- {dest: CON, loc: ANK, type: move, unit: army}
+- {dest: AEG, loc: CON, type: move, unit: fleet}
+- {dest: SER, failed: true, loc: BUL, type: move, unit: army}

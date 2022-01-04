@@ -1,10 +1,10 @@
 Austria:
-- {loc: tri, type: build, unit: army}
+- {loc: TRI, type: build, unit: army}
 France:
-- {loc: bre, type: build, unit: fleet}
+- {loc: BRE, type: build, unit: fleet}
 Germany:
-- {loc: kie, type: build, unit: army}
+- {loc: KIE, type: build, unit: army}
 Russia:
-- {loc: bot, type: destroy, unit: the}
+- {loc: BOT, type: destroy, unit: the}
 Turkey:
-- {loc: aeg, type: destroy, unit: the}
+- {loc: AEG, type: destroy, unit: the}

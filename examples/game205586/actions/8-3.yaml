@@ -1,6 +1,6 @@
 England:
-- {loc: lvp, type: destroy, unit: the}
+- {loc: LVP, type: destroy, unit: the}
 France:
-- {loc: mar, type: destroy, unit: the}
+- {loc: MAR, type: destroy, unit: the}
 Germany:
-- {loc: kie, type: build, unit: fleet}
+- {loc: KIE, type: build, unit: fleet}

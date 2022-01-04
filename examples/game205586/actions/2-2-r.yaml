@@ -1,4 +1,4 @@
 Austria:
-- {dest: bud, loc: rum, type: retreat, unit: army}
+- {dest: BUD, loc: RUM, type: retreat, unit: army}
 England:
-- {loc: hel, type: disband, unit: fleet}
+- {loc: HEL, type: disband, unit: fleet}

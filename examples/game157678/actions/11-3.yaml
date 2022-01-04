@@ -1,9 +1,9 @@
 Austria:
-- {loc: tyr, type: destroy, unit: the}
-- {loc: alb, type: destroy, unit: the}
+- {loc: TYR, type: destroy, unit: the}
+- {loc: ALB, type: destroy, unit: the}
 France:
-- {loc: mar, type: build, unit: army}
+- {loc: MAR, type: build, unit: army}
 Germany:
-- {loc: kie, type: build, unit: fleet}
+- {loc: KIE, type: build, unit: fleet}
 Russia:
-- {loc: sev, type: build, unit: fleet}
+- {loc: SEV, type: build, unit: fleet}

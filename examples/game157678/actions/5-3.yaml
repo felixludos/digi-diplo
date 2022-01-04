@@ -1,8 +1,8 @@
 England:
-- {loc: hel, type: destroy, unit: the}
-- {loc: mao, type: destroy, unit: the}
+- {loc: HEL, type: destroy, unit: the}
+- {loc: MAO, type: destroy, unit: the}
 France:
-- {loc: mar, type: build, unit: army}
-- {loc: bre, type: build, unit: fleet}
+- {loc: MAR, type: build, unit: army}
+- {loc: BRE, type: build, unit: fleet}
 Russia:
-- {loc: mos, type: build, unit: army}
+- {loc: MOS, type: build, unit: army}

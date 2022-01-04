@@ -1,79 +1,72 @@
 adjustments: {Austria: 0, England: 1, France: 1, Germany: 1, Italy: 0, Russia: 0,
-  Turkey: 0}
+  Turkey: 1}
 disbands:
   Turkey:
-  - {loc: gre, type: army}
+  - {loc: GRE, type: army}
 players:
   Austria:
-    centers: [vie, tri, bud, gre, ser]
-    control: [boh, vie, tri, bud, alb, gre, ser]
-    home: [vie, tri, bud]
-    name: Austria
+    centers: [VIE, TRI, BUD, GRE, SER]
+    control: [BOH, VIE, TRI, BUD, TYR, ALB, GRE, SER]
+    home: [VIE, TRI, BUD]
     units:
-    - {loc: vie, type: army}
-    - {loc: aeg, type: fleet}
-    - {loc: gre, type: army}
-    - {loc: bud, type: army}
-    - {loc: alb, type: army}
+    - {loc: VIE, type: army}
+    - {loc: AEG, type: fleet}
+    - {loc: GRE, type: army}
+    - {loc: BUD, type: army}
+    - {loc: ALB, type: army}
   England:
-    centers: [edi, lvp, lon, nwy, swe]
-    control: [cly, edi, lvp, yor, wal, lon, nwy, swe]
-    home: [lon, edi, lvp]
-    name: England
+    centers: [EDI, LVP, LON, NWY, SWE]
+    control: [CLY, EDI, LVP, YOR, WAL, LON, NWY, SWE]
+    home: [EDI, LVP, LON]
     units:
-    - {loc: nth, type: fleet}
-    - {loc: swe, type: army}
-    - {loc: eng, type: fleet}
-    - {loc: iri, type: fleet}
+    - {loc: NTH, type: fleet}
+    - {loc: SWE, type: army}
+    - {loc: ENG, type: fleet}
+    - {loc: IRI, type: fleet}
   France:
-    centers: [bre, par, mar, spa, por]
-    control: [pic, bre, par, gas, mar, spa, por]
-    home: [par, mar, bre]
-    name: France
+    centers: [BRE, PAR, MAR, SPA, POR]
+    control: [PIC, BRE, PAR, GAS, MAR, SPA, POR]
+    home: [BRE, PAR, MAR]
     units:
-    - {loc: nao, type: fleet}
-    - {loc: gas, type: army}
-    - {loc: por, type: army}
-    - {loc: bre, type: fleet}
+    - {loc: NAO, type: fleet}
+    - {loc: GAS, type: army}
+    - {loc: POR, type: army}
+    - {loc: BRE, type: fleet}
   Germany:
-    centers: [kie, ber, mun, den, hol, bel]
-    control: [bur, kie, ber, ruh, mun, pru, sil, den, hol, bel]
-    home: [ber, kie, mun]
-    name: Germany
+    centers: [KIE, BER, MUN, DEN, HOL, BEL]
+    control: [BUR, KIE, BER, RUH, MUN, PRU, SIL, DEN, HOL, BEL]
+    home: [KIE, BER, MUN]
     units:
-    - {loc: den, type: fleet}
-    - {loc: hol, type: army}
-    - {loc: bel, type: army}
-    - {loc: ruh, type: army}
-    - {loc: bal, type: fleet}
+    - {loc: DEN, type: fleet}
+    - {loc: HOL, type: army}
+    - {loc: BEL, type: army}
+    - {loc: RUH, type: army}
+    - {loc: BAL, type: fleet}
   Italy:
-    centers: [ven, rom, nap, tun]
-    control: [pie, ven, tus, rom, apu, nap, tun]
-    home: [rom, nap, ven]
-    name: Italy
+    centers: [VEN, ROM, NAP, TUN]
+    control: [PIE, VEN, TUS, ROM, APU, NAP, TUN]
+    home: [VEN, ROM, NAP]
     units:
-    - {loc: apu, type: army}
-    - {loc: pie, type: army}
-    - {loc: ion, type: fleet}
-    - {loc: tys, type: fleet}
+    - {loc: APU, type: army}
+    - {loc: PIE, type: army}
+    - {loc: ION, type: fleet}
+    - {loc: TYS, type: fleet}
   Russia:
-    centers: [stp, mos, sev, war, rum]
-    control: [stp, mos, lvn, ukr, sev, fin, war, rum, gal]
-    home: [mos, stp, sev, war]
-    name: Russia
+    centers: [STP, MOS, SEV, WAR, RUM]
+    control: [GAL, STP, MOS, LVN, UKR, SEV, FIN, WAR, RUM]
+    home: [STP, MOS, SEV, WAR]
     units:
-    - {loc: mos, type: army}
-    - {loc: rum, type: army}
-    - {loc: gal, type: army}
-    - {loc: sev, type: fleet}
-    - {loc: bot, type: fleet}
+    - {loc: MOS, type: army}
+    - {loc: RUM, type: army}
+    - {loc: GAL, type: army}
+    - {loc: SEV, type: fleet}
+    - {loc: BOT, type: fleet}
   Turkey:
-    centers: [con, ank, smy, bul]
-    control: [con, ank, arm, smy, syr, bul]
-    home: [con, ank, smy]
-    name: Turkey
+    centers: [CON, ANK, SMY, BUL]
+    control: [CON, ANK, ARM, SMY, SYR, BUL]
+    home: [CON, ANK, SMY]
     units:
-    - {loc: con, type: fleet}
-    - {loc: eas, type: fleet}
-    - {loc: bul, type: army}
+    - {loc: CON, type: fleet}
+    - {loc: EAS, type: fleet}
+    - {loc: BUL, type: army}
 time: {season: 3, turn: 2}

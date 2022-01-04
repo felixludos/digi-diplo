@@ -565,6 +565,27 @@ class DiplomacyBot(Versioned, DiscordBot):
 		
 		await self._batched_send(ctx, self._register_orders(player, lines.splitlines()))
 	
+	@as_command('remove-order', brief='(admin) Remove existing orders given the locations of the unit')
+	async def on_remove_order(self, ctx, player, *, locs):
+		if self._insufficient_permissions(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+			return
+		
+		if self.manager.fix_player(player) not in self.manager.state['players']:
+			await ctx.send(f'Unknown player: {player}')
+			return
+		
+		removed = []
+		for loc in locs:
+			lost = self.manager.remove_action(player, loc.strip())
+			if lost is not None:
+				removed.append(lost)
+		
+		lines = [ f'Removed {len(removed)} orders for {player}',
+		          *['~~' + self.manager.format_action(player, lost) + '~~' for lost in removed]]
+		await self._batched_send(ctx, lines)
+	
+		
 	
 	@as_command('region', brief='Prints out info about a specific territory')
 	async def on_region(self, ctx, name=None):
@@ -681,4 +702,31 @@ class DiplomacyBot(Versioned, DiscordBot):
 		
 		actions = self.manager.format_all_actions()
 		lines = [f'{player} orders for **{self.manager.format_date()}**', *actions[player]]
+		await self._batched_send(ctx, lines)
+	
+	
+	@as_command('remove', brief='(player) Remove submitted orders by location of units')
+	async def on_remove(self, ctx, *, locs):
+		
+		player = self._to_player(ctx.author)
+		
+		if player is None:
+			await ctx.send(f'{ctx.author.display_name} is not a player (admins should use `.remove-order`).')
+		
+		if self.private_commands and self.player_channels.get(ctx.channel) != player:
+			await ctx.send(f'You can only run this command in the channel designated for your orders.')
+			return
+		
+		if self.frozen:
+			await ctx.send('The bot is currently frozen, ask the admins to unfreeze to run commands.')
+			return
+		
+		removed = []
+		for loc in locs:
+			lost = self.manager.remove_action(player, loc.strip())
+			if lost is not None:
+				removed.append(lost)
+		
+		lines = [f'Removed {len(removed)} orders for {player}',
+		         *['~~' + self.manager.format_action(player, lost) + '~~' for lost in removed]]
 		await self._batched_send(ctx, lines)

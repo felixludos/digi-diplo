@@ -1,2 +1,2 @@
 Austria:
-- {dest: ser, loc: bul, type: retreat, unit: army}
+- {dest: SER, loc: BUL, type: retreat, unit: army}

@@ -12,19 +12,29 @@ _DEFAULT_ROOT = fig.get_current_project().get_path()
 @fig.Script('create-game', description='Create a new diplomacy game')
 def create(A, name=unspecified_argument, game_root=unspecified_argument, assets_path=unspecified_argument,
            silent=None):
+	'''
+	Creates a new game, primarily by copying all the game assets (mostly the map and player info) to a newly created
+	game directory where all game states, orders, and rendered maps are.
+	
+	:param A: config object
+	:param name: of the game
+	:param game_root: location to put the new game directory into (default `games/`)
+	:param assets_path: path to the game variant assets (default `assets/classic`)
+	:param silent: bool
+	:return: game directory path
+	'''
 	if silent is None:
 		silent = A.pull('silent', False)
 	if game_root is unspecified_argument:
-		game_root = A.pull('games-root', '<>root', None)
-	if game_root is None:
-		game_root = Path(_DEFAULT_ROOT) / 'games'
+		game_root = A.pull('games-root', '<>root', str(Path(_DEFAULT_ROOT) / 'games'))
 	game_root = Path(game_root)
 	if not game_root.exists():
 		create_dir(game_root)
 	if assets_path is unspecified_argument:
-		assets_path = A.pull('assets-path', None)
-	if assets_path is None:
-		raise FileNotFoundError('You must provide the path to the directory with the map files')
+		assets_path = A.pull('assets-path', 'assets/classic')
+	assets_path = Path(assets_path)
+	if not assets_path.exists():
+		raise FileNotFoundError('You must provide the assets path to the directory with the map files.')
 	
 	if name is unspecified_argument:
 		name = A.pull('name', None)
@@ -63,7 +73,7 @@ def render(A, current=unspecified_argument, include_orders=None, manager=unspeci
 		current = A.pull('current', None)
 	
 	if manager is unspecified_argument:
-		manager = A.pull('manager')
+		manager = A.pull('manager', ref=True)
 	manager.load_status(current)
 	
 	if include_orders is None:
@@ -80,21 +90,35 @@ def render(A, current=unspecified_argument, include_orders=None, manager=unspeci
 
 
 @fig.Script('step', description='Adjudicate the current orders to get the next state')
-def step_season(A, current=unspecified_argument, manager=unspecified_argument, silent=None):
+def step_season(A, current=unspecified_argument, manager=unspecified_argument, update_state=None, silent=None):
+	'''
+	Adjudicates the current season based on the state and orders found by the provided manager
+	(based on the game directory), and saves the new state in the `states/` directory.
+	
+	:param A: config object
+	:param current: season code (defaults to the last one in states/)
+	:param manager: game manager
+	:param update_state: automatically save the new adjudicated state
+	:param silent: bool
+	:return: new state
+	'''
 	if silent is None:
 		silent = A.pull('silent', False)
 	if current is unspecified_argument:
 		current = A.pull('current', None)
 	
 	if manager is unspecified_argument:
-		manager = A.pull('manager')
+		manager = A.pull('manager', ref=True)
 	manager.load_status(current)
 	
 	old = manager.format_date()
 	
-	new = manager.take_step()
+	if update_state is None:
+		update_state = A.pull('update-state', True)
 	
-	msg = f'Finished adjudicating {old}.\nCurrent turn: **{manager.format_date()}**'
+	new = manager.take_step(update_state)
+	
+	msg = f'Finished adjudicating {old}.\nCurrent turn: {manager.format_date()}'
 	if not silent:
 		print(msg)
 	
@@ -102,4 +126,62 @@ def step_season(A, current=unspecified_argument, manager=unspecified_argument, s
 	
 
 
-
+@fig.Script('multi-step', description='Loop to adjudicate (and render) multiple seasons')
+def step_season(A, current=unspecified_argument, manager=unspecified_argument, num_steps=unspecified_argument,
+                render_state=None, render_orders=None,
+                silent=None):
+	'''
+	
+	
+	:param A: config object
+	:param current: season code (defaults to the last one in states/)
+	:param manager: game manager
+	:param num_steps: number of seasons to adjudicate (including retreats)
+	:param render_state: render the state, if it doesn't already exist (before and after)
+	:param render_orders: render the orders, if it doesn't already exist
+	:param silent: bool
+	:return: result current state
+	'''
+	# if silent is None:
+	# 	silent = A.pull('silent', False)
+	if current is unspecified_argument:
+		current = A.pull('current', None)
+	
+	if num_steps is unspecified_argument:
+		num_steps = A.pull('num-steps', None)
+	
+	if render_state is None:
+		render_state = A.pull('render-state', False)
+	
+	if render_orders is None:
+		render_orders = A.pull('render-orders', False)
+	
+	if manager is unspecified_argument:
+		manager = A.pull('manager', ref=True)
+	manager.load_status(current)
+	
+	new = None
+	
+	steps = 0
+	while len(manager.get_status()) == 0:
+		if render_state:
+			path = manager.find_image_path(include_actions=False)
+			if path is None:
+				manager.render_latest(include_actions=False)
+		
+		if num_steps is not None and steps == num_steps:
+			break
+		
+		if render_orders:
+			path = manager.find_image_path(include_actions=True)
+			if path is None:
+				manager.render_latest(include_actions=True)
+		
+		old = manager.format_date()
+		new = manager.take_step(True)
+		print(f'Adjudicated {old}')
+		
+	return new
+		
+		
+	

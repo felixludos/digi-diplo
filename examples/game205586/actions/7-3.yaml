@@ -1,4 +1,4 @@
 France:
-- {loc: par, type: destroy, unit: the}
+- {loc: PAR, type: destroy, unit: the}
 Germany:
-- {loc: mun, type: build, unit: army}
+- {loc: MUN, type: build, unit: army}

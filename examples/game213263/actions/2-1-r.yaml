@@ -1,2 +1,2 @@
 France:
-- {dest: gas, loc: bur, type: retreat, unit: army}
+- {dest: GAS, loc: BUR, type: retreat, unit: army}

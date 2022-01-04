@@ -1,2 +1,2 @@
 Italy:
-- {dest: pic, loc: bre, type: retreat, unit: fleet}
+- {dest: PIC, loc: BRE, type: retreat, unit: fleet}

@@ -1,5 +1,5 @@
 Austria:
-- {dest: alb, loc: tri, type: retreat, unit: army}
-- {loc: gre, type: disband, unit: army}
+- {dest: ALB, loc: TRI, type: retreat, unit: army}
+- {loc: GRE, type: disband, unit: army}
 Germany:
-- {loc: bel, type: disband, unit: fleet}
+- {loc: BEL, type: disband, unit: fleet}
