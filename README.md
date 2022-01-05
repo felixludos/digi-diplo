@@ -4,9 +4,9 @@ This repo contains a suite of python scripts for creating, managing, and visuali
 
 The primary use case here is for groups that play Diplomacy over the internet managed by a moderator or even automatically be a discord bot.
 
-Example Visualization of the orders.
+Example Visualization of the orders, to see three example games (especially helpful to get familiar with the behind-the-scenes state and order format), checkout `examples/`.
 
-![](examples/game213263/1-2-actions.png)
+![](examples/game213263/images/1-2-actions.png)
 
 ## Setup guide
 
@@ -51,12 +51,15 @@ fig start-bot classic/bot --admin-role Host --game-root games/game1
 
 ```
 
+Optionally, you may include `--private-commands` to prevent players from running commands in any channels beside their designated (private) orders channel (see below for more details).
+
 While the bot is running, you can submit the message `.help` to see a list of all the commands the bot can respond to. 
 
 [//]: # ([More detailed documentation coming soon])
 
 ### Suggested Use of the Bot (by an admin)
 
+0. It is expected that the discord server is setup such that each player is given one private channel to submit orders and communicate with the admins. Additionally, it is suggested that the admins also have one private channel where they interface with the bot to prevent any information accidentally leaking to the players early.
 1. When starting the bot for the first time: use `.designate-channel` and `.designate-role` (or `.designate-player`) to associate the channels and roles to the corresponding players. Also, in the console, note down what game was created (by default `games/game1`). From now on, to load the same game include `--game-root` in the command to start the bot (instead of creating a new one each time).
 2. At some point, post the correct order format with `.order-format`.
 3. When starting the bot: `.scan-orders` - scan the designated channels for new orders players submitted while the bot was offline
