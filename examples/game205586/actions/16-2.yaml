@@ -37,4 +37,4 @@ Turkey:
 - {dest: SEV, failed: true, loc: ARM, type: move, unit: army}
 - {dest: BUL-ec, loc: CON, type: move, unit: fleet}
 - {dest: RUM, loc: BUL-ec, type: move, unit: fleet}
-- {dest: RUM, loc: BLA, src: BUL, type: support, unit: fleet}
+- {dest: RUM, loc: BLA, src: BUL-ec, type: support, unit: fleet}

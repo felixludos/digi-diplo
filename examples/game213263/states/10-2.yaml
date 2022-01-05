@@ -1,0 +1,71 @@
+players:
+  Austria:
+    centers: [VIE, TRI, BUD, SER, RUM, MOS, SEV]
+    control: [VIE, TRI, BUD, SER, BOH, GAL, RUM, UKR, MOS, SEV, SIL, TYR]
+    home: [VIE, TRI, BUD]
+    units:
+    - {loc: TYR, type: army}
+    - {loc: SIL, type: army}
+    - {loc: SEV, type: army}
+    - {loc: MOS, type: army}
+    - {loc: GAL, type: army}
+    - {loc: UKR, type: army}
+    - {loc: BOH, type: army}
+  England:
+    centers: []
+    control: []
+    home: [EDI, LVP, LON]
+    units: []
+  France:
+    centers: [POR]
+    control: [PIC, POR, NAF]
+    home: [BRE, PAR, MAR]
+    units:
+    - {loc: LYO, type: fleet}
+  Germany:
+    centers: [WAR, LVP, LON, SPA, STP, BRE, NWY, SWE, PAR, EDI, KIE, BER, MUN, DEN,
+      HOL, BEL, MAR]
+    control: [WAL, WAR, LVP, LON, SPA, CLY, STP, BRE, GAS, YOR, NWY, SWE, FIN, PAR,
+      BUR, EDI, KIE, BER, RUH, MUN, PRU, DEN, HOL, BEL, MAR, LVN]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: SPA, type: army}
+    - {loc: NAO, type: fleet}
+    - {loc: STP, type: army}
+    - {loc: WAL, type: army}
+    - {loc: ENG, type: fleet}
+    - {loc: MAO, type: fleet}
+    - {loc: FIN, type: army}
+    - {loc: WAR, type: army}
+    - {loc: MAR, type: army}
+    - {loc: BOT, type: fleet}
+    - {loc: BUR, type: army}
+    - {loc: KIE, type: army}
+    - {loc: PRU, type: army}
+    - {loc: MUN, type: army}
+    - {loc: BER, type: army}
+  Italy:
+    centers: [VEN, ROM, NAP, TUN]
+    control: [PIE, VEN, TUS, ROM, APU, NAP, TUN]
+    home: [VEN, ROM, NAP]
+    units:
+    - {loc: PIE, type: army}
+    - {loc: WES, type: fleet}
+    - {loc: TUN, type: fleet}
+    - {loc: NAP, type: fleet}
+  Russia:
+    centers: []
+    control: []
+    home: [STP, MOS, SEV, WAR]
+    units: []
+  Turkey:
+    centers: [GRE, CON, ANK, SMY, BUL]
+    control: [ALB, GRE, CON, ANK, ARM, SMY, SYR, BUL]
+    home: [CON, ANK, SMY]
+    units:
+    - {loc: ARM, type: army}
+    - {loc: SMY, type: fleet}
+    - {loc: ION, type: fleet}
+    - {loc: TYS, type: fleet}
+    - {loc: CON, type: army}
+time: {season: 2, turn: 10}

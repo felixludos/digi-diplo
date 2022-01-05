@@ -1,0 +1,71 @@
+players:
+  Austria:
+    centers: []
+    control: [ALB]
+    home: [VIE, TRI, BUD]
+    units: []
+  England:
+    centers: []
+    control: []
+    home: [EDI, LVP, LON]
+    units: []
+  France:
+    centers: [TRI, EDI, LON, LVP, BEL, BRE, PAR, MAR, POR, SPA, TUN, VEN, NAP, ROM]
+    control: [TYR, TRI, EDI, LON, YOR, LVP, WAL, BEL, PIC, BRE, PAR, BUR, GAS, MAR,
+      POR, SPA, NAF, TUN, VEN, PIE, NAP, ROM, APU, CLY, RUH]
+    home: [BRE, PAR, MAR]
+    units:
+    - {loc: CLY, type: army}
+    - {loc: ION, type: fleet}
+    - {loc: VEN, type: army}
+    - {loc: LON, type: fleet}
+    - {loc: TRI, type: army}
+    - {loc: MAO, type: fleet}
+    - {loc: TYR, type: army}
+    - {loc: NTH, type: fleet}
+    - {loc: BUR, type: army}
+    - {loc: BEL, type: army}
+    - {loc: NAO, type: fleet}
+    - {loc: ADR, type: fleet}
+    - {loc: EDI, type: fleet}
+    - {loc: RUH, type: army}
+  Germany:
+    centers: [BUD, VIE, NWY, KIE, BER, MUN, HOL, DEN, SWE, STP, WAR, MOS]
+    control: [BUD, VIE, BOH, NWY, KIE, BER, MUN, PRU, SIL, HOL, DEN, SWE, STP, LVN,
+      WAR, UKR, MOS, GAL, FIN]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: SKA, type: fleet}
+    - {loc: BOH, type: army}
+    - {loc: MUN, type: army}
+    - {loc: NWG, type: fleet}
+    - {loc: BUD, type: army}
+    - {loc: HOL, type: army}
+    - {loc: NWY, type: fleet}
+    - {loc: FIN, type: army}
+    - {loc: VIE, type: army}
+    - {loc: HEL, type: fleet}
+    - {loc: DEN, type: army}
+  Italy:
+    centers: []
+    control: [TUS]
+    home: [VEN, ROM, NAP]
+    units: []
+  Russia:
+    centers: [GRE, SER, BUL, RUM, SEV, ANK, CON, SMY]
+    control: [GRE, SER, BUL, RUM, SEV, ARM, ANK, CON, SMY]
+    home: [STP, MOS, SEV, WAR]
+    units:
+    - {loc: BUL-sc, type: fleet}
+    - {loc: SER, type: army}
+    - {loc: ARM, type: army}
+    - {loc: SMY, type: army}
+    - {loc: RUM, type: army}
+    - {loc: GRE, type: army}
+    - {loc: CON, type: fleet}
+  Turkey:
+    centers: []
+    control: [SYR]
+    home: [CON, ANK, SMY]
+    units: []
+time: {season: 1, turn: 13}

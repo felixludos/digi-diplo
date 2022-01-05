@@ -1,0 +1,75 @@
+adjustments: {Austria: 1, England: 0, France: -1, Germany: 3, Italy: 0, Russia: 0,
+  Turkey: 0}
+disbands:
+  Germany:
+  - {loc: WAR, type: army}
+players:
+  Austria:
+    centers: [VIE, TRI, BUD, SER, RUM, MOS, SEV, WAR]
+    control: [VIE, TRI, BUD, SER, BOH, GAL, RUM, UKR, MOS, SEV, SIL, TYR, WAR]
+    home: [VIE, TRI, BUD]
+    units:
+    - {loc: TYR, type: army}
+    - {loc: WAR, type: army}
+    - {loc: SIL, type: army}
+    - {loc: SEV, type: army}
+    - {loc: MOS, type: army}
+    - {loc: UKR, type: army}
+    - {loc: BOH, type: army}
+  England:
+    centers: []
+    control: []
+    home: [EDI, LVP, LON]
+    units: []
+  France:
+    centers: []
+    control: [PIC, NAF]
+    home: [BRE, PAR, MAR]
+    units:
+    - {loc: LYO, type: fleet}
+  Germany:
+    centers: [POR, LVP, LON, SPA, STP, BRE, NWY, SWE, PAR, EDI, KIE, BER, MUN, DEN,
+      HOL, BEL, MAR]
+    control: [POR, WAL, LVP, LON, SPA, CLY, STP, BRE, GAS, YOR, NWY, SWE, FIN, PAR,
+      BUR, EDI, KIE, BER, RUH, MUN, PRU, DEN, HOL, BEL, MAR, LVN]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: MAR, type: army}
+    - {loc: MUN, type: army}
+    - {loc: STP, type: army}
+    - {loc: POR, type: army}
+    - {loc: LVN, type: army}
+    - {loc: RUH, type: army}
+    - {loc: NAO, type: fleet}
+    - {loc: SPA, type: army}
+    - {loc: BUR, type: army}
+    - {loc: PRU, type: army}
+    - {loc: BER, type: army}
+    - {loc: ENG, type: fleet}
+    - {loc: MAO, type: fleet}
+    - {loc: BOT, type: fleet}
+  Italy:
+    centers: [VEN, ROM, NAP, TUN]
+    control: [PIE, VEN, ROM, APU, NAP, TUN]
+    home: [VEN, ROM, NAP]
+    units:
+    - {loc: PIE, type: army}
+    - {loc: WES, type: fleet}
+    - {loc: TUN, type: fleet}
+    - {loc: NAP, type: fleet}
+  Russia:
+    centers: []
+    control: []
+    home: [STP, MOS, SEV, WAR]
+    units: []
+  Turkey:
+    centers: [GRE, CON, ANK, SMY, BUL]
+    control: [TUS, ALB, GRE, CON, ANK, ARM, SMY, SYR, BUL]
+    home: [CON, ANK, SMY]
+    units:
+    - {loc: ARM, type: army}
+    - {loc: CON, type: army}
+    - {loc: AEG, type: fleet}
+    - {loc: TYS, type: fleet}
+    - {loc: TUS, type: fleet}
+time: {season: 3, turn: 10}

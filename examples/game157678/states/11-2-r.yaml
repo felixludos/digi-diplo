@@ -1,0 +1,79 @@
+disbands:
+  Austria:
+  - {loc: GRE, type: army}
+  Germany:
+  - {loc: BEL, type: fleet}
+players:
+  Austria:
+    centers: [BUD, TRI, GRE, SER]
+    control: [BUD, TYR]
+    home: [VIE, TRI, BUD]
+    units:
+    - {loc: TRI, type: army}
+    - {loc: BUD, type: army}
+    - {loc: TYR, type: army}
+  England:
+    centers: []
+    control: []
+    home: [EDI, LVP, LON]
+    units: []
+  France:
+    centers: [EDI, LON, LVP, BEL, BRE, PAR, MAR, POR, SPA, TUN, VEN, NAP, ROM]
+    control: [TRI, EDI, LON, YOR, LVP, WAL, BEL, PIC, BRE, PAR, BUR, GAS, MAR, POR,
+      SPA, NAF, TUN, VEN, PIE, NAP, ROM, APU]
+    home: [BRE, PAR, MAR]
+    units:
+    - {loc: EDI, type: fleet}
+    - {loc: LVP, type: army}
+    - {loc: BEL, type: army}
+    - {loc: TRI, type: army}
+    - {loc: VEN, type: army}
+    - {loc: MAO, type: fleet}
+    - {loc: NTH, type: fleet}
+    - {loc: ENG, type: fleet}
+    - {loc: BUR, type: army}
+    - {loc: PIC, type: army}
+    - {loc: LON, type: fleet}
+    - {loc: ION, type: fleet}
+    - {loc: ADR, type: fleet}
+  Germany:
+    centers: [VIE, NWY, KIE, BER, MUN, HOL, DEN, SWE, STP, WAR, MOS]
+    control: [VIE, CLY, BOH, NWY, RUH, KIE, BER, MUN, PRU, SIL, HOL, DEN, SWE, STP,
+      LVN, WAR, UKR, MOS, GAL]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: NAO, type: fleet}
+    - {loc: NWY, type: army}
+    - {loc: MOS, type: army}
+    - {loc: NWG, type: fleet}
+    - {loc: RUH, type: army}
+    - {loc: DEN, type: fleet}
+    - {loc: BOH, type: army}
+    - {loc: GAL, type: army}
+    - {loc: MUN, type: army}
+    - {loc: VIE, type: army}
+  Italy:
+    centers: []
+    control: [TUS]
+    home: [VEN, ROM, NAP]
+    units: []
+  Russia:
+    centers: [BUL, RUM, SEV, ANK, CON, SMY]
+    control: [GRE, SER, ALB, BUL, RUM, SEV, FIN, ARM, ANK, CON, SMY]
+    home: [STP, MOS, SEV, WAR]
+    units:
+    - {loc: SMY, type: army}
+    - {loc: ARM, type: army}
+    - {loc: BUL-sc, type: fleet}
+    - {loc: GRE, type: army}
+    - {loc: SER, type: army}
+    - {loc: RUM, type: army}
+  Turkey:
+    centers: []
+    control: [SYR]
+    home: [CON, ANK, SMY]
+    units: []
+retreats:
+  Austria:
+    TRI: [ALB]
+time: {retreat: true, season: 2, turn: 11}

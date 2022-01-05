@@ -1,0 +1,73 @@
+players:
+  Austria:
+    centers: [VIE, TRI, BUD, SER, RUM, MOS, SEV, WAR]
+    control: [VIE, TRI, BUD, SER, BOH, GAL, RUM, UKR, MOS, SEV, TYR, WAR]
+    home: [VIE, TRI, BUD]
+    units:
+    - {loc: MOS, type: army}
+    - {loc: WAR, type: army}
+    - {loc: BOH, type: army}
+    - {loc: TYR, type: army}
+    - {loc: SEV, type: army}
+    - {loc: GAL, type: army}
+    - {loc: UKR, type: army}
+    - {loc: VIE, type: army}
+  England:
+    centers: []
+    control: []
+    home: [EDI, LVP, LON]
+    units: []
+  France:
+    centers: []
+    control: []
+    home: [BRE, PAR, MAR]
+    units: []
+  Germany:
+    centers: [POR, LVP, LON, SPA, STP, BRE, NWY, SWE, PAR, EDI, KIE, BER, MUN, DEN,
+      HOL, BEL, MAR]
+    control: [PIC, NAF, SIL, POR, WAL, LVP, LON, SPA, CLY, STP, BRE, GAS, YOR, NWY,
+      SWE, FIN, PAR, BUR, EDI, KIE, BER, RUH, MUN, PRU, DEN, HOL, BEL, MAR, LVN]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: NAF, type: fleet}
+    - {loc: STP, type: army}
+    - {loc: GAS, type: army}
+    - {loc: LYO, type: fleet}
+    - {loc: MAR, type: army}
+    - {loc: PRU, type: army}
+    - {loc: RUH, type: army}
+    - {loc: MUN, type: army}
+    - {loc: PIC, type: fleet}
+    - {loc: HOL, type: fleet}
+    - {loc: BAL, type: fleet}
+    - {loc: BER, type: army}
+    - {loc: SPA, type: army}
+    - {loc: WES, type: fleet}
+    - {loc: LVN, type: army}
+    - {loc: BUR, type: army}
+    - {loc: SIL, type: army}
+  Italy:
+    centers: [VEN, ROM, NAP, TUN]
+    control: [VEN, ROM, APU, NAP, TUN, TUS]
+    home: [VEN, ROM, NAP]
+    units:
+    - {loc: TUN, type: fleet}
+    - {loc: TUS, type: army}
+    - {loc: ROM, type: fleet}
+    - {loc: TYS, type: fleet}
+  Russia:
+    centers: []
+    control: []
+    home: [STP, MOS, SEV, WAR]
+    units: []
+  Turkey:
+    centers: [GRE, CON, ANK, SMY, BUL]
+    control: [PIE, ALB, GRE, CON, ANK, ARM, SMY, SYR, BUL]
+    home: [CON, ANK, SMY]
+    units:
+    - {loc: ARM, type: army}
+    - {loc: GRE, type: fleet}
+    - {loc: PIE, type: fleet}
+    - {loc: BUL, type: army}
+    - {loc: ION, type: fleet}
+time: {season: 2, turn: 13}

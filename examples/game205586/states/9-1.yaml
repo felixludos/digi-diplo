@@ -1,0 +1,70 @@
+players:
+  Austria:
+    centers: [VIE, TRI, BUD, GRE, SER]
+    control: [BOH, GAL, VIE, TRI, BUD, TYR, ALB, GRE, SER, SIL]
+    home: [VIE, TRI, BUD]
+    units:
+    - {loc: BOH, type: army}
+    - {loc: SER, type: army}
+    - {loc: GRE, type: fleet}
+    - {loc: GAL, type: army}
+    - {loc: TRI, type: army}
+  England:
+    centers: [LVP, LON]
+    control: [CLY, LVP, FIN, WAL, LON, YOR]
+    home: [EDI, LVP, LON]
+    units:
+    - {loc: LON, type: fleet}
+    - {loc: WAL, type: fleet}
+  France:
+    centers: [POR, MAR]
+    control: [GAS, POR, MAR]
+    home: [BRE, PAR, MAR]
+    units:
+    - {loc: MAO, type: fleet}
+    - {loc: POR, type: fleet}
+  Germany:
+    centers: [EDI, PAR, BRE, KIE, BER, MUN, HOL, DEN, BEL]
+    control: [EDI, PAR, PIC, BRE, BUR, KIE, BER, RUH, MUN, PRU, HOL, DEN, BEL]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: MUN, type: army}
+    - {loc: BER, type: army}
+    - {loc: EDI, type: army}
+    - {loc: BRE, type: fleet}
+    - {loc: PAR, type: army}
+    - {loc: NTH, type: fleet}
+    - {loc: KIE, type: fleet}
+    - {loc: PIC, type: army}
+  Italy:
+    centers: [SPA, VEN, ROM, NAP, TUN, BUL]
+    control: [SPA, PIE, VEN, TUS, ROM, APU, NAP, TUN, BUL]
+    home: [VEN, ROM, NAP]
+    units:
+    - {loc: SPA, type: army}
+    - {loc: TYS, type: fleet}
+    - {loc: LYO, type: fleet}
+    - {loc: ION, type: fleet}
+    - {loc: BUL-sc, type: fleet}
+    - {loc: PIE, type: army}
+  Russia:
+    centers: [NWY, STP, MOS, SEV, WAR, SWE, RUM]
+    control: [NWY, STP, MOS, LVN, UKR, SEV, WAR, SWE, RUM]
+    home: [STP, MOS, SEV, WAR]
+    units:
+    - {loc: UKR, type: army}
+    - {loc: SEV, type: fleet}
+    - {loc: NWY, type: fleet}
+    - {loc: LVN, type: army}
+    - {loc: WAR, type: army}
+    - {loc: RUM, type: army}
+    - {loc: SWE, type: fleet}
+  Turkey:
+    centers: [CON, ANK, SMY]
+    control: [CON, ANK, ARM, SMY, SYR]
+    home: [CON, ANK, SMY]
+    units:
+    - {loc: EAS, type: fleet}
+    - {loc: AEG, type: fleet}
+    - {loc: CON, type: army}
+time: {season: 1, turn: 9}

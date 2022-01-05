@@ -1,0 +1,74 @@
+players:
+  Austria:
+    centers: [VIE, TRI, BUD, SER, WAR, RUM, MOS, SEV]
+    control: [VIE, TRI, BUD, SER, BOH, GAL, WAR, RUM, UKR, MOS, SEV]
+    home: [VIE, TRI, BUD]
+    units:
+    - {loc: MOS, type: army}
+    - {loc: TRI, type: army}
+    - {loc: WAR, type: army}
+    - {loc: SEV, type: army}
+    - {loc: RUM, type: army}
+    - {loc: VIE, type: army}
+    - {loc: GAL, type: army}
+  England:
+    centers: [LVP, LON]
+    control: [LVP, WAL, LON]
+    home: [EDI, LVP, LON]
+    units:
+    - {loc: LVP, type: fleet}
+    - {loc: IRI, type: fleet}
+  France:
+    centers: [SPA, POR]
+    control: [PIC, SPA, POR, NAF]
+    home: [BRE, PAR, MAR]
+    units:
+    - {loc: NAF, type: fleet}
+    - {loc: SPA-sc, type: fleet}
+  Germany:
+    centers: [STP, BRE, NWY, SWE, PAR, EDI, KIE, BER, MUN, DEN, HOL, BEL]
+    control: [CLY, STP, BRE, GAS, YOR, NWY, SWE, FIN, PAR, BUR, EDI, KIE, BER, RUH,
+      MUN, PRU, DEN, HOL, BEL, SIL]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: CLY, type: fleet}
+    - {loc: STP, type: army}
+    - {loc: YOR, type: army}
+    - {loc: ENG, type: fleet}
+    - {loc: MAO, type: fleet}
+    - {loc: FIN, type: army}
+    - {loc: MUN, type: army}
+    - {loc: SIL, type: army}
+    - {loc: MAR, type: army}
+    - {loc: PRU, type: army}
+    - {loc: BAL, type: fleet}
+    - {loc: GAS, type: army}
+  Italy:
+    centers: [MAR, VEN, ROM, NAP, TUN]
+    control: [TYR, MAR, PIE, VEN, TUS, ROM, APU, NAP, TUN]
+    home: [VEN, ROM, NAP]
+    units:
+    - {loc: MAR, type: army}
+    - {loc: VEN, type: army}
+    - {loc: TYS, type: fleet}
+    - {loc: TUN, type: fleet}
+    - {loc: NAP, type: fleet}
+  Russia:
+    centers: []
+    control: [LVN]
+    home: [STP, MOS, SEV, WAR]
+    units: []
+  Turkey:
+    centers: [GRE, CON, ANK, SMY, BUL]
+    control: [ALB, GRE, CON, ANK, ARM, SMY, SYR, BUL]
+    home: [CON, ANK, SMY]
+    units:
+    - {loc: AEG, type: fleet}
+    - {loc: ALB, type: fleet}
+    - {loc: CON, type: army}
+    - {loc: ARM, type: army}
+    - {loc: ION, type: fleet}
+retreats:
+  Italy:
+    MAR: [PIE]
+time: {retreat: true, season: 1, turn: 9}

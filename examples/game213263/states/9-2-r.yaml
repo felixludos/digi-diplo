@@ -1,0 +1,76 @@
+players:
+  Austria:
+    centers: [VIE, TRI, BUD, SER, WAR, RUM, MOS, SEV]
+    control: [VIE, TRI, BUD, SER, BOH, GAL, RUM, UKR, MOS, SEV, SIL, TYR]
+    home: [VIE, TRI, BUD]
+    units:
+    - {loc: TYR, type: army}
+    - {loc: SIL, type: army}
+    - {loc: UKR, type: army}
+    - {loc: BOH, type: army}
+    - {loc: MOS, type: army}
+    - {loc: SEV, type: army}
+    - {loc: WAR, type: army}
+  England:
+    centers: [LVP, LON]
+    control: [WAL]
+    home: [EDI, LVP, LON]
+    units:
+    - {loc: LVP, type: fleet}
+    - {loc: IRI, type: fleet}
+  France:
+    centers: [SPA, POR]
+    control: [PIC, POR, NAF]
+    home: [BRE, PAR, MAR]
+    units:
+    - {loc: WES, type: fleet}
+    - {loc: POR, type: fleet}
+  Germany:
+    centers: [STP, BRE, NWY, SWE, PAR, EDI, KIE, BER, MUN, DEN, HOL, BEL]
+    control: [WAR, LVP, LON, SPA, CLY, STP, BRE, GAS, YOR, NWY, SWE, FIN, PAR, BUR,
+      EDI, KIE, BER, RUH, MUN, PRU, DEN, HOL, BEL, MAR, LVN]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: STP, type: army}
+    - {loc: LVP, type: army}
+    - {loc: SPA, type: army}
+    - {loc: LON, type: fleet}
+    - {loc: MAO, type: fleet}
+    - {loc: FIN, type: army}
+    - {loc: BUR, type: army}
+    - {loc: WAR, type: army}
+    - {loc: LVN, type: fleet}
+    - {loc: CLY, type: fleet}
+    - {loc: MAR, type: army}
+    - {loc: PRU, type: army}
+  Italy:
+    centers: [MAR, VEN, ROM, NAP, TUN]
+    control: [PIE, VEN, TUS, ROM, APU, NAP, TUN]
+    home: [VEN, ROM, NAP]
+    units:
+    - {loc: PIE, type: army}
+    - {loc: VEN, type: army}
+    - {loc: NAP, type: fleet}
+    - {loc: TUN, type: fleet}
+    - {loc: TYS, type: fleet}
+  Russia:
+    centers: []
+    control: []
+    home: [STP, MOS, SEV, WAR]
+    units: []
+  Turkey:
+    centers: [GRE, CON, ANK, SMY, BUL]
+    control: [ALB, GRE, CON, ANK, ARM, SMY, SYR, BUL]
+    home: [CON, ANK, SMY]
+    units:
+    - {loc: ARM, type: army}
+    - {loc: AEG, type: fleet}
+    - {loc: CON, type: army}
+    - {loc: ALB, type: fleet}
+    - {loc: ION, type: fleet}
+retreats:
+  Austria:
+    WAR: [GAL]
+  England:
+    LVP-c: [WAL-c, NAO]
+time: {retreat: true, season: 2, turn: 9}

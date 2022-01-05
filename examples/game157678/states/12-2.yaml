@@ -1,0 +1,74 @@
+disbands:
+  Austria:
+  - {loc: BUD, type: army}
+players:
+  Austria:
+    centers: [BUD]
+    control: [BUD, TYR, ALB]
+    home: [VIE, TRI, BUD]
+    units: []
+  England:
+    centers: []
+    control: []
+    home: [EDI, LVP, LON]
+    units: []
+  France:
+    centers: [TRI, EDI, LON, LVP, BEL, BRE, PAR, MAR, POR, SPA, TUN, VEN, NAP, ROM]
+    control: [TRI, EDI, LON, YOR, LVP, WAL, BEL, PIC, BRE, PAR, BUR, GAS, MAR, POR,
+      SPA, NAF, TUN, VEN, PIE, NAP, ROM, APU]
+    home: [BRE, PAR, MAR]
+    units:
+    - {loc: NTH, type: fleet}
+    - {loc: EDI, type: fleet}
+    - {loc: PIC, type: army}
+    - {loc: LVP, type: army}
+    - {loc: ION, type: fleet}
+    - {loc: VEN, type: army}
+    - {loc: NAO, type: fleet}
+    - {loc: IRI, type: fleet}
+    - {loc: BUR, type: army}
+    - {loc: PIE, type: army}
+    - {loc: LON, type: fleet}
+    - {loc: ADR, type: fleet}
+    - {loc: BEL, type: army}
+    - {loc: TRI, type: army}
+  Germany:
+    centers: [VIE, NWY, KIE, BER, MUN, HOL, DEN, SWE, STP, WAR, MOS]
+    control: [VIE, CLY, BOH, NWY, RUH, KIE, BER, MUN, PRU, SIL, HOL, DEN, SWE, STP,
+      LVN, WAR, UKR, MOS, GAL]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: NWG, type: fleet}
+    - {loc: SWE, type: army}
+    - {loc: STP, type: army}
+    - {loc: NWY, type: fleet}
+    - {loc: BOH, type: army}
+    - {loc: BUD, type: army}
+    - {loc: KIE, type: army}
+    - {loc: SKA, type: fleet}
+    - {loc: HEL, type: fleet}
+    - {loc: MUN, type: army}
+    - {loc: GAL, type: army}
+  Italy:
+    centers: []
+    control: [TUS]
+    home: [VEN, ROM, NAP]
+    units: []
+  Russia:
+    centers: [GRE, SER, BUL, RUM, SEV, ANK, CON, SMY]
+    control: [GRE, SER, BUL, RUM, SEV, FIN, ARM, ANK, CON, SMY]
+    home: [STP, MOS, SEV, WAR]
+    units:
+    - {loc: BUL-sc, type: fleet}
+    - {loc: ARM, type: army}
+    - {loc: GRE, type: army}
+    - {loc: CON, type: army}
+    - {loc: SER, type: army}
+    - {loc: BLA, type: fleet}
+    - {loc: RUM, type: army}
+  Turkey:
+    centers: []
+    control: [SYR]
+    home: [CON, ANK, SMY]
+    units: []
+time: {season: 2, turn: 12}

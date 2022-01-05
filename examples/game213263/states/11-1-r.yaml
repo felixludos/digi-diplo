@@ -1,0 +1,74 @@
+players:
+  Austria:
+    centers: [VIE, TRI, BUD, SER, RUM, MOS, SEV, WAR]
+    control: [VIE, TRI, BUD, SER, BOH, GAL, RUM, UKR, MOS, SEV, TYR, WAR]
+    home: [VIE, TRI, BUD]
+    units:
+    - {loc: MOS, type: army}
+    - {loc: TYR, type: army}
+    - {loc: VIE, type: army}
+    - {loc: WAR, type: army}
+    - {loc: SEV, type: army}
+    - {loc: UKR, type: army}
+    - {loc: SIL, type: army}
+    - {loc: BOH, type: army}
+  England:
+    centers: []
+    control: []
+    home: [EDI, LVP, LON]
+    units: []
+  France:
+    centers: []
+    control: [PIC, NAF]
+    home: [BRE, PAR, MAR]
+    units: []
+  Germany:
+    centers: [POR, LVP, LON, SPA, STP, BRE, NWY, SWE, PAR, EDI, KIE, BER, MUN, DEN,
+      HOL, BEL, MAR]
+    control: [SIL, POR, WAL, LVP, LON, SPA, CLY, STP, BRE, GAS, YOR, NWY, SWE, FIN,
+      PAR, BUR, EDI, KIE, BER, RUH, MUN, PRU, DEN, HOL, BEL, MAR, LVN]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: MAO, type: fleet}
+    - {loc: STP, type: army}
+    - {loc: SPA, type: army}
+    - {loc: GAS, type: army}
+    - {loc: POR, type: fleet}
+    - {loc: LVN, type: army}
+    - {loc: BAL, type: fleet}
+    - {loc: SIL, type: army}
+    - {loc: MUN, type: army}
+    - {loc: ENG, type: fleet}
+    - {loc: BUR, type: army}
+    - {loc: MAR, type: army}
+    - {loc: PRU, type: army}
+    - {loc: BER, type: army}
+    - {loc: RUH, type: army}
+  Italy:
+    centers: [VEN, ROM, NAP, TUN]
+    control: [PIE, VEN, ROM, APU, NAP, TUN]
+    home: [VEN, ROM, NAP]
+    units:
+    - {loc: TUN, type: fleet}
+    - {loc: WES, type: fleet}
+    - {loc: PIE, type: army}
+    - {loc: NAP, type: fleet}
+  Russia:
+    centers: []
+    control: []
+    home: [STP, MOS, SEV, WAR]
+    units: []
+  Turkey:
+    centers: [GRE, CON, ANK, SMY, BUL]
+    control: [TUS, ALB, GRE, CON, ANK, ARM, SMY, SYR, BUL]
+    home: [CON, ANK, SMY]
+    units:
+    - {loc: AEG, type: fleet}
+    - {loc: TYS, type: fleet}
+    - {loc: TUS, type: fleet}
+    - {loc: BUL, type: army}
+    - {loc: ARM, type: army}
+retreats:
+  Austria:
+    SIL: [GAL]
+time: {retreat: true, season: 1, turn: 11}

@@ -6,7 +6,7 @@ Austria:
 - {dest: GRE, loc: SER, type: support-defend, unit: army}
 - {dest: BUL, failed: true, loc: GRE, src: RUM, type: support, unit: fleet}
 France:
-- {dest: MAO, loc: POR, src: SPA, type: support, unit: fleet}
+- {dest: MAO, loc: POR, src: SPA-sc, type: support, unit: fleet}
 Germany:
 - {dest: PAR, loc: BUR, type: move, unit: army}
 - {dest: BUR, failed: true, loc: MUN, type: move, unit: army}

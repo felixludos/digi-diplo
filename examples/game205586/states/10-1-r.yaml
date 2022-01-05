@@ -1,0 +1,74 @@
+players:
+  Austria:
+    centers: [VIE, TRI, BUD, GRE, SER, VEN, BUL]
+    control: [BOH, VIE, TRI, BUD, TYR, ALB, GRE, SER, VEN, BUL]
+    home: [VIE, TRI, BUD]
+    units:
+    - {loc: BUL, type: army}
+    - {loc: VEN, type: army}
+    - {loc: TYR, type: army}
+    - {loc: TRI, type: army}
+    - {loc: VIE, type: army}
+    - {loc: BUD, type: army}
+    - {loc: GRE, type: fleet}
+  England:
+    centers: [LVP]
+    control: [CLY, LVP, FIN, YOR]
+    home: [EDI, LVP, LON]
+    units:
+    - {loc: WAL, type: fleet}
+  France:
+    centers: [POR]
+    control: [POR]
+    home: [BRE, PAR, MAR]
+    units:
+    - {loc: POR, type: fleet}
+  Germany:
+    centers: [LON, EDI, PAR, BRE, KIE, BER, MUN, HOL, DEN, BEL]
+    control: [SIL, WAL, LON, GAS, EDI, PAR, PIC, BRE, BUR, KIE, BER, RUH, MUN, PRU,
+      HOL, DEN, BEL]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: GAS, type: army}
+    - {loc: BUR, type: army}
+    - {loc: KIE, type: army}
+    - {loc: WAL, type: fleet}
+    - {loc: LVP, type: army}
+    - {loc: SIL, type: army}
+    - {loc: ENG, type: fleet}
+    - {loc: MUN, type: army}
+    - {loc: NTH, type: fleet}
+  Italy:
+    centers: [MAR, SPA, ROM, NAP, TUN]
+    control: [MAR, SPA, PIE, TUS, ROM, APU, NAP, TUN]
+    home: [VEN, ROM, NAP]
+    units:
+    - {loc: SPA, type: army}
+    - {loc: PIE, type: army}
+    - {loc: ION, type: fleet}
+    - {loc: ROM, type: fleet}
+    - {loc: LYO, type: fleet}
+  Russia:
+    centers: [NWY, STP, MOS, SEV, WAR, SWE, RUM]
+    control: [GAL, NWY, STP, MOS, LVN, UKR, SEV, WAR, SWE, RUM]
+    home: [STP, MOS, SEV, WAR]
+    units:
+    - {loc: RUM, type: army}
+    - {loc: SWE, type: fleet}
+    - {loc: NWY, type: fleet}
+    - {loc: WAR, type: army}
+    - {loc: BLA, type: fleet}
+    - {loc: UKR, type: army}
+    - {loc: GAL, type: army}
+  Turkey:
+    centers: [CON, ANK, SMY]
+    control: [CON, ANK, ARM, SMY, SYR]
+    home: [CON, ANK, SMY]
+    units:
+    - {loc: ANK, type: army}
+    - {loc: CON, type: fleet}
+    - {loc: AEG, type: fleet}
+retreats:
+  England:
+    WAL-c: [IRI]
+time: {retreat: true, season: 1, turn: 10}

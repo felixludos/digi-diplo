@@ -1,0 +1,72 @@
+players:
+  Austria:
+    centers: [VIE, TRI, BUD, GRE, SER, VEN, BUL]
+    control: [BOH, VIE, TRI, BUD, TYR, ALB, GRE, SER, VEN, BUL]
+    home: [VIE, TRI, BUD]
+    units:
+    - {loc: BUD, type: army}
+    - {loc: TYR, type: army}
+    - {loc: GRE, type: fleet}
+    - {loc: SER, type: army}
+    - {loc: VEN, type: army}
+    - {loc: VIE, type: army}
+    - {loc: BUL, type: army}
+  England:
+    centers: []
+    control: [CLY, FIN, YOR]
+    home: [EDI, LVP, LON]
+    units: []
+  France:
+    centers: [POR]
+    control: [POR]
+    home: [BRE, PAR, MAR]
+    units:
+    - {loc: MAO, type: fleet}
+  Germany:
+    centers: [LVP, LON, EDI, PAR, BRE, KIE, BER, MUN, HOL, DEN, BEL]
+    control: [LVP, SIL, WAL, LON, GAS, EDI, PAR, PIC, BRE, BUR, KIE, BER, RUH, MUN,
+      PRU, HOL, DEN, BEL]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: MUN, type: army}
+    - {loc: LVP, type: army}
+    - {loc: RUH, type: army}
+    - {loc: GAS, type: army}
+    - {loc: BUR, type: army}
+    - {loc: PRU, type: army}
+    - {loc: NTH, type: fleet}
+    - {loc: BER, type: fleet}
+    - {loc: LON, type: fleet}
+    - {loc: KIE, type: army}
+    - {loc: ENG, type: fleet}
+  Italy:
+    centers: [MAR, SPA, ROM, NAP, TUN]
+    control: [MAR, SPA, PIE, TUS, ROM, APU, NAP, TUN]
+    home: [VEN, ROM, NAP]
+    units:
+    - {loc: SPA, type: army}
+    - {loc: MAR, type: army}
+    - {loc: ION, type: fleet}
+    - {loc: ROM, type: fleet}
+    - {loc: LYO, type: fleet}
+  Russia:
+    centers: [NWY, STP, MOS, SEV, WAR, SWE, RUM]
+    control: [GAL, NWY, STP, MOS, LVN, UKR, SEV, WAR, SWE, RUM]
+    home: [STP, MOS, SEV, WAR]
+    units:
+    - {loc: WAR, type: army}
+    - {loc: UKR, type: army}
+    - {loc: NWY, type: fleet}
+    - {loc: BLA, type: fleet}
+    - {loc: GAL, type: army}
+    - {loc: RUM, type: army}
+    - {loc: SWE, type: fleet}
+  Turkey:
+    centers: [CON, ANK, SMY]
+    control: [CON, ANK, ARM, SMY, SYR]
+    home: [CON, ANK, SMY]
+    units:
+    - {loc: CON, type: fleet}
+    - {loc: AEG, type: fleet}
+    - {loc: ANK, type: army}
+time: {season: 1, turn: 11}

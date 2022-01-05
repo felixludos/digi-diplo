@@ -1,0 +1,76 @@
+disbands:
+  Italy:
+  - {loc: BUL-sc, type: fleet}
+players:
+  Austria:
+    centers: [VIE, TRI, BUD, GRE, SER]
+    control: [BOH, VIE, TRI, BUD, TYR, ALB, GRE, SER, SIL, VEN, BUL]
+    home: [VIE, TRI, BUD]
+    units:
+    - {loc: BUD, type: army}
+    - {loc: BUL, type: army}
+    - {loc: TYR, type: army}
+    - {loc: GRE, type: fleet}
+    - {loc: VEN, type: army}
+  England:
+    centers: [LVP, LON]
+    control: [CLY, LVP, FIN, WAL, YOR]
+    home: [EDI, LVP, LON]
+    units:
+    - {loc: LON, type: fleet}
+    - {loc: WAL, type: fleet}
+  France:
+    centers: [POR, MAR]
+    control: [POR]
+    home: [BRE, PAR, MAR]
+    units:
+    - {loc: POR, type: fleet}
+    - {loc: MAO, type: fleet}
+  Germany:
+    centers: [EDI, PAR, BRE, KIE, BER, MUN, HOL, DEN, BEL]
+    control: [LON, GAS, EDI, PAR, PIC, BRE, BUR, KIE, BER, RUH, MUN, PRU, HOL, DEN,
+      BEL]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: BRE, type: army}
+    - {loc: GAS, type: army}
+    - {loc: KIE, type: army}
+    - {loc: LON, type: fleet}
+    - {loc: EDI, type: army}
+    - {loc: MUN, type: army}
+    - {loc: NTH, type: fleet}
+    - {loc: ENG, type: fleet}
+  Italy:
+    centers: [SPA, VEN, ROM, NAP, TUN, BUL]
+    control: [MAR, SPA, PIE, TUS, ROM, APU, NAP, TUN]
+    home: [VEN, ROM, NAP]
+    units:
+    - {loc: SPA, type: army}
+    - {loc: ION, type: fleet}
+    - {loc: MAR, type: army}
+    - {loc: LYO, type: fleet}
+    - {loc: TYS, type: fleet}
+  Russia:
+    centers: [NWY, STP, MOS, SEV, WAR, SWE, RUM]
+    control: [GAL, NWY, STP, MOS, LVN, UKR, SEV, WAR, SWE, RUM]
+    home: [STP, MOS, SEV, WAR]
+    units:
+    - {loc: SWE, type: fleet}
+    - {loc: GAL, type: army}
+    - {loc: WAR, type: army}
+    - {loc: BLA, type: fleet}
+    - {loc: NWY, type: fleet}
+    - {loc: RUM, type: army}
+    - {loc: UKR, type: army}
+  Turkey:
+    centers: [CON, ANK, SMY]
+    control: [CON, ANK, ARM, SMY, SYR]
+    home: [CON, ANK, SMY]
+    units:
+    - {loc: ANK, type: army}
+    - {loc: CON, type: fleet}
+    - {loc: AEG, type: fleet}
+retreats:
+  England:
+    LON-c: [YOR-c]
+time: {retreat: true, season: 2, turn: 9}

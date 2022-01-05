@@ -128,7 +128,7 @@ def step_season(A, current=unspecified_argument, manager=unspecified_argument, u
 
 @fig.Script('multi-step', description='Loop to adjudicate (and render) multiple seasons')
 def step_season(A, current=unspecified_argument, manager=unspecified_argument, num_steps=unspecified_argument,
-                render_state=None, render_orders=None,
+                allow_missing=unspecified_argument, render_state=None, render_orders=None,
                 silent=None):
 	'''
 	
@@ -137,6 +137,7 @@ def step_season(A, current=unspecified_argument, manager=unspecified_argument, n
 	:param current: season code (defaults to the last one in states/)
 	:param manager: game manager
 	:param num_steps: number of seasons to adjudicate (including retreats)
+	:param allow_missing: adjudicate despite missing this many orders in total
 	:param render_state: render the state, if it doesn't already exist (before and after)
 	:param render_orders: render the orders, if it doesn't already exist
 	:param silent: bool
@@ -150,6 +151,9 @@ def step_season(A, current=unspecified_argument, manager=unspecified_argument, n
 	if num_steps is unspecified_argument:
 		num_steps = A.pull('num-steps', None)
 	
+	if allow_missing is unspecified_argument:
+		allow_missing = A.pull('allow-missing', 0)
+	
 	if render_state is None:
 		render_state = A.pull('render-state', False)
 	
@@ -162,8 +166,9 @@ def step_season(A, current=unspecified_argument, manager=unspecified_argument, n
 	
 	new = None
 	
+	status = manager.get_status()
 	steps = 0
-	while len(manager.get_status()) == 0:
+	while sum(status.values()) <= allow_missing:
 		if render_state:
 			path = manager.find_image_path(include_actions=False)
 			if path is None:
@@ -180,7 +185,10 @@ def step_season(A, current=unspecified_argument, manager=unspecified_argument, n
 		old = manager.format_date()
 		new = manager.take_step(True)
 		print(f'Adjudicated {old}')
-		
+		status = manager.get_status()
+	else:
+		print(f'Not adjudicating {manager.format_date()}, missing {sum(status.values())} orders.')
+	
 	return new
 		
 		

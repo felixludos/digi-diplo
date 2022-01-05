@@ -1,0 +1,79 @@
+players:
+  Austria:
+    centers: [VIE, BUD, TRI, GRE]
+    control: [VIE, BUD, TRI, GRE]
+    home: [VIE, TRI, BUD]
+    units:
+    - {loc: VIE, type: army}
+    - {loc: SER, type: army}
+    - {loc: GRE, type: army}
+    - {loc: TRI, type: army}
+  England:
+    centers: []
+    control: []
+    home: [EDI, LVP, LON]
+    units: []
+  France:
+    centers: [EDI, LON, LVP, BEL, BRE, PAR, MAR, POR, SPA, TUN, VEN, NAP]
+    control: [EDI, LON, YOR, LVP, WAL, BEL, PIC, BRE, PAR, BUR, GAS, MAR, POR, SPA,
+      NAF, TUN, VEN, PIE, NAP]
+    home: [BRE, PAR, MAR]
+    units:
+    - {loc: LVP, type: army}
+    - {loc: AEG, type: fleet}
+    - {loc: ROM, type: army}
+    - {loc: VEN, type: army}
+    - {loc: TYS, type: fleet}
+    - {loc: ENG, type: fleet}
+    - {loc: SPA-sc, type: fleet}
+    - {loc: EDI, type: fleet}
+    - {loc: BEL, type: army}
+    - {loc: BUR, type: army}
+    - {loc: LON, type: fleet}
+    - {loc: NAP, type: fleet}
+  Germany:
+    centers: [NWY, KIE, BER, MUN, HOL, DEN, SWE, STP, WAR, MOS]
+    control: [CLY, BOH, NWY, RUH, KIE, BER, MUN, PRU, SIL, HOL, DEN, SWE, STP, LVN,
+      WAR, UKR, MOS, TYR, GAL]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: CLY, type: fleet}
+    - {loc: MUN, type: army}
+    - {loc: NWG, type: fleet}
+    - {loc: NTH, type: fleet}
+    - {loc: VIE, type: army}
+    - {loc: SIL, type: army}
+    - {loc: RUH, type: army}
+    - {loc: MOS, type: army}
+    - {loc: UKR, type: army}
+    - {loc: BOH, type: army}
+  Italy:
+    centers: [ROM]
+    control: [TUS, ALB, ROM, APU]
+    home: [VEN, ROM, NAP]
+    units:
+    - {loc: ROM, type: army}
+  Russia:
+    centers: [SER, BUL, RUM, SEV, ANK, CON, SMY]
+    control: [SER, BUL, RUM, SEV, FIN, ARM, ANK, CON, SMY]
+    home: [STP, MOS, SEV, WAR]
+    units:
+    - {loc: SMY, type: army}
+    - {loc: CON, type: fleet}
+    - {loc: BUL, type: army}
+    - {loc: RUM, type: army}
+    - {loc: SEV, type: army}
+    - {loc: SER, type: army}
+  Turkey:
+    centers: []
+    control: [SYR]
+    home: [CON, ANK, SMY]
+    units: []
+retreats:
+  Austria:
+    VIE: [TYR]
+  Italy:
+    ROM: [APU, TUS]
+  Russia:
+    SER: [ALB]
+time: {retreat: true, season: 1, turn: 10}

@@ -1,0 +1,73 @@
+adjustments: {Austria: 0, England: 0, France: 1, Germany: 1, Italy: 0, Russia: 0,
+  Turkey: 0}
+players:
+  Austria:
+    centers: [BUD, TRI, GRE, SER]
+    control: [BUD, TRI, GRE, TYR, SER]
+    home: [VIE, TRI, BUD]
+    units:
+    - {loc: GRE, type: army}
+    - {loc: TYR, type: army}
+    - {loc: TRI, type: army}
+    - {loc: SER, type: army}
+  England:
+    centers: []
+    control: []
+    home: [EDI, LVP, LON]
+    units: []
+  France:
+    centers: [EDI, LON, LVP, BEL, BRE, PAR, MAR, POR, SPA, TUN, VEN, NAP, ROM]
+    control: [EDI, LON, YOR, LVP, WAL, BEL, PIC, BRE, PAR, BUR, GAS, MAR, POR, SPA,
+      NAF, TUN, VEN, PIE, NAP, ROM, APU]
+    home: [BRE, PAR, MAR]
+    units:
+    - {loc: BEL, type: army}
+    - {loc: LON, type: fleet}
+    - {loc: ION, type: fleet}
+    - {loc: BUR, type: army}
+    - {loc: APU, type: fleet}
+    - {loc: WES, type: fleet}
+    - {loc: MAO, type: fleet}
+    - {loc: LVP, type: army}
+    - {loc: ROM, type: army}
+    - {loc: VEN, type: army}
+    - {loc: EDI, type: fleet}
+    - {loc: ENG, type: fleet}
+  Germany:
+    centers: [VIE, NWY, KIE, BER, MUN, HOL, DEN, SWE, STP, WAR, MOS]
+    control: [VIE, CLY, BOH, NWY, RUH, KIE, BER, MUN, PRU, SIL, HOL, DEN, SWE, STP,
+      LVN, WAR, UKR, MOS, GAL]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: CLY, type: fleet}
+    - {loc: MUN, type: army}
+    - {loc: GAL, type: army}
+    - {loc: HOL, type: army}
+    - {loc: MOS, type: army}
+    - {loc: UKR, type: army}
+    - {loc: NWG, type: fleet}
+    - {loc: NTH, type: fleet}
+    - {loc: BOH, type: army}
+    - {loc: VIE, type: army}
+  Italy:
+    centers: []
+    control: [TUS]
+    home: [VEN, ROM, NAP]
+    units: []
+  Russia:
+    centers: [BUL, RUM, SEV, ANK, CON, SMY]
+    control: [ALB, BUL, RUM, SEV, FIN, ARM, ANK, CON, SMY]
+    home: [STP, MOS, SEV, WAR]
+    units:
+    - {loc: ARM, type: army}
+    - {loc: ALB, type: army}
+    - {loc: SMY, type: army}
+    - {loc: CON, type: fleet}
+    - {loc: BUL, type: army}
+    - {loc: RUM, type: army}
+  Turkey:
+    centers: []
+    control: [SYR]
+    home: [CON, ANK, SMY]
+    units: []
+time: {season: 3, turn: 10}

@@ -17,12 +17,14 @@ _meta.script_name: multi-step
 #parents: [wd/std]
 parents: [classic/bot]
 
-game-root: games/game213263
+#game-root: games/game4
 #game-root: games/alpha
+#game-root: examples/game213263
 
 #check-image: 1-1
 #current: 2-2
 
+allow-missing: 2
 include-orders: yes
 render-orders: yes
 render-state: yes

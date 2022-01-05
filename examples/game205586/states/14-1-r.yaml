@@ -1,0 +1,75 @@
+players:
+  Austria:
+    centers: [VIE, TRI, BUD, GRE, SER]
+    control: [BOH, VIE, TRI, BUD, TYR, ALB, GRE, SER, GAL, PIE]
+    home: [VIE, TRI, BUD]
+    units:
+    - {loc: GAL, type: army}
+    - {loc: TRI, type: army}
+    - {loc: PIE, type: army}
+    - {loc: TYR, type: army}
+    - {loc: SER, type: army}
+  England:
+    centers: []
+    control: [CLY, YOR]
+    home: [EDI, LVP, LON]
+    units: []
+  France:
+    centers: [POR]
+    control: [POR]
+    home: [BRE, PAR, MAR]
+    units:
+    - {loc: POR, type: fleet}
+  Germany:
+    centers: [LVP, LON, EDI, PAR, BRE, KIE, BER, MUN, HOL, DEN, BEL, SWE, NWY, WAR,
+      STP, MOS]
+    control: [FIN, LVP, SIL, WAL, LON, EDI, PAR, PIC, BRE, BUR, KIE, BER, RUH, MUN,
+      PRU, HOL, DEN, BEL, LVN, SWE, NWY, WAR, STP, MOS, UKR]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: GAS, type: army}
+    - {loc: UKR, type: army}
+    - {loc: SIL, type: army}
+    - {loc: MAO, type: fleet}
+    - {loc: MOS, type: army}
+    - {loc: ENG, type: fleet}
+    - {loc: PRU, type: army}
+    - {loc: BER, type: army}
+    - {loc: RUH, type: army}
+    - {loc: MUN, type: army}
+    - {loc: PAR, type: army}
+    - {loc: NAO, type: fleet}
+    - {loc: IRI, type: fleet}
+    - {loc: WAR, type: army}
+    - {loc: BUR, type: army}
+  Italy:
+    centers: [VEN, MAR, SPA, ROM, NAP, TUN]
+    control: [VEN, GAS, MAR, SPA, TUS, ROM, APU, NAP, TUN]
+    home: [VEN, ROM, NAP]
+    units:
+    - {loc: GAS, type: army}
+    - {loc: MAR, type: army}
+    - {loc: BRE, type: fleet}
+    - {loc: APU, type: fleet}
+    - {loc: LYO, type: fleet}
+    - {loc: TYS, type: fleet}
+  Russia:
+    centers: [SEV, RUM]
+    control: [SEV, RUM]
+    home: [STP, MOS, SEV, WAR]
+    units:
+    - {loc: SEV, type: army}
+    - {loc: RUM, type: army}
+  Turkey:
+    centers: [BUL, CON, ANK, SMY]
+    control: [BUL, CON, ANK, ARM, SMY, SYR]
+    home: [CON, ANK, SMY]
+    units:
+    - {loc: AEG, type: fleet}
+    - {loc: CON, type: fleet}
+    - {loc: BUL-ec, type: fleet}
+    - {loc: ARM, type: army}
+retreats:
+  Italy:
+    GAS: [SPA]
+time: {retreat: true, season: 1, turn: 14}

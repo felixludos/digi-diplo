@@ -1,0 +1,72 @@
+players:
+  Austria:
+    centers: [VIE, TRI, BUD, GRE, SER]
+    control: [BOH, VIE, TRI, BUD, TYR, ALB, GRE, SER, GAL]
+    home: [VIE, TRI, BUD]
+    units:
+    - {loc: BUD, type: army}
+    - {loc: VIE, type: army}
+    - {loc: TYR, type: army}
+    - {loc: GAL, type: army}
+    - {loc: SER, type: army}
+  England:
+    centers: []
+    control: [CLY, YOR]
+    home: [EDI, LVP, LON]
+    units: []
+  France:
+    centers: [POR]
+    control: [POR]
+    home: [BRE, PAR, MAR]
+    units:
+    - {loc: POR, type: fleet}
+  Germany:
+    centers: [LVP, LON, EDI, PAR, BRE, KIE, BER, MUN, HOL, DEN, BEL, SWE, NWY, WAR,
+      STP, MOS]
+    control: [FIN, LVP, SIL, WAL, LON, EDI, PAR, PIC, BRE, BUR, KIE, BER, RUH, MUN,
+      PRU, HOL, DEN, BEL, LVN, SWE, NWY, WAR, STP, MOS]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: WAR, type: army}
+    - {loc: BUR, type: army}
+    - {loc: BER, type: army}
+    - {loc: NTH, type: fleet}
+    - {loc: BRE, type: army}
+    - {loc: NAO, type: fleet}
+    - {loc: SIL, type: army}
+    - {loc: ENG, type: fleet}
+    - {loc: MUN, type: army}
+    - {loc: IRI, type: fleet}
+    - {loc: STP, type: army}
+    - {loc: PAR, type: army}
+    - {loc: MOS, type: army}
+    - {loc: KIE, type: army}
+    - {loc: LVN, type: army}
+  Italy:
+    centers: [VEN, MAR, SPA, ROM, NAP, TUN]
+    control: [VEN, GAS, MAR, SPA, PIE, TUS, ROM, APU, NAP, TUN]
+    home: [VEN, ROM, NAP]
+    units:
+    - {loc: TYS, type: fleet}
+    - {loc: MAR, type: army}
+    - {loc: MAO, type: fleet}
+    - {loc: VEN, type: fleet}
+    - {loc: ROM, type: fleet}
+    - {loc: GAS, type: army}
+  Russia:
+    centers: [SEV, RUM]
+    control: [UKR, SEV, RUM]
+    home: [STP, MOS, SEV, WAR]
+    units:
+    - {loc: RUM, type: army}
+    - {loc: SEV, type: army}
+  Turkey:
+    centers: [BUL, CON, ANK, SMY]
+    control: [BUL, CON, ANK, ARM, SMY, SYR]
+    home: [CON, ANK, SMY]
+    units:
+    - {loc: AEG, type: fleet}
+    - {loc: ARM, type: army}
+    - {loc: CON, type: fleet}
+    - {loc: BUL-sc, type: fleet}
+time: {season: 1, turn: 14}

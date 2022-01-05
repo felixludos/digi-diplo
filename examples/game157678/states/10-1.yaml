@@ -1,0 +1,72 @@
+players:
+  Austria:
+    centers: [VIE, BUD, TRI, GRE]
+    control: [VIE, BUD, TRI, GRE]
+    home: [VIE, TRI, BUD]
+    units:
+    - {loc: BUD, type: army}
+    - {loc: GRE, type: army}
+    - {loc: TRI, type: army}
+    - {loc: VIE, type: army}
+  England:
+    centers: []
+    control: []
+    home: [EDI, LVP, LON]
+    units: []
+  France:
+    centers: [EDI, LON, LVP, BEL, BRE, PAR, MAR, POR, SPA, TUN, VEN, NAP]
+    control: [EDI, LON, CLY, YOR, LVP, WAL, BEL, PIC, BRE, PAR, BUR, GAS, MAR, POR,
+      SPA, NAF, TUN, VEN, PIE, NAP]
+    home: [BRE, PAR, MAR]
+    units:
+    - {loc: ION, type: fleet}
+    - {loc: VEN, type: army}
+    - {loc: LON, type: fleet}
+    - {loc: BUR, type: army}
+    - {loc: BEL, type: army}
+    - {loc: NAP, type: fleet}
+    - {loc: PIE, type: army}
+    - {loc: WES, type: fleet}
+    - {loc: EDI, type: fleet}
+    - {loc: MAR, type: fleet}
+    - {loc: YOR, type: army}
+    - {loc: BRE, type: fleet}
+  Germany:
+    centers: [NWY, KIE, BER, MUN, HOL, DEN, SWE, STP, WAR, MOS]
+    control: [BOH, NWY, RUH, KIE, BER, MUN, PRU, SIL, HOL, DEN, SWE, STP, LVN, WAR,
+      UKR, MOS, TYR, GAL]
+    home: [KIE, BER, MUN]
+    units:
+    - {loc: GAL, type: army}
+    - {loc: NTH, type: fleet}
+    - {loc: HOL, type: fleet}
+    - {loc: BOH, type: army}
+    - {loc: TYR, type: army}
+    - {loc: MUN, type: army}
+    - {loc: WAR, type: army}
+    - {loc: UKR, type: army}
+    - {loc: MOS, type: army}
+    - {loc: NWG, type: fleet}
+  Italy:
+    centers: [ROM]
+    control: [TUS, ALB, ROM, APU]
+    home: [VEN, ROM, NAP]
+    units:
+    - {loc: ROM, type: army}
+  Russia:
+    centers: [SER, BUL, RUM, SEV, ANK, CON, SMY]
+    control: [SER, BUL, RUM, SEV, FIN, ARM, ANK, CON, SMY]
+    home: [STP, MOS, SEV, WAR]
+    units:
+    - {loc: SER, type: army}
+    - {loc: BUL, type: army}
+    - {loc: CON, type: army}
+    - {loc: SEV, type: army}
+    - {loc: BLA, type: fleet}
+    - {loc: RUM, type: army}
+  Turkey:
+    centers: []
+    control: [SYR]
+    home: [CON, ANK, SMY]
+    units: []
+time: {season: 1, turn: 10}
