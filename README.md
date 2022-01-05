@@ -4,6 +4,9 @@ This repo contains a suite of python scripts for creating, managing, and visuali
 
 The primary use case here is for groups that play Diplomacy over the internet managed by a moderator or even automatically be a discord bot.
 
+Example Visualization of the orders.
+
+![](examples/game213263/1-2-actions.png)
 
 ## Setup guide
 
@@ -61,7 +64,7 @@ While the bot is running, you can submit the message `.help` to see a list of al
 5. (optional) `.freeze` - freeze the bot at the deadline to stop players from continuing to change/submit orders
 6. `.print-orders` - to print out all submitted orders. If you’re generous and players made mistakes or NMRd, you can dm them and fix any mistakes for them (using `.set-order`). (don’t post it publicly yet) 
 7. `.render-orders` - to render the map with all orders drawn. (don’t post it publicly yet)
-8. Inspect the orders, if there are any errors, fix them using `.set-order` and go back to step 5. Once all are acceptable, save a copy of the order yaml file (inside the game directory `actions/`).
+8. Inspect the orders, if there are any errors, fix them using `.set-order` or `.remove-order` and go back to step 5. Once all are acceptable, save a copy of the order yaml file (inside the game directory `actions/`).
 9. `.step` - to adjudicate the season and move on to the next one. If any of the orders are missing or illegal, the adjudication will fail, so keep an eye on the console. Unless the bot says the season has been successfully adjudicated, it has failed. If it failed, check the console above the exception stack trace, you’ll see the action that caused the error. You can manually fix that by replacing it with a hold order for the unit in the same `loc` using `.set-order`.
 10. Once the adjudication is successful, backup the resulting new state yaml file (in `states/`).
 11. `.print-state` - print out the results of the adjudication
@@ -71,18 +74,19 @@ While the bot is running, you can submit the message `.help` to see a list of al
 
 ## Players’ Perspective
 
-Players can submit and view orders themselves while the bot is running.
+Players can submit and view orders themselves while the bot is running. However, even if the bot is offline, they can submit messages that can be read by the bot once it is restarted.
 
 - `.status` - list what orders are still missing
 - `.order` - submit an order for the current season. Even if the bot is offline (ie. you get no output), the order will should be recorded next time the admins run `.scan-orders`.
 - `.submitted` - view all orders that have been submitted
+- `.remove` - remove a submitted order given the location of the unit
 - `.season` - view the current season
 
 ## Without a discord bot
 
 If you don't need or don't want to use a discord bot, you can also run the most important features using individual scripts. The main downside of this usage is that you have to compile the orders manually with the expected order format (in yaml files) in the `actions/` directory in the game directory.
 
-- `create-game` - creates a new game. Suggested use: `fig create-game classic/game`
+- `create-game` - creates a new game (by default called `game1` saved in `games/`). Suggested use: `fig create-game classic/game`
 - `step` - adjudicate the current season (given the game directory is `games/game1`), the last state is `states/1-2.yaml`, the orders are in `actions/1-2.yaml` (ie. first year Fall season): `fig step classic/game --game-root games/game1`
 - `render` - draws the current state `fig render classic/game --game-root games/game1`, optionally including orders `fig render classic/game --game-root games/game1 --include-orders`.
 
