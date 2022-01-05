@@ -576,7 +576,7 @@ class DiplomacyBot(Versioned, DiscordBot):
 			return
 		
 		removed = []
-		for loc in locs:
+		for loc in locs.split():
 			lost = self.manager.remove_action(player, loc.strip())
 			if lost is not None:
 				removed.append(lost)
@@ -722,7 +722,7 @@ class DiplomacyBot(Versioned, DiscordBot):
 			return
 		
 		removed = []
-		for loc in locs:
+		for loc in locs.split():
 			lost = self.manager.remove_action(player, loc.strip())
 			if lost is not None:
 				removed.append(lost)
