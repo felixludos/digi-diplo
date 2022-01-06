@@ -291,7 +291,7 @@ class DiplomacyBot(Versioned, DiscordBot):
 	
 	def _format_missing(self, player, todo):
 		if isinstance(todo, int):
-			return ' '.join([abs(todo), 'disbands' if todo < 0 else 'builds'])
+			return ' '.join([str(abs(todo)), 'disbands' if todo < 0 else 'builds'])
 		elif isinstance(todo, list):
 			return 'Units: ' + ', '.join(todo)
 		
