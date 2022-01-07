@@ -365,11 +365,11 @@ class DiplomacyBot(Versioned, DiscordBot):
 		return status
 
 
-	@as_command('order-format', brief='(admin) Print out format for orders')
+	@as_command('order-format', brief='Print out format for orders')
 	async def on_order_format(self, ctx):
-		if self._insufficient_permissions(ctx.author):
-			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
-			return
+		# if self._insufficient_permissions(ctx.author):
+		# 	await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+		# 	return
 		rules = self.manager.action_format()
 		
 		lines = [f'{name.capitalize()} order: "{format}"' for name, format in rules.items()]
