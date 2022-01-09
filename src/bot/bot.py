@@ -328,7 +328,7 @@ class DiplomacyBot(Versioned, DiscordBot):
 		lines = [f'Current turn: **{self.manager.format_date()}**']
 		
 		if name is None:
-			lines.append(f'Missing {sum(missing.values())} orders.')
+			lines.append(f'Missing {sum(map(abs,missing.values()))} orders.')
 		elif missing.get(name):
 			lines.append(f'{name} is missing {missing[name]} orders.' if admin
 			             else f'You ({name}) are missing {missing[name]} orders.')
@@ -356,13 +356,17 @@ class DiplomacyBot(Versioned, DiscordBot):
 	
 	@as_command('missing', brief='(admin) Prints out missing orders for all players')
 	async def on_fullstatus(self, ctx):
-		status = self.manager.get_status()
 		if not self._insufficient_permissions(ctx.author):
-			await ctx.send('```' + tabulate(sorted(status.items(), key=lambda x: (-x[1], x[0])),
+			status = self.manager.get_missing()
+			missing = {player: abs(missing) if isinstance(missing, int)
+			else (len(missing) if isinstance(missing, list)
+			      else sum(map(len, missing.values())))
+			           for player, missing in status.items()}
+			await ctx.send('```' + tabulate(sorted(missing.items(), key=lambda x: (-x[1], x[0])),
 			                                headers=['Nation', 'Missing'])
 			               + '```')
 			# await ctx.send('\n'.join(f'{player}: {num}' for player, num in status.items()))
-		return status
+		# return status
 
 
 	@as_command('order-format', brief='Print out format for orders')
