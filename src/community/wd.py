@@ -363,6 +363,10 @@ class WD_Map(DashCoast, DiploMap):
 				new['players'][player]['capital'] = loc
 			else:
 				new['players'][player]['home'].append(loc)
+				for p in new['players']:
+					homes = new['players'][p]['home']
+					if loc in homes:
+						homes.remove(loc)
 		
 		return new
 	
