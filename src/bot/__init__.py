@@ -26,7 +26,7 @@ def _start_bot(A):
 	TOKEN = A.pull('disord-token', os.getenv('DISCORD_TOKEN'), silent=True)
 	if TOKEN is None:
 		raise Exception('No discord token found (should be an environment variable "DISCORD_TOKEN" '
-		                'or passed it using "--discord-token")')
+		                'or passed in using "--discord-token")')
 	
 	A.push('client._type', 'diplomacy-bot', silent=True, overwrite=False)
 	client = A.pull('client')

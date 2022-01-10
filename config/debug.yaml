@@ -18,8 +18,8 @@ parents: [wd/std]
 #parents: [classic/bot]
 
 #game-root: games/game4
-game-root: games/bravo
-#game-root: games/charlie
+#game-root: games/bravo
+game-root: games/charlie
 #game-root: examples/game213263
 
 #check-image: 1-1
