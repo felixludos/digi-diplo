@@ -343,7 +343,7 @@ class WD_Map(DashCoast, DiploMap):
 				partial[loc] = player
 		new = super().step(state, actions, **kwargs)
 		
-		if state["time"]["retreat"]:
+		if state["time"].get("retreat", False):
 			new["cores"] = past
 		
 		for player, acts in actions.items():
