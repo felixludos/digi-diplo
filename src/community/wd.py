@@ -362,11 +362,11 @@ class WD_Map(DashCoast, DiploMap):
 			if player in capcores and capcores[player] == loc:
 				new['players'][player]['capital'] = loc
 			else:
-				new['players'][player]['home'].append(loc)
 				for p in new['players']:
 					homes = new['players'][p]['home']
 					if loc in homes:
 						homes.remove(loc)
+				new['players'][player]['home'].append(loc)
 		
 		return new
 	
