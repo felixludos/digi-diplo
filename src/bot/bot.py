@@ -90,6 +90,9 @@ class DiplomacyBot(Versioned, DiscordBot):
 	
 	@as_command('reload', brief='(admin) Reload state and orders from files')
 	async def on_reload(self, ctx, name=None):
+		if self._insufficient_permissions(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+			return
 		print('Reloading state and orders')
 		self.manager.load_status(name=name)
 		await ctx.send(f'Loaded **{self.manager.format_date()}**')
