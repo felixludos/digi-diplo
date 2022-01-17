@@ -123,7 +123,8 @@ class DiplomacyManager(Versioned):
 		                         for coast in node['edges']['fleet']}
 		self._get_base_region.update({base: base for base in self.graph})
 		self._get_base_region.update({f'{base}-c': base for base, node in self.graph.items()
-		                              if 'fleet' in node['edges'] and 'army' in node['edges']})
+		                              # if 'fleet' in node['edges'] and 'army' in node['edges']})
+										if 'fleet' in node['edges'] and node["type"] == "coast"})
 		self._get_base_region.update({base.lower(): val for base, val in self._get_base_region.items()})
 		self._get_region = {f'{base}-{coast}': f'{base}-{coast}' for base, node in self.graph.items()
 		                         if 'fleet' in node['edges'] and isinstance(node['edges']['fleet'], dict)
