@@ -2,6 +2,7 @@ numpy
 pillow
 matplotlib
 tqdm
+tabulate
 omnibelt
 omnifig
 webcolors
