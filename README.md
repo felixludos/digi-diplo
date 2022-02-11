@@ -17,7 +17,7 @@ The recommended way to use this repo is with a discord bot (run locally). This b
 
 0. If you don't already have python installed, I recommend using the [Anaconda](https://www.anaconda.com/products/individual) (or [miniconda](https://docs.conda.io/en/latest/miniconda.html)) distribution, as it will make dealing with dependencies easier.
 
-1. Download, or better yet, clone this repo with `git clone https://github.com/felixludos/digi-diplo`. 
+1. Download, or better yet, clone this repo with `git clone https://github.com/felixludos/digi-diplo`. (Note that if you don't have git installed, you have to manually download and install [`pydip`](https://github.com/aparkins/pydip) and remove the corresponding line from the `requirements.txt` before the next step, while if you have `git` all that will be done automatically).
 
 2. From the top level directory (containing this readme), install all dependencies using `pip install -r requirements.txt`.
 
@@ -27,7 +27,7 @@ The recommended way to use this repo is with a discord bot (run locally). This b
 
 5. Once you have the necessary discord token, make sure it is stored as an environment variable called `DISCORD_TOKEN`.
 
-6. Finally, rerun `fig start-bot`, this time there should be no error, and after some loading, the last line in the console should say something along the lines of `Logged on as [bot-name]`.
+6. Finally, rerun `fig start-bot`, this time there should be no error, and after some loading, the last line in the console should say something along the lines of `Logged on as [bot-name]`. If you get an error that mentions something about "requesting priveleged intents that have not been explicitly enabled", those must be enabled from the discord developers portal (see [here](https://discordpy.readthedocs.io/en/stable/intents.html) for more info).
 
 7. You can confirm that the bot is ready for use by submitting `.ping` on a public channel in the discord guild, and the bot should greet you. Once you get this far, the setup is complete, and now it's only a matter of configuring the bot to behave as you wish (e.g. run the variant you want to play).
 
