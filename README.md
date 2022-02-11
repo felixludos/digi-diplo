@@ -77,7 +77,7 @@ While the bot is running, you can submit the message `.help` to see a list of al
 
 ## Players’ Perspective
 
-Players can submit and view orders themselves while the bot is running. However, even if the bot is offline, they can submit messages that can be read by the bot once it is restarted.
+Players can submit and view orders themselves while the bot is running. However, even if the bot is offline, they can submit messages that can be read by the bot once it is restarted, provided they use their designated channels.
 
 - `.status` - list what orders are still missing
 - `.order` - submit an order for the current season. Even if the bot is offline (ie. you get no output), the order will should be recorded next time the admins run `.scan-orders`.
