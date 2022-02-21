@@ -14,7 +14,8 @@ admin-role: testhost
 
 #parents: [wd/style, wd/bot]
 #parents: [wd/hills, wd/bot]
-parents: [wd/std]
+#parents: [wd/std]
+parents: [classic/bot]
 #parents: [classic/bot]
 
 #game-root: games/game4

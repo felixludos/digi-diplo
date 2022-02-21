@@ -36,22 +36,24 @@ class DiplomacyBot(Versioned, DiscordBot):
 		self.manager = manager
 		if self.manager is None:
 			print('No manager provided, but the bot has started')
+			self.bot_data_path = None
+			self.bot_log_path = None
 		else:
 			self.manager.load_status()
 		
-		if bot_data_path is None:
-			bot_data_path = self.manager.root / 'bot-data.yaml'
-		self.bot_data_path = bot_data_path
-		
-		bot_log_path = self.manager.root / 'bot-log.txt' if log_commands else None
-		self.bot_log_path = bot_log_path
-		if log_commands:
-			print(f'Will log all commands to {str(self.bot_log_path)}')
-		
-		self.private_commands = private_commands
-		if private_commands:
-			print('Players are only allowed to run commands in their private channels.')
-		
+			if bot_data_path is None:
+				bot_data_path = self.manager.root / 'bot-data.yaml'
+			self.bot_data_path = bot_data_path
+			
+			bot_log_path = self.manager.root / 'bot-log.txt' if log_commands else None
+			self.bot_log_path = bot_log_path
+			if log_commands:
+				print(f'Will log all commands to {str(self.bot_log_path)}')
+			
+			self.private_commands = private_commands
+			if private_commands:
+				print('Players are only allowed to run commands in their private channels.')
+			
 		self.frozen = False
 	
 	
@@ -67,7 +69,8 @@ class DiplomacyBot(Versioned, DiscordBot):
 	
 	async def on_ready(self):
 		await super().on_ready()
-		self._load_bot_data(self.bot_data_path)
+		if self.bot_data_path is not None:
+			self._load_bot_data(self.bot_data_path)
 		
 		if self.bot_log_path is not None:
 			lines = ['',
