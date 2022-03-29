@@ -10,4 +10,4 @@ fuzzywuzzy
 discord.py
 scikit-learn
 scikit-image
-git+git://github.com/aparkins/pydip
+git+https://github.com/aparkins/pydip
