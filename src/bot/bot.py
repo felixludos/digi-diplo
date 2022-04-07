@@ -120,6 +120,10 @@ class DiplomacyBot(Versioned, DiscordBot):
 				', '.join(f'{user} ({base[user]})' for user in missing)))
 		return matches
 	
+	player_users = []
+	player_roles = []
+	player_channels = []
+	
 	def _load_bot_data(self, path):
 		self.persistent = load_yaml(path) if path.exists() else {}
 		if 'players' not in self.persistent:

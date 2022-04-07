@@ -1,0 +1,40 @@
+
+#parents: [wd/style]
+
+parents: [classic/bot]
+
+assets-path: assets/balkans
+
+client._type: diplomacy-bot
+
+#map._type: wd-map
+
+#manager._type: wd-manager
+
+
+manager.renderer._type: balkans-renderer
+
+
+year-offset: 1907
+year-props:
+  x: 20
+  y: 3050
+  ha: left
+  va: bottom
+  fontsize: 10
+  fontfamily: monospace
+  zorder: 50
+
+season-titles:
+  1: SPRING
+  2: FALL
+  3: WINTER
+season-props:
+  x: 20
+  y: 3200
+  ha: left
+  va: bottom
+  fontsize: 9
+  fontfamily: monospace
+  zorder: 50
+

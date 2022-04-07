@@ -244,6 +244,9 @@ class DefaultRenderer(MatplotlibRenderer):
 			pos = node['locs']['unit'] if coast is None or 'coast-unit' not in node['locs'] \
 				else node['locs']['coast-unit'][coast]
 		
+		if len(pos) and isinstance(pos[0], (float, int)):
+			pos = [pos]
+		
 		pos = list(map(np.array, zip(*pos)))
 		return pos#[::-1]
 	

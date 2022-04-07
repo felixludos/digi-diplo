@@ -15,8 +15,19 @@ admin-role: testhost
 #parents: [wd/style, wd/bot]
 #parents: [wd/hills, wd/bot]
 #parents: [wd/std]
-parents: [classic/bot]
 #parents: [classic/bot]
+#parents: [classic/bot]
+parents: [balkans/bot]
+
+
+
+#manager:
+#  _type: diplo-manager
+#
+#  map:
+#    _type: diplo-map
+#    _mod.dash-coasts: 1
+
 
 #game-root: games/game4
 #game-root: games/bravo
