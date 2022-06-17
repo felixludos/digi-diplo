@@ -1,24 +1,38 @@
 
-_meta.script_name: start-bot
+#_meta.script_name: start-bot
+#
+#server-name: playground
+#
+##admins: None
+#admin-role: testhost
+#
+######################
+#
+##_meta.script_name: multi-step
+##_meta.script_name: step
+##_meta.script_name: render
+#
+##parents: [wd/style, wd/bot]
+##parents: [wd/hills, wd/bot]
+##parents: [wd/std]
+##parents: [classic/bot]
+##parents: [classic/bot]
+#parents: [balkans/bot]
 
-server-name: playground
 
-#admins: None
-admin-role: testhost
+################################
 
-#####################
+#_meta.script_name: tile-img
+_meta.script_name: link-tiles
 
-#_meta.script_name: multi-step
-#_meta.script_name: step
-#_meta.script_name: render
+root: "C:\\Users\\anwan\\OneDrive\\Khan\\projects\\digi-diplo\\extra\\v3\\tests"
 
-#parents: [wd/style, wd/bot]
-#parents: [wd/hills, wd/bot]
-#parents: [wd/std]
-#parents: [classic/bot]
-#parents: [classic/bot]
-parents: [balkans/bot]
+rgb-path: borders.png
+dot-path: cats.png
 
+categories:
+  '#00ff21': land
+  '#00ffff': sea
 
 
 #manager:

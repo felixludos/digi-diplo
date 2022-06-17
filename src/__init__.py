@@ -12,3 +12,4 @@ from . import managers
 from . import scripts
 from . import bot
 from . import community
+from . import v3
