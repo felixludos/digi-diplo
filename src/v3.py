@@ -13,7 +13,7 @@ from skimage.segmentation import expand_labels, find_boundaries
 from skimage.measure import label, regionprops
 from PIL import Image
 
-from omnibelt import load_yaml, save_yaml
+from omnibelt import load_yaml, save_yaml, load_txt, save_txt
 import omnifig as fig
 
 from .colors import hex_to_rgb, rgb_to_hex, process_color
@@ -195,6 +195,8 @@ class ArgumentError(Exception):
 
 @fig.Script('tile-img')
 def tile_img(A):
+	plt.switch_backend('agg')
+	
 	root = A.pull('root', '.')
 	if root is None:
 		raise ArgumentError('root', 'Must not be None.')
@@ -214,10 +216,10 @@ def tile_img(A):
 	fontsize = A.pull('fontsize', 3)
 	
 	rgb = np.asarray(Image.open(rgb_path).convert('RGBA'))
+	rgb = rgb[...,:3]
 	
 	border_color = A.pull('border-color', '#000000')
 
-	rgb = rgb[...,:3]
 	lbls = label_tiles(rgb, border_color=border_color)
 	
 	tiles_path = root / A.pull('tiles-name', "tiles.png")
@@ -237,9 +239,12 @@ def tile_img(A):
 	return lbls
 
 
+
 # def link_tiles(rgb, dots, lbls=None, catnames=None, color_threshold=0, border_color='#000000'):
 @fig.Script('link-tiles')
 def tiles_to_regions(A):
+	plt.switch_backend('agg')
+	
 	root = A.pull('root', '.')
 	if root is None:
 		raise ArgumentError('root', 'Must not be None.')
@@ -392,3 +397,68 @@ def tiles_to_regions(A):
 	print(f'Saved regions index image to {str(ind_path)}')
 	
 	return regs
+
+
+
+@fig.Script('link-names')
+def link_names(A):
+	plt.switch_backend('agg')
+	
+	root = A.pull('root', '.')
+	if root is None:
+		raise ArgumentError('root', 'Must not be None.')
+	root = Path(root)
+	print(f'Will save output to {str(root)}')
+	
+	region_path = A.pull('region-path', None)
+	if region_path is None:
+		raise ArgumentError('region-path', 'Path to rgb image of blank map is required.')
+	region_path = Path(region_path)
+	if not region_path.exists():
+		if root is not None and (root / region_path).exists():
+			region_path = root / region_path
+		else:
+			raise ArgumentError('region-path', f'Path to rgb image invalid: {str(region_path)}')
+
+	regions = load_yaml(region_path)
+	
+	names = None
+	name_path = A.pull('names-path', 'names.txt')
+	if name_path is not None:
+		name_path = Path(name_path)
+		if not name_path.exists():
+			if root is not None and (root / name_path).exists():
+				name_path = root / name_path
+			else:
+				raise ArgumentError('name-path', f'Path to tile image invalid: {str(name_path)}')
+		
+		names = load_txt(name_path).split('\n')
+	
+	if len(regions) != len(names):
+		print(f'WARNING: Found {len(regions)} regions, but {len(names)} '
+		      f'names were provided (should be the same number).')
+		
+		if len(regions) > len(names):
+			print('Not enough names.')
+			raise Exception(f'not enough names provided: found {len(names)} (should be {len(regions)}')
+		
+		else:
+			print(f'Will use only the first {len(regions)} names (ignoring the last {len(names)-len(regions)})')
+			names = names[:len(regions)]
+	
+	for num, region in regions.items():
+		region['name'] = names[num-1]
+		
+	save_yaml(regions, region_path)
+	print(f'Saved regions with linked names to {str(region_path)}')
+	return regions
+
+
+
+# @fig.Script('extract-graph')
+# def extract_graph(A):
+#
+#
+#
+# 	pass
+

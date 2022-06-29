@@ -23,16 +23,19 @@
 ################################
 
 #_meta.script_name: tile-img
-_meta.script_name: link-tiles
+#fig tile-img --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example --rgb-path base.png
 
-root: "C:\\Users\\anwan\\OneDrive\\Khan\\projects\\digi-diplo\\extra\\v3\\tests"
+_meta.script_name: link-tiles
+#fig link-tiles --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example --rgb-path base.png --dot-path cats.png
+
+#root: "C:\\Users\\anwan\\OneDrive\\Khan\\projects\\digi-diplo\\extra\\v3\\example"
 
 rgb-path: borders.png
-dot-path: cats.png
 
-categories:
-  '#00ff21': land
-  '#00ffff': sea
+#dot-path: cats.png
+#categories:
+#  '#00ff21': land
+#  '#00ffff': sea
 
 
 #manager:
