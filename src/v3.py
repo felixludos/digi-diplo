@@ -675,7 +675,7 @@ def view_regions(A):
 	
 	max_id = max(reg['id'] for reg in regions.values())
 	
-	ind = 1
+	ind = A.pull('start', 1)
 	
 	def _draw_region():
 		if ind in regions:
