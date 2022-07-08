@@ -41,6 +41,8 @@ root: extra/v3/world/
 rgb-path: renderbase.png
 dot-path: dotz.png
 
+start: 100
+
 #dot-path: cats.png
 #categories:
 #  '#00ff21': land
