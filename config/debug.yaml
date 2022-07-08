@@ -25,10 +25,13 @@
 #_meta.script_name: tile-img
 #fig tile-img --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example --rgb-path base.png
 
-_meta.script_name: link-tiles
+#_meta.script_name: link-tiles
 #fig link-tiles --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example --rgb-path base.png --dot-path cats.png
 
 #root: "C:\\Users\\anwan\\OneDrive\\Khan\\projects\\digi-diplo\\extra\\v3\\example"
+
+_meta.script_name: view-regions
+#fig view-regions --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\world --rgb-path renderbase.png
 
 #root: extra/v3/tests/
 #rgb-path: borders.png
