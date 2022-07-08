@@ -30,7 +30,13 @@ _meta.script_name: link-tiles
 
 #root: "C:\\Users\\anwan\\OneDrive\\Khan\\projects\\digi-diplo\\extra\\v3\\example"
 
-rgb-path: borders.png
+#root: extra/v3/tests/
+#rgb-path: borders.png
+#dot-path: cats.png
+
+root: extra/v3/world/
+rgb-path: renderbase.png
+dot-path: dotz.png
 
 #dot-path: cats.png
 #categories:

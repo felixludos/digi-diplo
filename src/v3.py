@@ -12,6 +12,7 @@ from sklearn.neighbors import NearestNeighbors
 from skimage.segmentation import expand_labels, find_boundaries
 from skimage.measure import label, regionprops
 from PIL import Image
+from scipy.optimize import linear_sum_assignment
 
 from omnibelt import load_yaml, save_yaml, load_txt, save_txt
 import omnifig as fig
@@ -25,7 +26,7 @@ def coords_order(coords):
 	G = clf.kneighbors_graph()
 	T = nx.from_scipy_sparse_matrix(G)
 	orders = [np.array(list(nx.dfs_preorder_nodes(T, min(piece))), dtype='int')
-	          for piece in nx.connected_components(T)]
+			  for piece in nx.connected_components(T)]
 	return orders
 
 
@@ -56,10 +57,10 @@ def extract_neighbors(im, grow=100, pbar=None):
 def fill_diagonals(img):
 	H, W = img.shape
 	kernel = np.array([[0, 1, 0, 1, 0],
-	                   [1, 1, 1, 1, 1],
-	                   [0, 1, 1, 1, 0],
-	                   [1, 1, 1, 1, 1],
-	                   [0, 1, 0, 1, 0]])
+					   [1, 1, 1, 1, 1],
+					   [0, 1, 1, 1, 0],
+					   [1, 1, 1, 1, 1],
+					   [0, 1, 0, 1, 0]])
 	out = cov_transpose(img, kernel, stride=3, padding=1)
 	out = np.logical_not(out)
 	out = out.astype(bool).astype(int)
@@ -81,7 +82,7 @@ def cov_transpose(img, kernel, stride, padding):
 	
 	# Window
 	view = np.lib.stride_tricks.sliding_window_view(out, window_shape=kernel.shape,
-	                                                writeable=True)  # stride = 1 by default
+													writeable=True)  # stride = 1 by default
 	view = view[::stride, ::stride]
 	
 	# Mask - only apply pattern if center == 1
@@ -99,10 +100,10 @@ def cov_transpose(img, kernel, stride, padding):
 
 
 DEFAULT_COLORS = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
-                  '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+				  '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
 def color_map(im: Union[nx.Graph, np.ndarray], g = None,
-              colors: Optional[Dict[int, str]] = None, strategy = 'largest_first',
-              grow = 100, pbar = None) -> np.ndarray:
+			  colors: Optional[Dict[int, str]] = None, strategy = 'largest_first',
+			  grow = 100, pbar = None) -> np.ndarray:
 	if colors is None:
 		colors = DEFAULT_COLORS
 	
@@ -140,11 +141,11 @@ def index_map(rgb, lbls, locs=None, fontsize=3):#figsize=None, scale=1.):
 	for idx, info in tqdm(enumerate(infos), total=len(infos)):
 		y,x = info.centroid if locs is None else locs[idx+1]
 		plt.text(x,y, str(idx+1), va='center', ha='center', fontsize=fontsize,
-		         bbox=dict(
-			         facecolor='1', ec=None, ls='',
-			         # edgecolor='0',
-			         alpha=0.6, pad=0)
-		         )
+				 bbox=dict(
+					 facecolor='1', ec=None, ls='-', lw=0,
+					 # edgecolor='0',
+					 alpha=0.6, pad=0)
+				 )
 
 	# data = np.frombuffer(fg.canvas.tostring_rgb(), dtype=np.uint8)
 	# data = data.reshape(fg.canvas.get_width_height()[::-1] + (3,))
@@ -164,7 +165,7 @@ def label_tiles(rgb, border_color='#000000'):
 
 
 def generate_tiles(rgb, path=None, g=None, border_color='#000000', colors=None, strategy='largest_first',
-                   pbar=None, grow=100):
+				   pbar=None, grow=100):
 	
 	lbls = label_tiles(rgb, border_color=border_color)
 	
@@ -225,24 +226,353 @@ def tile_img(A):
 	tiles_path = root / A.pull('tiles-name', "tiles.png")
 	Image.fromarray(lbls.astype(np.int16)).save(tiles_path)
 	print(f'Saved tiles image to {str(tiles_path)}')
-
-	viz_path = root / A.pull('vis-name', 'vis-tiles.png')
-	viz = color_map(lbls, colors=None, pbar=tqdm, grow=100, strategy='largest_first')
-	Image.fromarray(viz).save(viz_path)
-	print(f'Saved tiles visualization to {str(viz_path)}')
 	
 	ind_path = root / A.pull('ind-name', 'ind-tiles.png')
 	ind_img = index_map(rgb, lbls, fontsize=fontsize)
 	Image.fromarray(ind_img).save(ind_path)
 	print(f'Saved tiles index image to {str(ind_path)}')
 	
+	viz_path = root / A.pull('vis-name', 'vis-tiles.png')
+	viz = color_map(lbls, colors=None, pbar=tqdm, grow=100, strategy='largest_first')
+	Image.fromarray(viz).save(viz_path)
+	print(f'Saved tiles visualization to {str(viz_path)}')
+	
 	return lbls
 
 
+def assign_dots(lbls, dots, cats=None):
+	infos = regionprops(label(dots))
+	coords = np.array([info.centroid for info in infos])#.astype(int)
+	ys, xs = coords.astype(int).T
+	picks = lbls[ys, xs]
+	# print(picks)
+	locs = [{'loc': [y,x], 'id': i+1, 'lbl': pick}
+			for i, (pick, (y,x)) in enumerate(zip(picks.tolist(), coords.tolist()))]
+	if cats is not None:
+		for loc, cat in zip(locs, cats[ys, xs].tolist()):
+			loc['cat'] = cat
+	return locs
 
-# def link_tiles(rgb, dots, lbls=None, catnames=None, color_threshold=0, border_color='#000000'):
+def auto_sea(options):
+	options = list(options)
+	dirs = np.array(options)
+	affins = dirs #/ np.linalg.norm(dirs,2,-1).reshape(-1,1)
+	op_id, typ_id = linear_sum_assignment(-affins)
+	return dict(zip(map(tuple,dirs[op_id].tolist()),np.array(['bg', 'land', 'sea'])[typ_id].tolist()))
+
+
 @fig.Script('link-tiles')
 def tiles_to_regions(A):
+	plt.switch_backend('agg')
+	
+	root = A.pull('root', '.')
+	if root is None:
+		raise ArgumentError('root', 'Must not be None.')
+	root = Path(root)
+	print(f'Will save output to {str(root)}')
+	
+	rgb_path = A.pull('rgb-path', None)
+	if rgb_path is None:
+		raise ArgumentError('rgb-path', 'Path to rgb image of blank map is required.')
+	rgb_path = Path(rgb_path)
+	if not rgb_path.exists():
+		if root is not None and (root / rgb_path).exists():
+			rgb_path = root / rgb_path
+		else:
+			raise ArgumentError('rgb-path', f'Path to rgb image invalid: {str(rgb_path)}')
+	
+	fontsize = A.pull('fontsize', 3)
+	
+	rgb = Image.open(rgb_path).convert('RGBA')
+	rgb = np.asarray(rgb)[..., :3]
+	
+	dot_path = A.pull('dot-path', None)
+	if dot_path is None:
+		raise ArgumentError('dot-path', 'Path to rgb image of dots is required.')
+	dot_path = Path(dot_path)
+	if not dot_path.exists():
+		if root is not None and (root / dot_path).exists():
+			dot_path = root / dot_path
+		else:
+			raise ArgumentError('dot-path', f'Path to rgb image invalid: {str(dot_path)}')
+	
+	dots = Image.open(dot_path).convert('RGBA')
+	dots = np.asarray(dots)#[..., :3]
+	
+	tile_path = A.pull('tile-path', 'tiles.png')
+	if tile_path is not None:
+		tile_path = Path(tile_path)
+		if not tile_path.exists():
+			if root is not None and (root / tile_path).exists():
+				tile_path = root / tile_path
+			else:
+				raise ArgumentError('tile-path', f'Path to tile image invalid: {str(tile_path)}')
+		
+		# lbls = Image.open(tile_path)#.convert('RGBA')
+		lbls = np.array(Image.open(tile_path))
+	else:
+		assert False, 'missing tiles.png'
+		border_color = A.pull('border-color', '#000000')
+		lbls = label_tiles(rgb, border_color=border_color)
+	
+	num_tiles = lbls.max()
+	
+	def extract_color(sel):
+		c = Counter(map(tuple, sel.tolist()))
+		c, _ = c.most_common(1)[0]
+		return c
+	
+	# tile_colors = [extract_color(rgb[lbls == idx]) for idx in tqdm(range(1, num_tiles + 1),
+	# 																desc='Collecting tile colors')]
+	tile_colors = [(0, 62, 123), (79, 79, 79), (46, 44, 183), (79, 79, 79), (0, 62, 123), (0, 62, 123), (0, 62, 123),
+	               (0, 62, 123), (79, 79, 79), (0, 62, 123), (0, 62, 123), (0, 62, 123), (214, 203, 158), (46, 44, 183),
+	               (214, 203, 158), (214, 203, 158), (0, 62, 123), (0, 62, 123), (254, 48, 48), (215, 255, 214),
+	               (214, 203, 158), (0, 62, 123), (0, 62, 123), (214, 203, 158), (214, 203, 158), (0, 62, 123),
+	               (0, 62, 123), (0, 62, 123), (0, 62, 123), (0, 62, 123), (215, 255, 214), (214, 203, 158),
+	               (0, 62, 123), (0, 62, 123), (214, 203, 158), (214, 203, 158), (214, 203, 158), (214, 203, 158),
+	               (239, 239, 239), (0, 62, 123), (239, 239, 239), (239, 239, 239), (0, 62, 123), (0, 62, 123),
+	               (214, 203, 158), (214, 203, 158), (0, 62, 123), (0, 62, 123), (0, 62, 123), (215, 255, 214),
+	               (239, 239, 239), (239, 239, 239), (0, 62, 123), (214, 203, 158), (214, 203, 158), (254, 48, 48),
+	               (215, 255, 214), (214, 203, 158), (0, 62, 123), (214, 203, 158), (0, 73, 142), (181, 41, 50),
+	               (0, 62, 123), (0, 62, 123), (0, 62, 123), (0, 62, 123), (0, 62, 123), (181, 41, 50), (0, 50, 96),
+	               (214, 203, 158), (239, 239, 239), (239, 239, 239), (214, 203, 158), (239, 239, 239), (0, 62, 123),
+	               (46, 44, 183), (0, 62, 123), (0, 50, 96), (239, 239, 239), (46, 44, 183), (46, 44, 183),
+	               (239, 239, 239), (254, 48, 48), (0, 62, 123), (214, 203, 158), (215, 255, 214), (0, 62, 123),
+	               (46, 44, 183), (46, 44, 183), (181, 41, 50), (0, 62, 123), (214, 203, 158), (214, 203, 158),
+	               (193, 46, 117), (0, 62, 123), (239, 239, 239), (0, 62, 123), (181, 41, 50), (0, 50, 96),
+	               (214, 203, 158), (254, 48, 48), (181, 41, 50), (254, 197, 190), (0, 62, 123), (0, 62, 123),
+	               (0, 50, 96), (0, 62, 123), (254, 48, 48), (254, 48, 48), (239, 239, 239), (239, 239, 239),
+	               (0, 46, 140), (0, 73, 142), (0, 46, 140), (214, 203, 158), (0, 46, 140), (239, 239, 239),
+	               (214, 203, 158), (214, 203, 158), (0, 62, 123), (181, 41, 50), (214, 203, 158), (158, 158, 158),
+	               (0, 62, 123), (158, 158, 158), (214, 203, 158), (0, 62, 123), (0, 62, 123), (0, 62, 123),
+	               (158, 158, 158), (0, 62, 123), (254, 48, 48), (158, 158, 158), (254, 197, 190), (0, 62, 123),
+	               (214, 203, 158), (181, 41, 50), (214, 203, 158), (158, 158, 158), (0, 62, 123), (226, 174, 111),
+	               (0, 62, 123), (158, 158, 158), (254, 48, 48), (214, 203, 158), (46, 44, 183), (0, 73, 142),
+	               (158, 158, 158), (0, 62, 123), (46, 44, 183), (46, 44, 183), (46, 44, 183), (0, 62, 123),
+	               (226, 174, 111), (0, 62, 123), (254, 197, 190), (0, 62, 123), (254, 48, 48), (0, 62, 123),
+	               (0, 62, 123), (254, 197, 190), (158, 158, 158), (214, 203, 158), (0, 62, 123), (214, 203, 158),
+	               (0, 62, 123), (0, 62, 123), (214, 203, 158), (0, 62, 123), (214, 203, 158), (0, 62, 123),
+	               (214, 203, 158), (214, 203, 158), (158, 158, 158), (214, 203, 158), (0, 62, 123), (0, 62, 123),
+	               (214, 203, 158), (46, 44, 183), (214, 203, 158), (0, 62, 123), (17, 97, 191), (214, 203, 158),
+	               (214, 203, 158), (0, 62, 123), (214, 203, 158), (181, 41, 50), (214, 203, 158), (214, 203, 158),
+	               (17, 97, 191), (255, 137, 237), (17, 97, 191), (214, 203, 158), (214, 203, 158), (214, 203, 158),
+	               (214, 203, 158), (214, 203, 158), (17, 97, 191), (17, 97, 191), (214, 203, 158), (214, 203, 158),
+	               (214, 203, 158), (239, 239, 239), (205, 165, 50), (181, 41, 50), (205, 165, 50), (46, 44, 183),
+	               (214, 203, 158), (0, 62, 123), (239, 239, 239), (46, 44, 183), (46, 44, 183), (17, 97, 191),
+	               (46, 44, 183), (214, 203, 158), (2, 132, 0), (205, 165, 50), (0, 62, 123), (214, 203, 158),
+	               (214, 203, 158), (205, 165, 50), (17, 97, 191), (2, 132, 0), (0, 62, 123), (239, 239, 239),
+	               (0, 62, 123), (214, 203, 158), (0, 62, 123), (2, 132, 0), (214, 203, 158), (0, 62, 123),
+	               (0, 62, 123), (2, 132, 0), (17, 97, 191), (0, 62, 123), (214, 203, 158), (205, 165, 50),
+	               (214, 203, 158), (239, 239, 239), (181, 41, 50), (0, 62, 123), (239, 239, 239), (181, 41, 50),
+	               (0, 46, 140), (0, 62, 123), (17, 97, 191), (214, 203, 158), (0, 62, 123), (214, 203, 158),
+	               (205, 165, 50), (0, 62, 123), (2, 132, 0), (2, 132, 0), (0, 62, 123), (226, 174, 0), (0, 62, 123),
+	               (214, 203, 158), (214, 203, 158), (0, 62, 123), (0, 62, 123), (0, 62, 123), (0, 62, 123),
+	               (214, 203, 158), (214, 203, 158), (214, 203, 158), (0, 46, 140), (214, 203, 158), (214, 203, 158),
+	               (46, 44, 183), (17, 97, 191), (0, 62, 123), (2, 132, 0), (255, 137, 237), (214, 203, 158),
+	               (214, 203, 158), (214, 203, 158), (214, 203, 158), (0, 62, 123), (0, 62, 123), (0, 62, 123),
+	               (0, 62, 123), (181, 41, 50), (0, 62, 123), (254, 48, 48), (67, 178, 193), (214, 203, 158),
+	               (0, 62, 123), (188, 73, 73), (0, 62, 123), (0, 46, 140), (226, 174, 0), (214, 203, 158),
+	               (214, 203, 158), (214, 203, 158), (0, 62, 123), (0, 62, 123), (0, 62, 123), (214, 203, 158),
+	               (214, 203, 158), (67, 178, 193), (2, 132, 0), (255, 137, 237), (0, 46, 140), (0, 46, 140),
+	               (0, 62, 123), (2, 132, 0), (0, 62, 123), (0, 62, 123), (0, 46, 140), (0, 62, 123), (0, 62, 123),
+	               (67, 178, 193), (0, 62, 123), (214, 203, 158), (214, 203, 158), (0, 46, 140), (0, 50, 96),
+	               (214, 203, 158), (206, 182, 0), (188, 73, 73), (214, 203, 158), (0, 62, 123), (0, 62, 123),
+	               (214, 203, 158), (0, 62, 123), (0, 62, 123), (214, 203, 158), (0, 62, 123), (0, 46, 140),
+	               (162, 188, 122), (0, 62, 123), (0, 62, 123), (67, 178, 193), (0, 62, 123), (214, 203, 158),
+	               (226, 174, 0), (255, 137, 237), (0, 62, 123), (214, 203, 158), (67, 178, 193), (0, 62, 123),
+	               (0, 153, 84), (214, 203, 158), (188, 73, 73), (255, 137, 237), (0, 62, 123), (0, 62, 123),
+	               (0, 62, 123), (0, 62, 123), (0, 62, 123), (162, 188, 122), (214, 203, 158), (0, 62, 123),
+	               (206, 182, 0), (0, 62, 123), (2, 132, 0), (0, 62, 123), (214, 203, 158), (0, 62, 123),
+	               (214, 203, 158), (0, 46, 140), (214, 203, 158), (214, 203, 158), (0, 50, 96), (162, 188, 122),
+	               (0, 62, 123), (214, 203, 158), (0, 62, 123), (0, 62, 123), (0, 62, 123), (214, 203, 158),
+	               (214, 203, 158), (17, 97, 191), (17, 97, 191), (0, 50, 96), (255, 137, 237), (0, 62, 123),
+	               (0, 46, 140), (0, 46, 140), (214, 203, 158), (254, 48, 48), (0, 46, 140), (226, 174, 0),
+	               (206, 182, 0), (0, 46, 140), (0, 62, 123), (0, 46, 140), (214, 203, 158), (0, 50, 96), (0, 62, 123),
+	               (0, 46, 140), (0, 50, 96), (0, 50, 96), (17, 97, 191), (17, 97, 191), (17, 97, 191), (255, 137, 237),
+	               (214, 203, 158), (254, 48, 48), (162, 188, 122), (67, 178, 193), (226, 174, 0), (255, 137, 237),
+	               (0, 50, 96), (0, 50, 96), (0, 62, 123), (0, 62, 123), (162, 188, 122), (214, 203, 158),
+	               (17, 97, 191), (0, 62, 123), (214, 203, 158), (0, 62, 123), (214, 203, 158), (226, 174, 0),
+	               (0, 46, 140), (0, 62, 123), (214, 203, 158), (0, 50, 96), (0, 62, 123), (0, 62, 123),
+	               (214, 203, 158), (206, 182, 0), (0, 62, 123), (214, 203, 158), (2, 132, 0), (214, 203, 158),
+	               (2, 132, 0), (214, 203, 158), (206, 182, 0), (0, 46, 140), (214, 203, 158), (206, 182, 0),
+	               (65, 160, 160), (0, 46, 140), (214, 203, 158), (0, 50, 96), (254, 48, 48), (0, 62, 123),
+	               (254, 48, 48), (214, 203, 158), (0, 62, 123), (0, 62, 123), (254, 48, 48), (162, 188, 122),
+	               (0, 62, 123), (226, 174, 0), (0, 62, 123), (2, 132, 0), (206, 182, 0), (214, 203, 158),
+	               (142, 54, 133), (254, 48, 48), (214, 203, 158), (254, 48, 48), (0, 62, 123), (214, 203, 158),
+	               (2, 132, 0), (0, 62, 123), (0, 62, 123), (0, 62, 123), (214, 203, 158), (0, 62, 123),
+	               (214, 203, 158), (0, 62, 123), (0, 62, 123), (0, 62, 123), (214, 203, 158), (65, 160, 160),
+	               (142, 54, 133), (0, 62, 123), (142, 54, 133), (214, 203, 158), (206, 182, 0), (214, 203, 158),
+	               (0, 50, 96), (214, 203, 158), (0, 46, 140), (214, 203, 158), (142, 54, 133), (0, 62, 123),
+	               (0, 62, 123), (0, 46, 140), (255, 137, 237), (0, 62, 123), (0, 62, 123), (0, 46, 140), (0, 62, 123),
+	               (0, 50, 96), (0, 62, 123), (214, 203, 158), (0, 62, 123), (214, 203, 158), (214, 203, 158),
+	               (214, 203, 158), (0, 46, 140), (65, 160, 160), (0, 50, 96), (214, 203, 158), (254, 48, 48),
+	               (214, 203, 158), (142, 54, 133), (214, 203, 158), (255, 137, 237), (0, 46, 140), (0, 62, 123),
+	               (0, 62, 123), (142, 54, 133), (214, 203, 158), (0, 62, 123), (214, 203, 158), (0, 62, 123),
+	               (214, 203, 158), (214, 203, 158), (254, 48, 48), (68, 163, 144), (214, 203, 158), (65, 160, 160),
+	               (0, 62, 123), (214, 203, 158), (0, 50, 96), (0, 46, 140), (0, 62, 123), (214, 203, 158),
+	               (214, 203, 158), (214, 203, 158), (0, 62, 123), (214, 203, 158), (65, 160, 160), (0, 62, 123),
+	               (214, 203, 158), (214, 203, 158), (214, 203, 158), (214, 203, 158), (214, 203, 158), (214, 203, 158),
+	               (0, 50, 96), (254, 48, 48), (0, 62, 123), (0, 62, 123), (0, 62, 123), (214, 203, 158),
+	               (226, 174, 111), (0, 62, 123), (0, 62, 123), (65, 160, 160), (214, 203, 158), (214, 203, 158),
+	               (0, 62, 123), (0, 62, 123), (17, 97, 191), (214, 203, 158), (0, 62, 123), (0, 50, 96), (0, 62, 123),
+	               (0, 62, 123), (214, 203, 158), (74, 191, 78), (214, 203, 158), (0, 46, 140), (0, 62, 123),
+	               (17, 97, 191), (214, 203, 158), (0, 46, 140), (2, 132, 0), (214, 203, 158), (74, 191, 78),
+	               (214, 203, 158), (214, 203, 158), (0, 62, 123), (188, 73, 73), (0, 62, 123), (214, 203, 158),
+	               (214, 203, 158), (0, 62, 123), (0, 62, 123), (0, 50, 96), (214, 203, 158), (214, 203, 158),
+	               (0, 50, 96), (0, 62, 123), (214, 203, 158), (0, 62, 123), (0, 62, 123), (214, 203, 158),
+	               (214, 203, 158), (0, 62, 123), (0, 62, 123), (214, 203, 158), (17, 97, 191), (0, 73, 142),
+	               (214, 203, 158), (0, 62, 123), (0, 46, 140), (0, 50, 96), (214, 203, 158), (254, 48, 48),
+	               (0, 46, 140), (74, 191, 78), (214, 203, 158), (198, 111, 94), (188, 73, 73), (0, 62, 123),
+	               (17, 97, 191), (0, 62, 123), (0, 62, 123), (214, 203, 158), (0, 46, 140), (0, 46, 140), (0, 62, 123),
+	               (46, 44, 183), (0, 46, 140), (0, 73, 142), (0, 46, 140), (0, 62, 123), (74, 191, 78),
+	               (214, 203, 158), (74, 191, 78), (2, 132, 0), (0, 50, 96), (0, 46, 140), (17, 97, 191), (0, 46, 140),
+	               (0, 50, 96), (214, 203, 158), (74, 191, 78), (0, 50, 96), (0, 46, 140), (198, 111, 94),
+	               (214, 203, 158), (214, 203, 158), (0, 50, 96), (0, 62, 123), (0, 46, 140), (46, 44, 183),
+	               (0, 46, 140), (214, 203, 158), (0, 46, 140), (17, 97, 191), (46, 44, 183), (74, 191, 78),
+	               (0, 46, 140), (0, 46, 140), (214, 203, 158), (0, 62, 123), (214, 203, 158), (0, 62, 123),
+	               (0, 62, 123), (198, 111, 94), (214, 203, 158), (0, 62, 123), (0, 62, 123), (214, 203, 158),
+	               (254, 48, 48), (0, 62, 123), (214, 203, 158), (0, 62, 123), (214, 203, 158), (2, 132, 0),
+	               (214, 203, 158), (0, 62, 123), (0, 62, 123), (0, 62, 123), (0, 62, 123), (0, 73, 142),
+	               (226, 174, 111), (214, 203, 158), (0, 62, 123), (17, 97, 191), (0, 62, 123), (214, 203, 158),
+	               (226, 174, 111), (214, 203, 158), (0, 46, 140), (0, 62, 123), (0, 46, 140), (198, 111, 94),
+	               (0, 62, 123), (226, 174, 111), (74, 191, 78), (0, 62, 123), (214, 203, 158), (0, 62, 123),
+	               (0, 62, 123), (74, 191, 78), (0, 62, 123), (214, 203, 158), (214, 203, 158), (158, 158, 158),
+	               (0, 62, 123), (0, 62, 123), (0, 62, 123), (0, 62, 123), (214, 203, 158), (0, 62, 123), (0, 62, 123),
+	               (214, 203, 158), (214, 203, 158), (0, 46, 140), (0, 46, 140), (0, 62, 123), (0, 46, 140),
+	               (214, 203, 158), (46, 44, 183), (0, 46, 140), (214, 203, 158), (0, 62, 123), (0, 62, 123),
+	               (0, 62, 123), (151, 232, 237), (0, 62, 123), (226, 174, 111), (188, 73, 73), (158, 158, 158),
+	               (0, 46, 140), (0, 62, 123), (214, 203, 158), (226, 174, 111), (0, 62, 123), (151, 232, 237),
+	               (92, 237, 66), (74, 191, 78), (0, 62, 123), (214, 203, 158), (0, 62, 123), (188, 73, 73),
+	               (0, 62, 123), (0, 62, 123), (188, 73, 73), (254, 48, 48), (79, 79, 79), (0, 46, 140), (17, 97, 191),
+	               (151, 232, 237), (214, 203, 158), (0, 46, 140), (74, 191, 78), (188, 73, 73), (214, 203, 158),
+	               (214, 203, 158), (214, 203, 158), (0, 62, 123), (0, 62, 123), (151, 232, 237), (214, 203, 158),
+	               (214, 203, 158), (151, 232, 237), (214, 203, 158), (0, 46, 140), (0, 62, 123), (0, 62, 123),
+	               (17, 97, 191), (214, 203, 158), (79, 79, 79), (151, 232, 237), (0, 62, 123), (254, 48, 48),
+	               (0, 62, 123), (0, 62, 123), (254, 48, 48), (254, 48, 48), (0, 62, 123), (0, 62, 123), (0, 62, 123),
+	               (0, 62, 123), (0, 62, 123), (151, 232, 237), (254, 48, 48), (0, 46, 140), (0, 46, 140), (0, 46, 140),
+	               (214, 203, 158), (254, 48, 48), (193, 46, 117), (214, 203, 158), (0, 62, 123), (0, 62, 123),
+	               (0, 62, 123), (0, 62, 123), (0, 46, 140), (214, 203, 158), (0, 62, 123), (0, 46, 140), (0, 62, 123),
+	               (0, 62, 123), (0, 62, 123), (0, 46, 140), (254, 48, 48), (0, 46, 140), (0, 62, 123)]
+	
+	dot_rgb = dots[..., :3]
+	dot = dots[..., -1] > 0
+	
+	bases = assign_dots(lbls, dot, dot_rgb)
+	for base in bases:
+		# y, x = base['loc']
+		base['color'] = tile_colors[base['lbl']-1]
+		base['lbl'] = [base['lbl']]
+	
+	cats = {tuple(base['cat']) for base in bases}
+	catnames = auto_sea(cats)
+	catcolors = {cat: color for color, cat in catnames.items()}
+	for base in bases:
+		base['cat'] = catnames[tuple(base['cat'])]
+	
+	tile_info = regionprops(lbls)
+	tile_coords = np.array([info.centroid for info in tile_info])
+	
+	done = {lbl for base in bases for lbl in base['lbl']}
+	todo = np.array([x for x in range(1, num_tiles + 1) if x not in done])
+	
+	todo_coords = tile_coords[todo - 1]
+	ys, xs = todo_coords.astype(int).T
+	
+	# todo_colors = list(map(tuple, rgb[ys, xs].tolist()))
+	todo_colors = [tile_colors[i-1] for i in todo]
+	
+	color_bases = {}
+	color_locs = {}
+	for i, base in enumerate(bases):
+		c = tuple(base['color'])
+		if c not in color_bases:
+			color_bases[c] = []
+			color_locs[c] = []
+		color_bases[c].append(base['id'])
+		color_locs[c].append(base['loc'])
+	
+	color_bases = {c: np.array(ids) for c, ids in color_bases.items()}
+	color_locs = {c: np.array(yx) for c, yx in color_locs.items()}
+	
+	bgs = []
+	for tile_id, tile_color, tile_loc in zip(todo.tolist(), todo_colors, todo_coords):
+		
+		if tile_color in color_bases:
+			
+			base_options = color_bases[tile_color]
+			base_locs = color_locs[tile_color]
+			
+			base_id = base_options[np.sum((base_locs - tile_loc.reshape(1, -1)) ** 2, -1).argmin()]
+			bases[base_id - 1]['lbl'].append(tile_id)
+		
+		else:
+			bgs.append(tile_id)
+	
+	bases.append({'id': len(bases) + 1, 'cat': 'bg', 'lbl': bgs, })
+	
+	assert len({base['id'] for base in bases}) == len(bases), 'overlapping region IDs'
+	
+	regions = {int(base['id']): {'type': str(base['cat']), 'id': int(base['id']), 'tiles': list(map(int,base['lbl']))}
+	           for base in bases}
+	save_yaml(regions, root/'regions.yaml')
+	
+	regimg = lbls * 0
+	for base in tqdm(bases, desc='Assembling regions'):
+		for tile_id in base['lbl']:
+			regimg[lbls == tile_id] = base['id']
+	
+	regions_path = root / A.pull('regions-name', "regions.png")
+	Image.fromarray(regimg.astype(np.int16)).save(regions_path)
+	print(f'Saved regions image to {str(regions_path)}')
+	
+	catimg = rgb * 0
+	for base in tqdm(bases, desc='Drawing region types'):
+		catimg[regimg == base['id']] = catcolors[base['cat']]
+		# for tile_id in base['lbl']:
+		# 	catimg[lbls == tile_id] = catcolors[base['cat']]
+	# for bg in tqdm(bgs):
+	# 	catimg[lbls == bg] = catcolors.get('bg', [255, 0, 0])
+	
+	H, W, _ = rgb.shape
+	scale = 1
+	aw, ah = figaspect(H / W)
+	aw, ah = scale * aw, scale * ah
+	figsize = aw, ah
+	fg = plt.figure(figsize=figsize, dpi=H / aw)
+	
+	plt.imshow(catimg)
+	
+	# for base in tqdm(bases):
+	for base in tqdm(bases):
+		if 'loc' in base and base.get('cat') != 'bg':
+			y, x = base['loc']
+			for tile_id in base['lbl']:
+				y2, x2 = tile_coords[tile_id - 1]
+				dx, dy = x2 - x, y2 - y
+				#     plt.annotate('', xytext=(x + dx, y + dy), xy=(x, y))
+				plt.arrow(x, y, dx, dy, shape='full')
+			plt.text(x, y, str(base['id']), va='center', ha='center', fontsize=3,
+					 bbox=dict(
+						 facecolor='1', ec=None, ls='-', lw=0,
+						 # edgecolor='0',
+						 alpha=0.6, pad=0)
+					 )
+	
+	plt.axis('off')
+	plt.subplots_adjust(0,0,1,1)
+	
+	viz_path = root / A.pull('vis-name', 'vis-regions.png')
+	viz = fig_to_rgba(fg)
+	Image.fromarray(viz).save(viz_path)
+	print(f'Saved regions visualization to {str(viz_path)}')
+	
+	return regions
+	
+
+
+# def link_tiles(rgb, dots, lbls=None, catnames=None, color_threshold=0, border_color='#000000'):
+# @fig.Script('link-tiles')
+def old_tiles_to_regions(A):
 	plt.switch_backend('agg')
 	
 	root = A.pull('root', '.')
@@ -384,17 +714,17 @@ def tiles_to_regions(A):
 	regions_path = root / A.pull('regions-name', "regions.png")
 	Image.fromarray(reg_img.astype(np.int16)).save(regions_path)
 	print(f'Saved regions image to {str(regions_path)}')
-
+	
+	ind_path = root / A.pull('ind-name', 'ind-regions.png')
+	ind_img = index_map(rgb, reg_img, {i + 1: tuple(xy) for i, xy in enumerate(dlocs.tolist())},
+						fontsize=fontsize)
+	Image.fromarray(ind_img).save(ind_path)
+	print(f'Saved regions index image to {str(ind_path)}')
+	
 	viz_path = root / A.pull('vis-name', 'vis-regions.png')
 	viz = color_map(reg_img, colors=None, pbar=tqdm, grow=100, strategy='largest_first')
 	Image.fromarray(viz).save(viz_path)
 	print(f'Saved regions visualization to {str(viz_path)}')
-	
-	ind_path = root / A.pull('ind-name', 'ind-regions.png')
-	ind_img = index_map(rgb, reg_img, {i+1: tuple(xy) for i, xy in enumerate(dlocs.tolist())},
-	                    fontsize=fontsize)
-	Image.fromarray(ind_img).save(ind_path)
-	print(f'Saved regions index image to {str(ind_path)}')
 	
 	return regs
 
@@ -436,7 +766,7 @@ def link_names(A):
 	
 	if len(regions) != len(names):
 		print(f'WARNING: Found {len(regions)} regions, but {len(names)} '
-		      f'names were provided (should be the same number).')
+			  f'names were provided (should be the same number).')
 		
 		if len(regions) > len(names):
 			print('Not enough names.')
@@ -455,10 +785,179 @@ def link_names(A):
 
 
 
-# @fig.Script('extract-graph')
-# def extract_graph(A):
-#
-#
-#
-# 	pass
+@fig.Script('extract-graph')
+def extract_graph(A):
+	plt.switch_backend('agg')
+	
+	root = A.pull('root', '.')
+	if root is None:
+		raise ArgumentError('root', 'Must not be None.')
+	root = Path(root)
+	print(f'Will save output to {str(root)}')
+	
+	reg_img_path = A.pull('reg-img-path', 'regions.png')
+	if reg_img_path is not None:
+		reg_img_path = Path(reg_img_path)
+		if not reg_img_path.exists():
+			if root is not None and (root / reg_img_path).exists():
+				reg_img_path = root / reg_img_path
+			else:
+				raise ArgumentError('reg-img-path', f'Path to region image invalid: {str(reg_img_path)}')
+		
+		# lbls = Image.open(tile_path)#.convert('RGBA')
+	
+	lbls = np.array(Image.open(reg_img_path))
+	
+	region_path = A.pull('region-path', None)
+	if region_path is None:
+		raise ArgumentError('region-path', 'Path to rgb image of blank map is required.')
+	region_path = Path(region_path)
+	if not region_path.exists():
+		if root is not None and (root / region_path).exists():
+			region_path = root / region_path
+		else:
+			raise ArgumentError('region-path', f'Path to rgb image invalid: {str(region_path)}')
+
+	regions = load_yaml(region_path)
+	for ID, reg in regions.items():
+		if 'name' not in reg:
+			reg['name'] = f'region{str(ID).zfill(4)}'
+	
+	fixed = expand_labels(lbls, 10000)
+	
+	neighbors = {}
+	
+	for idx, node in tqdm(regions.items(), total=len(regions), desc='Generating neighbors'):
+		if idx not in neighbors:
+			reg = regionprops(find_boundaries(fixed == idx, mode='outer').astype(int))[0]
+			ords = coords_order(reg.coords)
+			nss = [set(fixed[tuple(reg.coords[o].T)]) for o in ords]
+			
+			ans = set()
+			nts = []
+			for i, ns in enumerate(nss):
+				ns = {n for n in ns if n not in ans and n in regions}
+				ans.update(ns)
+				if len(ns):
+					nts.append(ns)
+			neighbors[idx] = nts
+	
+	ntx = {idx: {n for ns in nss for n in ns} for idx, nss in neighbors.items()}
+	ntx = {regions[idx]['name']: [regions[n]['name'] for n in ns]
+		   for idx, ns in ntx.items()}
+
+	graph_path = root / 'rough-graph.yaml'
+	print(f'Saved rough graph to {str(graph_path)}')
+	save_yaml(ntx, graph_path)
+	
+	return ntx
+	
+	edges = {}
+	for idx in tqdm(regions, total=len(ntx), desc='Reformating neighbors'):
+		node = regions[idx]
+		ns = ntx[idx]
+		es = {}
+		
+		seas = {n for n in ns if nodeIDs[n]['type'] == 'sea'}
+		if node['type'] == 'sea':
+			es['fleet'] = set(ns)
+		else:
+			es['army'] = set(ns - seas)
+			if len(seas):
+				node['type'] = 'coast'
+				coasts = []
+				while len(seas):
+					sea = seas.pop()
+					
+					for coast in coasts:
+						if coast.intersection(ntx[sea]):
+							coast.add(sea)
+							break
+					else:
+						coasts.append({sea})
+				
+				if len(coasts) > 1:
+					joined = [coasts[0]]
+					for coast in coasts[1:]:
+						seeds = {n for s in coast for n in ntx[s] if nodeIDs[n]['type'] == 'sea'}
+						for sel in joined:
+							if seeds.intersection(sel):
+								sel.update(coast)
+								break
+						else:
+							joined.append(coast)
+					coasts = joined
+				
+				lands = [{l for c in coast for l in ntx[c] if l in ns and nodeIDs[l]['type'] != 'sea'} for coast in
+						 coasts]
+				fleet = {i: {*f, *a} for i, (f, a) in enumerate(zip(coasts, lands))}
+				es['fleet'] = fleet[0] if len(fleet) == 1 else fleet
+		edges[idx] = es
+	
+	return ntx
+
+
+
+@fig.Script('add-coordinates')
+def include_coordinates(A):
+	plt.switch_backend('agg')
+	
+	root = A.pull('root', '.')
+	if root is None:
+		raise ArgumentError('root', 'Must not be None.')
+	root = Path(root)
+	print(f'Will save output to {str(root)}')
+	
+	reg_img_path = A.pull('reg-img-path', 'regions.png')
+	if reg_img_path is not None:
+		reg_img_path = Path(reg_img_path)
+		if not reg_img_path.exists():
+			if root is not None and (root / reg_img_path).exists():
+				reg_img_path = root / reg_img_path
+			else:
+				raise ArgumentError('reg-img-path', f'Path to region image invalid: {str(reg_img_path)}')
+	
+	lbls = np.array(Image.open(reg_img_path))
+	
+	locs_path = A.pull('locs-path', )
+	if locs_path is not None:
+		locs_path = Path(locs_path)
+		if not locs_path.exists():
+			if root is not None and (root / locs_path).exists():
+				locs_path = root / locs_path
+			else:
+				raise ArgumentError('locs-path', f'Path to region image invalid: {str(locs_path)}')
+	
+	locs = np.array(Image.open(locs_path).convert('RGBA')).astype(np.uint32)
+	locs = locs[...,-1] > 0
+	
+	loc_lbls = label(locs)
+	loc_info = regionprops(loc_lbls)
+	
+	graph_path = A.pull('graph-path', None)
+	if graph_path is None:
+		raise ArgumentError('graph-path', 'Path to graph.yaml is required.')
+	graph_path = Path(graph_path)
+	if not graph_path.exists():
+		if root is not None and (root / graph_path).exists():
+			graph_path = root / graph_path
+		else:
+			raise ArgumentError('graph-path', f'Path to graph invalid: {str(graph_path)}')
+
+	graph = load_yaml(graph_path)
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
 
