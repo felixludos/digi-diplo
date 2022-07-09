@@ -25,13 +25,15 @@
 #_meta.script_name: tile-img
 #fig tile-img --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example --rgb-path base.png
 
-#_meta.script_name: link-tiles
+_meta.script_name: link-tiles
 #fig link-tiles --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example --rgb-path base.png --dot-path cats.png
 
 #root: "C:\\Users\\anwan\\OneDrive\\Khan\\projects\\digi-diplo\\extra\\v3\\example"
 
-_meta.script_name: view-regions
+#_meta.script_name: view-regions
 #fig view-regions --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\world --rgb-path renderbase.png
+
+#_meta.script_name: extract-graph
 
 #root: extra/v3/tests/
 #rgb-path: borders.png
@@ -41,7 +43,9 @@ root: extra/v3/world/
 rgb-path: renderbase.png
 dot-path: dotz.png
 
-start: 100
+#start: 59
+
+#start: 100
 
 #dot-path: cats.png
 #categories:
