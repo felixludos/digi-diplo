@@ -322,9 +322,6 @@ def tiles_to_regions(A):
 		c, _ = c.most_common(1)[0]
 		return c
 	
-	tile_colors = [extract_color(rgb[lbls == idx]) for idx in tqdm(range(1, num_tiles + 1),
-																	desc='Collecting tile colors')]
-	
 	dot_rgb = dots[..., :3]
 	dot = dots[..., -1] > 0
 	
@@ -341,6 +338,9 @@ def tiles_to_regions(A):
 	if A.pull('strict-alloc', True) and len(bad):
 		print('Please fix these warnings before continuing.')
 		return
+	
+	tile_colors = [extract_color(rgb[lbls == idx]) for idx in tqdm(range(1, num_tiles + 1),
+	                                                               desc='Collecting tile colors')]
 	
 	for base in bases:
 		# y, x = base['loc']
