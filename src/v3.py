@@ -871,9 +871,11 @@ def extract_graph(A):
 		if strict_neighbors:
 			assert len(land) + len(sea) == len(ns), regions[idx]['name']
 		if len(land):
-			neighbors[idx]['land'] = land
+			neighbors[idx]['army'] = land
 		if len(sea):
-			neighbors[idx]['sea'] = sea
+			neighbors[idx]['fleet'] = sea
+	
+	# TODO: include coastal regions in "fleet" edges
 	
 	# ntx = {regions[idx]['name']: [regions[n]['name'] for n in ns if regions[n].get('type') != 'bg']
 	#        for idx, ns in ntx.items()}
@@ -882,9 +884,14 @@ def extract_graph(A):
 	                                         for etype, ns in nns.items()}, **regions[idx]}
 	         for idx, nns in neighbors.items()}
 	
+	for node in graph.values():
+		if 'id' in node:
+			node['ID'] = node['id']
+			del node['id']
+	
 	graph_path = root / 'rough-graph.yaml'
-	print(f'Saved rough graph to {str(graph_path)}')
 	save_yaml(graph, graph_path)
+	print(f'Saved rough graph to {str(graph_path)}')
 	
 	return graph
 	
@@ -964,12 +971,7 @@ def include_coordinates(A):
 			else:
 				raise ArgumentError('locs-path', f'Path to region image invalid: {str(locs_path)}')
 	
-	locs = np.array(Image.open(locs_path).convert('RGBA')).astype(np.uint32)
-	locs = locs[...,-1] > 0
-	
-	loc_lbls = label(locs)
-	loc_info = regionprops(loc_lbls)
-	
+
 	graph_path = A.pull('graph-path', None)
 	if graph_path is None:
 		raise ArgumentError('graph-path', 'Path to graph.yaml is required.')
@@ -980,7 +982,38 @@ def include_coordinates(A):
 		else:
 			raise ArgumentError('graph-path', f'Path to graph invalid: {str(graph_path)}')
 
+	out_path = A.pull('out-path', 'new-graph.yaml')
+
 	graph = load_yaml(graph_path)
+	
+	loc_name = A.pull('loc-name')
+	
+	dots = np.array(Image.open(locs_path).convert('RGBA')).astype(np.uint32)
+	dots = dots[...,-1] > 0
+	
+	picks = assign_dots(lbls, dots)
+	# {'loc': [y,x], 'id': i+1, 'lbl': pick}
+	
+	nodeIDs = {node['ID']: node for node in graph.values()}
+	
+	for pick in tqdm(picks, desc=f'Adding {loc_name} locations'):
+		ID = pick['lbl']
+		if ID in nodeIDs:
+			node = nodeIDs[ID]
+			if 'locs' not in node:
+				node['locs'] = {}
+			locs = node['locs']
+			if loc_name not in locs:
+				locs[loc_name] = []
+			y, x = pick['loc']
+			locs[loc_name].append([x,y])
+		
+	out_path = root / 'new-graph.yaml'
+	save_yaml(graph, out_path)
+	print(f'Saved updated graph to {str(out_path)}')
+	
+	return graph
+	
 	
 	
 	
