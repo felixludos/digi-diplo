@@ -941,7 +941,7 @@ def extract_graph(A):
 
 
 
-@fig.Script('add-coordinates')
+@fig.Script('include-location')
 def include_coordinates(A):
 	plt.switch_backend('agg')
 	
@@ -962,17 +962,16 @@ def include_coordinates(A):
 	
 	lbls = np.array(Image.open(reg_img_path))
 	
-	locs_path = A.pull('locs-path', )
+	locs_path = A.pull('loc-path')
 	if locs_path is not None:
 		locs_path = Path(locs_path)
 		if not locs_path.exists():
 			if root is not None and (root / locs_path).exists():
 				locs_path = root / locs_path
 			else:
-				raise ArgumentError('locs-path', f'Path to region image invalid: {str(locs_path)}')
+				raise ArgumentError('loc-path', f'Path to region image invalid: {str(locs_path)}')
 	
-
-	graph_path = A.pull('graph-path', None)
+	graph_path = A.pull('graph-path', 'graph.yaml')
 	if graph_path is None:
 		raise ArgumentError('graph-path', 'Path to graph.yaml is required.')
 	graph_path = Path(graph_path)
@@ -981,8 +980,6 @@ def include_coordinates(A):
 			graph_path = root / graph_path
 		else:
 			raise ArgumentError('graph-path', f'Path to graph invalid: {str(graph_path)}')
-
-	out_path = A.pull('out-path', 'new-graph.yaml')
 
 	graph = load_yaml(graph_path)
 	

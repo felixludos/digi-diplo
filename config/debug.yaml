@@ -36,8 +36,12 @@
 #_meta.script_name: link-names
 #fig link-names --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example --names-path names.txt
 
-_meta.script_name: extract-graph
+#_meta.script_name: extract-graph
 #fig extract-graph --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example
+
+
+#_meta.script_name: include-location
+#fig include-location --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example --loc-name unit --loc-path unit_dots.png
 
 #root: extra/v3/tests/
 #rgb-path: borders.png
