@@ -839,7 +839,7 @@ def extract_graph(A):
 	
 	fixed = expand_labels(lbls, 10000)
 	
-	regs = regionprops(fixed)
+	# regs = regionprops(fixed)
 	
 	neighbors = {}
 	
@@ -878,7 +878,7 @@ def extract_graph(A):
 	# ntx = {regions[idx]['name']: [regions[n]['name'] for n in ns if regions[n].get('type') != 'bg']
 	#        for idx, ns in ntx.items()}
 	
-	graph = {regions[idx]['name']: {'edges':{etype:{regions[n]['name'] for n in ns}
+	graph = {regions[idx]['name']: {'edges':{etype:[regions[n]['name'] for n in ns]
 	                                         for etype, ns in nns.items()}, **regions[idx]}
 	         for idx, nns in neighbors.items()}
 	

@@ -30,13 +30,14 @@
 
 #root: "C:\\Users\\anwan\\OneDrive\\Khan\\projects\\digi-diplo\\extra\\v3\\example"
 
-_meta.script_name: view-labels
+#_meta.script_name: view-labels
 #fig view-labels --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\world --rgb-path renderbase.png --label-path tiles.png
 
 #_meta.script_name: link-names
 #fig link-names --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example --names-path names.txt
 
-#_meta.script_name: extract-graph
+_meta.script_name: extract-graph
+#fig extract-graph --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example
 
 #root: extra/v3/tests/
 #rgb-path: borders.png
