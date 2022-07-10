@@ -613,8 +613,8 @@ def old_tiles_to_regions(A):
 	return regs
 
 
-@fig.Script('view-regions')
-def view_regions(A):
+@fig.Script('view-labels')
+def view_labels(A):
 	# plt.switch_backend('agg')
 	plt.switch_backend(A.pull('matplotlib-backend', 'tkagg'))
 	
@@ -637,29 +637,35 @@ def view_regions(A):
 	rgb = Image.open(rgb_path).convert('RGBA')
 	rgb = np.asarray(rgb)[..., :3]
 	
-	region_info_path = A.pull('region-info-path', 'regions.yaml')
-	if region_info_path is None:
-		raise ArgumentError('region-info-path', 'Path to regions.yaml is required.')
-	region_info_path = Path(region_info_path)
-	if not region_info_path.exists():
-		if root is not None and (root / region_info_path).exists():
-			region_info_path = root / region_info_path
+	label_path = A.pull('label-path', None)
+	if label_path is None:
+		raise ArgumentError('label-path', 'Path to label image is required.')
+	label_path = Path(label_path)
+	if not label_path.exists():
+		if root is not None and (root / label_path).exists():
+			label_path = root / label_path
 		else:
-			raise ArgumentError('region-path', f'Path to regions.yaml invalid: {str(region_info_path)}')
+			raise ArgumentError('label-path', f'Path to label image invalid: {str(label_path)}')
 	
-	regions = load_yaml(region_info_path)
+	lbls = np.array(Image.open(label_path))
 	
-	reg_img_path = A.pull('region-path', 'regions.png')
-	if reg_img_path is None:
-		raise ArgumentError('region-path', 'Path to region image is required.')
-	reg_img_path = Path(reg_img_path)
-	if not reg_img_path.exists():
-		if root is not None and (root / reg_img_path).exists():
-			reg_img_path = root / reg_img_path
-		else:
-			raise ArgumentError('region-path', f'Path to region image invalid: {str(reg_img_path)}')
+	infos = {}
 	
-	lbls = np.array(Image.open(reg_img_path))
+	info_path = A.pull('info-path', 'regions.yaml' if 'regions' in str(label_path) else None)
+	if info_path is not None:
+		info_path = Path(info_path)
+		if not info_path.exists():
+			if root is not None and (root / info_path).exists():
+				info_path = root / info_path
+			else:
+				raise ArgumentError('info-path', f'Info path is invalid: {str(info_path)}')
+		
+		infos = load_yaml(info_path)
+
+	H, W, _ = rgb.shape
+	if (H > 3000 or W > 3000) and A.pull('auto-scale', True):
+		rgb = rgb[::2, ::2]
+		lbls = lbls[::2, ::2]
 	
 	def highlight(rgb, mask, opacity=0.2):
 		alpha = np.zeros_like(mask).astype(np.uint8)
@@ -679,25 +685,36 @@ def view_regions(A):
 	
 	opacity = A.pull('opacity', 0.2)
 
-	H, W, _ = rgb.shape
 	scale = A.pull('img-scale', 1)
 	aw, ah = figaspect(H / W)
 	aw, ah = scale * aw, scale * ah
 	figsize = aw, ah
 	fg = plt.figure(figsize=figsize, )#dpi=H / aw)
 	
-	max_id = max(reg['id'] for reg in regions.values())
+	max_id = lbls.max()
+	
+	valid = set(lbls.reshape(-1).tolist())
+	total = len(valid)
 	
 	ind = min(max(1,A.pull('start', 1)),max_id)
 	
 	def _draw_region():
-		if ind in regions:
-			current = regions[ind]
+		if ind in valid:
 			plt.clf()
-			plt.title('Region {id}/{total} ({type})'.format(total=len(regions), **current))
+			
+			info = infos.get(ind, {})
+			
+			name = info.get('name', 'LABEL')
+			typ = ' ({})'.format(info['type']) if 'type' in info else ''
+			
+			ID = ind
+			
+			title = f'{name}{typ} {ID}/{max_id} (total: {total})'
+			
+			plt.title(title)
 			plt.imshow(highlight(rgb, lbls == ind, opacity=opacity))
 		else:
-			plt.title(f'Region {ind} not found')
+			plt.title(f'ID {ind} not found')
 		
 		plt.xlabel('Press right arrow for next region, left arrow to go back (on the keyboard)')
 		plt.xticks([])
@@ -705,17 +722,18 @@ def view_regions(A):
 		# plt.axis('off')
 		plt.tight_layout()
 		# plt.subplots_adjust(0, 0, 1, 1)
+		plt.draw()
 	
 	def _onkey(event=None):
 		nonlocal ind
 		key = None if event is None else event.key
 		if key == 'left':
-			print('Backward')
-			ind = max(1,ind-1)
+			# print('Backward')
+			ind = max(min(valid),ind-1)
 			_draw_region()
 		if key =='right' or key =='enter':
-			print('Forward')
-			ind = min(max_id,ind+1)
+			# print('Forward')
+			ind = min(max(valid),ind+1)
 			_draw_region()
 	
 	fg.canvas.mpl_connect('key_press_event', _onkey)
