@@ -18,6 +18,7 @@
 ##parents: [classic/bot]
 ##parents: [classic/bot]
 #parents: [balkans/bot]
+#parents: [ad/std]
 
 
 ################################
@@ -62,7 +63,7 @@ replace: yes
 #loc-name: coast-retreat
 #loc-path: coast_retreats.png
 loc-name: coast-unit
-loc-path: coasts.png
+#loc-path: coasts.png
 
 #label-path: regions.png
 
