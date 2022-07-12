@@ -40,7 +40,7 @@
 #fig extract-graph --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example
 
 
-#_meta.script_name: include-location
+_meta.script_name: include-location
 #fig include-location --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example --loc-name unit --loc-path unit_dots.png
 
 #root: extra/v3/tests/
@@ -49,9 +49,22 @@
 
 root: extra/v3/world/
 rgb-path: renderbase.png
-dot-path: dotz.png
+#dot-path: dotz.png
 
-label-path: regions.png
+replace: yes
+
+#loc-name: unit
+#loc-path: unit_dots.png
+#loc-name: label
+#loc-path: label.png
+#loc-name: retreat
+#loc-path: retreacts.png
+#loc-name: coast-retreat
+#loc-path: coast_retreats.png
+loc-name: coast-unit
+loc-path: coasts.png
+
+#label-path: regions.png
 
 #start: 59
 

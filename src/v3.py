@@ -1,5 +1,6 @@
 from typing import Dict, Optional, Union
 import sys, os
+# from tabulate import tabulate
 from tqdm import tqdm
 from collections import Counter
 from pathlib import Path
@@ -841,10 +842,10 @@ def extract_graph(A):
 	
 	# regs = regionprops(fixed)
 	
-	neighbors = {}
+	ntx = {}
 	
 	for idx, node in tqdm(regions.items(), total=len(regions), desc='Generating neighbors'):
-		if idx not in neighbors:
+		if idx not in ntx:
 			reg = regionprops(find_boundaries(fixed == idx, mode='outer').astype(int))[0]
 			ords = coords_order(reg.coords)
 			nss = [set(fixed[tuple(reg.coords[o].T)]) for o in ords]
@@ -856,26 +857,47 @@ def extract_graph(A):
 				ans.update(ns)
 				if len(ns):
 					nts.append(ns)
-			neighbors[idx] = nts
+			ntx[idx] = nts
 	
 	ntx = {idx: {n for ns in nss for n in ns if regions[n].get('type') != 'bg'}
-	       for idx, nss in neighbors.items() if regions[idx].get('type') != 'bg'}
+	       for idx, nss in ntx.items() if regions[idx].get('type') != 'bg'}
 	
+	for idx, region in regions.items():
+		if region['type'] == 'land':
+			if any(True for n in ntx[idx] if regions[n]['type'] == 'sea'):
+				region['env'] = 'coast'
+			else:
+				region['env'] = 'land'
+		elif region['type'] == 'sea':
+			region['env'] = 'sea'
+		else:
+			region['env'] = 'other'
+	
+	# for idx, ns in ntx.items():
+	# 	pass
+	#
+	# # TODO: include coastal regions in "fleet" edges, and vice versa
+	#
 	strict_neighbors = A.pull('strict-neighbors', True)
 	
 	neighbors = {}
 	for idx, ns in ntx.items():
 		neighbors[idx] = {}
+		
 		land = [n for n in ns if regions[n].get('type') == 'land']
 		sea = [n for n in ns if regions[n].get('type') == 'sea']
 		if strict_neighbors:
 			assert len(land) + len(sea) == len(ns), regions[idx]['name']
+		
 		if len(land):
 			neighbors[idx]['army'] = land
 		if len(sea):
 			neighbors[idx]['fleet'] = sea
-	
-	# TODO: include coastal regions in "fleet" edges
+		
+		if len(land) and regions[idx].get('env') == 'coast':
+			neighbors[idx]['fleet'].extend([n for n in land if regions[n].get('env') == 'coast'])
+		if regions[idx].get('env') == 'sea':
+			neighbors[idx]['fleet'].extend([n for n in ns if regions[n].get('env') == 'coast'])
 	
 	# ntx = {regions[idx]['name']: [regions[n]['name'] for n in ns if regions[n].get('type') != 'bg']
 	#        for idx, ns in ntx.items()}
@@ -961,8 +983,9 @@ def include_coordinates(A):
 				raise ArgumentError('reg-img-path', f'Path to region image invalid: {str(reg_img_path)}')
 	
 	lbls = np.array(Image.open(reg_img_path))
+	lbls = expand_labels(lbls, 10000)
 	
-	locs_path = A.pull('loc-path')
+	locs_path = A.pull('loc-path', None)
 	if locs_path is not None:
 		locs_path = Path(locs_path)
 		if not locs_path.exists():
@@ -981,31 +1004,64 @@ def include_coordinates(A):
 		else:
 			raise ArgumentError('graph-path', f'Path to graph invalid: {str(graph_path)}')
 
+	out_path = A.pull('out-path', 'graph.yaml')
+
 	graph = load_yaml(graph_path)
-	
+
 	loc_name = A.pull('loc-name')
+	overwrite = A.pull('replace', False)
 	
-	dots = np.array(Image.open(locs_path).convert('RGBA')).astype(np.uint32)
-	dots = dots[...,-1] > 0
+	if overwrite:
+		for node in graph.values():
+			if 'locs' in node and loc_name in node['locs']:
+				del node['locs'][loc_name]
 	
-	picks = assign_dots(lbls, dots)
-	# {'loc': [y,x], 'id': i+1, 'lbl': pick}
-	
-	nodeIDs = {node['ID']: node for node in graph.values()}
-	
-	for pick in tqdm(picks, desc=f'Adding {loc_name} locations'):
-		ID = pick['lbl']
-		if ID in nodeIDs:
-			node = nodeIDs[ID]
-			if 'locs' not in node:
-				node['locs'] = {}
-			locs = node['locs']
-			if loc_name not in locs:
-				locs[loc_name] = []
-			y, x = pick['loc']
-			locs[loc_name].append([x,y])
+	if locs_path is not None:
+		dots = np.array(Image.open(locs_path).convert('RGBA')).astype(np.uint32)
+		dots = dots[...,-1] > 0
 		
-	out_path = root / 'new-graph.yaml'
+		picks = assign_dots(lbls, dots)
+		# {'loc': [y,x], 'id': i+1, 'lbl': pick}
+		
+		nodeIDs = {node['ID']: node for node in graph.values()}
+		
+		for pick in tqdm(picks, desc=f'Adding {loc_name} locations'):
+			ID = pick['lbl']
+			if ID in nodeIDs:
+				node = nodeIDs[ID]
+				if 'locs' not in node:
+					node['locs'] = {}
+				locs = node['locs']
+				if loc_name not in locs:
+					locs[loc_name] = []
+				y, x = pick['loc']
+				locs[loc_name].append([x,y])
+	
+	count = Counter()
+	
+	for name, node in graph.items():
+		if name not in count:
+			count[name] = 0
+		count[name] += len(node.get('locs', {}).get(loc_name, []))
+	
+
+	singles = [[name, num] for name, num in count.most_common() if num == 1]
+	print(f'These {len(singles)} regions have a single assigned "{loc_name}" location:')
+	print(', '.join(name for name, num in singles))
+	
+	multis = [[name, num] for name, num in count.most_common() if num > 1]
+	print(f'These {len(multis)} regions are assigned more than one "{loc_name}" location:')
+	print(', '.join(f'{name} ({num})' for name, num in multis))
+	# for name, num in multis:
+	# 	print(f'{num:>3} - {name}')
+	
+	missing = [[name, num] for name, num in count.most_common() if num == 0]
+	print(f'These {len(missing)} regions do not have an assigned "{loc_name}" location:')
+	print(', '.join(name for name, num in missing))
+	# for name, num in missing:
+	# 	print(name)
+		
+	out_path = root / out_path
 	save_yaml(graph, out_path)
 	print(f'Saved updated graph to {str(out_path)}')
 	
