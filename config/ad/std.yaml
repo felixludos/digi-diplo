@@ -6,3 +6,6 @@ parents: [ad/pixels, wd/std]
 assets-path: assets/ad
 
 year-offset: 1920
+
+manager.renderer._type: ad-pixel-rendering
+

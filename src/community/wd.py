@@ -75,7 +75,7 @@ class WD_Rendering(DefaultRenderer):
 		self.capitals = {info['capital']: name for name, info in state.get('players', {}).items()}
 		return super()._render(state, actions=actions, **kwargs)
 	
-	def _render_env(self, state, actions=None, **kwargs):
+	def _render_env(self, state, actions=None, wmx=10, wmy=2220, **kwargs):
 		out = super()._render_env(state, actions=actions, **kwargs)
 		
 		date = state.get('time', {})
@@ -87,7 +87,7 @@ class WD_Rendering(DefaultRenderer):
 		if self.year_props is not None:
 			plt.text(s=str(year + self.year_offset), **self.year_props)
 		
-		plt.text(x=10, y=2220, s='Adjudicated and rendered automatically using Digi-diplo '
+		plt.text(x=wmx, y=wmy, s='Adjudicated and rendered automatically using Digi-diplo '
 		           '(GitHub: felixludos/digi-diplo)', color='w',
 		         fontsize=2, fontfamily='monospace') # PLEASE DO NOT REMOVE
 	
@@ -207,18 +207,25 @@ class WD_Pixel_Rendering(WD_Rendering):
 		               for x,y,v in zip(X.reshape(-1), Y.reshape(-1), pattern.reshape(-1))
 		               if v in colors and colors[v] is not None])
 		C = [self._format_color(c) for c in C]
-		X, Y, C = np.array(X), np.array(Y), np.array(C)
+		Xs, Ys, C = np.array(X), np.array(Y), np.array(C)
 		
-		# X = (X + cx).astype(int)
-		# Y = (Y + cy).astype(int)
-		# sel = (X >= 0) & (X < base.shape[1]) & (Y >= 0) & (Y < base.shape[0])
-		# base[X[sel], Y[sel], :3] = C[sel]
-		# if base.shape[-1] == 4:
-		# 	base[X[sel], Y[sel], 3] = 255
+		pX = (Xs + cx).astype(int)
+		pY = (Ys + cy).astype(int)
+		sel = (pX >= 0) & (pX < base.shape[0]) & (pY >= 0) & (pY < base.shape[1])
 		
-		base[(X + cx).astype(int), (Y + cy).astype(int), :3] = C
+		X = pX[sel]
+		Y = pY[sel]
+		
+		if (X < 0).any() or (X >= base.shape[0]).any() or (Y < 0).any() or (Y >= base.shape[1]).any():
+			raise Exception()
+		
+		base[X, Y, :3] = C[sel]
 		if base.shape[-1] == 4:
-			base[(X + cx).astype(int), (Y + cy).astype(int), -1] = 255
+			base[X, Y, 3] = 255
+		
+		# base[(X + cx).astype(int), (Y + cy).astype(int), :3] = C
+		# if base.shape[-1] == 4:
+		# 	base[(X + cx).astype(int), (Y + cy).astype(int), -1] = 255
 	
 	
 	def _prep_assets(self, state, actions=None, **kwargs):
