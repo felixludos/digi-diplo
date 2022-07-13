@@ -1,23 +1,23 @@
 
 #_meta.script_name: start-bot
-#
-#server-name: playground
-#
-##admins: None
+##
+##server-name: playground
+##
+###admins: None
 #admin-role: testhost
-#
-######################
-#
-##_meta.script_name: multi-step
-##_meta.script_name: step
-##_meta.script_name: render
-#
-##parents: [wd/style, wd/bot]
-##parents: [wd/hills, wd/bot]
-##parents: [wd/std]
-##parents: [classic/bot]
-##parents: [classic/bot]
-#parents: [balkans/bot]
+##
+#######################
+##
+###_meta.script_name: multi-step
+###_meta.script_name: step
+###_meta.script_name: render
+##
+###parents: [wd/style, wd/bot]
+###parents: [wd/hills, wd/bot]
+###parents: [wd/std]
+###parents: [classic/bot]
+###parents: [classic/bot]
+##parents: [balkans/bot]
 #parents: [ad/std]
 
 
@@ -54,15 +54,15 @@ rgb-path: renderbase.png
 
 replace: yes
 
-#loc-name: unit
-#loc-path: unit_dots.png
 #loc-name: label
 #loc-path: label.png
+#loc-name: unit
+#loc-path: units.png
 #loc-name: retreat
-#loc-path: retreacts.png
-#loc-name: coast-retreat
-#loc-path: coast_retreats.png
-loc-name: coast-unit
+#loc-path: retreats.png
+loc-name: coast-retreat
+loc-path: coast-retreats.png
+#loc-name: coast-unit
 #loc-path: coasts.png
 
 #label-path: regions.png

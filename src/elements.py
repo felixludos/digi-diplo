@@ -23,7 +23,7 @@ from copy import deepcopy
 @fig.Component('diplo-map')
 class DiploMap(util.Versioned):
 	def __init__(self, A, graph_path=unspecified_argument, player_path=unspecified_argument,
-	             ignore_unknown=None, **kwargs):
+	             ignore_unknown=None, auto_fix_types=None, **kwargs):
 		
 		if ignore_unknown is None:
 			ignore_unknown = A.pull('ignore-unknown', type(self) != DiploMap)
@@ -34,10 +34,15 @@ class DiploMap(util.Versioned):
 		if player_path is unspecified_argument:
 			player_path = A.pull('players-path', None)
 		
+		if auto_fix_types is None:
+			auto_fix_types = A.pull('fix-types', True)
+		
 		super().__init__(A, **kwargs)
 		
 		self.graph_path = graph_path
 		self.player_path = player_path
+
+		self.auto_fix_types = auto_fix_types
 		self.nodes, self.edges = self._load_graph_info(graph_path)
 		self.player_info = self._load_player_info(player_path)
 		self.get_ID_from_name = util.make_node_dictionary(self.nodes)
@@ -84,10 +89,21 @@ class DiploMap(util.Versioned):
 	def _load_player_info(player_path):
 		return load_yaml(player_path)
 	
+	def _fix_node_type(self, node):
+		edges = node['edges']
+		if 'army' in edges and 'fleet' in edges:
+			return 'coast'
+		if 'army' in edges:
+			return 'land'
+		return 'sea'
+	
 	def _load_graph_info(self, graph_path):
 		
 		graph = load_yaml(graph_path) if graph_path.endswith('.yaml') else load_json(graph_path)
 		for info in graph.values():
+			if self.auto_fix_types:
+				info['type'] = self._fix_node_type(info)
+				
 			if 'army' in info['edges']:
 				info['army-edges'] = info['edges']['army']
 			if 'fleet' in info['edges']:

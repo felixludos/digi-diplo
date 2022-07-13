@@ -209,6 +209,13 @@ class WD_Pixel_Rendering(WD_Rendering):
 		C = [self._format_color(c) for c in C]
 		X, Y, C = np.array(X), np.array(Y), np.array(C)
 		
+		# X = (X + cx).astype(int)
+		# Y = (Y + cy).astype(int)
+		# sel = (X >= 0) & (X < base.shape[1]) & (Y >= 0) & (Y < base.shape[0])
+		# base[X[sel], Y[sel], :3] = C[sel]
+		# if base.shape[-1] == 4:
+		# 	base[X[sel], Y[sel], 3] = 255
+		
 		base[(X + cx).astype(int), (Y + cy).astype(int), :3] = C
 		if base.shape[-1] == 4:
 			base[(X + cx).astype(int), (Y + cy).astype(int), -1] = 255
