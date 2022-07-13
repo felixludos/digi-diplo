@@ -5,7 +5,10 @@ parents: [ad/pixels, wd/std]
 
 assets-path: assets/ad
 
-year-offset: 1920
+year-offset: 1918
+year-props:
+  x: 4695
+  y: 425
 
 manager.renderer._type: ad-pixel-rendering
 
