@@ -6,9 +6,34 @@ parents: [ad/pixels, wd/std]
 assets-path: assets/ad
 
 year-offset: 1918
+
+manager.renderer._type: ad-pixel-rendering
+
+
+
 year-props:
   x: 4695
   y: 425
+  c: k
+  ha: left
+  va: bottom
+  fontsize: 10
+  fontfamily: monospace
+  zorder: 50
 
-manager.renderer._type: ad-pixel-rendering
+season-titles:
+  1: SPRING
+  2: FALL
+  3: WINTER
+
+season-props:
+  x: 4695
+  y: 328
+  c: k
+  ha: left
+  va: bottom
+  fontsize: 9
+  fontfamily: monospace
+  zorder: 50
+
 
