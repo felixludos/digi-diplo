@@ -658,10 +658,11 @@ def view_labels(A):
 		if not info_path.exists():
 			if root is not None and (root / info_path).exists():
 				info_path = root / info_path
-			else:
-				raise ArgumentError('info-path', f'Info path is invalid: {str(info_path)}')
+			# else:
+			# 	raise ArgumentError('info-path', f'Info path is invalid: {str(info_path)}')
 		
-		infos = load_yaml(info_path)
+		if info_path.exists():
+			infos = load_yaml(info_path)
 
 	H, W, _ = rgb.shape
 	if (H > 3000 or W > 3000) and A.pull('auto-scale', True):
