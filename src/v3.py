@@ -714,6 +714,7 @@ def view_labels(A):
 			
 			plt.title(title)
 			plt.imshow(highlight(rgb, lbls == ind, opacity=opacity))
+			plt.imshow(lbls % 1000, alpha=0., zorder=10)
 		else:
 			plt.title(f'ID {ind} not found')
 		
@@ -1069,7 +1070,7 @@ def include_coordinates(A):
 	
 	
 	
-	
+# TODO: script to add SCs to graph
 
 
 

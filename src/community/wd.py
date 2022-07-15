@@ -187,7 +187,7 @@ class WD_Pixel_Rendering(WD_Rendering):
 		self.sc_zorder = A.pull('sc-zorder', 100)
 	
 	def _format_pattern(self, patterns):
-		return {key: np.array(val) for key, val in patterns.items()}
+		return {key: np.array(val) for key, val in patterns.items() if val is not None}
 	
 	def _format_color(self, color):
 		return hex_to_rgb(color)

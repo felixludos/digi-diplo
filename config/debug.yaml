@@ -1,24 +1,24 @@
 
-_meta.script_name: start-bot
-#
-#server-name: playground
-#
-##admins: None
-admin-role: testhost
-#
-######################
-#
-##_meta.script_name: multi-step
-##_meta.script_name: step
-##_meta.script_name: render
-#
-##parents: [wd/style, wd/bot]
-##parents: [wd/hills, wd/bot]
-##parents: [wd/std]
-##parents: [classic/bot]
-##parents: [classic/bot]
-#parents: [balkans/bot]
-parents: [ad/std]
+#_meta.script_name: start-bot
+##
+##server-name: playground
+##
+###admins: None
+#admin-role: testhost
+##
+#######################
+##
+###_meta.script_name: multi-step
+###_meta.script_name: step
+###_meta.script_name: render
+##
+###parents: [wd/style, wd/bot]
+###parents: [wd/hills, wd/bot]
+###parents: [wd/std]
+###parents: [classic/bot]
+###parents: [classic/bot]
+##parents: [balkans/bot]
+#parents: [ad/std]
 
 
 ################################
@@ -31,7 +31,7 @@ parents: [ad/std]
 
 #root: "C:\\Users\\anwan\\OneDrive\\Khan\\projects\\digi-diplo\\extra\\v3\\example"
 
-#_meta.script_name: view-labels
+_meta.script_name: view-labels
 #fig view-labels --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\world --rgb-path renderbase.png --label-path tiles.png
 
 #_meta.script_name: link-names
@@ -42,28 +42,30 @@ parents: [ad/std]
 
 
 #_meta.script_name: include-location
-##fig include-location --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example --loc-name unit --loc-path unit_dots.png
-#
-##root: extra/v3/tests/
-##rgb-path: borders.png
-##dot-path: cats.png
-#
-#root: extra/v3/world/
-#rgb-path: renderbase.png
-##dot-path: dotz.png
-#
+#fig include-location --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example --loc-name unit --loc-path unit_dots.png
+
+#root: extra/v3/tests/
+#rgb-path: borders.png
+#dot-path: cats.png
+
+label-path: regions.png
+
+root: extra/v3/world/
+rgb-path: renderbase.png
+#dot-path: dotz.png
+
 #replace: yes
-#
-##loc-name: label
-##loc-path: label.png
-##loc-name: unit
-##loc-path: units.png
-##loc-name: retreat
-##loc-path: retreats.png
+
+#loc-name: label
+#loc-path: label.png
+#loc-name: unit
+#loc-path: units.png
+#loc-name: retreat
+#loc-path: retreats.png
 #loc-name: coast-retreat
 #loc-path: coast-retreats.png
-##loc-name: coast-unit
-##loc-path: coasts.png
+#loc-name: coast-unit
+#loc-path: coasts.png
 
 #label-path: regions.png
 
