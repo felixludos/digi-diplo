@@ -903,8 +903,12 @@ def extract_graph(A):
 			neighbors[idx]['fleet'] = sea
 		
 		if len(land) and regions[idx].get('env') == 'coast':
+			if 'fleet' not in neighbors[idx]:
+				neighbors[idx]['fleet'] = []
 			neighbors[idx]['fleet'].extend([n for n in land if regions[n].get('env') == 'coast'])
 		if regions[idx].get('env') == 'sea':
+			if 'fleet' not in neighbors[idx]:
+				neighbors[idx]['fleet'] = []
 			neighbors[idx]['fleet'].extend([n for n in ns if regions[n].get('env') == 'coast'])
 	
 	# ntx = {regions[idx]['name']: [regions[n]['name'] for n in ns if regions[n].get('type') != 'bg']
