@@ -790,7 +790,7 @@ def link_names(A):
 		
 		if len(regions) > len(names):
 			print('Not enough names.')
-			raise Exception(f'not enough names provided: found {len(names)} (should be {len(regions)}')
+			raise Exception(f'not enough names provided: found {len(names)} (should be {len(regions)})')
 		
 		else:
 			print(f'Will use only the first {len(regions)} names (ignoring the last {len(names)-len(regions)})')
@@ -880,6 +880,7 @@ def extract_graph(A):
 		elif region['type'] == 'sea':
 			region['env'] = 'sea'
 		else:
+			print(f'WARNING: {region["name"]} is not a land or sea type region.')
 			region['env'] = 'other'
 	
 	# for idx, ns in ntx.items():
@@ -893,24 +894,32 @@ def extract_graph(A):
 	for idx, ns in ntx.items():
 		neighbors[idx] = {}
 		
-		land = [n for n in ns if regions[n].get('type') == 'land']
-		sea = [n for n in ns if regions[n].get('type') == 'sea']
-		if strict_neighbors:
-			assert len(land) + len(sea) == len(ns), regions[idx]['name']
+		army = [n for n in ns if regions[n].get('env') in {'land', 'coast'}]
+		fleet = [n for n in ns if regions[n].get('env') in {'sea', 'coast'}]
 		
-		if len(land):
-			neighbors[idx]['army'] = land
-		if len(sea):
-			neighbors[idx]['fleet'] = sea
+		if regions[idx]['env'] in {'land', 'coast'}:
+			neighbors[idx]['army'] = army
+		if regions[idx]['env'] in {'sea', 'coast'}:
+			neighbors[idx]['fleet'] = fleet
 		
-		if len(land) and regions[idx].get('env') == 'coast':
-			if 'fleet' not in neighbors[idx]:
-				neighbors[idx]['fleet'] = []
-			neighbors[idx]['fleet'].extend([n for n in land if regions[n].get('env') == 'coast'])
-		if regions[idx].get('env') == 'sea':
-			if 'fleet' not in neighbors[idx]:
-				neighbors[idx]['fleet'] = []
-			neighbors[idx]['fleet'].extend([n for n in ns if regions[n].get('env') == 'coast'])
+		# land = [n for n in ns if regions[n].get('type') == 'land']
+		# sea = [n for n in ns if regions[n].get('type') == 'sea']
+		# if strict_neighbors:
+		# 	assert len(land) + len(sea) == len(ns), regions[idx]['name']
+		#
+		# if len(land):
+		# 	neighbors[idx]['army'] = land
+		# if len(sea):
+		# 	neighbors[idx]['fleet'] = sea
+		#
+		# if len(land) and regions[idx].get('env') == 'coast':
+		# 	if 'fleet' not in neighbors[idx]:
+		# 		neighbors[idx]['fleet'] = []
+		# 	neighbors[idx]['fleet'].extend([n for n in land if regions[n].get('env') == 'coast'])
+		# if regions[idx].get('env') == 'sea':
+		# 	if 'fleet' not in neighbors[idx]:
+		# 		neighbors[idx]['fleet'] = []
+		# 	neighbors[idx]['fleet'].extend([n for n in ns if regions[n].get('env') == 'coast'])
 	
 	# ntx = {regions[idx]['name']: [regions[n]['name'] for n in ns if regions[n].get('type') != 'bg']
 	#        for idx, ns in ntx.items()}
