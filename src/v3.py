@@ -849,18 +849,23 @@ def extract_graph(A):
 	
 	for idx, node in tqdm(regions.items(), total=len(regions), desc='Generating neighbors'):
 		if idx not in ntx:
-			reg = regionprops(find_boundaries(fixed == idx, mode='outer').astype(int))[0]
-			ords = coords_order(reg.coords)
-			nss = [set(fixed[tuple(reg.coords[o].T)]) for o in ords]
-			
-			ans = set()
-			nts = []
-			for i, ns in enumerate(nss):
-				ns = {n for n in ns if n not in ans and n in regions}
-				ans.update(ns)
-				if len(ns):
-					nts.append(ns)
-			ntx[idx] = nts
+			reg = regionprops(find_boundaries(fixed == idx, mode='outer').astype(int))
+			if len(reg) == 0:
+				print(f'WARNING: Region does not exist on the map: {idx} {node.get("name", "")}')
+				ntx[idx] = []
+			else:
+				reg = reg[0]
+				ords = coords_order(reg.coords)
+				nss = [set(fixed[tuple(reg.coords[o].T)]) for o in ords]
+				
+				ans = set()
+				nts = []
+				for i, ns in enumerate(nss):
+					ns = {n for n in ns if n not in ans and n in regions}
+					ans.update(ns)
+					if len(ns):
+						nts.append(ns)
+				ntx[idx] = nts
 	
 	ntx = {idx: {n for ns in nss for n in ns if regions[n].get('type') != 'bg'}
 	       for idx, nss in ntx.items() if regions[idx].get('type') != 'bg'}
