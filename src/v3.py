@@ -880,8 +880,9 @@ def extract_graph(A):
 		elif region['type'] == 'sea':
 			region['env'] = 'sea'
 		else:
-			print(f'WARNING: {region["name"]} is not a land or sea type region.')
-			region['env'] = 'other'
+			if region['type'] != 'bg':
+				print(f'WARNING: {region["name"]} is not a land, sea, or bg type region.')
+			region['env'] = 'bg'
 	
 	# for idx, ns in ntx.items():
 	# 	pass
@@ -897,9 +898,9 @@ def extract_graph(A):
 		army = [n for n in ns if regions[n].get('env') in {'land', 'coast'}]
 		fleet = [n for n in ns if regions[n].get('env') in {'sea', 'coast'}]
 		
-		if regions[idx]['env'] in {'land', 'coast'}:
+		if regions[idx].get('env') in {'land', 'coast'}:
 			neighbors[idx]['army'] = army
-		if regions[idx]['env'] in {'sea', 'coast'}:
+		if regions[idx].get('env') in {'sea', 'coast'}:
 			neighbors[idx]['fleet'] = fleet
 		
 		# land = [n for n in ns if regions[n].get('type') == 'land']
