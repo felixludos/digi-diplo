@@ -1,6 +1,6 @@
 from typing import Dict, Optional, Union
 import sys, os
-# from tabulate import tabulate
+from tabulate import tabulate
 from tqdm import tqdm
 from collections import Counter
 from pathlib import Path
