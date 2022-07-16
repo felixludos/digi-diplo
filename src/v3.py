@@ -353,6 +353,7 @@ def tiles_to_regions(A):
 	catcolors = {cat: color for color, cat in catnames.items()}
 	for base in bases:
 		base['cat'] = catnames[tuple(base['cat'])]
+	print(tabulate(catcolors.items(), headers=['Name', 'Color']))
 	
 	tile_info = regionprops(lbls)
 	tile_coords = np.array([info.centroid for info in tile_info])
@@ -412,7 +413,7 @@ def tiles_to_regions(A):
 	
 	catimg = rgb * 0
 	for base in tqdm(bases, desc='Drawing region types'):
-		catimg[regimg == base['id']] = catcolors[base['cat']]
+		catimg[regimg == base['id']] = catcolors.get(base['cat'], [128, 128, 128])
 		# for tile_id in base['lbl']:
 		# 	catimg[lbls == tile_id] = catcolors[base['cat']]
 	# for bg in tqdm(bgs):
