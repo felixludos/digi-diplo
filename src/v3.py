@@ -697,6 +697,7 @@ def view_labels(A):
 	max_id = lbls.max()
 	
 	valid = set(lbls.reshape(-1).tolist())
+	valid.discard(0)
 	total = len(valid)
 	
 	ind = min(max(1,A.pull('start', 1)),max_id)
