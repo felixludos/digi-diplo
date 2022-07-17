@@ -1028,6 +1028,8 @@ def include_coordinates(A):
 			raise ArgumentError('graph-path', f'Path to graph invalid: {str(graph_path)}')
 
 	out_path = A.pull('out-path', 'graph.yaml')
+	
+	reverse_coordinates = A.pull('reverse-coordinates', False)
 
 	graph = load_yaml(graph_path)
 
@@ -1058,7 +1060,7 @@ def include_coordinates(A):
 				if loc_name not in locs:
 					locs[loc_name] = []
 				y, x = pick['loc']
-				locs[loc_name].append([x,y])
+				locs[loc_name].append([y,x] if reverse_coordinates else [x,y])
 	
 	count = Counter()
 	
