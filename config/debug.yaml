@@ -1,24 +1,24 @@
 
-_meta.script_name: start-bot
-#
-#server-name: playground
-#
-##admins: None
-admin-role: testhost
-#
-######################
-#
-##_meta.script_name: multi-step
-##_meta.script_name: step
-##_meta.script_name: render
-#
-##parents: [wd/style, wd/bot]
-##parents: [wd/hills, wd/bot]
-##parents: [wd/std]
-##parents: [classic/bot]
-##parents: [classic/bot]
-#parents: [balkans/bot]
-parents: [ad/std]
+#_meta.script_name: start-bot
+##
+##server-name: playground
+##
+###admins: None
+#admin-role: testhost
+##
+#######################
+##
+###_meta.script_name: multi-step
+###_meta.script_name: step
+###_meta.script_name: render
+##
+###parents: [wd/style, wd/bot]
+###parents: [wd/hills, wd/bot]
+###parents: [wd/std]
+###parents: [classic/bot]
+###parents: [classic/bot]
+##parents: [balkans/bot]
+#parents: [ad/std]
 
 
 ################################
@@ -44,12 +44,15 @@ parents: [ad/std]
 #_meta.script_name: include-location
 #fig include-location --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example --loc-name unit --loc-path unit_dots.png
 
+_meta.script_name: check-graph
+
 #root: extra/v3/tests/
 #rgb-path: borders.png
 #dot-path: cats.png
 
 #label-path: regions.png
 #
+root: assets/ad/
 #root: extra/v3/world/
 #rgb-path: renderbase.png
 ##dot-path: dotz.png

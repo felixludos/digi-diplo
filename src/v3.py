@@ -1091,18 +1091,184 @@ def include_coordinates(A):
 	print(f'Saved updated graph to {str(out_path)}')
 	
 	return graph
+
+
+@fig.Component('default-region-name-parser')
+class Region_Name_Splitter(fig.Configurable):
+	@staticmethod
+	def split(name):
+		terms = name.split('-')
+		if len(terms) == 1:
+			base = terms[0]
+			coast = None
+		else:
+			base = '-'.join(terms[:-1])
+			coast = terms[-1]
+		return base, coast
+
+	@staticmethod
+	def join(name, coast=None):
+		if coast is None:
+			return name
+		else:
+			return f'{name}-{coast}'
+		
+
+
+@fig.Script('check-graph', description='Checks the consistency of the graph.')
+def include_coordinates(A):
+	plt.switch_backend('agg')
 	
+	root = A.pull('root', '.')
+	if root is None:
+		raise ArgumentError('root', 'Must not be None.')
+	root = Path(root)
+	print(f'Will save output to {root}')
+
+	A.push('parser._type', 'default-region-name-parser', overwrite=False, silent=True)
+	parser = A.pull('parser')
 	
+	graph_path = A.pull('graph-path', 'graph.yaml')
+	if graph_path is None:
+		raise ArgumentError('graph-path', 'Path to graph.yaml is required.')
+	graph_path = Path(graph_path)
+	if not graph_path.exists():
+		if root is not None and (root / graph_path).exists():
+			graph_path = root / graph_path
+		else:
+			raise ArgumentError('graph-path', f'Path to graph invalid: {graph_path}')
 	
-# TODO: script to add SCs to graph
+	auto_fix = A.pull('auto-fix', False)
+	
+	graph = load_yaml(graph_path)
+	
+	missing = []
+	inconsistent = []
+	
+	def _check_edge(start, typ, end):
+		ebase, ecoast = parser.split(end)
+		if ebase not in graph:
+			missing.append([start, typ, end])
+			return
+		
+		options = graph[ebase]['edges'].get(typ, None)
+		if options is None \
+			or (isinstance(options, list) and start not in options)\
+			or (isinstance(options, dict) and start not in options.get(ecoast, [])):
+			inconsistent.append([start, typ, end])
+			
+			if auto_fix:
+				if options is None:
+					graph[ebase]['edges'][typ] = [] if ecoast is None else {ecoast: []}
+				if ecoast is None:
+					graph[ebase]['edges'][typ].append(start)
+				else:
+					graph[ebase]['edges'][typ][ecoast].append(start)
+			return
+	
+	for name, node in tqdm(graph.items(), desc='Checking edges'):
+		for typ, eds in node.get('edges', {}).items():
+			if isinstance(eds, list):
+				for e in eds:
+					_check_edge(name, typ, e)
+			elif isinstance(eds, dict):
+				for coast, es in eds.items():
+					start = parser.join(name, coast)
+					for e in es:
+						_check_edge(start, typ, e)
+			
+	print(f'Found {len(missing)} edges to regions that don\'t exist')
+	for start, typ, end in missing:
+		print(f' - {end} in {start} ({typ})')
+	
+	print(f'Found {len(inconsistent)} inconsistent edges (A->B is missing, but B->A exists)')
+	for start, typ, end in inconsistent:
+		print(f' - {end} -> {start} ({typ})')
+	
+	if auto_fix and len(inconsistent):
+		print('Fixing inconsistent edges (note that missing edges are not fixed)')
+		save_yaml(graph, graph_path)
+	
+	return graph
+	
 
-
-
-
-
-
-
-
+@fig.Script('set-supply-centers', description='Set supply centers in the graph.')
+def include_coordinates(A):
+	plt.switch_backend('agg')
+	
+	root = A.pull('root', '.')
+	if root is None:
+		raise ArgumentError('root', 'Must not be None.')
+	root = Path(root)
+	print(f'Will save output to {str(root)}')
+	
+	reg_img_path = A.pull('reg-img-path', 'regions.png')
+	if reg_img_path is not None:
+		reg_img_path = Path(reg_img_path)
+		if not reg_img_path.exists():
+			if root is not None and (root / reg_img_path).exists():
+				reg_img_path = root / reg_img_path
+			else:
+				raise ArgumentError('reg-img-path', f'Path to region image invalid: {str(reg_img_path)}')
+	
+	lbls = np.array(Image.open(reg_img_path))
+	lbls = expand_labels(lbls, 10000)
+	
+	locs_path = A.pull('loc-path', None)
+	if locs_path is None:
+		raise ArgumentError('locs-path', 'Path to SC location image is required.')
+	if locs_path is not None:
+		locs_path = Path(locs_path)
+		if not locs_path.exists():
+			if root is not None and (root / locs_path).exists():
+				locs_path = root / locs_path
+			else:
+				raise ArgumentError('loc-path', f'Path to SC location image invalid: {str(locs_path)}')
+	
+	graph_path = A.pull('graph-path', 'graph.yaml')
+	if graph_path is None:
+		raise ArgumentError('graph-path', 'Path to graph.yaml is required.')
+	graph_path = Path(graph_path)
+	if not graph_path.exists():
+		if root is not None and (root / graph_path).exists():
+			graph_path = root / graph_path
+		else:
+			raise ArgumentError('graph-path', f'Path to graph invalid: {str(graph_path)}')
+	
+	out_path = A.pull('out-path', 'graph.yaml')
+	
+	remove_existing = A.pull('remove-existing', False)
+	sc_value = A.pull('sc-value', 1)
+	
+	graph = load_yaml(graph_path)
+	
+	if remove_existing:
+		print('Removing existing supply centers...')
+		for node in graph.values():
+			if 'sc' in node:
+				del node['sc']
+	
+	if locs_path is not None:
+		dots = np.array(Image.open(locs_path).convert('RGBA')).astype(np.uint32)
+		dots = dots[..., -1] > 0
+		
+		picks = assign_dots(lbls, dots)
+		nodeIDs = {node['ID']: node for node in graph.values()}
+		for pick in tqdm(picks, desc=f'Adding supply centers'):
+			ID = pick['lbl']
+			if ID in nodeIDs:
+				node = nodeIDs[ID]
+				node['sc'] = sc_value
+				
+	singles = [name for name, node in graph.items() if 'sc' in node]
+	print(f'These {len(singles)} regions are set as supply centers with value {sc_value}:')
+	print(', '.join(name for name in singles))
+	
+	out_path = root / out_path
+	save_yaml(graph, out_path)
+	print(f'Saved updated graph to {out_path}')
+	
+	return graph
 
 
 
