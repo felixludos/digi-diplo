@@ -127,6 +127,8 @@ class DefaultRenderer(MatplotlibRenderer):
 		
 		self.skip_control = A.pull('skip-control', False)
 		
+		self.show_labels = A.pull('show-labels', True)
+		
 		self.label_props = A.pull('label-props', {})
 		if self.label_props.get('bbox', {}).get('facecolor', '') is None:
 			self.label_props['bbox']['facecolor'] = 'none'
@@ -303,14 +305,14 @@ class DefaultRenderer(MatplotlibRenderer):
 					
 	
 	def _draw_label(self, loc, coast=None):
-		
-		pos = self._get_label_pos(loc, coast=coast)
-		if coast is None:
-			plt.text(*pos, s=loc.upper(), **self.label_props)
-		else:
-			# name = self.map.encode_region_name(loc, coast=coast)
-			name = coast
-			plt.text(*pos, s=name.upper(), **self.coast_label_props)
+		if self.show_labels:
+			pos = self._get_label_pos(loc, coast=coast)
+			if coast is None:
+				plt.text(*pos, s=loc.upper(), **self.label_props)
+			else:
+				# name = self.map.encode_region_name(loc, coast=coast)
+				name = coast
+				plt.text(*pos, s=name.upper(), **self.coast_label_props)
 			
 	
 	def _draw_scs(self, state, actions=None):

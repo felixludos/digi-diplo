@@ -44,7 +44,11 @@
 #_meta.script_name: include-location
 #fig include-location --root C:\Users\anwan\OneDrive\Khan\projects\digi-diplo\extra\v3\example --loc-name unit --loc-path unit_dots.png
 
+#_meta.script_name: set-supply-centers
+#fig set-supply-centers --root [...] --loc-path sc_dots.png
+
 _meta.script_name: check-graph
+#fig check-graph --root [...] --auto-fix
 
 #root: extra/v3/tests/
 #rgb-path: borders.png
@@ -52,6 +56,8 @@ _meta.script_name: check-graph
 
 #label-path: regions.png
 #
+#auto-fix: yes
+
 root: assets/ad/
 #root: extra/v3/world/
 #rgb-path: renderbase.png
