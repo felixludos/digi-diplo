@@ -1,24 +1,26 @@
 
-#_meta.script_name: start-bot
-##
-##server-name: playground
-##
-###admins: None
-#admin-role: testhost
-##
-#######################
-##
-###_meta.script_name: multi-step
-###_meta.script_name: step
-###_meta.script_name: render
-##
-###parents: [wd/style, wd/bot]
-###parents: [wd/hills, wd/bot]
-###parents: [wd/std]
-###parents: [classic/bot]
-###parents: [classic/bot]
-##parents: [balkans/bot]
-#parents: [ad/std]
+_meta.script_name: start-bot
+#
+#server-name: playground
+#
+##admins: None
+admin-role: testhost
+#
+######################
+#
+##_meta.script_name: multi-step
+##_meta.script_name: step
+##_meta.script_name: render
+#
+##parents: [wd/style, wd/bot]
+##parents: [wd/hills, wd/bot]
+##parents: [wd/std]
+##parents: [classic/bot]
+##parents: [classic/bot]
+#parents: [balkans/bot]
+parents: [ad/std]
+
+game-root: games/game15
 
 
 ################################
@@ -47,34 +49,34 @@
 #_meta.script_name: set-supply-centers
 #fig set-supply-centers --root [...] --loc-path sc_dots.png
 
-_meta.script_name: check-graph
-#fig check-graph --root [...] --auto-fix
-
-#root: extra/v3/tests/
-#rgb-path: borders.png
-#dot-path: cats.png
-
-#label-path: regions.png
+#_meta.script_name: check-graph
+##fig check-graph --root [...] --auto-fix
 #
-#auto-fix: yes
-
-root: assets/ad/
-#root: extra/v3/world/
-#rgb-path: renderbase.png
-##dot-path: dotz.png
+##root: extra/v3/tests/
+##rgb-path: borders.png
+##dot-path: cats.png
 #
-##replace: yes
+##label-path: regions.png
+##
+##auto-fix: yes
 #
-##loc-name: label
-##loc-path: label.png
-##loc-name: unit
-##loc-path: units.png
-##loc-name: retreat
-##loc-path: retreats.png
-##loc-name: coast-retreat
-##loc-path: coast-retreats.png
-##loc-name: coast-unit
-##loc-path: coasts.png
+#root: assets/ad/
+##root: extra/v3/world/
+##rgb-path: renderbase.png
+###dot-path: dotz.png
+##
+###replace: yes
+##
+###loc-name: label
+###loc-path: label.png
+###loc-name: unit
+###loc-path: units.png
+###loc-name: retreat
+###loc-path: retreats.png
+###loc-name: coast-retreat
+###loc-path: coast-retreats.png
+###loc-name: coast-unit
+###loc-path: coasts.png
 
 
 ####################

@@ -100,15 +100,19 @@ class DiploMap(util.Versioned):
 	def _load_graph_info(self, graph_path):
 		
 		graph = load_yaml(graph_path) if graph_path.endswith('.yaml') else load_json(graph_path)
-		for info in graph.values():
-			if self.auto_fix_types:
-				info['type'] = self._fix_node_type(info)
-				
-			if 'army' in info['edges']:
-				info['army-edges'] = info['edges']['army']
-			if 'fleet' in info['edges']:
-				info['fleet-edges'] = info['edges']['fleet']
-		
+		for key, info in graph.items():
+			try:
+				if self.auto_fix_types:
+					info['type'] = self._fix_node_type(info)
+					
+				if 'army' in info['edges']:
+					info['army-edges'] = info['edges']['army']
+				if 'fleet' in info['edges']:
+					info['fleet-edges'] = info['edges']['fleet']
+			except:
+				print('Error processing the following node in the graph:')
+				print(key, info)
+				raise
 		coasts = {}
 		
 		edges = {'army': {name: info['army-edges'] for name, info in graph.items() if 'army-edges' in info}}
