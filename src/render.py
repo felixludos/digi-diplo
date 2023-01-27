@@ -16,13 +16,11 @@ from .colors import hex_to_rgb
 
 
 class DiplomacyRenderer(Versioned):
-	def __init__(self, A, **kwargs):
-
-		self.map = A.pull('map', None, ref=True)
-
-		self._use_pbar = A.pull('pbar', True)
+	def __init__(self, map=None, pbar=True, quiet=False, **kwargs):
+		self.map = map
+		self._use_pbar = pbar
 		self._pbar = None
-		self._quiet = A.pull('quiet', False)
+		self._quiet = quiet
 		
 	def __call__(self, state, action=None, savepath=None, processargs={}, **kwargs):
 		img = self._render(state, actions=action, **kwargs)
@@ -91,15 +89,15 @@ class DiplomacyRenderer(Versioned):
 	
 	
 class MatplotlibRenderer(DiplomacyRenderer):
-	def __init__(self, A, **kwargs):
-		view = A.pull('view', False)
-		mlp_backend = A.pull('mlp-backend', 'qt5agg' if view else 'agg')
+	def __init__(self, view=False, mlp_backend=None, img_scale=1, **kwargs):
+		if mlp_backend is None:
+			mlp_backend = 'qt5agg' if view else 'agg'
 		if mlp_backend is not None:
 			plt.switch_backend(mlp_backend)
 			
-		super().__init__(A, **kwargs)
+		super().__init__(**kwargs)
 		
-		self.img_scale = A.pull('img-scale', 1)
+		self.img_scale = img_scale
 		self._view = view
 	
 	
@@ -113,68 +111,146 @@ class MatplotlibRenderer(DiplomacyRenderer):
 				plt.close(plt.gcf())
 
 
-@fig.Component('default-renderer')
+def replace_dashes(data):
+	if isinstance(data, list):
+		return [replace_dashes(v) for v in data]
+	elif isinstance(data, dict):
+		return {k.replace('-', '_'): replace_dashes(v) for k, v in data.items()}
+	return data
+
+
+@fig.component('default-renderer')
 class DefaultRenderer(MatplotlibRenderer):
-	def __init__(self, A, **kwargs):
-		super().__init__(A, **kwargs)
+	def __init__(self, renderbase_path, skip_control=False, show_labels=True,
+	             label_props=None, coast_label_props=None, unit_shapes=None, unit_props=None,
+	             sc_props=None, capital_props=None, home_props=None, retreat_props=None,
+	             retreat_arrow=None, disband_props=None, arrow_ratio=None, build_props=None,
+	             hold_props=None, move_arrow=None, support_props=None, support_arrow=None,
+	             support_dot=None, support_defend_props=None, convoy_props=None, convoy_arrow=None,
+	             convoy_dot=None, retreat_action_props=None, graph_path=None, regions_path=None,
+	             bgs_path=None, players_path=None,
+	             **kwargs):
+		if label_props is None:
+			label_props = {}
+		label_props = replace_dashes(label_props)
+		if coast_label_props is None:
+			coast_label_props = {}
+		coast_label_props = replace_dashes(coast_label_props)
+		if unit_shapes is None:
+			unit_shapes = {'army': 'o', 'fleet': 'v'}
+		unit_shapes = replace_dashes(unit_shapes)
+		if unit_props is None:
+			unit_props = {}
+		unit_props = replace_dashes(unit_props)
+		if sc_props is None:
+			sc_props = {}
+		sc_props = replace_dashes(sc_props)
+		if capital_props is None:
+			capital_props = {}
+		capital_props = replace_dashes(capital_props)
+		if home_props is None:
+			home_props = {}
+		home_props = replace_dashes(home_props)
+		if retreat_props is None:
+			retreat_props = {}
+		retreat_props = replace_dashes(retreat_props)
+		if retreat_arrow is None:
+			retreat_arrow = {}
+		retreat_arrow = replace_dashes(retreat_arrow)
+		if disband_props is None:
+			disband_props = {}
+		disband_props = replace_dashes(disband_props)
+		if arrow_ratio is None:
+			arrow_ratio = 0.9
+		if build_props is None:
+			build_props = {}
+		build_props = replace_dashes(build_props)
+		if hold_props is None:
+			hold_props = {}
+		hold_props = replace_dashes(hold_props)
+		if move_arrow is None:
+			move_arrow = {}
+		move_arrow = replace_dashes(move_arrow)
+		if support_props is None:
+			support_props = {}
+		support_props = replace_dashes(support_props)
+		if support_arrow is None:
+			support_arrow = {}
+		support_arrow = replace_dashes(support_arrow)
+		if support_dot is None:
+			support_dot = {}
+		support_dot = replace_dashes(support_dot)
+		if support_defend_props is None:
+			support_defend_props = {}
+		support_defend_props = replace_dashes(support_defend_props)
+		if convoy_props is None:
+			convoy_props = {}
+		convoy_props = replace_dashes(convoy_props)
+		if convoy_arrow is None:
+			convoy_arrow = {}
+		convoy_arrow = replace_dashes(convoy_arrow)
+		if retreat_action_props is None:
+			retreat_action_props = {}
+		retreat_action_props = replace_dashes(retreat_action_props)
+		super().__init__(**kwargs)
 		
-		self.base_path = Path(A.pull('renderbase-path'))
+		self.base_path = Path(renderbase_path)
 		assert self.base_path.exists(), 'No render base found"'
 		
 		self.base_root = self.base_path.parents[0]
 		
 		self.overlay_path = self.base_root / 'overlay.png'
 		
-		self.skip_control = A.pull('skip-control', False)
+		self.skip_control = skip_control
 		
-		self.show_labels = A.pull('show-labels', True)
+		self.show_labels = show_labels
 		
-		self.label_props = A.pull('label-props', {})
+		self.label_props = label_props
 		if self.label_props.get('bbox', {}).get('facecolor', '') is None:
 			self.label_props['bbox']['facecolor'] = 'none'
 		if self.label_props.get('bbox', {}).get('edgecolor', '') is None:
 			self.label_props['bbox']['edgecolor'] = 'none'
-		self.coast_label_props = A.pull('coast-label-props', {})
+		self.coast_label_props = coast_label_props
 		if self.coast_label_props.get('bbox', {}).get('facecolor', '') is None:
 			self.coast_label_props['bbox']['facecolor'] = 'none'
 		if self.coast_label_props.get('bbox', {}).get('edgecolor', '') is None:
 			self.coast_label_props['bbox']['edgecolor'] = 'none'
-		self.unit_shapes = A.pull('unit-shapes', {'army': 'o', 'fleet': 'v'})
-		self.unit_props = A.pull('unit-props', {})
-		self.sc_props = A.pull('sc-props', {})
-		self.capital_props = A.pull('capital-props', {})
-		self.home_props = A.pull('home-props', {})
-		self.retreat_props = A.pull('retreat-props', {})
+		self.unit_shapes = unit_shapes
+		self.unit_props = unit_props
+		self.sc_props = sc_props
+		self.capital_props = capital_props
+		self.home_props = home_props
+		self.retreat_props = retreat_props
 		if self.retreat_props.get('mfc', '') is None:
 			self.retreat_props['mfc'] = 'none'
-		self.retreat_arrow = A.pull('retreat-arrow', {})
-		self.disband_props = A.pull('disband-props', {})
-		self.arrow_ratio = A.pull('arrow-ratio', 0.9)
-		self.build_props = A.pull('build-props', {})
+		self.retreat_arrow = retreat_arrow
+		self.disband_props = disband_props
+		self.arrow_ratio = arrow_ratio
+		self.build_props = build_props
 		if self.build_props.get('mfc', '') is None:
 			self.build_props['mfc'] = 'none'
-		self.hold_props = A.pull('hold-props', {})
+		self.hold_props = hold_props
 		if self.hold_props.get('mfc', '') is None:
 			self.hold_props['mfc'] = 'none'
-		self.move_arrow = A.pull('move-arrow', {})
-		self.support_props = A.pull('support-props', {})
-		self.support_arrow = A.pull('support-arrow', {})
-		self.support_dot = A.pull('support-dot', None)
-		self.support_defend_props = A.pull('support-defend-props', {})
-		self.convoy_props = A.pull('convoy-props', {})
-		self.convoy_arrow = A.pull('convoy-arrow', {})
-		self.convoy_dot = A.pull('convoy-dot', None)
-		self.retreat_action_props = A.pull('retreat-action-arrow', {})
+		self.move_arrow = move_arrow
+		self.support_props = support_props
+		self.support_arrow = support_arrow
+		self.support_dot = support_dot
+		self.support_defend_props = support_defend_props
+		self.convoy_props = convoy_props
+		self.convoy_arrow = convoy_arrow
+		self.convoy_dot = convoy_dot
+		self.retreat_action_props = retreat_action_props
 		
-		self.graph_path = A.pull('graph-path', None)
-		self.regions_path = A.pull('regions-path', None)
-		self.bg_path = A.pull('bgs-path', None)
-		self.players_path = A.pull('players-path', None)
+		self.graph_path = graph_path
+		self.regions_path = regions_path
+		self.bg_path = bgs_path
+		self.players_path = players_path
 		self.players = load_yaml(self.players_path)
 		self.capitals = {info['capital']: name for name, info in self.players.items()
 		                 if 'capital' in info}
 		
-		self.config = A
+		# self.config = self.my_config
 		
 		self._known_action_drawers = {
 			'build': self._draw_build,

@@ -1,4 +1,4 @@
 
 name: digidiplo
 
-package: src
+module: src

@@ -6,10 +6,10 @@ from omnibelt import create_dir, unspecified_argument
 import omnifig as fig
 from PIL import Image
 
-_DEFAULT_ROOT = fig.get_current_project().get_path()
+_DEFAULT_ROOT = fig.get_project().root
 
 
-@fig.Script('create-game', description='Create a new diplomacy game')
+@fig.script('create-game', description='Create a new diplomacy game')
 def create(A, name=unspecified_argument, game_root=unspecified_argument, assets_path=unspecified_argument,
            silent=None):
 	'''
@@ -26,7 +26,7 @@ def create(A, name=unspecified_argument, game_root=unspecified_argument, assets_
 	if silent is None:
 		silent = A.pull('silent', False)
 	if game_root is unspecified_argument:
-		game_root = A.pull('games-root', '<>root', str(Path(_DEFAULT_ROOT) / 'games'))
+		game_root = A.pulls('games-root', 'root', default=str(Path(_DEFAULT_ROOT) / 'games'))
 	game_root = Path(game_root)
 	if not game_root.exists():
 		create_dir(game_root)
@@ -52,7 +52,7 @@ def create(A, name=unspecified_argument, game_root=unspecified_argument, assets_
 
 
 
-@fig.Script('render', description='Draw the state and/or orders in a game')
+@fig.script('render', description='Draw the state and/or orders in a game')
 def render(A, current=unspecified_argument, include_orders=None, manager=unspecified_argument,
            silent=None):
 	'''
@@ -89,7 +89,7 @@ def render(A, current=unspecified_argument, include_orders=None, manager=unspeci
 
 
 
-@fig.Script('step', description='Adjudicate the current orders to get the next state')
+@fig.script('step', description='Adjudicate the current orders to get the next state')
 def step_season(A, current=unspecified_argument, manager=unspecified_argument, update_state=None, silent=None):
 	'''
 	Adjudicates the current season based on the state and orders found by the provided manager
@@ -126,7 +126,7 @@ def step_season(A, current=unspecified_argument, manager=unspecified_argument, u
 	
 
 
-@fig.Script('multi-step', description='Loop to adjudicate (and render) multiple seasons')
+@fig.script('multi-step', description='Loop to adjudicate (and render) multiple seasons')
 def step_season(A, current=unspecified_argument, manager=unspecified_argument, num_steps=unspecified_argument,
                 allow_missing=unspecified_argument, render_state=None, render_orders=None,
                 silent=None):

@@ -1,5 +1,5 @@
 
-#parents: [wd/style]
+#_base: [wd/style]
 
 assets-path: assets/wd
 

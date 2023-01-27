@@ -1,7 +1,7 @@
 
-#parents: [wd/style]
+#_base: [wd/style]
 
-parents: [classic/bot]
+_base: [classic/bot]
 
 assets-path: assets/balkans
 

@@ -1,6 +1,6 @@
 
 
-parents: [classic/game]
+_base: [classic/game]
 
 
 client._type: diplomacy-bot

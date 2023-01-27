@@ -41,11 +41,16 @@ class BadNamesError(BadGraphError):
 
 
 
-@fig.Component('diplo-manager')
+@fig.component('diplo-manager')
 class DiplomacyManager(Versioned):
-	def __init__(self, A, gamemap=unspecified_argument, renderer=unspecified_argument,
-	             game_root=unspecified_argument, **kwargs):
-		game_root = self._find_root(A, root=game_root)
+	
+	@classmethod
+	def init_from_config(cls, config, args = None, kwargs = None, *, silent= None):
+		cls._find_root(config) # hacky
+		return super().init_from_config(config, args, kwargs, silent=silent)
+	
+	def __init__(self, game_root, map=unspecified_argument, renderer=None, year_offset=0, **kwargs):
+		game_root = self._find_root(self.my_config, root=game_root)
 
 		graph_path = game_root / 'graph.yaml'
 		player_path = game_root / 'players.yaml'
@@ -54,13 +59,7 @@ class DiplomacyManager(Versioned):
 		actions_root = game_root / 'actions'
 		images_root = game_root / 'images'
 		
-		if gamemap is unspecified_argument:
-			gamemap = A.pull('map', ref=True)
-		
-		if renderer is unspecified_argument:
-			renderer = A.pull('renderer', None, ref=True)
-		
-		super().__init__(A, **kwargs)
+		super().__init__(**kwargs)
 		
 		if not states_root.exists():
 			states_root.mkdir()
@@ -69,7 +68,7 @@ class DiplomacyManager(Versioned):
 		if not images_root.exists():
 			images_root.mkdir()
 		
-		self.gamemap = gamemap
+		self.gamemap = map
 		self.renderer = renderer
 		self.aliases = {alias: player for player, info in self.gamemap.player_info.items()
 		                for alias in info.get('alias', [])}
@@ -86,33 +85,35 @@ class DiplomacyManager(Versioned):
 		
 		self.current_state = None
 		
-		self.year_offset = A.pull('year-offset', None)
+		self.year_offset = year_offset
 		
 		
 	@staticmethod
 	def _find_root(A, root=unspecified_argument):
 		if root is unspecified_argument:
-			root = A.pull('game-root', '<>game_root', None)
+			root = A.pulls('game-root', 'game_root', default=None)
 		if root is None:
-			root = fig.run('create-game', A)
+			root = fig.run_script('create-game', A)
 		root = Path(root)
+		
+		A.root.push('game-root', str(root), overwrite=False, silent=True)
 		
 		graph_path = root / 'graph.yaml'
 		if not graph_path.exists():
 			raise FileNotFoundError(str(graph_path))
-		A.push('graph-path', str(graph_path), overwrite=False, silent=True, force_root=True)
+		A.root.push('graph-path', str(graph_path), overwrite=False, silent=True)
 		
 		player_path = root / 'players.yaml'
 		if not player_path.exists():
 			raise FileNotFoundError(str(player_path))
-		A.push('players-path', str(player_path), overwrite=False, silent=True, force_root=True)
+		A.root.push('players-path', str(player_path), overwrite=False, silent=True)
 
 		bg_path = root / 'bgs.yaml'
 		if bg_path.exists():
-			A.push('bgs-path', str(bg_path), overwrite=False, silent=True, force_root=True)
-		A.push('regions-path', str(root / 'regions.png'), overwrite=False, silent=True, force_root=True)
-		A.push('renderbase-path', str(root / 'renderbase.png'), overwrite=False, silent=True, force_root=True)
-		A.push('tiles-path', str(root / 'tiles.png'), overwrite=False, silent=True, force_root=True)
+			A.root.push('bgs-path', str(bg_path), overwrite=False, silent=True)
+		A.root.push('regions-path', str(root / 'regions.png'), overwrite=False, silent=True)
+		A.root.push('renderbase-path', str(root / 'renderbase.png'), overwrite=False, silent=True)
+		A.root.push('tiles-path', str(root / 'tiles.png'), overwrite=False, silent=True)
 		return root
 		
 		

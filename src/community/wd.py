@@ -11,7 +11,7 @@ from ..managers import DiplomacyManager, NoUnitFoundError
 
 _wd_version = (1,1)
 
-@fig.Component('wd-manager')
+@fig.component('wd-manager')
 class WD_Manager(DiplomacyManager):
 	__version__ = (1,2)
 	def format_action(self, player, terms):
@@ -58,17 +58,23 @@ class WD_Manager(DiplomacyManager):
 
 
 
-@fig.Component('wd-renderer')
+@fig.component('wd-renderer')
 class WD_Rendering(DefaultRenderer):
 	__version__ = (1,2)
-	def __init__(self, A, **kwargs):
-		super().__init__(A, **kwargs)
-		self.year_offset = A.pull('year-offset', 0)
-		self.year_props = A.pull('year-props', None)
-		self.season_titles = A.pull('season-titles', {})
-		self.season_props = A.pull('season-props', None)
+	def __init__(self, year_offset=0, year_props=None, season_titles=None, season_props=None, core_props=None,
+	             
+	             **kwargs):
+		if season_titles is None:
+			season_titles = {}
+		if core_props is None:
+			core_props = {}
+		super().__init__(**kwargs)
+		self.year_offset = year_offset
+		self.year_props = year_props
+		self.season_titles = season_titles
+		self.season_props = season_props
 		
-		self.core_props = A.pull('core-props', {})
+		self.core_props = core_props
 		self._known_action_drawers['core'] = self._draw_core
 	
 	def _render(self, state, actions=None, **kwargs):
@@ -121,14 +127,18 @@ class WD_Rendering(DefaultRenderer):
 
 
 
-@fig.Component('wd-hills-rendering')
+@fig.component('wd-hills-rendering')
 class WD_Hills_Rendering(WD_Rendering):
-	def __init__(self, A, **kwargs):
-		super().__init__(A, **kwargs)
-		self.unit_bg = A.pull('unit-bg', {})
+	def __init__(self, unit_bg=None, sc_dot_props=None, unit_delta=None, **kwargs):
+		if unit_bg is None:
+			unit_bg = {}
+		if sc_dot_props is None:
+			sc_dot_props = {}
+		super().__init__(**kwargs)
+		self.unit_bg = unit_bg
 		self.unit_labels = {'army': 'A', 'fleet': 'F'}
-		self.sc_dot_props = A.pull('sc-dot-props', {})
-		self.unit_delta = A.pull('unit-delta', None)
+		self.sc_dot_props = sc_dot_props
+		self.unit_delta = unit_delta
 	
 	def _draw_hold(self, player, action):
 		x, y = self._get_unit_pos(action['loc'])
@@ -175,16 +185,22 @@ class WD_Hills_Rendering(WD_Rendering):
 			return plt.plot(*pos, markerfacecolor=color, **self.home_props)
 
 
-@fig.Component('wd-pixel-rendering')
+@fig.component('wd-pixel-rendering')
 class WD_Pixel_Rendering(WD_Rendering):
-	def __init__(self, A, **kwargs):
-		super().__init__(A, **kwargs)
+	@fig.silent_config_args('patterns')
+	def __init__(self, neutral_color='w', patterns=None, pattern_colors=None,
+	             unit_zorder=100, sc_zorder=100, **kwargs):
+		if patterns is None:
+			patterns = {}
+		if pattern_colors is None:
+			pattern_colors = {}
+		super().__init__(**kwargs)
 		# self.arrow_hop = A.pull('arrow-hop', 0.)
-		self.neutral_color = self._format_color(A.pull('neutral-color', 'w'))
-		self.pattern_bases = self._format_pattern(A.pull('patterns', {}, silent=True))
-		self.pattern_colors = self._format_pattern_colors(A.pull('pattern-colors', {}))
-		self.unit_zorder = A.pull('unit-zorder', 100)
-		self.sc_zorder = A.pull('sc-zorder', 100)
+		self.neutral_color = self._format_color(neutral_color)
+		self.pattern_bases = self._format_pattern(patterns)
+		self.pattern_colors = self._format_pattern_colors(pattern_colors)
+		self.unit_zorder = unit_zorder
+		self.sc_zorder = sc_zorder
 	
 	def _format_pattern(self, patterns):
 		return {key: np.array(val) for key, val in patterns.items() if val is not None}
@@ -310,7 +326,7 @@ class WD_Pixel_Rendering(WD_Rendering):
 	# 		return plt.arrow(x, y, dx, dy, **arrow_props)
 
 
-@fig.Component('wd-map')
+@fig.component('wd-map')
 class WD_Map(DashCoast, DiploMap):
 	__version__ = (1,2)
 	def generate_initial_state(self):

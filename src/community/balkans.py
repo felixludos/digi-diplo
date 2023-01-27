@@ -12,16 +12,18 @@ from ..render import DiplomacyRenderer, DefaultRenderer
 from ..managers import DiplomacyManager, NoUnitFoundError
 
 
-@fig.Component('balkans-renderer')
+@fig.component('balkans-renderer')
 class Balkans_Rendering(DefaultRenderer):
 	__version__ = (1, 0)
 	
-	def __init__(self, A, **kwargs):
-		super().__init__(A, **kwargs)
-		self.year_offset = A.pull('year-offset', 0)
-		self.year_props = A.pull('year-props', None)
-		self.season_titles = A.pull('season-titles', {})
-		self.season_props = A.pull('season-props', None)
+	def __init__(self, year_offset=0, year_props=None, season_titles=None, season_props=None, **kwargs):
+		if season_titles is None:
+			season_titles = {}
+		super().__init__(**kwargs)
+		self.year_offset = year_offset
+		self.year_props = year_props
+		self.season_titles = season_titles
+		self.season_props = season_props
 		
 	# 	self.core_props = A.pull('core-props', {})
 	# 	self._known_action_drawers['core'] = self._draw_core

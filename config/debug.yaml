@@ -4,7 +4,8 @@ _meta.script_name: start-bot
 #server-name: playground
 #
 ##admins: None
-admin-role: testhost
+admin-role: Host
+server-name: Digi-Diplo
 #
 ######################
 #
@@ -12,15 +13,18 @@ admin-role: testhost
 ##_meta.script_name: step
 ##_meta.script_name: render
 #
-##parents: [wd/style, wd/bot]
-##parents: [wd/hills, wd/bot]
-##parents: [wd/std]
-##parents: [classic/bot]
-##parents: [classic/bot]
-#parents: [balkans/bot]
-parents: [ad/std]
+##_base: [wd/style, wd/bot]
+##_base: [wd/hills, wd/bot]
+##_base: [wd/std]
+_base: [classic/bot]
+##_base: [classic/bot]
+#_base: [balkans/bot]
 
-game-root: games/game15
+game-root: games/game12
+
+
+#_base: [ad/std]
+#game-root: games/game15
 
 
 ################################
@@ -138,7 +142,7 @@ game-root: games/game15
 
 #admins: [felixludos#9043]
 
-#parents: [automap/viz]
+#_base: [automap/viz]
 ##
 ##state-path: extra/game/states/8-1-r.yaml
 ##save-path: extra/game/images/8-1-r.png
@@ -154,7 +158,7 @@ game-root: games/game15
 
 #---------------------
 
-#parents: [automap/new]
+#_base: [automap/new]
 
 #_meta.script_name: diplo-new
 #
@@ -162,7 +166,7 @@ game-root: games/game15
 
 #---------------------
 
-#parents: [automap/parse]
+#_base: [automap/parse]
 #
 #log-path: extra/game/raw/8-1-r.txt
 #action-path: extra/game/actions/parsed/8-1-r.yaml
@@ -170,7 +174,7 @@ game-root: games/game15
 
 #---------------------
 
-#parents: [automap/step]
+#_base: [automap/step]
 #
 #state-path: extra/game/states/8-1.yaml
 #action-path: extra/game/actions/8-1.yaml
@@ -181,7 +185,7 @@ game-root: games/game15
 
 
 
-#parents: [automap/scs]
+#_base: [automap/scs]
 
 
 #_meta.script_name: map-identities
@@ -308,22 +312,22 @@ game-root: games/game15
 #
 ##_meta.script_name: parse-vdip
 #
-##parents: ["test/node-locs"]
-##parents: ["test/mapping"]
-##parents: ["test/collect-pos"]
-##parents: ["test/collect-fills"]
+##_base: ["test/node-locs"]
+##_base: ["test/mapping"]
+##_base: ["test/collect-pos"]
+##_base: ["test/collect-fills"]
 #
 #
-##parents: [test/render_state]
-##parents: [test/render_traj]
-##parents: [test/traj]
-##parents: [test/take_step]
-##parents: [test/new_game]
-##parents: [test/parse_vdip]
-##parents: [test/collect-pos]
-##parents: [test/fills]
+##_base: [test/render_state]
+##_base: [test/render_traj]
+##_base: [test/traj]
+##_base: [test/take_step]
+##_base: [test/new_game]
+##_base: [test/parse_vdip]
+##_base: [test/collect-pos]
+##_base: [test/fills]
 #
-#parents: [colors/vdip, viz/classic]
+#_base: [colors/vdip, viz/classic]
 #
 #state-path: extra\mygame1\states\7-1.yaml
 #action-path: extra\mygame1\tentative.yaml

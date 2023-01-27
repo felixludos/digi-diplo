@@ -144,7 +144,7 @@ def _flatten_kwargs(tree):
 		return nodes
 	return leaves
 
-@fig.Component('flatten-kwargs')
+@fig.component('flatten-kwargs')
 def flatten_kwargs(A):
 	
 	A.push('_type', None, silent=True)

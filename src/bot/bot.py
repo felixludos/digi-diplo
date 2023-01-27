@@ -12,27 +12,16 @@ from ..managers import ParsingFailedError
 from ..util import hash_file, Versioned
 
 
-@fig.Component('diplomacy-bot')
+@fig.component('diplomacy-bot')
 class DiplomacyBot(Versioned, DiscordBot):
 	__version__ = (1, 1)
-	def __init__(self, A, manager=unspecified_argument, intents=None,
-	             private_commands=None, log_commands=None, **kwargs):
-		if manager is unspecified_argument:
-			manager = A.pull('manager', None)
-		
-		bot_data_path = A.pull('bot-data-path', None)
-		
-		if private_commands is None:
-			private_commands = A.pull('private-commands', False)
-		
-		if log_commands is None:
-			log_commands = A.pull('log-commands', False)
-		
+	def __init__(self, bot_data_path=None, manager=None, intents=None,
+	             private_commands=False, log_commands=False, **kwargs):
 		if intents is None:
 			intents = discord.Intents.default()
 			intents.members = True
 			
-		super().__init__(A, intents=intents, **kwargs)
+		super().__init__(intents=intents, **kwargs)
 		self.manager = manager
 		if self.manager is None:
 			print('No manager provided, but the bot has started')

@@ -15,25 +15,14 @@ class AdminError(Exception):
 
 # @fig.Component('discord-bot')
 class DiscordBot(OmniBot):
-	def __init__(self, A, admins=unspecified_argument, admin_role=unspecified_argument,
-	             intents=unspecified_argument, seed=unspecified_argument, **kwargs):
+	def __init__(self, server_name=None, admins=(), admin_role=None,
+	             intents=unspecified_argument, seed=None, **kwargs):
 		
 		if intents is unspecified_argument:
 			intents = discord.Intents.default()
 			intents.members = True
 		
-		servername = A.pull('server-name', None)
-		
-		if admins is unspecified_argument:
-			admins = A.pull('admins', [])
-		
-		if admin_role is unspecified_argument:
-			admin_role = A.pull('admin-role', None)
-		
-		if seed is unspecified_argument:
-			seed = A.pull('seed', None)
-		
-		super().__init__(A, intents=intents, **kwargs)
+		super().__init__(intents=intents, **kwargs)
 		
 		self.admin_role = admin_role
 		self.admins = admins
@@ -55,7 +44,7 @@ class DiscordBot(OmniBot):
 		if seed is not None:
 			self._rng.seed(seed)
 		
-		self._server_name = servername
+		self._server_name = server_name
 	
 	_char_limit = 1500
 	

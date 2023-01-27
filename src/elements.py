@@ -20,31 +20,22 @@ from copy import deepcopy
 
 
 
-@fig.Component('diplo-map')
+@fig.component('diplo-map')
 class DiploMap(util.Versioned):
-	def __init__(self, A, graph_path=unspecified_argument, player_path=unspecified_argument,
-	             ignore_unknown=None, auto_fix_types=None, **kwargs):
+	def __init__(self, graph_path, players_path=None,
+	             ignore_unknown=None, fix_types=True, **kwargs):
 		
 		if ignore_unknown is None:
-			ignore_unknown = A.pull('ignore-unknown', type(self) != DiploMap)
+			ignore_unknown = type(self) != DiploMap
 		
-		if graph_path is unspecified_argument:
-			graph_path = A.pull('graph-path')
-		
-		if player_path is unspecified_argument:
-			player_path = A.pull('players-path', None)
-		
-		if auto_fix_types is None:
-			auto_fix_types = A.pull('fix-types', True)
-		
-		super().__init__(A, **kwargs)
+		super().__init__(**kwargs)
 		
 		self.graph_path = graph_path
-		self.player_path = player_path
+		self.player_path = players_path
 
-		self.auto_fix_types = auto_fix_types
+		self.auto_fix_types = fix_types
 		self.nodes, self.edges = self._load_graph_info(graph_path)
-		self.player_info = self._load_player_info(player_path)
+		self.player_info = self._load_player_info(players_path)
 		self.get_ID_from_name = util.make_node_dictionary(self.nodes)
 		
 		self.dmap = self._create_dip_map(self.nodes, self.edges)
@@ -706,7 +697,7 @@ class DiploMap(util.Versioned):
 # 			data = {}
 
 
-@fig.AutoModifier('dash-coasts')
+@fig.modifier('dash-coasts')
 class DashCoast(DiploMap):
 	
 	@classmethod

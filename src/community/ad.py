@@ -8,7 +8,7 @@ from .wd import WD_Pixel_Rendering
 
 
 
-@fig.Component('ad-pixel-rendering')
+@fig.component('ad-pixel-rendering')
 class AD_Pixel_Rendering(WD_Pixel_Rendering):
 	# def _get_unit_pos(self, loc, retreat=False):
 	# 	return super(AD_Pixel_Rendering, self)._get_unit_pos(loc, retreat)#[::-1]

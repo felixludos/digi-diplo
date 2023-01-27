@@ -1,6 +1,6 @@
 
 
-parents: [ad/pixels, wd/std]
+_base: [ad/pixels, wd/std]
 
 
 assets-path: assets/ad

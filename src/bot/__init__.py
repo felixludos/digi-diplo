@@ -34,5 +34,5 @@ def _start_bot(A):
 
 
 if _import_worked:
-	fig.Script('start-bot', description='Starts the discord bot')(_start_bot)
+	fig.script('start-bot', description='Starts the discord bot')(_start_bot)
 

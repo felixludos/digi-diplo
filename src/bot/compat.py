@@ -2,6 +2,7 @@ from functools import partial
 
 from omnibelt import get_printer, unspecified_argument
 import omnifig as fig
+from omnifig.configurable import Certifiable
 
 prt = get_printer(__file__)
 
@@ -10,19 +11,11 @@ from discord.ext import commands as command_util
 from discord.ext import tasks as tasks_util
 
 
-class OmniBot(fig.Cerifiable, fig.Configurable, command_util.Bot):
-	def __init__(self, A, command_prefix=unspecified_argument, description=unspecified_argument,
-	             intents=unspecified_argument,
-	             options=unspecified_argument, _req_kwargs=None, **kwargs):
-		
-		if command_prefix is unspecified_argument:
-			command_prefix = A.pull('command-prefix', '.')
-		
-		if description is unspecified_argument:
-			description = A.pull('description', None)
-		
-		if options is unspecified_argument:
-			options = A.pull('options', {})
+class OmniBot(Certifiable, command_util.Bot):
+	def __init__(self, command_prefix='.', description=None, intents=unspecified_argument,
+	             options=None, _req_kwargs=None, **kwargs):
+		if options is None:
+			options = {}
 		
 		if _req_kwargs is None:
 			_req_kwargs = {}
@@ -31,7 +24,7 @@ class OmniBot(fig.Cerifiable, fig.Configurable, command_util.Bot):
 		if intents is not unspecified_argument:
 			_req_kwargs['intents'] = intents
 		
-		super().__init__(A, _req_kwargs=_req_kwargs)
+		super().__init__(**_req_kwargs, **kwargs)
 	
 	@staticmethod
 	def as_command(name=None, **kwargs):
@@ -79,7 +72,7 @@ class OmniBot(fig.Cerifiable, fig.Configurable, command_util.Bot):
 			commands = A.pull('commands', {})
 		cmds.update(commands)
 		
-		super().__certify__(A, **kwargs)
+		obj = super().__certify__(A, **kwargs)
 		
 		for name, cmd in cmds.items():
 			if not isinstance(cmd, command_util.Command):
@@ -94,31 +87,24 @@ class OmniBot(fig.Cerifiable, fig.Configurable, command_util.Bot):
 		for event in events.values():
 			event = event.__get__(self, self.__class__)
 			self.event(event)
-
+		
+		return obj
 
 as_command = OmniBot.as_command
 as_event = OmniBot.as_event
 as_loop = OmniBot.as_loop
 
 
-@fig.Component('disord-command')
-class OmniCommand(fig.Cerifiable, fig.Configurable, command_util.Command):
-	def __init__(self, A, name=unspecified_argument, func=None, description=unspecified_argument,
-	             _req_kwargs=None, **kwargs):
-		
-		if name is unspecified_argument:
-			name = A.pull('name', None)
-		
+@fig.component('disord-command')
+class OmniCommand(Certifiable, command_util.Command):
+	def __init__(self, name=None, func=None, description=None, _req_kwargs=None, **kwargs):
 		if func is None:
-			func = A.pull('func', getattr(self, '_'))
-		
-		if description is unspecified_argument:
-			description = A.pull('description', None)
+			func = getattr(self, '_')
 		
 		if _req_kwargs is None:
 			_req_kwargs = {}
 		_req_kwargs.update(dict(name=name, func=func, description=description, ))
-		super().__init__(A, _req_kwargs=_req_kwargs, **kwargs)
+		super().__init__(_req_kwargs=_req_kwargs, **kwargs)
 
 # def _(self, *args, **kwargs):
 # 	raise NotImplementedError

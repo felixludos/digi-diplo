@@ -195,7 +195,7 @@ class ArgumentError(Exception):
 		super().__init__(msg)
 
 
-@fig.Script('tile-img')
+@fig.script('tile-img')
 def tile_img(A):
 	plt.switch_backend('agg')
 	
@@ -262,7 +262,7 @@ def auto_sea(options):
 	return dict(zip(map(tuple,dirs[op_id].tolist()),np.array(['bg', 'land', 'sea'])[typ_id].tolist()))
 
 
-@fig.Script('link-tiles')
+@fig.script('link-tiles')
 def tiles_to_regions(A):
 	plt.switch_backend('agg')
 	
@@ -512,7 +512,7 @@ def old_tiles_to_regions(A):
 	
 	color_threshold = A.pull('color-threshold', 0)
 	
-	catnames = A.pull('categories', '<>cats', None)
+	catnames = A.pulls('categories', 'cats', default=None)
 	
 	if catnames is None:
 		ccs = set(map(tuple, dots.reshape(-1, 3 if dots.shape[-1] == 3 else 1).tolist()))
@@ -615,7 +615,7 @@ def old_tiles_to_regions(A):
 	return regs
 
 
-@fig.Script('view-labels')
+@fig.script('view-labels')
 def view_labels(A):
 	# plt.switch_backend('agg')
 	plt.switch_backend(A.pull('matplotlib-backend', 'tkagg'))
@@ -750,7 +750,7 @@ def view_labels(A):
 
 
 
-@fig.Script('link-names')
+@fig.script('link-names')
 def link_names(A):
 	plt.switch_backend('agg')
 	
@@ -805,7 +805,7 @@ def link_names(A):
 
 
 
-@fig.Script('extract-graph')
+@fig.script('extract-graph')
 def extract_graph(A):
 	plt.switch_backend('agg')
 	
@@ -986,7 +986,7 @@ def extract_graph(A):
 
 
 
-@fig.Script('include-location')
+@fig.script('include-location')
 def include_coordinates(A):
 	plt.switch_backend('agg')
 	
@@ -1093,7 +1093,7 @@ def include_coordinates(A):
 	return graph
 
 
-@fig.Component('default-region-name-parser')
+@fig.component('default-region-name-parser')
 class Region_Name_Splitter(fig.Configurable):
 	@staticmethod
 	def split(name):
@@ -1115,7 +1115,7 @@ class Region_Name_Splitter(fig.Configurable):
 		
 
 
-@fig.Script('check-graph', description='Checks the consistency of the graph.')
+@fig.script('check-graph', description='Checks the consistency of the graph.')
 def include_coordinates(A):
 	plt.switch_backend('agg')
 	
@@ -1192,7 +1192,7 @@ def include_coordinates(A):
 	return graph
 	
 
-@fig.Script('set-supply-centers', description='Set supply centers in the graph.')
+@fig.script('set-supply-centers', description='Set supply centers in the graph.')
 def include_coordinates(A):
 	plt.switch_backend('agg')
 	
