@@ -1146,25 +1146,28 @@ def include_coordinates(A):
 	inconsistent = []
 	
 	def _check_edge(start, typ, end):
-		ebase, ecoast = parser.split(end)
-		if ebase not in graph:
-			missing.append([start, typ, end])
-			return
-		
-		options = graph[ebase]['edges'].get(typ, None)
-		if options is None \
-			or (isinstance(options, list) and start not in options)\
-			or (isinstance(options, dict) and start not in options.get(ecoast, [])):
-			inconsistent.append([start, typ, end])
+		try:
+			ebase, ecoast = parser.split(end)
+			if ebase not in graph:
+				missing.append([start, typ, end])
+				return
 			
-			if auto_fix:
-				if options is None:
-					graph[ebase]['edges'][typ] = [] if ecoast is None else {ecoast: []}
-				if ecoast is None:
-					graph[ebase]['edges'][typ].append(start)
-				else:
-					graph[ebase]['edges'][typ][ecoast].append(start)
-			return
+			options = graph[ebase]['edges'].get(typ, None)
+			if options is None \
+				or (isinstance(options, list) and start not in options)\
+				or (isinstance(options, dict) and start not in options.get(ecoast, [])):
+				inconsistent.append([start, typ, end])
+				
+				if auto_fix:
+					if options is None:
+						graph[ebase]['edges'][typ] = [] if ecoast is None else {ecoast: []}
+					if ecoast is None:
+						graph[ebase]['edges'][typ].append(start)
+					else:
+						graph[ebase]['edges'][typ][ecoast].append(start)
+				return
+		except:
+			print(f'Error encountered: {start} ({typ}) -> {end}')
 	
 	for name, node in tqdm(graph.items(), desc='Checking edges'):
 		for typ, eds in node.get('edges', {}).items():
