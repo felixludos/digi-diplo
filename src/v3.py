@@ -1168,6 +1168,12 @@ def include_coordinates(A):
 				return
 		except:
 			print(f'Error encountered: {start} ({typ}) -> {end}')
+			try:
+				ebase, ecoast = parser.split(end)
+				if ebase in graph:
+					print(graph[ebase])
+			except:
+				pass
 			raise
 	
 	for name, node in tqdm(graph.items(), desc='Checking edges'):
