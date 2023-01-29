@@ -1168,6 +1168,7 @@ def include_coordinates(A):
 				return
 		except:
 			print(f'Error encountered: {start} ({typ}) -> {end}')
+			raise
 	
 	for name, node in tqdm(graph.items(), desc='Checking edges'):
 		for typ, eds in node.get('edges', {}).items():
