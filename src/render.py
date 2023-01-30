@@ -106,7 +106,7 @@ class MatplotlibRenderer(DiplomacyRenderer):
 			H, W, _ = self.base.shape
 			w, h = figaspect(H / W)
 			w, h = self.img_scale * w, self.img_scale * h
-			plt.savefig(savepath, dpi=W / w)
+			plt.savefig(savepath, dpi=float(W / w))
 			if not self._view:
 				plt.close(plt.gcf())
 

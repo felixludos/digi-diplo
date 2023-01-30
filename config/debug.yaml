@@ -4,8 +4,11 @@ _meta.script_name: start-bot
 #server-name: playground
 #
 ##admins: None
-admin-role: Host
-server-name: Digi-Diplo
+#admin-role: Host
+#server-name: Digi-Diplo
+
+admin-role: testhost
+server-name: playground
 #
 ######################
 #
@@ -13,14 +16,15 @@ server-name: Digi-Diplo
 ##_meta.script_name: step
 ##_meta.script_name: render
 #
+_base: [new-ad/std]
 ##_base: [wd/style, wd/bot]
-##_base: [wd/hills, wd/bot]
+#_base: [wd/hills, wd/bot]
 ##_base: [wd/std]
-_base: [classic/bot]
+#_base: [classic/bot]
 ##_base: [classic/bot]
 #_base: [balkans/bot]
 
-game-root: games/game12
+#game-root: games/game12
 
 
 #_base: [ad/std]

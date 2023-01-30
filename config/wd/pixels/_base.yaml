@@ -27,7 +27,7 @@ patterns:
 
 neutral-color: '#EFE4B0'
 
-default-colors: ['#000000', <>neutral-color, none]
+default-colors: ['#000000', <>neutral-color, null]
 
 pattern-colors:
   sc: <>default-colors
