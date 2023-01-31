@@ -364,6 +364,16 @@ class DiplomacyManager(Versioned):
 
 	def verify_action(self, player, action):
 		player = self.fix_player(player)
+		
+		if action.get('unit', None) == 'fleet':
+			for key in ['loc', 'dest', 'src']:
+				if key in action:
+					loc = action[key]
+					coasts = self._extract_coasts(loc)
+					if not self._is_coast(loc) and coasts is not None:
+						raise ParsingFailedError(f'Coast required for {loc.upper()}: '
+						                         f'{" or ".join(self._join_coast(loc.upper(), c) for c in coasts)}')
+		
 		return True
 	
 	
@@ -391,7 +401,7 @@ class DiplomacyManager(Versioned):
 			terms = self.parse_action(player, terms)
 		
 		loc = self._to_base_region(terms['loc'])
-		# self.verify_action(player, terms)
+		self.verify_action(player, terms)
 		if player not in self.actions:
 			self.actions[player] = {}
 			
@@ -626,6 +636,12 @@ class DiplomacyManager(Versioned):
 		loc = self._to_region_name(loc)
 		return loc in self.graph and 'fleet' in self.graph[loc]['edges'] \
 		       and isinstance(self.graph[loc]['edges']['fleet'], dict)
+	
+	
+	def _extract_coasts(self, loc):
+		loc = self._to_region_name(loc)
+		if self._has_coasts(loc):
+			return list(self.graph[loc]['edges']['fleet'].keys())
 	
 	
 	def _is_coast(self, loc):

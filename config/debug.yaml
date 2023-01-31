@@ -16,11 +16,11 @@ server-name: playground
 ##_meta.script_name: step
 ##_meta.script_name: render
 #
-_base: [new-ad/std]
+#_base: [ad/std]
 ##_base: [wd/style, wd/bot]
 #_base: [wd/hills, wd/bot]
 ##_base: [wd/std]
-#_base: [classic/bot]
+_base: [classic/bot]
 ##_base: [classic/bot]
 #_base: [balkans/bot]
 
