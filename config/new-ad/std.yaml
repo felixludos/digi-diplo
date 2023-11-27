@@ -1,0 +1,35 @@
+_base: [ad/pixels, wd/std]
+
+
+assets-path: assets/ada3
+
+year-offset: 1918
+
+manager.renderer._type: ad-pixel-rendering
+
+arrow-ratio: 0.95
+
+year-props: null
+  #x: 4695
+  #y: 425
+  #c: k
+  #ha: left
+  #va: bottom
+  #fontsize: 10
+  #fontfamily: monospace
+  #zorder: 50
+
+season-titles:
+  1: SPRING
+  2: FALL
+  3: WINTER
+
+season-props: null
+  #x: 4695
+  #y: 328
+  #c: k
+  #ha: left
+  #va: bottom
+  #fontsize: 9
+  #fontfamily: monospace
+  #zorder: 50

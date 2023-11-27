@@ -287,6 +287,10 @@ class DiploMap(util.Versioned):
 			try:
 				return player.find_unit(loc)
 			except:
+				try:
+					return player.find_unit(self.fix_loc(loc, 'fleet'))
+				except:
+					pass
 				print(player.name, loc, utype)
 				raise
 		
