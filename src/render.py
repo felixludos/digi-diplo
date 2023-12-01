@@ -60,7 +60,7 @@ class DiplomacyRenderer(Versioned):
 		self._draw_labels(state, actions=actions)
 		
 		self._draw_scs(state, actions=actions)
-	
+
 	def _draw_bg(self, state, actions=None):
 		raise NotImplementedError
 	
@@ -128,7 +128,7 @@ class DefaultRenderer(MatplotlibRenderer):
 	             hold_props=None, move_arrow=None, support_props=None, support_arrow=None,
 	             support_dot=None, support_defend_props=None, convoy_props=None, convoy_arrow=None,
 	             convoy_dot=None, retreat_action_props=None, graph_path=None, regions_path=None,
-	             bgs_path=None, players_path=None,
+	             bgs_path=None, players_path=None, reverse_coords=False,
 	             **kwargs):
 		if label_props is None:
 			label_props = {}
@@ -249,7 +249,8 @@ class DefaultRenderer(MatplotlibRenderer):
 		self.players = load_yaml(self.players_path)
 		self.capitals = {info['capital']: name for name, info in self.players.items()
 		                 if 'capital' in info}
-		
+
+		self.reverse_coords = reverse_coords
 		# self.config = self.my_config
 		
 		self._known_action_drawers = {
@@ -264,6 +265,7 @@ class DefaultRenderer(MatplotlibRenderer):
 			'convoy-move': self._draw_move,
 			'convoy-transport': self._draw_convoy,
 		}
+
 	
 	def _prep_assets(self, state, actions=None, **kwargs):
 		super()._prep_assets(state, actions=actions, **kwargs)
@@ -326,7 +328,7 @@ class DefaultRenderer(MatplotlibRenderer):
 			pos = [pos]
 		
 		pos = list(map(np.array, zip(*pos)))
-		return pos#[::-1]
+		return pos[::-1] if self.reverse_coords else pos
 	
 	def _get_label_pos(self, loc, coast=None):
 		if coast is None:
@@ -337,13 +339,13 @@ class DefaultRenderer(MatplotlibRenderer):
 		pos = node['locs']['label'] if coast is None or 'coast-label' not in node['locs'] \
 			else node['locs']['coast-label'][coast]
 		pos = list(map(np.array, zip(*pos)))
-		return pos#[::-1]
+		return pos[::-1] if self.reverse_coords else pos
 	
 	def _get_sc_pos(self, loc):
 		pos = self.map.nodes[loc]['locs'].get('sc')
 		if pos is not None:
 			pos = list(map(np.array, zip(*pos)))
-			return pos#[::-1]
+			return pos[::-1] if self.reverse_coords else pos
 	
 	def _draw_shortest_arrow(self, start, end, arrow_props={}, use_annotation=False):
 		x, y = start
@@ -533,7 +535,36 @@ class DefaultRenderer(MatplotlibRenderer):
 	
 	def _draw_unknown_action(self, player, action):
 		raise NotImplementedError
-	
+
+
+@fig.component('classic-renderer')
+class ClassicRenderer(DefaultRenderer):
+	def __init__(self, season_titles=None, year_offset=1900, year_props=None, season_props=None, **kwargs):
+		if season_titles is None:
+			season_titles = {}
+		super().__init__(**kwargs)
+		self.year_offset = year_offset
+		self.year_props = year_props
+		self.season_titles = season_titles
+		self.season_props = season_props
+
+
+	def _render_env(self, state, actions=None, **kwargs):
+		super()._render_env(state, actions=actions, **kwargs)
+
+		date = state.get('time', {})
+		season = date.get('season', None)
+		if str(season) in self.season_titles and self.season_props is not None:
+			plt.text(s=self.season_titles[str(season)], **self.season_props)
+
+		year = date.get('turn', None)
+		if self.year_props is not None:
+			plt.text(s=str(year + self.year_offset), **self.year_props)
+
+		plt.text(x=10, y=30, s='Adjudicated and rendered automatically using Digi-diplo '
+							   '(GitHub: felixludos/digi-diplo)', color='w',
+				 fontsize=2, fontfamily='monospace')  # PLEASE DO NOT REMOVE
+
 	
 	
 	

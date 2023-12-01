@@ -121,6 +121,8 @@ class DiplomacyBot(Versioned, DiscordBot):
 			self.persistent['roles'] = {}
 		if 'channels' not in self.persistent:
 			self.persistent['channels'] = {}
+		# if 'final' not in self.persistent:
+		# 	self.persistent['final'] = {}
 
 		self.player_users = self._find_discord_objects(self.persistent['players'], self.guild.members)
 		if len(self.player_users):

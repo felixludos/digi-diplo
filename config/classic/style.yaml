@@ -1,47 +1,73 @@
 
 
-manager.renderer._type: default-renderer
-
-highlight-size: 8
-highlight-width: 1
-
-sc-size: 5
-capital-size: 5.5
-home-size: 1.5
-sc-edge-width: 0.2
-home-edge-width: 0.1
-
-unit-size: 6
-unit-edge-width: 1.2
-
-arrow-ratio: 0.9
-arrow-width: 8
-arrow-head: 24
-edge-width: 0.45
+manager.renderer._type: classic-renderer
 
 
-hold-color: <>sup-color
-sup-color: y
-convoy-color: c
-edge-color: k
+#year_offset: 1900
+year_props:
+  x: 30
+  y: 100
+  ha: left
+  va: bottom
+  fontsize: 9
+  fontfamily: monospace
+  zorder: 50
+  color: w
 
-wedge-dot-size: 2.5
+season_titles:
+  1: SPRING
+  2: FALL
+  3: WINTER
+season_props:
+  x: 170
+  y: 100
+  ha: left
+  va: bottom
+  fontsize: 9
+  fontfamily: monospace
+  zorder: 50
+  color: w
 
-support-style: wedge,tail_width=0.15,shrink_factor=0.5
-support-shrink: 0.05
+highlight_size: 8
+highlight_width: 1
 
-support-defend-style: wedge,tail_width=0.20,shrink_factor=0.5
-support-defend-shrink: 0.2
+sc_size: 5
+capital_size: 5.5
+home_size: 1.5
+sc_edge_width: 0.2
+home_edge_width: 0.1
 
-convoy-style: wedge,tail_width=0.15,shrink_factor=0.5
-convoy-shrink: 0
+unit_size: 6
+unit_edge_width: 1.2
 
-label-size: 4
-coast-label-size: 3.5
-label-padding: 0.4
+arrow_ratio: 0.9
+arrow_width: 8
+arrow_head: 24
+edge_width: 0.45
 
-label-props:
-  size: <>label-size
+
+hold_color: <>sup_color
+sup_color: y
+convoy_color: c
+edge_color: k
+
+wedge_dot_size: 2.5
+
+support_style: wedge,tail_width=0.15,shrink_factor=0.5
+support_shrink: 0.05
+
+support_defend_style: wedge,tail_width=0.20,shrink_factor=0.5
+support_defend_shrink: 0.2
+
+convoy_style: wedge,tail_width=0.15,shrink_factor=0.5
+convoy_shrink: 0
+
+label_size: 4
+coast_label_size: 3.5
+label_padding: 0.4
+
+label_props:
+  size: <>label_size
   weight: normal
   va: center
   ha: center
@@ -51,10 +77,10 @@ label-props:
     facecolor: none
     edgecolor: none
     lw: 0.4
-    pad: <>label-padding
+    pad: <>label_padding
   zorder: 3
-coast-label-props:
-  size: <>coast-label-size
+coast_label_props:
+  size: <>coast_label_size
   weight: normal
   va: center
   ha: center
@@ -64,90 +90,90 @@ coast-label-props:
     facecolor: none
     edgecolor: none
     lw: 0.4
-    pad: <>label-padding
+    pad: <>label_padding
   zorder: 3
 
-sc-props:
-  markersize: <>sc-size
-  markeredgewidth: <>sc-edge-width
+sc_props:
+  markersize: <>sc_size
+  markeredgewidth: <>sc_edge_width
 
   markeredgecolor: k
   markerfacecolor: '#FFD700'
   marker: [5,1]
   ls: ''
   zorder: 4
-capital-props:
-  markersize: <>capital-size
-  markeredgewidth: <>sc-edge-width
+capital_props:
+  markersize: <>capital_size
+  markeredgewidth: <>sc_edge_width
   markeredgecolor: k
   markerfacecolor: '#FFD700'
 #  marker: [7, 1]
   marker: [5, 1]
   ls: ''
   zorder: 4
-home-props:
-  markeredgewidth: <>home-edge-width
+home_props:
+  markeredgewidth: <>home_edge_width
   markeredgecolor: k
-  markersize: <>home-size
+  markersize: <>home_size
   marker: o
   ls: ''
   zorder: 5
 
-unit-props:
-  ms: <>unit-size
-  mew: <>unit-edge-width
+unit_props:
+  ms: <>unit_size
+  mew: <>unit_edge_width
   zorder: 20
   mec: k
   ls: ''
 
-retreat-arrow:
-  width: <>arrow-width
-  lw: <>edge-width
-  head_width: <>arrow-head
+retreat_arrow:
+  width: <>arrow_width
+  lw: <>edge_width
+  head_width: <>arrow_head
   length_includes_head: True
   fc: r
   ec: k
 #  zorder: 19
   zorder: 45
-retreat-action-arrow: <>retreat-arrow
-retreat-props:
-  ms: <>highlight-size
-  mew: <>highlight-width
+retreat_action_arrow: <>retreat_arrow
+retreat_props:
+  ms: <>highlight_size
+  mew: <>highlight_width
   mec: r
   mfc: None
   zorder: 50
   ls: ''
   marker: o
-disband-props:
-  ms: <>highlight-size
-  mew: <>highlight-width
+disband_props:
+  ms: <>highlight_size
+  mew: <>highlight_width
   mec: r
   mfc: None
   zorder: 50
   ls: ''
   marker: x
 
-hold-props:
-  color: <>hold-color
-  ms: <>highlight-size
-  mew: <>highlight-width
+hold_props:
+  color: <>hold_color
+  ms: <>highlight_size
+  mew: <>highlight_width
   ls: ''
   mfc: 'none'
 #  zorder: 21
   zorder: 25
-build-props:
+build_props:
   color: '#00ff00'
-  ms: <>highlight-size
-  mew: <>highlight-width
+  ms: <>highlight_size
+  mew: <>highlight_width
   ls: ''
 #  mfc: 'none'
 #  zorder: 6
   zorder: 50
 
-move-arrow:
-  width: <>arrow-width
-  lw: <>edge-width
-  head_width: <>arrow-head
+move_arrow:
+  width: <>arrow_width
+  lw: <>edge_width
+  head_width: <>arrow_head
   length_includes_head: True
   facecolor: w
   edgecolor: k
@@ -155,93 +181,93 @@ move-arrow:
   zorder: 40
 
 
-support-arrow:
-  width: <>arrow-width
+support_arrow:
+  width: <>arrow_width
   ls: --
-  fc: <>sup-color
-  lw: <>edge-width
-  head_width: <>arrow-head
+  fc: <>sup_color
+  lw: <>edge_width
+  head_width: <>arrow_head
   length_includes_head: True
-  facecolor: <>sup-color
-  edgecolor: <>edge-color
+  facecolor: <>sup_color
+  edgecolor: <>edge_color
 #  zorder: 6
   zorder: 25
-support-props:
+support_props:
   arrowprops:
-#    shrinkA: <>support-shrink
+#    shrinkA: <>support_shrink
     shrinkA: 0
-    shrinkB: <>support-shrink
-    arrowstyle: <>support-style
+    shrinkB: <>support_shrink
+    arrowstyle: <>support_style
     capstyle: round
-    linewidth: <>edge-width
-    facecolor: <>sup-color
-    edgecolor: <>edge-color
+    linewidth: <>edge_width
+    facecolor: <>sup_color
+    edgecolor: <>edge_color
     connectionstyle: arc3,rad=0.2
 
 #  zorder: 7
   zorder: 26
-support-dot:
+support_dot:
   marker: o
-  ms: <>wedge-dot-size
+  ms: <>wedge_dot_size
 #  lw: 1
-  mew: <>edge-width
+  mew: <>edge_width
   ls: ''
-  color: <>sup-color
-  mec: <>edge-color
+  color: <>sup_color
+  mec: <>edge_color
 #  zorder: 16
   zorder: 41
 
-support-defend-props:
+support_defend_props:
   textcoords: data
   xycoords: data
   arrowprops:
-#    shrinkA: <>support-defend-shrink
+#    shrinkA: <>support_defend_shrink
     shrinkA: 0
-    shrinkB: <>support-defend-shrink
-    arrowstyle: <>support-defend-style
+    shrinkB: <>support_defend_shrink
+    arrowstyle: <>support_defend_style
     capstyle: round
-    linewidth: <>edge-width
-    facecolor: <>sup-color
-    edgecolor: <>edge-color
+    linewidth: <>edge_width
+    facecolor: <>sup_color
+    edgecolor: <>edge_color
     connectionstyle: arc3,rad=0.2
 
 #  zorder: 6
   zorder: 28
 
 
-convoy-arrow:
-  width: <>arrow-width
+convoy_arrow:
+  width: <>arrow_width
   ls: --
-  fc: <>convoy-color
-  lw: <>edge-width
-  head_width: <>arrow-head
+  fc: <>convoy_color
+  lw: <>edge_width
+  head_width: <>arrow_head
   length_includes_head: True
-  facecolor: <>convoy-color
-  edgecolor: <>edge-color
+  facecolor: <>convoy_color
+  edgecolor: <>edge_color
 #  zorder: 6
   zorder: 30
-convoy-props:
+convoy_props:
   arrowprops:
-#    shrinkA: <>convoy-shrink
+#    shrinkA: <>convoy_shrink
     shrinkA: 0
-    shrinkB: <>convoy-shrink
-    arrowstyle: <>convoy-style
+    shrinkB: <>convoy_shrink
+    arrowstyle: <>convoy_style
     capstyle: round
-    linewidth: <>edge-width
-    facecolor: <>convoy-color
-    edgecolor: <>edge-color
+    linewidth: <>edge_width
+    facecolor: <>convoy_color
+    edgecolor: <>edge_color
     connectionstyle: arc3,rad=0.2
 
 #  zorder: 7
   zorder: 31
-convoy-dot:
+convoy_dot:
   marker: o
-  ms: <>wedge-dot-size
+  ms: <>wedge_dot_size
 #  lw: 1
-  mew: <>edge-width
+  mew: <>edge_width
   ls: ''
-  color: <>convoy-color
-  mec: <>edge-color
+  color: <>convoy_color
+  mec: <>edge_color
 #  zorder: 16
   zorder: 42
 

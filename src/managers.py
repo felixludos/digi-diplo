@@ -50,7 +50,7 @@ class DiplomacyManager(Versioned):
 		return super().init_from_config(config, args, kwargs, silent=silent)
 	
 	def __init__(self, game_root, map=unspecified_argument, renderer=None, year_offset=0, **kwargs):
-		game_root = self._find_root(self.my_config, root=game_root)
+		game_root = self._find_root(self._my_config, root=game_root)
 
 		graph_path = game_root / 'graph.yaml'
 		player_path = game_root / 'players.yaml'
@@ -96,24 +96,24 @@ class DiplomacyManager(Versioned):
 			root = fig.run_script('create-game', A)
 		root = Path(root)
 		
-		A.root.push('game-root', str(root), overwrite=False, silent=True)
+		A.root.push('game_root', str(root), overwrite=False, silent=True)
 		
 		graph_path = root / 'graph.yaml'
 		if not graph_path.exists():
 			raise FileNotFoundError(str(graph_path))
-		A.root.push('graph-path', str(graph_path), overwrite=False, silent=True)
+		A.root.push('graph_path', str(graph_path), overwrite=False, silent=True)
 		
 		player_path = root / 'players.yaml'
 		if not player_path.exists():
 			raise FileNotFoundError(str(player_path))
-		A.root.push('players-path', str(player_path), overwrite=False, silent=True)
+		A.root.push('players_path', str(player_path), overwrite=False, silent=True)
 
 		bg_path = root / 'bgs.yaml'
 		if bg_path.exists():
-			A.root.push('bgs-path', str(bg_path), overwrite=False, silent=True)
-		A.root.push('regions-path', str(root / 'regions.png'), overwrite=False, silent=True)
-		A.root.push('renderbase-path', str(root / 'renderbase.png'), overwrite=False, silent=True)
-		A.root.push('tiles-path', str(root / 'tiles.png'), overwrite=False, silent=True)
+			A.root.push('bgs_path', str(bg_path), overwrite=False, silent=True)
+		A.root.push('regions_path', str(root / 'regions.png'), overwrite=False, silent=True)
+		A.root.push('renderbase_path', str(root / 'renderbase.png'), overwrite=False, silent=True)
+		A.root.push('tiles_path', str(root / 'tiles.png'), overwrite=False, silent=True)
 		return root
 		
 		
@@ -266,7 +266,7 @@ class DiplomacyManager(Versioned):
 
 	
 	def _find_latest_state(self, state_root, persistent=True):
-		state_paths = list(state_root.glob('*'))
+		state_paths = list(state_root.glob('*-*.yaml'))
 		if not len(state_paths):
 			state = self.generate_initial_state()
 			if persistent:
