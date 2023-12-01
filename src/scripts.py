@@ -26,7 +26,7 @@ def create(A, name=unspecified_argument, game_root=unspecified_argument, assets_
 	if silent is None:
 		silent = A.pull('silent', False)
 	if game_root is unspecified_argument:
-		game_root = A.pulls('games-root', 'root', default=str(Path(_DEFAULT_ROOT) / 'games'))
+		game_root = A.pulls('game-root', 'root', default=str(Path(_DEFAULT_ROOT) / 'games'))
 	game_root = Path(game_root)
 	if not game_root.exists():
 		create_dir(game_root)

@@ -22,7 +22,7 @@ else:
 
 
 def _start_bot(A):
-	TOKEN = A.pull('disord-token', os.getenv('DISCORD_TOKEN', os.getenv('LUDOS_TOKEN')), silent=True)
+	TOKEN = A.pull('discord-token', os.getenv('DISCORD_TOKEN', os.getenv('LUDOS_TOKEN')), silent=True)
 	if TOKEN is None:
 		raise Exception('No discord token found (should be an environment variable "DISCORD_TOKEN" '
 		                'or passed in using "--discord-token")')
