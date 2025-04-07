@@ -5,37 +5,9 @@ from copy import deepcopy
 from pathlib import Path
 from omnibelt import unspecified_argument, load_yaml, save_yaml, load_txt
 import omnifig as fig
+from .parsing import parse_order, standardize_order
 from .util import Versioned
-
-
-
-class ParsingFailedError(Exception):
-	pass
-
-
-class UnknownUnitTypeError(ParsingFailedError):
-	pass
-
-
-class MissingCoastError(ParsingFailedError):
-	pass
-
-
-class NoUnitFoundError(ParsingFailedError):
-	pass
-	
-	
-class LocationError(ParsingFailedError):
-	pass
-
-		
-class BadGraphError(Exception):
-	pass
-	
-	
-class BadNamesError(BadGraphError):
-	def __init__(self, names):
-		super().__init__('These region names are ambiguous: {}'.format(', '.join(names)))
+from .errors import *
 
 
 
@@ -364,8 +336,23 @@ class DiplomacyManager(Versioned):
 
 	def verify_action(self, player, action):
 		player = self.fix_player(player)
-		
+
+		if action.get('type') == 'build':
+			if action['loc'] not in self.state['players'][player]['centers']:
+				raise InvalidActionError(f'Build location {action["loc"]} is not a supply center')
+			# check if location is a home center
+			if action['loc'] not in self.state['players'][player]['home']:
+				raise InvalidActionError(f'Build location {action["loc"]} is not a home center')
+			if action.get('unit') == 'fleet' and self._region_type(action['loc']) != 'coast':
+				raise ParsingFailedError(f'Fleet must be built on a coast (not {action["loc"]})')
+
 		if action.get('unit', None) == 'fleet':
+			if action.get('type') == 'convoy-transport' and self._region_type(action['loc']) != 'sea':
+				raise InvalidActionError(f'To convoy a fleet must be on the sea (not {action["loc"]})')
+			if action.get('type') == 'convoy-move':
+				raise InvalidActionError(f'Fleets cannot move by convoy.')
+			if action['type'] == 'move' and self._region_type(action['loc']) == 'land':
+				raise InvalidActionError(f'Fleets cannot move to land regions.')
 			for key in ['loc', 'dest', 'src']:
 				if key in action:
 					loc = action[key]
@@ -373,7 +360,17 @@ class DiplomacyManager(Versioned):
 					if not self._is_coast(loc) and coasts is not None:
 						raise ParsingFailedError(f'Coast required for {loc.upper()}: '
 						                         f'{" or ".join(self._join_coast(loc.upper(), c) for c in coasts)}')
-		
+
+		if action.get('unit') == 'army':
+			if action['type'] == 'convoy-transport':
+				raise InvalidActionError(f'Armies cannot convoy.')
+			if action['type'] in ['move', 'convoy-move'] and self._region_type(action['loc']) == 'sea':
+				raise InvalidActionError(f'Armies cannot move to sea regions.')
+
+		if action.get('type') == 'disband':
+			if not any(action.get('loc') == unit['loc'] for unit in self.state['players'][player]['units']):
+				raise InvalidActionError(f'Disband location {action["loc"]} has no a unit')
+
 		return True
 	
 	
@@ -630,13 +627,34 @@ class DiplomacyManager(Versioned):
 		if name not in self._get_region:
 			raise LocationError(name)
 		return self._get_region[name]
-	
+
+	def region_full_name(self, code: str):
+		if code not in self._get_region:
+			raise LocationError(code)
+		code = self._get_region[code]
+		base = self._get_base_region[code]
+
+		info = self.graph[base]
+		name = info['name']
+
+		if code != base:
+			coast = code.split('-')[-1]
+			if len(coast) == 2:
+				coast = {'nc': 'North Coast', 'sc': 'South Coast', 'ec': 'East Coast', 'wc': 'West Coast'}[coast]
+				name += f' ({coast})'
+		return name
 	
 	def _has_coasts(self, loc):
 		loc = self._to_region_name(loc)
 		return loc in self.graph and 'fleet' in self.graph[loc]['edges'] \
 		       and isinstance(self.graph[loc]['edges']['fleet'], dict)
-	
+
+	def _region_type(self, loc): # returns 'coast', 'land', 'sea', or None
+		loc = self._to_region_name(loc)
+		if loc in self.graph:
+			return self.graph[loc]['type']
+		else:
+			return None
 	
 	def _extract_coasts(self, loc):
 		loc = self._to_region_name(loc)
@@ -708,12 +726,15 @@ class DiplomacyManager(Versioned):
 					break
 			else:
 				return None, None
-				raise NoUnitFoundError(loc)
 		unit = self.units[player].get(base, {})#.get('type', None)
 		loc, unit = unit.get('loc'), unit.get('type')
 		if unit == 'fleet' and self._has_coasts(base) and not self._is_coast(loc):
 			raise MissingCoastError(loc)
 		return loc, unit
+
+	def find_unit(self, loc, player=None):
+		loc, unit = self._find_loc_unit(loc, player)
+		return {'loc': loc, 'unit': unit} if unit is not None else None
 	
 	
 	def _parse_unit(self, unit):
@@ -721,99 +742,61 @@ class DiplomacyManager(Versioned):
 		if utype not in {'army', 'fleet'}:
 			raise UnknownUnitTypeError(unit)
 		return utype
-	
+
+	def player_order_context(self, player):
+		if 'adjustments' in self.state:
+			delta = self.state['adjustments'].get(player, 0)
+			if delta == 0:
+				return None
+			elif delta < 0:
+				return 'lose'
+			else:
+				return 'gain'
+		if 'retreats' in self.state:
+			return 'retreat'
+		return 'action'
+
+	def compute_scores(self) -> list[tuple[str, int]]:
+		data = {player: len(self.state['players'][player]['centers']) for player in self.state['players']}
+		scores = sorted(data.items(), key=lambda x: x[1], reverse=True)
+		return scores
+
 	
 	def parse_action(self, player, text, terms=None):
 		player = self.fix_player(player)
-		if terms is None:
-			terms = {}
-		
-		# terms['player'] = player
+
 		line = text.lower()
-		
-		if line.startswith('build '):
-			_, info = line.split('build ')
-			unit, loc = info.split(' in ')
-			loc = self._parse_location(loc)
-			unit = self._parse_unit(unit)
-			terms.update({'type': 'build', 'loc': loc, 'unit': unit})
-		
-		elif ' disband' in line:
-			loc, _ = line.split(' disband')
-			loc = self._parse_location(loc)
-			unit = self._find_unit(loc, player)
-			if unit is None:
-				raise NoUnitFoundError(loc)
-			terms.update({'type': 'disband', 'loc': loc, 'unit': unit})
-		
-		elif ' retreats to ' in line:
-			loc, dest = line.split(' retreats to ')
-			loc = self._parse_location(loc)
-			unit = self._find_unit(loc, player)
-			if unit is None:
-				raise NoUnitFoundError(loc)
-			dest = self._parse_location(dest)
-			terms.update({'type': 'retreat', 'loc': loc, 'unit': unit, 'dest': dest})
-		
-		elif ' supports ' in line and ' to ' in line:
-			loc, rest = line.split(' supports ')
-			loc = self._parse_location(loc)
-			unit = self._find_unit(loc, player)
-			if unit is None:
-				raise NoUnitFoundError(loc)
-			src, dest = rest.split(' to ')
-			src = self._parse_location(src)
-			src_unit = self._find_unit(src)
-			dest = self._parse_location(dest)
-			terms.update({'type': 'support', 'loc': loc, 'unit': unit,
-			              'src': src, 'src-unit': src_unit, 'dest': dest})
-		
-		elif ' support holds ' in line or ' supports ' in line:
-			keyword = ' support holds ' if ' support holds ' in line else ' supports '
-			loc, dest = line.split(keyword)
-			loc = self._parse_location(loc)
-			unit = self._find_unit(loc, player)
-			if unit is None:
-				raise NoUnitFoundError(loc)
-			dest = self._parse_location(dest)
-			terms.update({'type': 'support-defend', 'loc': loc, 'unit': unit, 'dest': dest})
-		
-		elif ' hold' in line:
-			loc, _ = line.split(' hold')
-			loc = self._parse_location(loc)
-			unit = self._find_unit(loc, player)
-			if unit is None:
-				raise NoUnitFoundError(loc)
-			terms.update({'type': 'hold', 'loc': loc, 'unit': unit})
-		
-		elif ' convoys ' in line:
-			loc, rest = line.split(' convoys ')
-			loc = self._parse_location(loc)
-			unit = self._find_unit(loc, player)
-			if unit is None:
-				raise NoUnitFoundError(loc)
-			src, dest = rest.split(' to ')
-			src = self._parse_location(src)
-			src_unit = self._find_unit(src)
-			dest = self._parse_location(dest)
-			terms.update({'type': 'convoy-transport', 'loc': loc, 'unit': unit,
-			              'src': src, 'src-unit': src_unit, 'dest': dest})
-		
-		elif ' to ' in line:
-			loc, dest = line.split(' to ')
-			loc = self._parse_location(loc)
-			unit = self._find_unit(loc, player)
-			if unit is None:
-				raise NoUnitFoundError(loc)
-			dest = self._parse_location(dest)
-			action_type = 'move' if unit == 'fleet' or self._is_neighbor(loc, unit, dest) else 'convoy-move'
-			terms.update({'type': action_type, 'loc': loc, 'dest': dest, 'unit': unit})
-			if action_type == 'convoy-move':
-				print(f'Convoying: {line} - {terms}')
-		
-		else:
-			raise ParsingFailedError(line)
-		
+
+		context = self.player_order_context(player)
+		if context is None:
+			raise InvalidActionError(f'You have no actions available.')
+
+		options = parse_order(line, context)
+		if options is None:
+			raise ParsingFailedError(f'Could not parse action: "{text}"')
+
+		if len(options) > 1:
+			keys = f', '.join(f'`{key}`' for key in options)
+			raise AmbiguousOrderError(f'Can\'t decide between: {keys}')
+
+		order_type = list(options.keys())[0]
+		terms = options[order_type]
+		terms = standardize_order(terms)
+
+		select_keys = {'loc': 'loc', 'dest': 'dest', 'target': 'src', 'unit': 'unit', 'tunit': 'src-unit'}
+		terms = {select_keys[k]: v for k, v in terms.items() if k in select_keys}
+		for loc_key in ['loc', 'dest', 'src']:
+			if loc_key in terms:
+				terms[loc_key] = self._parse_location(terms[loc_key])
+		if terms.get('unit') is None:
+			terms['unit'] = self._find_unit(terms['loc'], player)
+		if (order_type == 'move' and 'dest' in terms
+				and not self._is_neighbor(terms['loc'], terms['unit'], terms['dest'])):
+			order_type = 'convoy-move'
+		if 'src-unit' in terms and terms['src-unit'] is None:
+			terms['src-unit'] = self._find_unit(terms['src'], player)
+		order_types = {'support_hold': 'support-defend', 'support_move': 'support', 'convoy': 'convoy-transport', }
+		terms['type'] = order_types.get(order_type,order_type)
 		return terms
 	
 	

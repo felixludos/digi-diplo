@@ -1,5 +1,6 @@
 import random
 import traceback
+import re
 import discord
 from discord.ext import commands as command_util
 from omnibelt import load_yaml, load_txt, unspecified_argument, save_yaml, get_now
@@ -9,7 +10,7 @@ from tqdm import tqdm
 
 from .base import DiscordBot, as_command, as_event, as_loop
 from ..managers import ParsingFailedError
-from ..util import hash_file, Versioned
+from ..util import hash_file, Versioned, str_conjunction
 
 
 @fig.component('diplomacy-bot')
@@ -288,8 +289,22 @@ class DiplomacyBot(Versioned, DiscordBot):
 		lines = self._designate_mentions(ctx.message.role_mentions, player,
 		                                 self.player_roles, self.persistent['roles'], force=force)
 		await self._batched_send(ctx, lines)
-	
-	
+
+	# @as_command('designate-roles-auto', brief='(admin) Automatically designate roles to players')
+	async def on_designate_role_auto(self, ctx, role_pattern='*', force=False):
+		if self._insufficient_permissions(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+			return
+
+		assert '*' in role_pattern, 'Role pattern must contain a wildcard (*)'
+
+		regex = role_pattern.replace('*', r'(?P<player>)')
+		regex = rf'^{regex}$'
+		regex = re.compile(regex, re.IGNORECASE)
+
+
+		raise NotImplementedError
+
 	def _format_missing(self, player, todo):
 		if isinstance(todo, int):
 			return ' '.join([str(abs(todo)), 'disbands' if todo < 0 else 'builds'])
@@ -353,7 +368,27 @@ class DiplomacyBot(Versioned, DiscordBot):
 			return
 		
 		await ctx.send(f'Current turn: **{self.manager.format_date()}**')
-	
+
+	@as_command('score', brief='(admin) Prints out the current score for all players')
+	async def on_score(self, ctx):
+		if self._insufficient_permissions(ctx.author):
+			await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
+			return
+
+		scores = self.manager.compute_scores()
+		# lines.extend(f'{player}: {score}' for player, score in scores)
+
+		prev_place = 1
+		prev_score = None
+		tbl = []
+		for i, (player, score) in enumerate(sorted(scores, key=lambda x: (-x[1], x[0]))):
+			prev_place = i+1 if score != prev_score else prev_place
+			tbl.append([prev_place if score != prev_score else None, player, score])
+			prev_score = score
+
+		lines = tabulate(tbl, headers=['Place', 'Player', 'Score']).split('\n')
+		lines = [f'Current turn: **{self.manager.format_date()}**', '```', *lines, '```']
+		await self._batched_send(ctx, lines)
 	
 	@as_command('missing', brief='(admin) Prints out missing orders for all players')
 	async def on_fullstatus(self, ctx):
@@ -376,10 +411,62 @@ class DiplomacyBot(Versioned, DiscordBot):
 		# 	await ctx.send(f'{ctx.author.display_name} does not have sufficient permissions for this.')
 		# 	return
 		rules = self.manager.action_format()
-		
+
 		lines = [f'{name.capitalize()} order: "{format}"' for name, format in rules.items()]
 		await self._batched_send(ctx, lines)
 		
+
+	def _order_turn_intro(self, player):
+		if len(self.manager.state['players'][player]['units']) == 0:
+			return [f'You have no units to order.']
+		order_context = self.manager.player_order_context(player)
+		if order_context is None:
+			lines = [f'You have no orders to submit.']
+		elif order_context == 'retreat':
+			retreats = self.manager.state['retreats'].get(player)
+			if retreats is None:
+				return [f'You have no orders to submit.']
+			assert len(retreats), f'{player} {retreats}'
+			lines = [f'You need to either retreat or disband {len(retreats)} '
+						f'unit{"s" if len(retreats) > 1 else ""}:']
+			for loc, options in retreats.items():
+				lines.append(f'  **{loc}** can retreat to {str_conjunction(sorted(options), conj="or")}.')
+		elif order_context == 'lose':
+			delta = abs(self.manager.state['adjustments'][player])
+			if delta == 0:
+				return [f'You have no orders to submit.']
+			existing = sorted([u["loc"] for u in self.manager.state['players'][player]['units']])
+			lines = [f'You must disband {delta} unit{"s" if delta > 1 else ""} out of {len(existing)}: '
+						f'{str_conjunction(existing)}']
+			default_disbands = existing[:delta]
+			lines.append(f'If you don\'t specify, '
+						 f'{str_conjunction([f"**{loc}**" for loc in default_disbands], conj='or')} '
+							f'will be disbanded, by default.')
+			for loc in default_disbands:
+				self.manager.record_action(player, f'disband {loc}')
+		elif order_context == 'gain':
+			gains = self.manager.state['adjustments'][player]
+			if gains == 0:
+				return [f'You have no orders to submit.']
+			home = self.manager.state['players'][player]['home']
+			valid = [loc for loc in home if self.manager.find_unit(loc) is None]
+			deferred = max(gains - len(valid), 0)
+			possible = gains - deferred
+			lines = [f'You could build{" up to" if gains > 1 else ""} {gains} '
+						f'new unit{"s" if gains > 1 else ""}.']
+			if deferred > 0:
+				lines.append(f'However, you only have {len(valid)} home center{"s" if len(valid) > 1 else ""}, '
+								f'so you can only build {possible} unit{"s" if possible > 1 else ""} '
+								f'({deferred} {"are" if deferred > 1 else "is"} deferred).')
+			locs = str_conjunction(sorted(f'**{loc}**' for loc in valid), conj='or')
+			lines.append(f'Select the unit type (army vs fleet) and the location '
+							+ f'from these options: {locs}')
+		else:
+			units = self.manager.state['players'][player]['units']
+			locs = sorted(f'**{u["loc"]}**' for u in units)
+			lines = [f'You have {len(units)} unit{"s" if len(units) > 1 else ""} to order: {str_conjunction(locs)}']
+		
+		return lines
 
 	@as_command('step', brief='(admin) Adjudicates current season and updates game state')
 	async def on_step(self, ctx, silent=False):
@@ -390,14 +477,16 @@ class DiplomacyBot(Versioned, DiscordBot):
 		print(f'Adjudicating: {self.manager.format_date()}')
 		self.manager.take_step(True)
 		
-		msg = f'Finished adjudicating {old}.{self._magic_stop_scan_char}\n'\
+		basemsg = f'Finished adjudicating {old}.{self._magic_stop_scan_char}\n'\
 		      f'Current turn: **{self.manager.format_date()}**'
-		
+
 		if not silent:
-			for channel in self.player_channels:
+			for channel, player in self.player_channels.items():
+				lines = self._order_turn_intro(player)
 				if channel != ctx.channel:
-					await channel.send(msg)
-		await ctx.send(msg)
+					await self._batched_send(channel, [basemsg, *lines])
+					# await channel.send(msg)
+		await ctx.send(basemsg)
 		
 	
 	@as_command('prompt', brief='(admin) Prompt all player channels to submit orders')
@@ -671,6 +760,7 @@ class DiplomacyBot(Versioned, DiscordBot):
 		await ctx.send(' '.join(msg))
 
 
+	@as_command('o', brief='(player) Alias for `.order` to submit order/s (1 per line)')
 	@as_command('order', brief='(player) Submit order/s (1 per line)')
 	async def on_order(self, ctx, *, lines):
 		player = self._to_player(ctx.author)

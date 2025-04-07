@@ -176,3 +176,23 @@ def hash_file(path, hash='md5', buffer_size=65536):
 			hash.update(data)
 	return hash.hexdigest()
 
+def str_conjunction(terms, delimiter=', ', conj='and', oxford=True):
+	"""
+	Converts a list of terms into a human-readable string.
+
+	:param terms: The terms to be joined.
+	:param delimiter: The delimiter to use between terms.
+	:param conj: The conjunction to use before the last term.
+	:param oxford: Whether to include the Oxford comma.
+	:return: A human-readable string.
+	"""
+
+	if len(terms) == 1:
+		return str(terms[0])
+	elif len(terms) == 2:
+		return f'{terms[0]} {conj} {terms[1]}'
+	elif len(terms) > 2:
+		if oxford:
+			return f"{delimiter.join(terms[:-1])}{delimiter}{conj} {terms[-1]}"
+		else:
+			return f"{delimiter.join(terms[:-1])} {conj} {terms[-1]}"

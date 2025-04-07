@@ -4,11 +4,11 @@ _meta.script_name: start-bot
 #server-name: playground
 #
 ##admins: None
-#admin_role: Host
-#server_name: Digi-Diplo
+admin_role: Host
+server_name: Digi-Diplo
 
-admin_role: testhost
-server_name: playground
+#admin_role: testhost
+#server_name: playground
 #
 ######################
 #
@@ -24,10 +24,12 @@ _base: [classic/bot]
 ##_base: [classic/bot]
 #_base: [balkans/bot]
 
-game-root: games/ada2
-#game-root: games/game12
+#game-root: games/ada2
+#game-root: games/apr5-mpi
+#game-root: games/game17
+game-root: games/apr5-mpi-2
 
-reverse_coords: yes
+#reverse_coords: yes
 
 
 #_base: [ad/std]
