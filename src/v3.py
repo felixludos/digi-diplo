@@ -180,7 +180,8 @@ def generate_tiles(rgb, path=None, g=None, border_color='#000000', colors=None, 
 def fig_to_rgba(fg):
 	fg.canvas.draw()
 	w, h = fg.canvas.get_width_height()
-	buf = np.fromstring(fg.canvas.tostring_argb(), dtype=np.uint8)
+	# buf = np.fromstring(fg.canvas.tostring_argb(), dtype=np.uint8)
+	buf = np.frombuffer(fig.canvas.tostring_argb(), dtype=np.uint8)
 	buf.shape = (h, w, 4)
 	buf = np.roll(buf, 3, axis=2)
 	return buf
