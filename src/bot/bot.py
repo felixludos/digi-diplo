@@ -440,7 +440,7 @@ class DiplomacyBot(Versioned, DiscordBot):
 						f'{str_conjunction(existing)}']
 			default_disbands = existing[:delta]
 			lines.append(f'If you don\'t specify, '
-						 f'{str_conjunction([f"**{loc}**" for loc in default_disbands], conj='or')} '
+						 f'{str_conjunction([f"**{loc}**" for loc in default_disbands], conj="or")} '
 							f'will be disbanded, by default.')
 			for loc in default_disbands:
 				self.manager.record_action(player, f'disband {loc}')
